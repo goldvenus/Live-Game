@@ -11,6 +11,7 @@
 /dist
 /.next
 /.expo
+/.idea
 
 # misc
 .DS_Store
