@@ -6,7 +6,7 @@ import {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0a1142',
+    backgroundColor: '#222222',
   },
   content: {
     flex: 1,
