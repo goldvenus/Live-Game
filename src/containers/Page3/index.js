@@ -8,12 +8,12 @@ import {
 import styles from './styles';
 
 
-const Home = () => (
+const Page3 = () => (
     <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
-            <Text style={styles.text}>Home</Text>
+            <Text style={styles.text}>Page3</Text>
         </Content>
     </Container>
 );
 
-export default Home;
+export default Page3;
