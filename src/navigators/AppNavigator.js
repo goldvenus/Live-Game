@@ -32,18 +32,18 @@ const SwitchNavigator = createBottomTabNavigator(
             return (
               <Image
                 source={require('../assets/images/bottom_nav_bar/wavescore.png')}
-                style={{width: 23, height: 23, marginTop: 10, marginBottom: 10}}/>
+                style={{width: 23, height: 23}}/>
             );
           case 'Game':
             return (
               <Image
                 source={require('../assets/images/bottom_nav_bar/game.png')}
-                style={{width: 23, height: 23, marginTop: 10, marginBottom: 10}}/>
+                style={{width: 23, height: 23}}/>
             );
           case 'Page2':
             return (
               <Image
-                source={require('../assets/images/bottom_nav_bar/CombinedShape.png')}
+                source={require('../assets/images/bottom_nav_bar/stats.png')}
                 style={{width: 23, height: 23, marginTop: 10, marginBottom: 10}}/>
             );
           case 'Page3':
@@ -55,7 +55,7 @@ const SwitchNavigator = createBottomTabNavigator(
           case 'Page4':
             return (
               <Image
-                source={require('../assets/images/bottom_nav_bar/Shape.png')}
+                source={require('../assets/images/bottom_nav_bar/menu.png')}
                 style={{width: 23, height: 23, marginTop: 10, marginBottom: 10}}/>
             );
         }
