@@ -10,13 +10,18 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^9.0.0",
-    "expo": "^32.0.0",
+    "expo": "^33.0.7",
+    "expo-asset-utils": "^1.1.0",
+    "expo-gl": "^5.0.1",
+    "expo-pixi": "^1.2.0",
     "expokit": "^32.0.3",
     "lodash": "^4.17.11",
     "native-base": "^2.10.0",
     "prop-types": "^15.6.2",
-    "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react": "16.8.3",
+    "react-dom": "^16.8.6",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native-web": "^0.11.2",
     "react-navigation": "^3.0.9",
     "react-navigation-redux-helpers": "^2.0.9",
     "react-redux": "^6.0.0",
@@ -26,7 +31,10 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
-    "expo-cli": "^2.10.1"
+    "expo-cli": "^2.10.1",
+    "eslint": "^5.16.0",
+    "eslint-config-universe": "^1.0.7",
+    "prettier": "^1.17.0"
   },
   "private": true
 }
