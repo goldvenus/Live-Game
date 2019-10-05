@@ -6,12 +6,14 @@ import {
 } from "native-base";
 
 import styles from "./styles";
-import GameHeaderBar from "../Game/GameHeaderBar";
+import GameHeaderBar from "../Game/components/GameHeaderBar";
+import GameDashBoard from "../Game/components/GameDashBoard";
 
 
 const Home = () => (
   <Container style={styles.container}>
     <Content contentContainerStyle={styles.content}>
+      <GameDashBoard/>
       <Text style={styles.text}>Home</Text>
     </Content>
   </Container>
