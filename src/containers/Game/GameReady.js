@@ -1,17 +1,15 @@
 import React from "react";
 import { GLView } from "expo-gl";
 import ExpoPixi, { PIXI } from "expo-pixi";
-import {
-  View
-} from "react-native";
 
 import {
   Container,
-  Content,
-  Text
+  Content
 } from "native-base";
 import styles from "./styles";
-import GameHeaderBar from "./GameHeaderBar";
+import GameHeaderBar from "./components/GameHeaderBar";
+import GameBottomBar from "./components/GameBottomBar";
+import GameDashBoard from "./components/GameDashBoard";
 
 export default class GameReady extends React.Component {
   render() {
@@ -34,7 +32,7 @@ export default class GameReady extends React.Component {
               });
               const fireBtn = await PIXI.Sprite.fromExpoAsync(require("../../assets/images/game/fire-btn.png"));
               fireBtn.anchor.set(0.5);
-              const fireBtnSize = app.screen.width / 4;
+              const fireBtnSize = app.screen.width / 5;
               fireBtn.x = app.screen.width - fireBtnSize / 2 - 20;
               fireBtn.y = app.screen.height - fireBtnSize / 2 - 20;
               fireBtn.width = fireBtnSize;
@@ -44,11 +42,8 @@ export default class GameReady extends React.Component {
             }}
           />
           <GameHeaderBar/>
-          <View style={styles.game_state_bottom_bar}>
-            <Text style={styles.time_count_down}>00:09</Text>
-            <Text style={styles.mark_text}>FLARE COUNT:</Text>
-            <Text style={styles.game_mark}>29</Text>
-          </View>
+          <GameBottomBar/>
+          <GameDashBoard/>
         </Content>
       </Container>
     );
