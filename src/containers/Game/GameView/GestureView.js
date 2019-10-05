@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GestureHandler } from 'expo';
+import * as GestureHandler from 'react-native-gesture-handler';
 const {
   PanGestureHandler,
   TapGestureHandler,

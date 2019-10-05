@@ -61,13 +61,14 @@ const SwitchNavigator = createBottomTabNavigator(
         }
       },
     }),
+    initialRouteName: 'Home',
     tabBarOptions: {
-      activeBackgroundColor: '#222222',
-      inactiveBackgroundColor: '#222222',
+      activeBackgroundColor: '#111111',
+      inactiveBackgroundColor: '#111111',
       showLabel: false
     },
     style: {
-      backgroundColor: '#222222',
+      backgroundColor: '#111111',
     },
   }
 );

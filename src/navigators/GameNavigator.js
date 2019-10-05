@@ -7,7 +7,7 @@ const GameNavigator = createStackNavigator({
   Home: {
     screen: GameReady,
     navigationOptions: {
-      header: null,
+      header: null
     },
   },
 });

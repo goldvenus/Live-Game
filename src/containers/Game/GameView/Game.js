@@ -1,6 +1,6 @@
 import ExpoPixi, { PIXI } from 'expo-pixi';
 import { PixelRatio } from 'react-native';
-import { GestureHandler } from 'expo';
+import * as GestureHandler from 'react-native-gesture-handler';
 const { Directions } = GestureHandler;
 
 function _loopValue(v, min, max) {
@@ -26,8 +26,8 @@ export default class Main {
     });
 
     const size = Settings.tileSize * PixelRatio.get();
-    const width = Math.round(this.app.renderer.width / size);
-    const height = Math.round(this.app.renderer.height / size);
+    const width = 100;//Math.round(this.app.renderer.width / size);
+    const height = 100;//Math.round(this.app.renderer.height / size);
     const board = new Board(size, new Position(height, width), 70);
     this.app.stage.addChild(board);
     this.board = board;
