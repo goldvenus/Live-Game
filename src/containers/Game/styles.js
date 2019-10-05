@@ -6,7 +6,7 @@ import {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#181818',
+    backgroundColor: '#222222',
   },
   content: {
     flex: 1,
@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#ffffff2b'
   },
   time_count_down: {
-    fontSize: 29,
-    lineHeight: 29,
+    fontSize: 32,
     display: 'flex',
     color: '#2EC760',
     borderRadius: 5,
@@ -38,35 +37,78 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     opacity: 1,
     transform: [
-      {scaleX: 0.8},
-      {scaleY: 1}
-    ]
-  },
-  mark_text: {
-    fontSize: 29,
-    lineHeight: 29,
-    display: 'flex',
-    color: '#ffffff',
-    paddingLeft: 30,
-    opacity: 0.5,
-    transform: [
-      {scaleX: 0.8},
+      {scaleX: 0.6},
       {scaleY: 1}
     ],
-    letterSpacing: -3
+    letterSpacing: 2,
+  },
+  mark_text: {
+    fontSize: 32,
+    display: 'flex',
+    color: '#ffffff',
+    opacity: 0.5,
+    transform: [
+      {scaleX: 0.6},
+      {scaleY: 1}
+    ],
+    marginLeft: -20,
+    letterSpacing: 2
   },
   game_mark: {
-    fontSize: 29,
-    lineHeight: 29,
+    fontSize: 32,
     fontWeight: 'bold',
     display: 'flex',
     color: '#ffffff',
     transform: [
-      {scaleX: 0.8},
-      {scaleY: 1}
+      { scaleX: 0.6 },
+      { scaleY: 1 }
     ],
-    paddingLeft: 10,
+    marginLeft: -50,
+    letterSpacing: 2,
     opacity: 1
+  },
+  header_view: {
+    width: '100%',
+    display: 'flex',
+    position: 'absolute',
+    top: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 30,
+    paddingRight: 30,
+    backgroundColor: 'black',
+    borderBottomWidth: 2,
+    borderBottomColor: '#ffffff3b',
+    justifyContent: 'space-between'
+  },
+  header_arrow_btn: {
+    width: 30,
+    height: 30
+  },
+  header_middle_view: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  game_mark_icon: {
+    width: 60,
+    height: 60
+  },
+  game_header_title: {
+    color: '#ffffff',
+    fontSize: 22,
+    fontWeight: 'bold',
+    transform: [
+      { scaleX: 0.7 },
+      { scaleY: 1 }
+    ],
+    marginLeft: -30,
+    letterSpacing: 2,
+  },
+  header_user_img: {
+    width: 30,
+    height: 30
   }
 });
 

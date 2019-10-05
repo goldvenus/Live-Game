@@ -11,6 +11,7 @@ import {
   Text
 } from "native-base";
 import styles from "./styles";
+import GameHeaderBar from "./GameHeaderBar";
 
 export default class GameReady extends React.Component {
   render() {
@@ -38,9 +39,11 @@ export default class GameReady extends React.Component {
               fireBtn.y = app.screen.height - fireBtnSize / 2 - 20;
               fireBtn.width = fireBtnSize;
               fireBtn.height = fireBtnSize;
+              fireBtn.zIndex = 10;
               app.stage.addChild(fireBtn);
             }}
           />
+          <GameHeaderBar/>
           <View style={styles.game_state_bottom_bar}>
             <Text style={styles.time_count_down}>00:09</Text>
             <Text style={styles.mark_text}>FLARE COUNT:</Text>
