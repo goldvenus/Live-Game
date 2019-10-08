@@ -4,7 +4,7 @@ import {
   reduxifyNavigator,
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
-import {Image} from 'react-native';
+import { Image } from 'react-native';
 
 import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';

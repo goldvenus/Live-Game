@@ -8,7 +8,7 @@ import {
 import styles from "./styles";
 
 
-const GameReady = () => (
+const GameCountDown = () => (
   <Container style={styles.container}>
     <Content contentContainerStyle={styles.content}>
       <Text style={styles.text}>Page2</Text>
@@ -16,4 +16,4 @@ const GameReady = () => (
   </Container>
 );
 
-export default GameReady;
+export default GameCountDown;

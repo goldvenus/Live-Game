@@ -4,7 +4,7 @@ import Page3 from '../containers/Page3';
 
 
 const Page3Navigator = createStackNavigator({
-  Home: {
+  Page3: {
     screen: Page3,
     navigationOptions: {
       header: null,
