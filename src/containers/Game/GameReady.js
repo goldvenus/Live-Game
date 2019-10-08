@@ -10,40 +10,51 @@ import styles from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
 import GameBottomBar from "./components/GameBottomBar";
 import GameDashBoard from "./components/GameDashBoard";
+import { Asset } from "expo-asset";
+import { AppLoading } from "expo";
+import RigidBodies from "../../app/physics/rigid-bodies";
+import { Image } from "react-native";
 
 export default class GameReady extends React.Component {
+
+  async _cacheResourcesAsync() {
+    const images = [require("../../assets/images/game/Rectangle_50.png"), require("../../assets/images/game/fire-btn.png")];
+    const cacheImages = images.map(image => {
+      return Asset.fromModule(image).downloadAsync();
+    });
+    return Promise.all(cacheImages);
+  }
+
+  state = {
+    isReady: false
+  };
+
   render() {
+    if (!this.state.isReady) {
+      return (
+        <AppLoading
+          startAsync={this._cacheResourcesAsync}
+          onFinish={() => this.setState({ isReady: true })}
+          onError={console.warn}
+        />
+      );
+    }
+
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
-          <GLView
-            style={{ flex: 1 }}
-            onContextCreate={async context => {
-              const app = new PIXI.Application({ context, backgroundColor: 0x11111100 });
-              const sprite = await PIXI.Sprite.fromExpoAsync(require("../../assets/images/game/Rectangle_50.png"));
-              sprite.anchor.set(0.5);
-              sprite.x = app.screen.width / 2;
-              sprite.y = app.screen.height;
-              sprite.width = app.screen.width / 4;
-              sprite.height = app.screen.width / 4;
-              app.stage.addChild(sprite);
-              app.ticker.add((delta) => {
-                sprite.y -= 3 * delta;
-              });
-              const fireBtn = await PIXI.Sprite.fromExpoAsync(require("../../assets/images/game/fire-btn.png"));
-              fireBtn.anchor.set(0.5);
-              const fireBtnSize = app.screen.width / 5;
-              fireBtn.x = app.screen.width - fireBtnSize / 2 - 20;
-              fireBtn.y = app.screen.height - fireBtnSize / 2 - 20;
-              fireBtn.width = fireBtnSize;
-              fireBtn.height = fireBtnSize;
-              fireBtn.zIndex = 10;
-              app.stage.addChild(fireBtn);
-            }}
-          />
+          <RigidBodies/>
+          <GameDashBoard/>
           <GameHeaderBar/>
           <GameBottomBar/>
-          <GameDashBoard/>
+          <Image source={require('../../assets/images/game/fire-btn.png')}
+            style={{
+              width: 200,
+              height: 200,
+              position: 'absolute',
+              right:-44,
+              bottom:-44
+            }}/>
         </Content>
       </Container>
     );
