@@ -6,7 +6,6 @@ import {
 } from 'react-navigation-redux-helpers';
 import { Image } from 'react-native';
 
-import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
 import GameNavigator from './GameNavigator';
 import Page2Navigator from './Page2Navigator';
@@ -31,37 +30,37 @@ const SwitchNavigator = createBottomTabNavigator(
           case 'Home':
             return (
               <Image
-                source={require('../assets/images/bottom_nav_bar/wavescore.png')}
-                style={{width: 23, height: 23}}/>
+                source={require('../../assets/images/bottom_nav_bar/wavescore.png')}
+                style={{width: 23, height: 23, marginTop: 20, marginBottom: 20}}/>
             );
           case 'Game':
             return (
               <Image
-                source={require('../assets/images/bottom_nav_bar/game.png')}
-                style={{width: 23, height: 23}}/>
+                source={require('../../assets/images/bottom_nav_bar/game.png')}
+                style={{width: 23, height: 23, marginTop: 20, marginBottom: 20}}/>
             );
           case 'Page2':
             return (
               <Image
-                source={require('../assets/images/bottom_nav_bar/stats.png')}
-                style={{width: 23, height: 23, marginTop: 10, marginBottom: 10}}/>
+                source={require('../../assets/images/bottom_nav_bar/stats.png')}
+                style={{width: 23, height: 23, marginTop: 20, marginBottom: 20}}/>
             );
           case 'Page3':
             return (
               <Image
-                source={require('../assets/images/bottom_nav_bar/chat.png')}
-                style={{width: 23, height: 23, marginTop: 10, marginBottom: 10}}/>
+                source={require('../../assets/images/bottom_nav_bar/chat.png')}
+                style={{width: 23, height: 23, marginTop: 20, marginBottom: 20}}/>
             );
           case 'Page4':
             return (
               <Image
-                source={require('../assets/images/bottom_nav_bar/menu.png')}
-                style={{width: 23, height: 23, marginTop: 10, marginBottom: 10}}/>
+                source={require('../../assets/images/bottom_nav_bar/menu.png')}
+                style={{width: 23, height: 23, marginTop: 20, marginBottom: 20}}/>
             );
         }
       },
     }),
-    initialRouteName: 'Home',
+    initialRouteName: 'Game',
     tabBarOptions: {
       activeBackgroundColor: '#111111',
       inactiveBackgroundColor: '#111111',
@@ -69,6 +68,8 @@ const SwitchNavigator = createBottomTabNavigator(
     },
     style: {
       backgroundColor: '#111111',
+      paddingTop: 15,
+      paddingBottom: 15
     },
   }
 );

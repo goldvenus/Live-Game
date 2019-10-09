@@ -6,26 +6,26 @@ import {
   Image,
   View
 } from "react-native";
-import styles from "../styles";
+import { styles } from "../styles";
 
 
 const GameHeaderBar = () => (
   <View style={styles.header_view}>
     <Image
       style={styles.header_arrow_btn}
-      source={require("../../../assets/images/game/header/Amber.png")}
+      source={require("../../../../assets/images/game/header/Amber.png")}
     />
     <View style={styles.header_middle_view}>
       <Image
         style={styles.game_mark_icon}
-        source={require("../../../assets/images/game/header/gameActiveIcon.png")}/>
+        source={require("../../../../assets/images/game/header/gameActiveIcon.png")}/>
       <Text style={styles.game_header_title}>
         JENDUJA LIVE
       </Text>
     </View>
     <Image
       style={styles.header_user_img}
-      source={require("../../../assets/images/game/header/ava.png")}
+      source={require("../../../../assets/images/game/header/ava.png")}
     />
   </View>
 );
