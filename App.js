@@ -5,29 +5,32 @@ import * as Font from "expo-font";
 
 import { AppNavigator } from "./src/navigators/AppNavigator";
 import store from "./src/redux/store";
-import { Text } from "native-base";
-
+import AppLoading from "expo/build/launch/AppLoading";
 
 class App extends Component {
   state = {
-    fontLoaded: false
+    fontLoaded: true
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.loadFont();
+  }
+
+  loadFont = async ()=> {
     await Font.loadAsync({
       "Antonio": require("./assets/fonts/Antonio-Light.ttf"),
-    });
-    await Font.loadAsync({
+      "Antonio Light": require("./assets/fonts/Antonio-Light.ttf"),
+      "Antonio Bold": require("./assets/fonts/Antonio-Bold.ttf"),
       "Antonio-Bold": require("./assets/fonts/Antonio-Bold.ttf")
     });
-    this.setState({ fontLoaded: true });
+    this.setState({ fontsLoaded: true })
   }
 
   render() {
     const { fontLoaded } = this.state;
     if (!fontLoaded)
       return (
-        <Text>Loading.....</Text>
+        <AppLoading />
       );
     return (
       <Provider store={store}>

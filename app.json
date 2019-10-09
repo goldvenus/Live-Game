@@ -3,7 +3,7 @@
     "name": "Zenduja",
     "slug": "Zenduja-Pro",
     "privacy": "unlisted",
-    "sdkVersion": "33.0.0",
+    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android"
@@ -19,14 +19,21 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
+    "assetBundlePatterns":[
+      "*.*",
+      "assets/fonts/*"
     ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "package": "com.zenduja.game"
+    },
+    "packagerOpts": {
+      "assetExts": [
+        "ttf",
+        "png"
+      ]
     }
   }
 }
