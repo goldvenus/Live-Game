@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { Box } from "./renderers";
 import Matter from "matter-js";
 
@@ -26,7 +25,7 @@ const CreateBox = (state, { touches, screen }) => {
 			t.event.pageY,
 			boxSize,
 			boxSize,
-			{ frictionAir: 0.3 }
+			{ frictionAir: 0.5 }
 		);
 		Matter.World.add(world, [body]);
 
@@ -43,7 +42,6 @@ const CreateBox = (state, { touches, screen }) => {
 
 const MoveBox = (state, { touches }) => {
 	let constraint = state["physics"].constraint;
-
 	//-- Handle start touch
 	let start = touches.find(x => x.type === "start");
 

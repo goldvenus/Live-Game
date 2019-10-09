@@ -19,8 +19,6 @@ class App extends Component {
   loadFont = async ()=> {
     await Font.loadAsync({
       "Antonio": require("./assets/fonts/Antonio-Light.ttf"),
-      "Antonio Light": require("./assets/fonts/Antonio-Light.ttf"),
-      "Antonio Bold": require("./assets/fonts/Antonio-Bold.ttf"),
       "Antonio-Bold": require("./assets/fonts/Antonio-Bold.ttf")
     });
     this.setState({ fontsLoaded: true })

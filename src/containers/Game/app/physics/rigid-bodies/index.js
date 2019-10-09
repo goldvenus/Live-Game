@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { StatusBar, Dimensions } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import { Physics, CreateBox, MoveBox, CleanBoxes } from "./systems";
-import { Box } from "./renderers";
 import Matter from "matter-js";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
@@ -34,11 +33,9 @@ export default class RigidBodies extends Component {
 
     return (
       <GameEngine
-        systems={[Physics, CreateBox, MoveBox, CleanBoxes]}
+        systems={[CreateBox, Physics, MoveBox, CleanBoxes]}
         entities={{
-          physics: { engine: engine, world: world, constraint: constraint },
-          box: { body: body, size: [boxSize, boxSize], color: "pink", renderer: Box },
-          floor: { body: floor, size: [width, boxSize], color: "#86E9BE", renderer: Box }
+          physics: { engine: engine, world: world, constraint: constraint }
         }}
       >
 
