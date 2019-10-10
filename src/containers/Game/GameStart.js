@@ -13,6 +13,7 @@ import { AppLoading } from "expo";
 import RigidBodies from "./app/physics/rigid-bodies";
 import { Image } from "react-native";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import TargetCreate from "./components/TargetCreate";
 export default class GameStart extends React.Component {
 
   async _cacheResourcesAsync() {

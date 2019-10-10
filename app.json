@@ -1,40 +1,31 @@
 {
   "expo": {
-    "name": "My Project",
-    "slug": "zenduja-test-project",
+    "name": "zenduja 1.0",
+    "description": "My Project",
+    "slug": "snack-0a079f9f-5636-4aad-afd4-2daa5a29a9b3",
     "privacy": "unlisted",
-    "sdkVersion": "34.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "sdkVersion": "35.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#222222"
+    "primaryColor": "#cccccc",
+    "icon": "https://d1wp6m56sqw74a.cloudfront.net/~assets/c9aa1be8a6a6fe81e20c3ac4106a2ebc",
+    "loading": {
+      "icon": "https://d1wp6m56sqw74a.cloudfront.net/~assets/c9aa1be8a6a6fe81e20c3ac4106a2ebc",
+      "hideExponentText": false
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
+    "packagerOpts": {
+      "assetExts": [
+        "ttf",
+        "mp4",
+        "otf",
+        "xml"
+      ]
     },
-    "assetBundlePatterns": [
-      "*.*",
-      "assets/fonts/*"
-    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "package": "com.zenduja.game"
-    },
-    "packagerOpts": {
-      "assetExts": [
-        "ttf",
-        "png"
-      ]
-    },
-    "description": ""
+    }
   }
 }
