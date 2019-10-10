@@ -216,7 +216,7 @@ export const joinStyles = StyleSheet.create( {
     borderTopWidth: 1
   },
   setting_JoinItem: {
-    height: hp('10'),
+    height: hp('8.6'),
     backgroundColor: '#0a0a0a',
     borderTopWidth: 1,
     borderTopColor: '#ffffff1f',
@@ -248,7 +248,7 @@ export const joinStyles = StyleSheet.create( {
     backgroundColor: '#0a0a0a',
     borderTopWidth: 1,
     borderTopColor: '#ffffff1f',
-    height: hp('10'),
+    height: hp('8.6'),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -290,7 +290,7 @@ export const joinStyles = StyleSheet.create( {
     paddingLeft: wp('5'),
     paddingRight: wp('5'),
     backgroundColor: '#0a0a0a',
-    height: hp('10'),
+    height: hp('8.6'),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',

@@ -5,7 +5,8 @@ import {
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
 import { Image } from 'react-native';
-
+import { heightPercentageToDP as hp, widthPercentageToDP as wp }
+from "react-native-responsive-screen";
 import HomeNavigator from './HomeNavigator';
 import GameNavigator from './GameNavigator';
 import Page2Navigator from './Page2Navigator';
@@ -31,31 +32,31 @@ const SwitchNavigator = createBottomTabNavigator(
             return (
               <Image
                 source={require('../../assets/images/bottom_nav_bar/wavescore.png')}
-                style={{width: 23, height: 23, marginTop: 20, marginBottom: 20}}/>
+                style={{width: wp('6'), height: wp('6'), marginTop: wp('10'), marginBottom: wp('10')}}/>
             );
           case 'Game':
             return (
               <Image
                 source={require('../../assets/images/bottom_nav_bar/game.png')}
-                style={{width: 23, height: 23, marginTop: 20, marginBottom: 20}}/>
+                style={{width: wp('6'), height: wp('6'), marginTop: wp('10'), marginBottom: wp('10')}}/>
             );
           case 'Page2':
             return (
               <Image
                 source={require('../../assets/images/bottom_nav_bar/stats.png')}
-                style={{width: 23, height: 23, marginTop: 20, marginBottom: 20}}/>
+                style={{width: wp('6'), height: wp('6'), marginTop: wp('10'), marginBottom: wp('10')}}/>
             );
           case 'Page3':
             return (
               <Image
                 source={require('../../assets/images/bottom_nav_bar/chat.png')}
-                style={{width: 23, height: 23, marginTop: 20, marginBottom: 20}}/>
+                style={{width: wp('6'), height: wp('6'), marginTop: wp('10'), marginBottom: wp('10')}}/>
             );
           case 'Page4':
             return (
               <Image
                 source={require('../../assets/images/bottom_nav_bar/menu.png')}
-                style={{width: 23, height: 23, marginTop: 20, marginBottom: 20}}/>
+                style={{width: wp('6'), height: wp('6'), marginTop: wp('10'), marginBottom: wp('10')}}/>
             );
         }
       },

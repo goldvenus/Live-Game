@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Zenduja",
-    "slug": "Zenduja-Pro",
+    "name": "My Project",
+    "slug": "zenduja-test-project",
     "privacy": "unlisted",
     "sdkVersion": "34.0.0",
     "platforms": [
@@ -19,7 +19,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns":[
+    "assetBundlePatterns": [
       "*.*",
       "assets/fonts/*"
     ],
@@ -34,6 +34,7 @@
         "ttf",
         "png"
       ]
-    }
+    },
+    "description": ""
   }
 }

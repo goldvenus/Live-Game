@@ -31,7 +31,7 @@ class Box extends Component {
                height: wp('30') }}/>
           <Text style={{
             position: 'absolute',
-            paddingLeft: wp('5'),
+            paddingLeft: wp('7'),
             marginTop: wp('-2'),
             fontSize: wp('17'),
             fontFamily: 'Antonio-Bold',

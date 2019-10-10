@@ -47,11 +47,11 @@ export default class GameStart extends React.Component {
           <GameBottomBar/>
           <Image source={require('../../../assets/images/game/fire-btn.png')}
                  style={{
-                   width: wp('44'),
-                   height: wp('44'),
+                   width: wp('40'),
+                   height: wp('40'),
                    position: 'absolute',
-                   right: wp('-10'),
-                   bottom: wp('-10')
+                   right: wp('-3'),
+                   bottom: wp('-3')
                  }}/>
         </Content>
       </Container>

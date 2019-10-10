@@ -54,6 +54,13 @@ class GameCountDown extends React.Component {
               width: wp('40'),
               height: wp('40')
             }}/>
+            <Text style={{
+              position: 'absolute',
+              fontSize: wp('24'),
+              marginTop: hp('-1'),
+              fontFamily: 'Antonio-Bold',
+              color: 'white'
+            }}>50</Text>
           </View>
           <View style={{
             display: 'flex',
