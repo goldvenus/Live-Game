@@ -3,7 +3,7 @@ import {
   Image,
   View
 } from "react-native";
-import { hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 
 class UserCreate extends React.Component {

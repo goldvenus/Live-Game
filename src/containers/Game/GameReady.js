@@ -15,7 +15,7 @@ import { styles, ReadyStyles, GameGlobal, joinStyles } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
-import LightningEffect from "./components/LightningEffect";
+import LightningEffect from "./components/animation/LightningEffect";
 import UserCreate from "./components/UserCreate";
 
 // const UserData = [

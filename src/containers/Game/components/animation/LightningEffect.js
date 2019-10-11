@@ -5,10 +5,10 @@ export default class LightningEffect extends React.Component {
   constructor(props) {
     super(props);
     this.images = [
-      require("../../../../assets/images/game/animation/lightning1.png"),
-      require("../../../../assets/images/game/animation/lightning2.png"),
-      require("../../../../assets/images/game/animation/lightning3.png"),
-      require("../../../../assets/images/game/animation/lightning4.png")
+      require("../../../../../assets/images/game/animation/lightning1.png"),
+      require("../../../../../assets/images/game/animation/lightning2.png"),
+      require("../../../../../assets/images/game/animation/lightning3.png"),
+      require("../../../../../assets/images/game/animation/lightning4.png")
     ];
     this.next = this.next.bind(this);
     this.state = { index: 0 };

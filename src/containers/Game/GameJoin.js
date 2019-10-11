@@ -12,7 +12,7 @@ import {
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { joinStyles, styles, GameGlobal } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
-import LightningEffect from "./components/LightningEffect";
+import LightningEffect from "./components/animation/LightningEffect";
 
 class GameJoin extends React.Component {
 
