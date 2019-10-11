@@ -12,6 +12,7 @@ import { Asset } from "expo-asset";
 import { AppLoading } from "expo";
 import RigidBodies from "./app/physics/rigid-bodies";
 import LocationPulseLoader from "./components/animation/PulseLoader";
+import TargetMove from "./app/targetmove/move-engin";
 export default class GameStart extends React.Component {
 
   async _cacheResourcesAsync() {
@@ -42,6 +43,7 @@ export default class GameStart extends React.Component {
         <Content contentContainerStyle={styles.content}>
           <RigidBodies/>
           {/*<TargetCreate/>*/}
+          {/*<TargetMove/>*/}
           <GameDashBoard/>
           <GameHeaderBar/>
           <GameBottomBar/>
