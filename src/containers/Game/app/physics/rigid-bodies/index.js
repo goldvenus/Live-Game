@@ -9,9 +9,41 @@ Matter.Common.isElement = () => false; //-- Overriding this function because the
 export default class RigidBodies extends Component {
   constructor() {
     super();
+    this.state = {
+      targetPosition: {
+        x: 0,
+        y: 0
+      },
+      timer: null,
+      targetCreate: false
+
+    };
   }
 
+  componentDidMount() {
+    //this.CreateTargetObject();
+  }
+
+  componentWillUnmount() {
+    //clearInterval(this.state.timer);
+  }
+
+  CreateTargetObject() {
+    let timer = setInterval(this.tick, 3000);
+    this.setState({ timer });
+  }
+
+  tick = () => {
+    const { width, height } = Dimensions.get("window");
+    const random = Math.floor(Math.random() * 10000) % width;
+    this.setState({
+      targetPosition: { x: random, y: height }, targetCreate: true
+    });
+  };
+
+
   render() {
+    const { targetPosition, targetCreate } = this.state;
     const { width, height } = Dimensions.get("window");
     const boxSize = Math.trunc(Math.max(width, height) * 0.075);
 
@@ -33,11 +65,11 @@ export default class RigidBodies extends Component {
 
     return (
       <GameEngine
-        systems={[CreateBox, Physics, MoveBox, CleanBoxes]}
+        systems={[Physics, CreateBox, CleanBoxes]}
         entities={{
-          physics: { engine: engine, world: world, constraint: constraint }
+          physics: { engine: engine, world: world, constraint: constraint, targetPosition: targetPosition, targetCreate:targetCreate}
         }}>
-        <StatusBar hidden={true} />
+        <StatusBar hidden={true}/>
       </GameEngine>
     );
   }

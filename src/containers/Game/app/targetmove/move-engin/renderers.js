@@ -4,6 +4,13 @@ import { StyleSheet, View } from "react-native";
 const RADIUS = 50;
 
 class Target extends PureComponent {
+
+  // componentDidUpdate(prevProps) {
+  //   // Typical usage (don't forget to compare props):
+  //   if (this.props.position !== prevProps.position) {
+  //     console.log(this.props.position)
+  //   }
+  // }
   render() {
     console.log(this.props)
     const x = this.props.position[0] - RADIUS / 2;

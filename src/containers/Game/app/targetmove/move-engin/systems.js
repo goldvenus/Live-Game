@@ -13,8 +13,6 @@ const MoveFinger = (entities, { touches }) => {
       ];
     }
   });
-  entities['4'].position[0]+=3;
-  entities['4'].position[1]+=3;
   return entities;
 };
 
