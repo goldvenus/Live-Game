@@ -30,6 +30,16 @@ class GameJoin extends React.Component {
 
   render() {
     const RandomFlare = (Math.random() * 100).toFixed(0);
+    const GameJoinTime = Math.floor(Math.random()*100) % 25;
+    let startTime = 9;
+    let AMPM = 'PM';
+    if(GameJoinTime>12) {
+      startTime = 24 - GameJoinTime;
+      AMPM = 'PM';
+    } else {
+      startTime = GameJoinTime;
+      AMPM = 'AM'
+    }
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
@@ -109,7 +119,7 @@ class GameJoin extends React.Component {
                   paddingLeft: wp("1"),
                   fontSize: wp("5"),
                   color: "white"
-                }}>9PM</Text>
+                }}>{startTime+AMPM}</Text>
               </View>
               <TouchableOpacity
                 style={joinStyles.joinButton}
@@ -141,7 +151,7 @@ class GameJoin extends React.Component {
               <View style={joinStyles.setting_mega_item_list}>
                 <Text style={GameGlobal.h5}>Mega Spins</Text>
                 <View style={joinStyles.setting_item_right_view}>
-                  <Text style={joinStyles.setting_item_right_textBox}>0</Text>
+                  <Text style={joinStyles.setting_item_right_textBox}>1</Text>
                   <TouchableOpacity
                     style={joinStyles.flare_spins_btn}
                     onPress={this.onFlareSpinPress}>

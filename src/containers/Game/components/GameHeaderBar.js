@@ -20,7 +20,7 @@ const GameHeaderBar = () => (
         style={styles.game_mark_icon}
         source={require("../../../../assets/images/game/header/gameActiveIcon.png")}/>
       <Text style={styles.game_header_title}>
-        JENDUJA LIVE
+        ZENDUJA LIVE
       </Text>
     </View>
     <Image

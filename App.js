@@ -71,7 +71,7 @@ class App extends Component {
     } else {
       return (
         <Provider store={store}>
-          <StatusBar barStyle="light-content"/>
+          <StatusBar hidden/>
           <AppNavigator/>
         </Provider>
       );
