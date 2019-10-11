@@ -13,10 +13,14 @@
       "icon": "https://d1wp6m56sqw74a.cloudfront.net/~assets/c9aa1be8a6a6fe81e20c3ac4106a2ebc",
       "hideExponentText": false
     },
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover"
+    },
     "packagerOpts": {
       "assetExts": [
         "ttf",
-        "mp4",
+        "mp3",
         "otf",
         "xml"
       ]

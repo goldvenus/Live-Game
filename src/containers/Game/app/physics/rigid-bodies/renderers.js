@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { View, Image, Text } from "react-native";
-import Svg, { Polygon } from "react-native-svg";
-import { heightPercentageToDP as hp, widthPercentageToDP as wp }
-  from "react-native-responsive-screen";
+import { View } from "react-native";
+import Svg from "react-native-svg";
+import AniTargetCreate from "../../../components/AniTargetCreate";
 
 class Box extends Component {
   constructor(props) {
@@ -25,17 +24,7 @@ class Box extends Component {
         height: height,
         transform: [{ rotate: angle + "rad" }]}}>
         <Svg height="200" width="200">
-          <Image source={require('../../../../../../assets/images/game/target_50.png')}
-             style={{
-               width: wp('30'),
-               height: wp('30') }}/>
-          <Text style={{
-            position: 'absolute',
-            paddingLeft: wp('7'),
-            marginTop: wp('-2'),
-            fontSize: wp('17'),
-            fontFamily: 'Antonio-Bold',
-            color: 'white'}}>50</Text>
+          <AniTargetCreate bodyHeight={35} bSize = {30} tFontSize={17} tY={-1} tnumber="50"/>
         </Svg>
       </View>
     );

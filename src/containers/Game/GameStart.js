@@ -43,17 +43,18 @@ export default class GameStart extends React.Component {
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
           <RigidBodies/>
+          {/*<TargetCreate/>*/}
           <GameDashBoard/>
           <GameHeaderBar/>
           <GameBottomBar/>
           <Image source={require('../../../assets/images/game/fire-btn.png')}
-                 style={{
-                   width: wp('40'),
-                   height: wp('40'),
-                   position: 'absolute',
-                   right: wp('-3'),
-                   bottom: wp('-3')
-                 }}/>
+             style={{
+               width: wp('40'),
+               height: wp('40'),
+               position: 'absolute',
+               right: wp('-3'),
+               bottom: wp('-3')
+             }}/>
         </Content>
       </Container>
     );

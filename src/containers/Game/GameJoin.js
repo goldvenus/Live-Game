@@ -12,6 +12,7 @@ import {
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { joinStyles, styles, GameGlobal } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
+import LightningEffect from "./components/LightningEffect";
 
 class GameJoin extends React.Component {
 
@@ -35,8 +36,11 @@ class GameJoin extends React.Component {
           <GameHeaderBar/>
           <View style={joinStyles.bodyContainer}>
             <View style={joinStyles.join_top_view}>
-              <Image style={joinStyles.flare_border}
-                     source={require("../../../assets/images/game/lightning_textBorder.png")}/>
+              <View>
+                <Image style={joinStyles.flare_border}
+                       source={require("../../../assets/images/game/lightning_textBorder.png")}/>
+                <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-4")} my={hp("0")}/>
+              </View>
               <View style={{
                 display: "flex",
                 flexDirection: "column",
@@ -59,8 +63,11 @@ class GameJoin extends React.Component {
                   marginTop: hp("-1")
                 }}>Flares</Text>
               </View>
-              <Image style={joinStyles.flare_border_right}
-                     source={require("../../../assets/images/game/lightning_textBorder.png")}/>
+              <View>
+                <Image style={joinStyles.flare_border_right}
+                       source={require("../../../assets/images/game/lightning_textBorder.png")}/>
+                <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-2")} my={hp("0")}/>
+              </View>
             </View>
             <View style={joinStyles.join_bottom_view}>
               <View style={{

@@ -12,6 +12,8 @@ import { styles } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
+import { Audio } from "expo-av";
+import AniTargetCreate from "./components/AniTargetCreate";
 
 class GameCountDown extends React.Component {
   constructor(props) {
@@ -23,10 +25,23 @@ class GameCountDown extends React.Component {
     this.clockCountDown = setInterval(() => {
       this.decrementClock();
     }, 1000);
+    this.countDownSound();
+  }
+
+  async countDownSound() {
+    this.playbackObject = await Audio.Sound.createAsync(
+      require("../../../assets/audio/countDown.mp3"),
+      { shouldPlay: true }
+    );
+    this.playbackObject.playAsync();
   }
 
   componentWillUnmount() {
     clearInterval(this.clockCountDown);
+    // this.props.navigation.goBack(null);
+    // if(this.playbackObject.isPlaying) {
+    //   this.playbackObject.stopAsync();
+    // }
   }
 
   decrementClock = () => {
@@ -44,42 +59,25 @@ class GameCountDown extends React.Component {
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
           <GameHeaderBar/>
+          <AniTargetCreate bodyHeight={45} bSize={40} tFontSize={24} tY={-1} tnumber="50"/>
           <View style={{
             display: "flex",
             justifyContent: "center",
-            height: hp("45"),
-            flexDirection: 'row'
-          }}>
-            <Image source={require("../../../assets/images/game/target_50.png")} style={{
-              width: wp('40'),
-              height: wp('40')
-            }}/>
-            <Text style={{
-              position: 'absolute',
-              fontSize: wp('24'),
-              marginTop: hp('-1'),
-              fontFamily: 'Antonio-Bold',
-              color: 'white'
-            }}>50</Text>
-          </View>
-          <View style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'row',
-            height: hp('30')
+            alignItems: "center",
+            flexDirection: "row",
+            height: hp("30")
           }}>
             <Text style={{
-              fontSize: wp('8'),
-              color: 'white',
+              fontSize: wp("8"),
+              color: "white",
               opacity: 0.4,
-              paddingRight: wp('1'),
-              fontFamily: 'Antonio'
+              paddingRight: wp("1"),
+              fontFamily: "Antonio"
             }}>FLARE SCORES</Text>
             <Text style={{
-              fontSize: wp('8'),
-              color: 'white',
-              fontFamily: 'Antonio-Bold'
+              fontSize: wp("8"),
+              color: "white",
+              fontFamily: "Antonio-Bold"
             }}>50 POINTS</Text>
           </View>
         </Content>

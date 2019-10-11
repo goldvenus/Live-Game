@@ -2,7 +2,6 @@ import { Box } from "./renderers";
 import Matter from "matter-js";
 
 let boxIds = 0;
-
 const distance = ([x1, y1], [x2, y2]) =>
 	Math.sqrt(Math.abs(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
 
@@ -18,8 +17,25 @@ const CreateBox = (state, { touches, screen }) => {
 	let world = state["physics"].world;
 	let boxSize = Math.trunc(Math.max(screen.width, screen.height) * 0.075);
 	world.gravity.y = -1;
-
+	/*if (boxIds<=3) {
+    let body = Matter.Bodies.rectangle(
+      screen.width/2,
+      screen.height,
+      boxSize,
+      boxSize,
+      { frictionAir: 0.5 }
+    );
+    Matter.World.add(world, [body]);
+		console.log('venus');
+    state[++boxIds] = {
+      body: body,
+      size: [boxSize, boxSize],
+      color: boxIds % 2 == 0 ? "black" : "#000000",
+      renderer: Box
+    };
+	}*/
 	touches.filter(t => t.type === "press").forEach(t => {
+		console.log('touch');
 		let body = Matter.Bodies.rectangle(
 			t.event.pageX,
 			t.event.pageY,

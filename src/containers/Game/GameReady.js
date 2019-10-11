@@ -14,7 +14,9 @@ import {
 import { styles, ReadyStyles, GameGlobal, joinStyles } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
-from "react-native-responsive-screen";
+  from "react-native-responsive-screen";
+import LightningEffect from "./components/LightningEffect";
+import UserCreate from "./components/UserCreate";
 
 // const UserData = [
 //   {
@@ -51,7 +53,7 @@ class GameReady extends React.Component {
     if (this.state.downTime < 12) {
       clearInterval(this.clockCountDown);
       //this.props.navigation.goBack(null);
-      this.props.navigation.navigate('GameCountDown');
+      this.props.navigation.navigate("GameCountDown");
     }
     else
       this.setState((prevstate) => ({ downTime: prevstate.downTime - 1 }));
@@ -89,8 +91,11 @@ class GameReady extends React.Component {
               </View>
             </View>
             <View style={ReadyStyles.GameReady_CountDown_View}>
-              <Image style={ReadyStyles.flare_border}
-                     source={require("../../../assets/images/game/lightning_textBorder.png")}/>
+              <View>
+                <Image style={ReadyStyles.flare_border}
+                       source={require("../../../assets/images/game/lightning_textBorder.png")}/>
+                <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-4")} my={hp("0")}/>
+              </View>
               <View style={{
                 width: wp(62),
                 display: "flex",
@@ -112,10 +117,14 @@ class GameReady extends React.Component {
                   paddingLeft: wp("12"),
                   paddingRight: wp("12"),
                   marginBottom: hp("-1")
-                }}>{`00:${downTime > 9 ? downTime: `0${downTime}`}`}</Text>
+                }}>{`00:${downTime > 9 ? downTime : `0${downTime}`}`}</Text>
               </View>
-              <Image style={ReadyStyles.flare_border_right}
-                     source={require("../../../assets/images/game/lightning_textBorder.png")}/>
+              <View/>
+              <View>
+                <Image style={ReadyStyles.flare_border_right}
+                       source={require("../../../assets/images/game/lightning_textBorder.png")}/>
+                <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-2")} my={hp("0")}/>
+              </View>
             </View>
             <View style={ReadyStyles.Game_Members_Title}>
               <Text style={ReadyStyles.Game_Members_text1}>THERE ARE</Text>
@@ -124,42 +133,14 @@ class GameReady extends React.Component {
             </View>
             <ScrollView horizontal={true}>
               <View style={ReadyStyles.Game_Join_users}>
-                <Image source={require("../../../assets/images/game/users/3.png")} style={{
-                  width: wp("24"),
-                  height: wp("24"),
-                  margin: wp("2"),
-                  resizeMode: "contain"
-                }}/>
-                <Image source={require("../../../assets/images/game/users/4.png")} style={{
-                  width: wp("24"),
-                  height: wp("24"),
-                  margin: wp("2"),
-                  resizeMode: "contain"
-                }}/>
-                <Image source={require("../../../assets/images/game/users/3.png")} style={{
-                  width: wp("24"),
-                  height: wp("24"),
-                  margin: wp("2"),
-                  resizeMode: "contain"
-                }}/>
-                <Image source={require("../../../assets/images/game/users/4.png")} style={{
-                  width: wp("24"),
-                  height: wp("24"),
-                  margin: wp("2"),
-                  resizeMode: "contain"
-                }}/>
-                <Image source={require("../../../assets/images/game/users/3.png")} style={{
-                  width: wp("24"),
-                  height: wp("24"),
-                  margin: wp("2"),
-                  resizeMode: "contain"
-                }}/>
-                <Image source={require("../../../assets/images/game/users/4.png")} style={{
-                  width: wp("24"),
-                  height: wp("24"),
-                  margin: wp("2"),
-                  resizeMode: "contain"
-                }}/>
+                <UserCreate userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
+                <UserCreate userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
+                <UserCreate userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
+                <UserCreate userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
+                <UserCreate userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
+                <UserCreate userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
+                <UserCreate userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
+                <UserCreate userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
               </View>
             </ScrollView>
           </View>

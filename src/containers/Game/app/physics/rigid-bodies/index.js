@@ -36,11 +36,8 @@ export default class RigidBodies extends Component {
         systems={[CreateBox, Physics, MoveBox, CleanBoxes]}
         entities={{
           physics: { engine: engine, world: world, constraint: constraint }
-        }}
-      >
-
+        }}>
         <StatusBar hidden={true} />
-
       </GameEngine>
     );
   }
