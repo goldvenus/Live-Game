@@ -37,7 +37,7 @@ const CreateBox = (state, { touches, screen }) => {
       createFlag = true;
     }, 5000)
   }
-	touches.filter(t => t.type === "press").forEach(t => {
+	/*touches.filter(t => t.type === "press").forEach(t => {
 		console.log('venus', t.event.pageY);
 		let body = Matter.Bodies.rectangle(
 			t.event.pageX,
@@ -54,7 +54,7 @@ const CreateBox = (state, { touches, screen }) => {
 			color: boxIds % 2 == 0 ? "black" : "#000000",
 			renderer: Box
 		};
-	});
+	});*/
 	return state;
 };
 //let moveTarget = true
