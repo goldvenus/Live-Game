@@ -1,5 +1,5 @@
 import React from "react";
-import RigidBodies from "./rigid-bodies/index";
+import RigidBodies from "../../gameEngine/index";
 
 export default function (mount) {
 	return {

@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     margin:0
   },
   game_state_bottom_bar: {
+    zIndex: 3,
     position: 'absolute',
     backgroundColor: '#1111112b',
     bottom:0,
@@ -92,6 +93,7 @@ export const styles = StyleSheet.create({
     height: wp('7')
   },
   game_dashboard_view: {
+    zIndex: 3,
     width: wp('95'),
     height: hp(35),
     position: 'absolute',

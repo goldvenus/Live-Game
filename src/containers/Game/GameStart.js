@@ -8,7 +8,7 @@ import { styles } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
 import GameBottomBar from "./components/GameBottomBar";
 import GameDashBoard from "./components/GameDashBoard";
-import RigidBodies from "./app/physics/rigid-bodies";
+import GamePlay from "./gameEngine";
 import LocationPulseLoader from "./components/animation/PulseLoader";
 export default class GameStart extends React.Component {
 
@@ -16,13 +16,13 @@ export default class GameStart extends React.Component {
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
-          <RigidBodies/>
+          <GamePlay/>
           {/*<TargetCreate/>*/}
           {/*<TargetMove/>*/}
-          <GameDashBoard/>
-          <GameHeaderBar/>
-          <GameBottomBar/>
-          <LocationPulseLoader/>
+          {/*<GameDashBoard/>*/}
+          {/*<GameHeaderBar/>*/}
+          {/*<GameBottomBar/>*/}
+          {/*<LocationPulseLoader/>*/}
         </Content>
       </Container>
     );

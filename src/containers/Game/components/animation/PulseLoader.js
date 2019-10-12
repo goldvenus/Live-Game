@@ -38,6 +38,7 @@ export default class LocationPulseLoader extends React.Component {
         alignItems: 'center',
         position: 'absolute',
         right: wp('-2'),
+        zIndex: 3,
         bottom: wp('-2')
       }}>
         {this.state.circles.map((circle) => (
