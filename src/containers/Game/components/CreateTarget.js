@@ -3,38 +3,63 @@ import { Image, View } from "react-native";
 import React from "react";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
+import Images from "../../../../MocData";
+import { GameTypes } from "../gameEngine/data/gameType";
 
 class CreateTarget extends React.Component {
   render() {
-    const { bodyHeight, bSize, tFontSize, tY, tnumber } = this.props
-    return (
-      <View style={{
-        display: "flex",
-        justifyContent: "center",
-        height: hp(bodyHeight),
-        flexDirection: 'row'
-      }}>
-        <Image source={require("../../../../assets/images/game/gameplay/target/target-trace-white-3.png")} style={{
-          marginTop: wp(bSize/4),
-          width: wp(bSize*2/3),
-          height: hp(bSize*3/2),
-          opacity: 0.4,
-          position: 'absolute',
-          resizeMode: 'contain'
-        }}/>
-        <Image source={require("../../../../assets/images/game/gameplay/target/triangular/target-bg-green-3.png")} style={{
-          width: wp(bSize),
-          height: wp(bSize)
-        }}/>
-        <Text style={{
-          position: 'absolute',
-          fontSize: wp(tFontSize),
-          marginTop: hp(tY),
-          fontFamily: 'Antonio-Bold',
-          color: 'white'
-        }}>{tnumber}</Text>
-      </View>
-    );
+    const { spinType, spinNumber, spinColor, shadowColor, spinSize, spinTextSize, megaType, userType } = this.props.spinInfoData;
+    const targetImage = Images.game.gameplay.target;
+    let ty = spinSize / 8;
+    if (spinType === GameTypes.spinType.triangle)
+      ty = spinSize / 20;
+    else if (spinType === GameTypes.spinType.ellipse) {
+      ty = spinSize / 8;
+    }
+    if (spinNumber === 0) { ////mega type
+      ty = spinSize / 6;
+    } else if (spinNumber < 0) {
+      ty = spinSize / 8.6;
+    }
+      return (
+        <View style={{
+          display: "flex",
+          justifyContent: "center",
+          height: hp(spinSize),
+          flexDirection: "row"
+        }}>
+          <Image source={targetImage.shadow[shadowColor]} style={{
+            marginTop: wp(spinSize / 4),
+            width: wp(spinSize * 2 / 3),
+            height: hp(spinSize * 3 / 2),
+            opacity: 0.4,
+            position: "absolute",
+            resizeMode: "contain"
+          }}/>
+
+          <Image source={targetImage[spinType][spinColor]} style={{
+            width: wp(spinSize),
+            height: wp(spinSize)
+          }}/>
+          {
+            (spinNumber > 0) ?
+              <Text style={{
+                position: "absolute",
+                fontSize: wp(spinTextSize),
+                marginTop: hp(ty),
+                fontFamily: "Antonio-Bold",
+                color: "white"
+              }}>{spinNumber}</Text> :
+              <Image pointerEvents={'none'} source={spinNumber===0 ? targetImage.mega[megaType]: Images.game.users[userType]} style={{
+                position: "absolute",
+                width: spinNumber===0 ? wp(spinSize * 0.4): wp(spinSize * 0.6),
+                height: spinNumber===0 ? wp(spinSize * 0.4): wp(spinSize * 0.6),
+                marginTop: hp(ty),
+                zIndex:0
+              }}/>
+          }
+        </View>
+      );
   }
 }
 

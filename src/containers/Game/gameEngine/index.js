@@ -8,6 +8,7 @@ import LocationPulseLoader from "../components/animation/PulseLoader";
 import GameDashBoard from "../components/GameDashBoard";
 import GameHeaderBar from "../components/GameHeaderBar";
 import GameBottomBar from "../components/GameBottomBar";
+import { getspinArray } from "./data/levelData";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 
@@ -49,10 +50,11 @@ export default class GamePlay extends Component {
 
   gameStart() {
     setInterval(()=>{
-      const random = Math.floor(Math.random() * 10000) % wp("100");
+      const random = (Math.floor(Math.random() * 10000) % wp("70"))+wp('10');
       const targetPosition = { x: random, y: hp("89") };
-      NewSpinShow(targetPosition);
-    }, 3000);
+      const spinInfoData = getspinArray()[Math.floor(Math.random() * 10) % 4];
+      NewSpinShow(targetPosition, spinInfoData);
+    }, 2000);
   }
 
   componentDidMount() {

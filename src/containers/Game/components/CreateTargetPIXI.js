@@ -10,7 +10,7 @@ export default class CreateTargetPIXI extends React.Component {
         onContextCreate={async context => {
           const app = new PIXI.Application({ context, backgroundColor: 0x181818 });
           //const sprite = await PIXI.Sprite.fromExpoAsync(require('../../../../assets/images/game/Rectangle_50.png'));
-          const sprite1 = await PIXI.Sprite.fromExpoAsync(require('../../../../assets/images/game/gameplay/target/target-trace-white-3.png'));
+          const sprite1 = await PIXI.Sprite.fromExpoAsync(require('../../../../assets/images/game/gameplay/target/shadow/target-trace-white-3.png'));
           sprite.anchor.set(0.5);
           sprite.width = app.screen.width/3;
           sprite.height = app.screen.width/3;

@@ -8,10 +8,12 @@ let spinPosition = {
   x: 0,
   y: 0
 };
+let propsSpinInfo = {};
 /********************Control Creating & Get Mark Functions******************************/
-const NewSpinShow = (targetPosition) => {
+const NewSpinShow = (targetPosition, spinInfoData) => {
   createFlag = true;
   spinPosition = targetPosition;
+  propsSpinInfo = spinInfoData
 };
 
 
@@ -46,6 +48,7 @@ const CreateBox = (state, { touches, screen }) => {
       body: body,
       size: [boxSize, boxSize],
       color: boxIds % 2 == 0 ? "black" : "#000000",
+      spinInfoData: propsSpinInfo,
       renderer: Box
     };
   }

@@ -6,36 +6,26 @@ import { AppNavigator } from "./src/navigators/AppNavigator";
 import store from "./src/redux/store";
 import { Asset } from 'expo-asset';
 import AppLoading from "expo/build/launch/AppLoading";
-
+import Images from './MocData'
 class App extends Component {
   state = {
     isLoadingComplete: false,
   };
+  imageArray = [];
+  loadImagesUrl(obj) {
+    for (let key in obj) {
+      if (typeof obj[key] === "object") {
+        this.loadImagesUrl(obj[key]);
+      } else {
+        this.imageArray.push(obj[key]);
+      }
+    }
+  }
 
   _loadResourcesAsync = async () => {
+    this.loadImagesUrl(Images)
     return Promise.all([
-      Asset.loadAsync([
-        require('./assets/images/game/gameplay/shot/shot-green.png'),
-        require('./assets/images/game/gameplay/target/triangular/target-bg-green-3.png'),
-        require('./assets/images/game/lightning/lightning-cover.png'),
-        require('./assets/images/game/icon/mega-spin.png'),
-        require('./assets/images/game/icon/rule-objective.png'),
-        require('./assets/images/game/gameplay/target/target-trace-white-3.png'),
-        require('./assets/images/game/icon/wavescore.png'),
-        require('./assets/images/bottom_nav_bar/chat.png'),
-        require('./assets/images/bottom_nav_bar/game-normal.png'),
-        require('./assets/images/bottom_nav_bar/game-active.png'),
-        require('./assets/images/bottom_nav_bar/menu.png'),
-        require('./assets/images/bottom_nav_bar/stats.png'),
-        require('./assets/images/bottom_nav_bar/wavescore.png'),
-        require('./assets/images/game/users/3.png'),
-        require('./assets/images/game/users/4.png'),
-        require('./assets/audio/countDown.mp3'),
-        require('./assets/images/game/lightning/lightning1.png'),
-        require('./assets/images/game/lightning/lightning2.png'),
-        require('./assets/images/game/lightning/lightning3.png'),
-        require('./assets/images/game/lightning/lightning4.png')
-      ]),
+      Asset.loadAsync(this.imageArray),
       Font.loadAsync({
         // This is the font that we are using for our tab bar
         //...Icon.Ionicons.font,

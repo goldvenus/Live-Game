@@ -14,6 +14,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
 import { Audio } from "expo-av";
 import CreateTarget from "./components/CreateTarget";
+import { GameTypes } from "./gameEngine/data/gameType";
 
 class GameCountDown extends React.Component {
   constructor(props) {
@@ -59,7 +60,17 @@ class GameCountDown extends React.Component {
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
           <GameHeaderBar/>
-          <CreateTarget bodyHeight={45} bSize={40} tFontSize={24} tY={-1} tnumber="50"/>
+          <CreateTarget spinInfoData = {{
+            spinType:GameTypes.spinType.triangle,
+            megaType:GameTypes.spinType.mega.apple,
+            userType:GameTypes.spinType.user.woman,
+            spinNumber:50,
+            spinColor:GameTypes.spinColor.green,
+            shadowColor:GameTypes.shadowColor.white,
+            spinSize: 45,
+            spinTextSize: 24
+          }}/>
+
           <View style={{
             display: "flex",
             justifyContent: "center",
