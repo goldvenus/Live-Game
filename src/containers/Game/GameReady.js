@@ -11,12 +11,12 @@ import {
   ScrollView
 } from "react-native";
 
-import { styles, ReadyStyles, GameGlobal, joinStyles } from "./styles";
+import { styles, ReadyStyles, GameGlobal } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
 import LightningEffect from "./components/animation/LightningEffect";
-import UserCreate from "./components/UserCreate";
+import CreateUserImage from "./components/CreateUserImage";
 
 // const UserData = [
 //   {
@@ -74,7 +74,7 @@ class GameReady extends React.Component {
               <TouchableOpacity
                 style={ReadyStyles.Back_Button}
                 onPress={() => this.backButtonPress()}>
-                <Image source={require("../../../assets/images/game/arrow.png")} style={ReadyStyles.Back_Button_Image}/>
+                <Image source={require("../../../assets/images/game/icon/arrow.png")} style={ReadyStyles.Back_Button_Image}/>
               </TouchableOpacity>
               <View style={{
                 display: "flex",
@@ -93,7 +93,7 @@ class GameReady extends React.Component {
             <View style={ReadyStyles.GameReady_CountDown_View}>
               <View>
                 <Image style={ReadyStyles.flare_border}
-                       source={require("../../../assets/images/game/lightning_textBorder.png")}/>
+                       source={require("../../../assets/images/game/lightning/lightning-cover.png")}/>
                 <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-4")} my={hp("0")}/>
               </View>
               <View style={{
@@ -122,7 +122,7 @@ class GameReady extends React.Component {
               <View/>
               <View>
                 <Image style={ReadyStyles.flare_border_right}
-                       source={require("../../../assets/images/game/lightning_textBorder.png")}/>
+                       source={require("../../../assets/images/game/lightning/lightning-cover.png")}/>
                 <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-2")} my={hp("0")}/>
               </View>
             </View>
@@ -133,14 +133,14 @@ class GameReady extends React.Component {
             </View>
             <ScrollView horizontal={true}>
               <View style={ReadyStyles.Game_Join_users}>
-                <UserCreate userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
-                <UserCreate userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
-                <UserCreate userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
-                <UserCreate userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
-                <UserCreate userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
-                <UserCreate userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
-                <UserCreate userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
-                <UserCreate userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
+                <CreateUserImage userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
+                <CreateUserImage userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
+                <CreateUserImage userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
+                <CreateUserImage userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
+                <CreateUserImage userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
+                <CreateUserImage userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
+                <CreateUserImage userImage={require('../../../assets/images/game/users/4.png')} userFlag={require('../../../assets/images/game/flag/JAP.png')}/>
+                <CreateUserImage userImage={require('../../../assets/images/game/users/3.png')} userFlag={require('../../../assets/images/game/flag/USA.png')}/>
               </View>
             </ScrollView>
           </View>

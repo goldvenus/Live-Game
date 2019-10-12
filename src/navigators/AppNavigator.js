@@ -36,9 +36,12 @@ const SwitchNavigator = createBottomTabNavigator(
             );
           case 'Game':
             return (
-              <Image
-                source={require('../../assets/images/bottom_nav_bar/game.png')}
+             !focused ? <Image
+                source={require('../../assets/images/bottom_nav_bar/game-normal.png')}
                 style={{width: wp('6'), height: wp('6'), marginTop: wp('10'), marginBottom: wp('10')}}/>
+               : <Image
+                 source={require('../../assets/images/bottom_nav_bar/game-active.png')}
+                 style={{width: wp('10'), height: wp('10'), marginTop: wp('10'), marginBottom: wp('10')}}/>
             );
           case 'Page2':
             return (

@@ -15,28 +15,26 @@ class App extends Component {
   _loadResourcesAsync = async () => {
     return Promise.all([
       Asset.loadAsync([
-        require('./assets/images/game/fire-btn.png'),
-        require('./assets/images/game/target_50.png'),
-        require('./assets/images/game/FlareBg.png'),
-        require('./assets/images/game/lightning_textBorder.png'),
-        require('./assets/images/game/mega_spin.png'),
-        require('./assets/images/game/Rectangle_50.png'),
-        require('./assets/images/game/rule_objective.png'),
-        require('./assets/images/game/shadow.png'),
-        require('./assets/images/game/wavescore-icon.png'),
+        require('./assets/images/game/gameplay/shot/shot-green.png'),
+        require('./assets/images/game/gameplay/target/triangular/target-bg-green-3.png'),
+        require('./assets/images/game/lightning/lightning-cover.png'),
+        require('./assets/images/game/icon/mega-spin.png'),
+        require('./assets/images/game/icon/rule-objective.png'),
+        require('./assets/images/game/gameplay/target/target-trace-white-3.png'),
+        require('./assets/images/game/icon/wavescore.png'),
         require('./assets/images/bottom_nav_bar/chat.png'),
-        require('./assets/images/bottom_nav_bar/game.png'),
-        require('./assets/images/bottom_nav_bar/game1.png'),
+        require('./assets/images/bottom_nav_bar/game-normal.png'),
+        require('./assets/images/bottom_nav_bar/game-active.png'),
         require('./assets/images/bottom_nav_bar/menu.png'),
         require('./assets/images/bottom_nav_bar/stats.png'),
         require('./assets/images/bottom_nav_bar/wavescore.png'),
         require('./assets/images/game/users/3.png'),
         require('./assets/images/game/users/4.png'),
         require('./assets/audio/countDown.mp3'),
-        require('./assets/images/game/animation/lightning1.png'),
-        require('./assets/images/game/animation/lightning2.png'),
-        require('./assets/images/game/animation/lightning3.png'),
-        require('./assets/images/game/animation/lightning4.png')
+        require('./assets/images/game/lightning/lightning1.png'),
+        require('./assets/images/game/lightning/lightning2.png'),
+        require('./assets/images/game/lightning/lightning3.png'),
+        require('./assets/images/game/lightning/lightning4.png')
       ]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar

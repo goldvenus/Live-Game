@@ -4,7 +4,7 @@ import React from "react";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
 
-class AniTargetCreate extends React.Component {
+class CreateTarget extends React.Component {
   render() {
     const { bodyHeight, bSize, tFontSize, tY, tnumber } = this.props
     return (
@@ -14,7 +14,7 @@ class AniTargetCreate extends React.Component {
         height: hp(bodyHeight),
         flexDirection: 'row'
       }}>
-        <Image source={require("../../../../assets/images/game/shadow.png")} style={{
+        <Image source={require("../../../../assets/images/game/gameplay/target/target-trace-white-3.png")} style={{
           marginTop: wp(bSize/4),
           width: wp(bSize*2/3),
           height: hp(bSize*3/2),
@@ -22,7 +22,7 @@ class AniTargetCreate extends React.Component {
           position: 'absolute',
           resizeMode: 'contain'
         }}/>
-        <Image source={require("../../../../assets/images/game/target_50.png")} style={{
+        <Image source={require("../../../../assets/images/game/gameplay/target/triangular/target-bg-green-3.png")} style={{
           width: wp(bSize),
           height: wp(bSize)
         }}/>
@@ -38,4 +38,4 @@ class AniTargetCreate extends React.Component {
   }
 }
 
-export default AniTargetCreate;
+export default CreateTarget;

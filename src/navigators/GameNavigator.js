@@ -6,6 +6,7 @@ import GameCountDown from '../containers/Game/GameCountDown';
 import GameStart from '../containers/Game/GameStart';
 
 const GameNavigator = createStackNavigator({
+
   GameJoin: {
     screen: GameJoin,
     navigationOptions: {

@@ -15,7 +15,7 @@ const GameDashBoard = () => (
       <View style={styles.game_wavescore_view}>
         <Image
           style={styles.game_wavescore}
-          source={require("../../../../assets/images/game/wavescore-icon.png")}/>
+          source={require("../../../../assets/images/game/icon/wavescore.png")}/>
         <Text style={styles.game_wavescore_text}>63,234</Text>
       </View>
       <View style={styles.game_play_passed_view}>

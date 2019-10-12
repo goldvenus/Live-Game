@@ -6,7 +6,7 @@ import {
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 
-class UserCreate extends React.Component {
+class CreateUserImage extends React.Component {
   render () {
     const {userImage, userFlag} = this.props;
     return (
@@ -32,4 +32,4 @@ class UserCreate extends React.Component {
 }
 
 
-export default UserCreate;
+export default CreateUserImage;

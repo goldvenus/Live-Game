@@ -79,8 +79,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   game_mark_icon: {
-    width: wp('13'),
-    height: wp('13')
+    width: wp('9'),
+    height: wp('9')
   },
   game_header_title: {
     color: '#ffffff',

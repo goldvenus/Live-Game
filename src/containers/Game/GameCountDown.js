@@ -13,7 +13,7 @@ import GameHeaderBar from "./components/GameHeaderBar";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
 import { Audio } from "expo-av";
-import AniTargetCreate from "./components/AniTargetCreate";
+import CreateTarget from "./components/CreateTarget";
 
 class GameCountDown extends React.Component {
   constructor(props) {
@@ -59,7 +59,7 @@ class GameCountDown extends React.Component {
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
           <GameHeaderBar/>
-          <AniTargetCreate bodyHeight={45} bSize={40} tFontSize={24} tY={-1} tnumber="50"/>
+          <CreateTarget bodyHeight={45} bSize={40} tFontSize={24} tY={-1} tnumber="50"/>
           <View style={{
             display: "flex",
             justifyContent: "center",

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View } from "react-native";
 import Svg from "react-native-svg";
-import AniTargetCreate from "../../../components/AniTargetCreate";
+import CreateTarget from "../../../components/CreateTarget";
 
 class Box extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class Box extends Component {
         height: height,
         transform: [{ rotate: angle + "rad" }]}}>
         <Svg height="200" width="200">
-          <AniTargetCreate bodyHeight={35} bSize = {30} tFontSize={17} tY={-1} tnumber="50"/>
+          <CreateTarget bodyHeight={35} bSize = {23} tFontSize={14} tY={-1} tnumber="50"/>
         </Svg>
       </View>
     );
