@@ -33,4 +33,15 @@ const GameNavigator = createStackNavigator({
   },
 });
 
+GameNavigator.navigationOptions = ({ navigation }) => {
+  let { routeName } = navigation.state.routes[navigation.state.index];
+  let navigationOptions = {};
+
+  if (routeName === 'GameStart') {
+    navigationOptions.tabBarVisible = false;
+  }
+
+  return navigationOptions;
+};
+
 export default GameNavigator;

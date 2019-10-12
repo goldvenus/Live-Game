@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Animated, Easing, Dimensions } from 'react-native';
-const { height, width } = Dimensions.get('window');
+import { View, StyleSheet, Animated, Easing } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default class Pulse extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ export default class Pulse extends React.Component {
         width: pulseMaxSize,
         height: pulseMaxSize,
         marginLeft: -pulseMaxSize*1.6,
-        marginTop: -pulseMaxSize*2.9,
+        marginTop: -hp('48.9'),
       }]}>
         <Animated.View
           style={[styles.circle, {
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    left: width/2,
-    top: height/2,
+    left: wp('50'),
+    top: hp('50'),
   },
   circle: {
     borderWidth: 4 * StyleSheet.hairlineWidth,
