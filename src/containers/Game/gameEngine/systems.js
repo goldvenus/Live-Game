@@ -38,15 +38,15 @@ const CreateBox = (state, { touches, screen }) => {
     let body = Matter.Bodies.rectangle(
       positionX,
       positionY,
-      boxSize,
-      boxSize,
-      { frictionAir: 0.5 }
+      propsSpinInfo.spinSize,
+      propsSpinInfo.spinSize,
+      { frictionAir: 0.3 }
     );
     Matter.World.add(world, [body]);
     //	Matter.Body.translate([body], {x: 0, y: -2});
     state[++boxIds] = {
       body: body,
-      size: [boxSize, boxSize],
+      size: [propsSpinInfo.spinSize, propsSpinInfo.spinSize],
       color: boxIds % 2 == 0 ? "black" : "#000000",
       spinInfoData: propsSpinInfo,
       renderer: Box
@@ -56,8 +56,9 @@ const CreateBox = (state, { touches, screen }) => {
 };
 
 const TargetHit = (state, { touches, dispatch }) => {
-  let start = touches.find(x => x.type === "start");
+  let start = touches.find(x => x.type === "press");
   if (start) {
+    console.log('venus-click')
     let startPos = [start.event.pageX, start.event.pageY];
     let boxId = Object.keys(state).find(key => {
       let body = state[key].body;

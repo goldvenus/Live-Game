@@ -39,7 +39,11 @@ const Images = {
           roundUnlock: require('./assets/images/game/gameplay/target/mega/round-unlock.png')
         },
         shadow: {
-          white: require('./assets/images/game/gameplay/target/shadow/target-trace-white-3.png')
+          white: require('./assets/images/game/gameplay/target/shadow/target-trace-white-3.png'),
+          blue: require('./assets/images/game/gameplay/target/shadow/target-trace-blue-3.png'),
+          pink: require('./assets/images/game/gameplay/target/shadow/target-trace-pink-3.png'),
+          green: require('./assets/images/game/gameplay/target/shadow/target-trace-green-3.png'),
+          orange: require('./assets/images/game/gameplay/target/shadow/target-trace-orange-3.png')
         },
         triangular: {
           green: require('./assets/images/game/gameplay/target/triangular/target-bg-green-3.png'),

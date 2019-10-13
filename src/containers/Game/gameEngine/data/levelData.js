@@ -4,7 +4,6 @@ const getRandomType = (objectType, range) => {
   return Object.keys(objectType)[RandomNumber(range)];
 };
 const RandomNumber = (range) => {
-  console.log(Math.floor(Math.random() * 100));
   return Math.floor(Math.random() * 100) % (range);
 };
 

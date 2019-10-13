@@ -3,19 +3,25 @@ import { View } from "react-native";
 import Svg from "react-native-svg";
 import CreateTarget from "../components/CreateTarget";
 
-const Box = ({ size, body, spinInfoData }) => (
-  <View style={{
-    left: body.position.x - size[0] / 2,
-    top: body.position.y - size[1] / 2,
-    width: size[0],
-    height: size[1],
-    marginLeft: size[0] * -1,
-    marginTop: size[1] / -4,
-    transform: [{ rotate: body.angle + "rad" }]
-  }}>
-    <Svg height="200" width="200">
+const Box = ({ size, body, spinInfoData }) => {
+  const width = size[0];
+  const height = size[1];
+  const x = body.position.x - width / 2;
+  const y = body.position.y - height / 2;
+  const angle = body.angle;
+  return (
+    <View style={{
+      left: x,
+      top: y,
+      position: "absolute",
+      zIndex:4,
+      width: width,
+      height: height,
+      marginTop: size[1] / -1.7,
+      transform: [{ rotate: angle + "rad" }]
+    }}>
       <CreateTarget spinInfoData={spinInfoData}/>
-    </Svg>
-  </View>
-);
+    </View>
+  );
+};
 export { Box };

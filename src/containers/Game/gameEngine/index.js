@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StatusBar, View } from "react-native";
 import { GameEngine } from "react-native-game-engine";
-import { Physics, CreateBox, MoveBox, TargetHit, CleanBoxes, NewSpinShow } from "./systems";
+import { Physics, CreateBox, TargetHit, CleanBoxes, NewSpinShow } from "./systems";
 import Matter from "matter-js";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import LocationPulseLoader from "../components/animation/PulseLoader";
