@@ -32,7 +32,7 @@ const CreateBox = (state, { touches, screen }) => {
   let positionX = spinPosition.x;
   let positionY = spinPosition.y;
   let boxSize = Math.trunc(Math.max(screen.width, screen.height) * 0.075);
-  world.gravity.y = -0.1;
+  world.gravity.y = -1;
   if (createFlag) {
     createFlag = false;
     let body = Matter.Bodies.rectangle(
@@ -40,7 +40,7 @@ const CreateBox = (state, { touches, screen }) => {
       positionY,
       boxSize,
       boxSize,
-      { frictionAir: 0.021 }
+      { frictionAir: 0.5 }
     );
     Matter.World.add(world, [body]);
     //	Matter.Body.translate([body], {x: 0, y: -2});
