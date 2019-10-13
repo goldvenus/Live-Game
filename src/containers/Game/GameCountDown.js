@@ -69,7 +69,7 @@ class GameCountDown extends React.Component {
             shadowColor:GameTypes.shadowColor.white,
             spinSize: 45,
             spinTextSize: 24
-          }}/>
+          }} angle={0}/>
 
           <View style={{
             display: "flex",

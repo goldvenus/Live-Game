@@ -15,7 +15,7 @@ class GameDashBoard extends React.Component {
   }
 
   render() {
-    const { addSpinCoin } = this.props;
+    const { addSpinCoin, passPlayers } = this.props;
     return (
       <View style={styles.game_dashboard_view}>
         <View style={styles.game_dashboard_top_view}>
@@ -26,7 +26,7 @@ class GameDashBoard extends React.Component {
             <Text style={styles.game_wavescore_text}>63,234</Text>
           </View>
           <View style={styles.game_play_passed_view}>
-            <Text style={styles.game_play_passed_num}>0</Text>
+            <Text style={styles.game_play_passed_num}>{passPlayers}</Text>
             <Text style={styles.game_play_passed_title}>PLAYERS {"\n"} PASSED</Text>
           </View>
         </View>

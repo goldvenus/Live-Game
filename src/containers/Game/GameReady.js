@@ -18,21 +18,6 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
 import LightningEffect from "./components/animation/LightningEffect";
 import CreateUserImage from "./components/CreateUserImage";
 
-// const UserData = [
-//   {
-//     country: ""
-//   }
-// ];
-// const userImage = [
-//   require("../../assets/images/game/users/3.png"),
-//   require("../../assets/images/game/users/4.png"),
-//   require("../../assets/images/game/users/3.png"),
-//   require("../../assets/images/game/users/4.png"),
-//   require("../../assets/images/game/users/3.png"),
-//   require("../../assets/images/game/users/4.png")
-// ];
-
-
 class GameReady extends React.Component {
   constructor(props) {
     super(props);

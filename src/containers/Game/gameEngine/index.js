@@ -18,7 +18,9 @@ export default class GamePlay extends Component {
     super();
     this.state = {
       running: true,
-      score: 0
+      score: 0,
+      passPlayers: 0,
+      bulletCount: 100,
     };
     this.gameEngine = null;
     this.entities = this.setupWorld();
@@ -33,7 +35,6 @@ export default class GamePlay extends Component {
   };
 
   resetGame = () => {
-    //resetPipes();
     this.gameEngine.swap(this.setupWorld());
     this.setState({
       running: true,
@@ -45,12 +46,29 @@ export default class GamePlay extends Component {
       case "game-over":
         this.gameStop();
         break;
-      case "score-50":
-        this.setState({ score: this.state.score + 50 });
+      case 'goal-mega':
+        this.props.backPage("GameMegaRound");
+        break;
+      case 'goal-niki':
+        this.props.backPage("GameNikiRound");
+        break;
+      case 'goal-user':
+        this.setState({ passPlayers: this.state.passPlayers + 1});
+        break;
+    }
+    ///update score
+    if(e.type.includes('score')) {
+      this.setState({ score: this.state.score + parseInt(e.type.slice(6)) });
     }
   };
   onFireGun() {
-    NewFire(this.bulletSpeed);
+    if(this.state.bulletCount<1){
+      this.gameStop();
+      //this.props.navigation.goBack(null);
+    } else {
+      this.setState({ bulletCount: this.state.bulletCount - 1 });
+      NewFire(this.bulletSpeed);
+    }
   }
   gameStart() {
     setInterval(() => {
@@ -87,10 +105,6 @@ export default class GamePlay extends Component {
 
     Matter.World.add(world, [body, floor]);
     Matter.World.addConstraint(world, constraint);
-    // Matter.Events.on(engine, 'collisionStart', (event) => {
-    //   let pairs = event.pairs;
-    //   this.gameEngine.dispatch({ type: "game-over"});
-    // });
     return {
       physics: { engine: engine, world: world, constraint: constraint },
       targetPosition: targetPosition
@@ -98,6 +112,7 @@ export default class GamePlay extends Component {
   };
 
   render() {
+    const {score, passPlayers, bulletCount} = this.state;
     return (
       <View style={{
         flex: 1
@@ -113,9 +128,9 @@ export default class GamePlay extends Component {
           entities={this.entities}>
           <StatusBar hidden={true}/>
         </GameEngine>
-        <GameDashBoard addSpinCoin={this.state.score}/>
+        <GameDashBoard addSpinCoin={score} passPlayers={passPlayers}/>
         <GameHeaderBar/>
-        <GameBottomBar/>
+        <GameBottomBar bulletCount={bulletCount}/>
         <TouchableOpacity
           style={{
             position: 'absolute',

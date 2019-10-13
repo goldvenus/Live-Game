@@ -32,7 +32,8 @@ class App extends Component {
         // We include SpaceMono because we use it in HomeScreen.js. Feel free
         // to remove this if you are not using it in your app
         'Antonio': require('./assets/fonts/Antonio-Light.ttf'),
-        'Antonio-Bold': require('./assets/fonts/Antonio-Bold.ttf')
+        'Antonio-Bold': require('./assets/fonts/Antonio-Bold.ttf'),
+        'Expo-Bold': require('./assets/fonts/exo-2-bold.ttf')
       }),
     ]);
   };

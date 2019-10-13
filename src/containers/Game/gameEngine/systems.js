@@ -118,9 +118,21 @@ const TargetHit = (state, { touches, dispatch }) => {
     });
     if (boxId) {
       let world = state["physics"].world;
+      let targetSpin = state[boxId]["spinInfoData"];
+      let targetSpinType = state[boxId]["spinInfoData"].spinType;
       Matter.Composite.remove(world, state[boxId].body);
       delete state[boxId];
-      dispatch({ type: "score-50" });
+
+      if(targetSpin.spinNumber>0) {
+        dispatch({ type: `score-${targetSpin.spinNumber}` });
+      } else if (targetSpin.spinNumber === 0) {
+        if (targetSpinType==='niki' || targetSpinType==='apple')
+          dispatch({type: 'goal-niki'});
+        else
+          dispatch({type: 'goal-mega'});
+      } else if (targetSpin.spinNumber === -1) {
+        dispatch({type:"goal-user"});
+      }
     }
   }
   return state;

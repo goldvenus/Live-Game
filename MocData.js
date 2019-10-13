@@ -39,14 +39,7 @@ const Images = {
           apple: require('./assets/images/game/gameplay/target/mega/apple.png'),
           lock: require('./assets/images/game/gameplay/target/mega/lock.png'),
           mega: require('./assets/images/game/gameplay/target/mega/mega-spin.png'),
-          megaBig: require('./assets/images/game/gameplay/target/mega/mega-spin-big.png'),
-          megaTopMark: require('./assets/images/game/gameplay/target/mega/mega-spin-top-mark.png'),
           niki: require('./assets/images/game/gameplay/target/mega/niki.png'),
-          nikiShoe: require('./assets/images/game/gameplay/target/mega/niki-shoe.png'),
-          roundLock: require('./assets/images/game/gameplay/target/mega/round-lock.png'),
-          roundBgOrange: require('./assets/images/game/gameplay/target/mega/round-top-bg-orange.png'),
-          roundBgRed: require('./assets/images/game/gameplay/target/mega/round-top-bg-red.png'),
-          roundUnlock: require('./assets/images/game/gameplay/target/mega/round-unlock.png')
         },
         shadow: {
           white: require('./assets/images/game/gameplay/target/shadow/target-trace-white-3.png'),
@@ -75,6 +68,19 @@ const Images = {
     users: {
       image1: require('./assets/images/game/users/3.png'),
       image2: require('./assets/images/game/users/4.png')
+    },
+    page: {
+      mega: {
+        megaBig: require('./assets/images/game/pages/mega/mega-spin-big.png'),
+        megaTopMark: require('./assets/images/game/pages/mega/mega-spin-top-mark.png'),
+        roundUnlock: require('./assets/images/game/pages/mega/round-unlock.png')
+      },
+      niki: {
+        nikiShoe: require('./assets/images/game/pages/niki/niki-shoe.png')
+      },
+      roundLock: require('./assets/images/game/pages/round-lock.png'),
+      roundBgOrange: require('./assets/images/game/pages/round-top-bg-orange.png'),
+      roundBgRed: require('./assets/images/game/pages/round-top-bg-red.png')
     }
   }
 };
