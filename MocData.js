@@ -14,9 +14,19 @@ const Images = {
     },
     gameplay: {
       shot: {
-        disable: require('./assets/images/game/gameplay/shot/shot-disable.png'),
-        green: require('./assets/images/game/gameplay/shot/shot-green.png'),
-        orange: require('./assets/images/game/gameplay/shot/shot-orange.png'),
+        gun: {
+          disable: require('./assets/images/game/gameplay/shot/gun/gun-disable.png'),
+          green: require('./assets/images/game/gameplay/shot/gun/gun-green.png'),
+          orange: require('./assets/images/game/gameplay/shot/gun/gun-orange.png'),
+        },
+        bullet: {
+          bulletItem: {
+            green: require('./assets/images/game/gameplay/shot/bullet/bullet/bullet-green.png'),
+          },
+          bulletShadow: {
+            green: require('./assets/images/game/gameplay/shot/bullet/shadow/bullet-shadow-green.png'),
+          }
+        }
       },
       target: {
         circle: {

@@ -1,19 +1,29 @@
-import { Box } from "./renderers";
+import { Box, Bullet } from "./renderers";
 import Matter from "matter-js";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { heightPercentageToDP as hp, widthPercentageToDP as wp }
+  from "react-native-responsive-screen";
 
 let boxIds = 0;
 let createFlag = false;
+let ShotBullet = false;
+let BulletSpeed = 10;
+let SpinSpeed = 10;
 let spinPosition = {
   x: 0,
   y: 0
 };
 let propsSpinInfo = {};
 /********************Control Creating & Get Mark Functions******************************/
-const NewSpinShow = (targetPosition, spinInfoData) => {
+const NewSpinShow = (targetPosition, spinInfoData, speed) => {
   createFlag = true;
   spinPosition = targetPosition;
-  propsSpinInfo = spinInfoData
+  propsSpinInfo = spinInfoData;
+  SpinSpeed = speed;
+};
+
+const NewFire = (speed) => {
+  ShotBullet = true;
+  BulletSpeed = speed;
 };
 
 
@@ -23,16 +33,31 @@ const distance = ([x1, y1], [x2, y2]) =>
 
 const Physics = (state, { touches, time }) => {
   let engine = state["physics"].engine;
+  Object.keys(state)
+    .filter(key => state[key].body)
+    .forEach(key => {
+      if (state[key].bullet)
+        Matter.Body.setVelocity(state[key].body, {
+          x: -1 * BulletSpeed,
+          y: -1 * BulletSpeed
+        });
+      else {
+        Matter.Body.setVelocity(state[key].body, {
+          x: 0,
+          y: -1 * SpinSpeed
+        });
+      }
+    });
   Matter.Engine.update(engine, time.delta);
   return state;
 };
 
-const CreateBox = (state, { touches, screen }) => {
+const CreateBox = (state) => {
   let world = state["physics"].world;
+  world.gravity.y = -0.1;
   let positionX = spinPosition.x;
   let positionY = spinPosition.y;
-  let boxSize = Math.trunc(Math.max(screen.width, screen.height) * 0.075);
-  world.gravity.y = -1;
+
   if (createFlag) {
     createFlag = false;
     let body = Matter.Bodies.rectangle(
@@ -40,12 +65,14 @@ const CreateBox = (state, { touches, screen }) => {
       positionY,
       propsSpinInfo.spinSize,
       propsSpinInfo.spinSize,
-      { frictionAir: 0.3 }
+      { frictionAir: 0.5}
     );
+
     Matter.World.add(world, [body]);
     //	Matter.Body.translate([body], {x: 0, y: -2});
     state[++boxIds] = {
       body: body,
+      bullet: false,
       size: [propsSpinInfo.spinSize, propsSpinInfo.spinSize],
       color: boxIds % 2 == 0 ? "black" : "#000000",
       spinInfoData: propsSpinInfo,
@@ -55,10 +82,32 @@ const CreateBox = (state, { touches, screen }) => {
   return state;
 };
 
+const CreateFire = (state) => {
+  let world = state["physics"].world;
+  let body;
+  if (ShotBullet) {
+    ShotBullet = false;
+    body = Matter.Bodies.rectangle(
+      wp('85'),
+      hp('89'),
+      wp("10"),
+      wp("10"),
+      { frictionAir: 0}
+    );
+    Matter.World.add(world, [body]);
+    state[++boxIds] = {
+      body: body,
+      bullet: true,
+      size: [wp("3"), wp("3")],
+      renderer: Bullet
+    };
+  }
+  return state;
+};
+
 const TargetHit = (state, { touches, dispatch }) => {
   let start = touches.find(x => x.type === "press");
   if (start) {
-    console.log('venus-click')
     let startPos = [start.event.pageX, start.event.pageY];
     let boxId = Object.keys(state).find(key => {
       let body = state[key].body;
@@ -129,4 +178,4 @@ const CleanBoxes = (state, { touches, screen }) => {
   return state;
 };
 
-export { Physics, CreateBox, MoveBox, TargetHit, CleanBoxes, NewSpinShow };
+export { Physics, CreateBox, CreateFire, TargetHit, CleanBoxes, NewSpinShow, NewFire };

@@ -1,7 +1,8 @@
-import React from 'react';
-import { View, Image, TouchableOpacity, Animated, Easing } from 'react-native';
-import Pulse from './Pulse';
+import React from "react";
+import { View, Image, TouchableOpacity, Animated, Easing } from "react-native";
+import Pulse from "./Pulse";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import Images  from "../../../../../MocData";
 
 export default class LocationPulseLoader extends React.Component {
   constructor(props) {
@@ -33,13 +34,9 @@ export default class LocationPulseLoader extends React.Component {
   render() {
     return (
       <View style={{
-        backgroundColor: 'transparent',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        right: wp('-2'),
-        zIndex: 3,
-        bottom: wp('-2')
+        backgroundColor: "transparent",
+        justifyContent: "center",
+        alignItems: "center"
       }}>
         {this.state.circles.map((circle) => (
           <Pulse
@@ -47,13 +44,13 @@ export default class LocationPulseLoader extends React.Component {
             {...this.props}
           />
         ))}
-          <Image
-            source={require('../../../../../assets/images/game/gameplay/shot/shot-green.png')}
-            style={{
-              width: this.props.pulseMaxSize,
-              height: this.props.pulseMaxSize,
-            }}
-          />
+        <Image
+          source={Images.game.gameplay.shot.gun.green}
+          style={{
+            width: this.props.pulseMaxSize,
+            height: this.props.pulseMaxSize
+          }}
+        />
       </View>
     );
   }
@@ -63,15 +60,15 @@ export default class LocationPulseLoader extends React.Component {
 LocationPulseLoader.defaultProps = {
   interval: 2000,
   size: 80,
-  pulseMaxSize: wp('30'),
+  pulseMaxSize: wp("30"),
   avatar: undefined,
-  avatarBackgroundColor: 'white',
+  avatarBackgroundColor: "white",
   pressInValue: 0.8,
   pressDuration: 100,
   pressInEasing: Easing.in,
   pressOutEasing: Easing.in,
-  borderColor: '#2EC760',
-  backgroundColor: '#2EC76055',
-  getStyle: undefined,
+  borderColor: "#2EC760",
+  backgroundColor: "#2EC76055",
+  getStyle: undefined
 };
 

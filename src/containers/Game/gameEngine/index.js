@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { StatusBar, View } from "react-native";
+import { StatusBar, TouchableOpacity, View } from "react-native";
 import { GameEngine } from "react-native-game-engine";
-import { Physics, CreateBox, TargetHit, CleanBoxes, NewSpinShow } from "./systems";
+import { Physics, CreateBox, TargetHit, CleanBoxes, NewSpinShow, CreateFire, NewFire } from "./systems";
 import Matter from "matter-js";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import LocationPulseLoader from "../components/animation/PulseLoader";
@@ -22,6 +22,8 @@ export default class GamePlay extends Component {
     };
     this.gameEngine = null;
     this.entities = this.setupWorld();
+    this.spinSpeed = 10;
+    this.bulletSpeed = 10;
   }
 
   gameStop = () => {
@@ -37,23 +39,25 @@ export default class GamePlay extends Component {
       running: true,
       score: 0
     });
-  }
+  };
   onEvent = (e) => {
     switch (e.type) {
-      case 'game-over':
+      case "game-over":
         this.gameStop();
         break;
-      case 'score-50':
+      case "score-50":
         this.setState({ score: this.state.score + 50 });
     }
+  };
+  onFireGun() {
+    NewFire(this.bulletSpeed);
   }
-
   gameStart() {
-    setInterval(()=>{
-      const random = (Math.floor(Math.random() * 10000) % wp("70"))+wp('10');
-      const targetPosition = { x: random, y: hp("89") };
+    setInterval(() => {
+      const random = (Math.floor(Math.random() * 10000) % wp("70")) + wp("10");
+      const targetPosition = { x: random, y: hp("90") };
       const spinInfoData = getspinArray()[Math.floor(Math.random() * 10) % 4];
-      NewSpinShow(targetPosition, spinInfoData);
+      NewSpinShow(targetPosition, spinInfoData, this.spinSpeed);
     }, 2000);
   }
 
@@ -100,9 +104,11 @@ export default class GamePlay extends Component {
       }}>
         <GameEngine
           style={{ zIndex: 3 }}
-          ref={(ref) => { this.gameEngine = ref; }}
+          ref={(ref) => {
+            this.gameEngine = ref;
+          }}
           onEvent={this.onEvent}
-          systems={[Physics, CreateBox, TargetHit, CleanBoxes]}
+          systems={[Physics, CreateBox, TargetHit, CreateFire, CleanBoxes]}
           running={this.state.running}
           entities={this.entities}>
           <StatusBar hidden={true}/>
@@ -110,7 +116,17 @@ export default class GamePlay extends Component {
         <GameDashBoard addSpinCoin={this.state.score}/>
         <GameHeaderBar/>
         <GameBottomBar/>
-        <LocationPulseLoader/>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            zIndex: 3,
+            right: wp('-2'),
+            bottom: wp('-2')
+          }}
+          onPress={()=>this.onFireGun()}>
+          <LocationPulseLoader/>
+        </TouchableOpacity>
+
       </View>
     );
   }
