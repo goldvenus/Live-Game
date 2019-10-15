@@ -12,83 +12,85 @@ import { getspinArray } from "./data/levelData";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 
-export default class GamePlay extends Component {
+export default function GamePlay({ backPage }) {
+  const [running, setRunning] = React.useState(true);
+  const [score, setScore] = React.useState(0);
+  const [passPlayers, setpassPlayers] = React.useState(0);
+  const [bulletCount, setbulletCount] = React.useState(100);
+  const [gamePlayTime, setGamePlayTime] = React.useState(100);
+  const [gameStartInternal, setGameStartInternal] = React.useState(null)
+  let gameEngine = null;
+  let spinSpeed = 5;
+  let bulletSpeed = 10;
+  let targetShowTime = 3;
 
-  constructor() {
-    super();
-    this.state = {
-      running: true,
-      score: 0,
-      passPlayers: 0,
-      bulletCount: 100,
+  React.useEffect(() => {
+    gameStart();
+    return () => {
+      clearInterval(gameStartInternal);
+      gameStop();
     };
-    this.gameEngine = null;
-    this.entities = this.setupWorld();
-    this.spinSpeed = 9;
-    this.bulletSpeed = 10;
-    this.gameStartInternal = null;
-  }
+  }, []);
 
-  gameStop = () => {
-    this.setState({
-      running: false
-    });
-  };
-
-  resetGame = () => {
-    this.gameEngine.swap(this.setupWorld());
-    this.setState({
-      running: true,
-      score: 0
-    });
-  };
-  onEvent = (e) => {
-    switch (e.type) {
-      case "game-over":
-        this.gameStop();
-        break;
-      case 'goal-mega':
-        this.props.backPage("GameMegaRound");
-        break;
-      case 'goal-niki':
-        this.props.backPage("GameNikiRound");
-        break;
-      case 'goal-user':
-        this.setState({ passPlayers: this.state.passPlayers + 1});
-        break;
-    }
-    ///update score
-    if(e.type.includes('score')) {
-      this.setState({ score: this.state.score + parseInt(e.type.slice(6)) });
-    }
-  };
-  onFireGun() {
-    if(this.state.bulletCount<1){
-      this.gameStop();
-      //this.props.navigation.goBack(null);
-    } else {
-      this.setState({ bulletCount: this.state.bulletCount - 1 });
-      NewFire(this.bulletSpeed);
-    }
-  }
-  gameStart() {
-    this.gameStartInternal = setInterval(() => {
+  React.useEffect(() => {
+    if (gamePlayTime < 1)
+      clearInterval(gameStartInternal);
+    if (gamePlayTime % targetShowTime === 0 && (gamePlayTime > 3)) {
       const random = (Math.floor(Math.random() * 10000) % wp("70")) + wp("10");
       const targetPosition = { x: random, y: hp("90") };
       const spinInfoData = getspinArray()[Math.floor(Math.random() * 10) % 4];
-      NewSpinShow(targetPosition, spinInfoData, this.spinSpeed);
-    }, 2000);
-  }
+      NewSpinShow(targetPosition, spinInfoData, spinSpeed);
+    }
+  }, [gamePlayTime]);
 
-  componentDidMount() {
-    this.gameStart();
-  }
+  const gameStop = () => {
+    setRunning(false);
+  };
 
-  componentWillUnmount() {
-    clearInterval(this.gameStartInternal);
-    this.gameStop();
-  }
-  setupWorld = () => {
+  const resetGame = () => {
+    gameEngine.swap(setupWorld());
+    setRunning(true);
+    setScore(0);
+  };
+
+  const onEvent = (e) => {
+    switch (e.type) {
+      case "game-over":
+        gameStop();
+        break;
+      case "goal-mega":
+        backPage("GameMegaRound");
+        break;
+      case "goal-niki":
+        backPage("GameNikiRound");
+        break;
+      case "goal-user":
+        setpassPlayers(passPlayers + 1);
+        break;
+    }
+    ///update score
+    if (e.type.includes("score")) {
+      setScore(score + parseInt(e.type.slice(6)));
+    }
+  };
+  const onFireGun = () => {
+    if (bulletCount < 1) {
+      gameStop();
+      //this.props.navigation.goBack(null);
+    } else {
+      setbulletCount(bulletCount - 1);
+      NewFire(bulletSpeed);
+    }
+  };
+
+  const gameStart = () => {
+    const id = setInterval(() => {
+      setGamePlayTime((t) => t - 1);
+    }, 1000);
+    setGameStartInternal(id);
+  };
+
+  const setupWorld = () => {
     const random = Math.floor(Math.random() * 10000) % wp("100");
     const targetPosition = { x: random, y: hp("89") };
     const width = wp("100");
@@ -115,39 +117,34 @@ export default class GamePlay extends Component {
       targetPosition: targetPosition
     };
   };
-
-  render() {
-    const {score, passPlayers, bulletCount, running} = this.state;
-    return (
-      <View style={{
-        flex: 1
-      }}>
-        <GameEngine
-          style={{ zIndex: 3 }}
-          ref={(ref) => {
-            this.gameEngine = ref;
-          }}
-          onEvent={this.onEvent}
-          systems={[Physics, CreateBox, TargetHit, CreateFire, CleanBoxes]}
-          running={running}
-          entities={this.entities}>
-          <StatusBar hidden={true}/>
-        </GameEngine>
-        <GameDashBoard addSpinCoin={score} passPlayers={passPlayers}/>
-        <GameHeaderBar/>
-        <GameBottomBar bulletCount={bulletCount}/>
-        <TouchableOpacity
-          style={{
-            position: 'absolute',
-            zIndex: 3,
-            right: wp('-2'),
-            bottom: wp('-2')
-          }}
-          onPress={()=>this.onFireGun()}>
-          <LocationPulseLoader stopGame={running}/>
-        </TouchableOpacity>
-
-      </View>
-    );
-  }
+  return (
+    <View style={{
+      flex: 1
+    }}>
+      <GameEngine
+        style={{ zIndex: 3 }}
+        ref={(ref) => {
+          gameEngine = ref;
+        }}
+        onEvent={onEvent}
+        systems={[Physics, CreateBox, TargetHit, CreateFire, CleanBoxes]}
+        running={running}
+        entities={setupWorld()}>
+        <StatusBar hidden={true}/>
+      </GameEngine>
+      <GameDashBoard addSpinCoin={score} passPlayers={passPlayers}/>
+      <GameHeaderBar/>
+      <GameBottomBar bulletCount={bulletCount} gamePlayTime={gamePlayTime}/>
+      <TouchableOpacity
+        style={{
+          position: "absolute",
+          zIndex: 3,
+          right: wp("-2"),
+          bottom: wp("-2")
+        }}
+        onPress={() => onFireGun()}>
+        <LocationPulseLoader stopGame={running}/>
+      </TouchableOpacity>
+    </View>
+  );
 }

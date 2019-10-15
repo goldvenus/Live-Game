@@ -65,7 +65,7 @@ const CreateBox = (state) => {
       positionY,
       propsSpinInfo.spinSize,
       propsSpinInfo.spinSize,
-      { frictionAir: 0.5}
+      { frictionAir: 0}
     );
 
     Matter.World.add(world, [body]);
@@ -118,7 +118,7 @@ const TargetHit = (state, { touches, dispatch }) => {
     if (boxId) {
       let world = state["physics"].world;
       let targetSpin = state[boxId]["spinInfoData"];
-      let targetSpinType = state[boxId]["spinInfoData"].spinType;
+      let targetSpinType = state[boxId]["spinInfoData"].megaType;
       Matter.Composite.remove(world, state[boxId].body);
       delete state[boxId];
 

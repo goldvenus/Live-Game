@@ -4,7 +4,7 @@ export const GameTypes = {
     triangle: 'triangular',
     mega: {
       apple:'apple',
-      megaSpin: 'mega',
+      mega: 'mega',
       niki: 'niki',
       lock: 'lock'
     },

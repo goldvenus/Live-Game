@@ -33,6 +33,7 @@ class GameJoin extends React.Component {
   }
 
   onJoinButtonPress() {
+    this.setState({ unMount: true });
     this.props.navigation.navigate("GameReady");
   }
 
