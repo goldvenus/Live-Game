@@ -24,7 +24,7 @@ export default class GamePlay extends Component {
     };
     this.gameEngine = null;
     this.entities = this.setupWorld();
-    this.spinSpeed = 10;
+    this.spinSpeed = 9;
     this.bulletSpeed = 10;
     this.gameStartInternal = null;
   }

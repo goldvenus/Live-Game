@@ -73,7 +73,7 @@ const CreateBox = (state) => {
     state[++boxIds] = {
       body: body,
       bullet: false,
-      size: [propsSpinInfo.spinSize, propsSpinInfo.spinSize],
+      size: [wp(propsSpinInfo.spinSize*2/3), wp(propsSpinInfo.spinSize*2/3)],
       color: boxIds % 2 == 0 ? "black" : "#000000",
       spinInfoData: propsSpinInfo,
       renderer: Box
@@ -90,8 +90,8 @@ const CreateFire = (state) => {
     body = Matter.Bodies.rectangle(
       wp('85'),
       hp('89'),
-      wp("10"),
-      wp("10"),
+      wp("3"),
+      wp("3"),
       { frictionAir: 0}
     );
     Matter.World.add(world, [body]);
@@ -113,8 +113,7 @@ const TargetHit = (state, { touches, dispatch }) => {
       let body = state[key].body;
       return (
         body &&
-        distance([body.position.x, body.position.y], startPos) < 25
-      );
+        distance([body.position.x, body.position.y], startPos) < state[key].size[0]*3/5);
     });
     if (boxId) {
       let world = state["physics"].world;

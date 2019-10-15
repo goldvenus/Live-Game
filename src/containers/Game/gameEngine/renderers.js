@@ -17,7 +17,6 @@ const Box = ({ size, body, spinInfoData }) => {
       zIndex:4,
       width: width,
       height: height,
-      marginTop: size[1] / -1.1
     }}>
       <CreateTarget spinInfoData={spinInfoData} angle = {angle}/>
     </View>
