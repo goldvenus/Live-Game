@@ -21,6 +21,12 @@ export default class LocationPulseLoader extends React.Component {
     this.setCircleInterval();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.running !== nextProps.running) {
+      this.setInterval.clear();
+    }
+  }
+
   setCircleInterval() {
     this.setInterval = setInterval(this.addCircle.bind(this), this.props.interval);
     this.addCircle();

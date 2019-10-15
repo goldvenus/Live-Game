@@ -10,17 +10,23 @@ export default class LightningEffect extends React.Component {
       require("../../../../../assets/images/game/lightning/lightning3.png"),
       require("../../../../../assets/images/game/lightning/lightning4.png")
     ];
-    this.next = this.next.bind(this);
     this.state = { index: 0 };
+    this.disableInternal = null;
   }
+
   componentDidMount() {
     this.next();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.unMount !== this.props.unMount) {
+      clearInterval(this.disableInternal);
+    }
+  }
+
   next() {
-    setTimeout(() => {
-      this.setState({ index: Math.floor(Math.random() * 10) % 4});
-      this.next();
+    this.disableInternal = setInterval(() => {
+      this.setState({ index: Math.floor(Math.random() * 10) % 4 });
     }, 300);
   }
 
@@ -34,7 +40,7 @@ export default class LightningEffect extends React.Component {
           marginTop: my,
           width: lightw,
           height: lighth,
-          left:0,
+          left: 0,
           resizeMode: "contain"
         }}
         source={this.images[this.state.index]}

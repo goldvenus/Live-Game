@@ -27,10 +27,6 @@ class App extends Component {
     return Promise.all([
       Asset.loadAsync(this.imageArray),
       Font.loadAsync({
-        // This is the font that we are using for our tab bar
-        //...Icon.Ionicons.font,
-        // We include SpaceMono because we use it in HomeScreen.js. Feel free
-        // to remove this if you are not using it in your app
         'Antonio': require('./assets/fonts/Antonio-Light.ttf'),
         'Antonio-Bold': require('./assets/fonts/Antonio-Bold.ttf'),
         'Expo-Bold': require('./assets/fonts/exo-2-bold.ttf')

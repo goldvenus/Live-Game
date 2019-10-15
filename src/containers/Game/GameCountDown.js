@@ -15,29 +15,37 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
 import { Audio } from "expo-av";
 import CreateTarget from "./components/CreateTarget";
 import { GameTypes } from "./gameEngine/data/gameType";
+import Images from "../../../MocData";
 
 class GameCountDown extends React.Component {
   constructor(props) {
     super(props);
     this.state = { downTime: 10 };
+    this.soundObject = new Audio.Sound();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.countDownSound();
     this.clockCountDown = setInterval(() => {
       this.decrementClock();
     }, 1000);
-    this.countDownSound();
   }
 
   async countDownSound() {
-    this.playbackObject = await Audio.Sound.createAsync(
-      require("../../../assets/audio/countDown.mp3"),
-      { shouldPlay: true }
-    );
-    this.playbackObject.playAsync();
+    try {
+      await this.soundObject.loadAsync(Images.sound.countdownSound);
+      await this.soundObject.playAsync();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  componentWillUnmount() {
+  async componentWillUnmount() {
+    try {
+      await this.soundObject.stopAsync();
+    } catch (e) {
+
+    }
     clearInterval(this.clockCountDown);
     // this.props.navigation.goBack(null);
     // if(this.playbackObject.isPlaying) {

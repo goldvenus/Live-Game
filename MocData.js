@@ -82,6 +82,9 @@ const Images = {
       roundBgOrange: require('./assets/images/game/pages/round-top-bg-orange.png'),
       roundBgRed: require('./assets/images/game/pages/round-top-bg-red.png')
     }
+  },
+  sound: {
+    countdownSound: require('./assets/audio/countDown.mp3')
   }
 };
 

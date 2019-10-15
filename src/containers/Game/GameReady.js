@@ -21,7 +21,10 @@ import CreateUserImage from "./components/CreateUserImage";
 class GameReady extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { downTime: 15 };
+    this.state = {
+      downTime: 15,
+      unMount: false
+    };
   }
 
   componentDidMount() {
@@ -31,6 +34,7 @@ class GameReady extends React.Component {
   }
 
   componentWillUnmount() {
+    this.setState({unMount: true})
     clearInterval(this.clockCountDown);
   }
 
@@ -45,11 +49,12 @@ class GameReady extends React.Component {
   };
 
   backButtonPress() {
+    clearInterval(this.clockCountDown);
     this.props.navigation.goBack(null);
   }
 
   render() {
-    const { downTime } = this.state;
+    const { downTime, unMount } = this.state;
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
@@ -79,7 +84,7 @@ class GameReady extends React.Component {
               <View>
                 <Image style={ReadyStyles.flare_border}
                        source={require("../../../assets/images/game/lightning/lightning-cover.png")}/>
-                <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-4")} my={hp("0")}/>
+                <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-4")} my={hp("0")} unMount={unMount}/>
               </View>
               <View style={{
                 width: wp(62),

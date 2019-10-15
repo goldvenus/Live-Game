@@ -13,8 +13,24 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 import { joinStyles, styles, GameGlobal } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
 import LightningEffect from "./components/animation/LightningEffect";
+import {
+  handleAndroidBackButton,
+  removeAndroidBackButtonHandler
+} from "../../services/BackPress";
 
 class GameJoin extends React.Component {
+  state = {
+    unMount: false
+  };
+
+  componentDidMount() {
+    handleAndroidBackButton(() => this.props.navigation.navigate("GameJoin"));
+  }
+
+  componentWillUnmount() {
+    this.setState({ unMount: true });
+    removeAndroidBackButtonHandler();
+  }
 
   onJoinButtonPress() {
     this.props.navigation.navigate("GameReady");
@@ -30,15 +46,15 @@ class GameJoin extends React.Component {
 
   render() {
     const RandomFlare = (Math.random() * 100).toFixed(0);
-    const GameJoinTime = Math.floor(Math.random()*100) % 25;
+    const GameJoinTime = Math.floor(Math.random() * 100) % 25;
     let startTime = 9;
-    let AMPM = 'PM';
-    if(GameJoinTime>12) {
+    let AMPM = "PM";
+    if (GameJoinTime > 12) {
       startTime = 24 - GameJoinTime;
-      AMPM = 'PM';
+      AMPM = "PM";
     } else {
       startTime = GameJoinTime;
-      AMPM = 'AM'
+      AMPM = "AM";
     }
     return (
       <Container style={styles.container}>
@@ -49,7 +65,8 @@ class GameJoin extends React.Component {
               <View>
                 <Image style={joinStyles.flare_border}
                        source={require("../../../assets/images/game/lightning/lightning-cover.png")}/>
-                <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-4")} my={hp("0")}/>
+                <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-4")} my={hp("0")}
+                                 unMount={this.state.unMount}/>
               </View>
               <View style={{
                 display: "flex",
@@ -119,7 +136,7 @@ class GameJoin extends React.Component {
                   paddingLeft: wp("1"),
                   fontSize: wp("5"),
                   color: "white"
-                }}>{startTime+AMPM}</Text>
+                }}>{startTime + AMPM}</Text>
               </View>
               <TouchableOpacity
                 style={joinStyles.joinButton}

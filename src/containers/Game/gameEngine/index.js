@@ -26,6 +26,7 @@ export default class GamePlay extends Component {
     this.entities = this.setupWorld();
     this.spinSpeed = 10;
     this.bulletSpeed = 10;
+    this.gameStartInternal = null;
   }
 
   gameStop = () => {
@@ -71,7 +72,7 @@ export default class GamePlay extends Component {
     }
   }
   gameStart() {
-    setInterval(() => {
+    this.gameStartInternal = setInterval(() => {
       const random = (Math.floor(Math.random() * 10000) % wp("70")) + wp("10");
       const targetPosition = { x: random, y: hp("90") };
       const spinInfoData = getspinArray()[Math.floor(Math.random() * 10) % 4];
@@ -83,6 +84,10 @@ export default class GamePlay extends Component {
     this.gameStart();
   }
 
+  componentWillUnmount() {
+    clearInterval(this.gameStartInternal);
+    this.gameStop();
+  }
   setupWorld = () => {
     const random = Math.floor(Math.random() * 10000) % wp("100");
     const targetPosition = { x: random, y: hp("89") };
@@ -112,7 +117,7 @@ export default class GamePlay extends Component {
   };
 
   render() {
-    const {score, passPlayers, bulletCount} = this.state;
+    const {score, passPlayers, bulletCount, running} = this.state;
     return (
       <View style={{
         flex: 1
@@ -124,7 +129,7 @@ export default class GamePlay extends Component {
           }}
           onEvent={this.onEvent}
           systems={[Physics, CreateBox, TargetHit, CreateFire, CleanBoxes]}
-          running={this.state.running}
+          running={running}
           entities={this.entities}>
           <StatusBar hidden={true}/>
         </GameEngine>
@@ -139,7 +144,7 @@ export default class GamePlay extends Component {
             bottom: wp('-2')
           }}
           onPress={()=>this.onFireGun()}>
-          <LocationPulseLoader/>
+          <LocationPulseLoader stopGame={running}/>
         </TouchableOpacity>
 
       </View>
