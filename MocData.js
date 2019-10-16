@@ -84,7 +84,10 @@ const Images = {
     }
   },
   sound: {
-    countdownSound: require('./assets/audio/countDown.mp3')
+    countdownSound: require('./assets/audio/countDown.mp3'),
+    shotSound: require('./assets/audio/shot.mp3'),
+    mutiShotSound: require('./assets/audio/multishot.mp3'),
+    holdShotSound: require('./assets/audio/holdshot.mp3')
   }
 };
 

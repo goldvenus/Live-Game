@@ -1,4 +1,4 @@
-import { Image, View } from "react-native";
+import { Image, View, Animated } from "react-native";
 import React from "react";
 import Images from "../../../../../MocData";
 import { GameTypes } from "../../gameEngine/data/gameType";
@@ -7,6 +7,30 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
 import { Text } from "native-base";
 
 function GetFlareBox({ size, body, spinInfoData }) {
+  /* User State init */
+
+  let rotateValue = new Animated.Value(0);
+  let fadeValue = new Animated.Value(1);
+
+  const animationStart=()=>{
+    return Animated.parallel([
+      Animated.timing(rotateValue, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+      }),
+      Animated.timing(fadeValue, {
+        toValue: 0,
+        duration: 1000,
+        useNativeDriver: true
+      })
+    ]).start();
+  };
+
+  React.useEffect(()=> {
+    animationStart();
+  }, [spinInfoData]);
+
   const width = size[0];
   const height = size[1];
   const x = body.position.x - width / 2;
@@ -33,13 +57,23 @@ function GetFlareBox({ size, body, spinInfoData }) {
       width: width,
       height: height
     }}>
-      <View style={{
+      <Animated.View style={{
+        // transform: [
+        //   {
+        //       rotateY: rotateValue.interpolate({
+        //       inputRange: [0, 1],
+        //       outputRange: [6, 0]
+        //     })
+        //   }
+        // ],
+        opacity: fadeValue,
         display: "flex",
         justifyContent: "center",
         height: hp(spinSize),
         flexDirection: "row",
         marginTop: hp(spinSize / -6)
       }}>
+
         <Image source={targetImage[spinType][spinColor]} style={{
           width: wp(spinSize),
           height: wp(spinSize)
@@ -62,7 +96,7 @@ function GetFlareBox({ size, body, spinInfoData }) {
               zIndex: 0
             }}/>
         }
-      </View>
+      </Animated.View>
     </View>
   );
 }

@@ -5,8 +5,7 @@ import {
   Text
 } from "native-base";
 import {
-  View,
-  Image
+  View
 } from "react-native";
 import { styles } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";

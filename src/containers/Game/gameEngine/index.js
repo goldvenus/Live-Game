@@ -10,8 +10,23 @@ import GameHeaderBar from "../components/GameHeaderBar";
 import GameBottomBar from "../components/GameBottomBar";
 import { getspinArray } from "./data/levelData";
 import { GetFlareBox } from "../components/animation/GetFlareAnimation";
+import Images from "../../../../MocData";
+import { Audio } from "expo-av";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
+
+const useVariable = initialValue => {
+  const ref = React.useRef([
+    initialValue,
+    param => {
+      ref.current[0] =
+        typeof param === "function" ? param(ref.current[0]) : param;
+    }
+  ]);
+  return ref.current;
+};
+
+let pressedTime = 0;
 
 export default function GamePlay({ backPage }) {
   const [running, setRunning] = React.useState(true);
@@ -20,14 +35,21 @@ export default function GamePlay({ backPage }) {
   const [bulletCount, setbulletCount] = React.useState(100);
   const [gamePlayTime, setGamePlayTime] = React.useState(100);
   const [gameHitData, setGameHitData] = React.useState({});
-  const [gameStartInternal, setGameStartInternal] = React.useState(null)
+  const [gameStartInternal, setGameStartInternal] = React.useState(null);
+  const [shotSoundObjectSingle, setShotSoundObjectSingle] = useVariable(null);
+  const [shotSoundObjectFive, setShotSoundObjectFive] = useVariable(null);
+  const [shotSoundObjectTen, setShotSoundObjectTen] = useVariable(null);
+
   let gameEngine = null;
   let spinSpeed = 5;
   let bulletSpeed = 10;
   let targetShowTime = 3;
+  const multiShotSpeed = 300;
+
 
   React.useEffect(() => {
     gameStart();
+    soundEffectInit();
     return () => {
       clearInterval(gameStartInternal);
       gameStop();
@@ -56,7 +78,7 @@ export default function GamePlay({ backPage }) {
   };
 
   const onEvent = (e) => {
-    if(e.type==='goal-target') {
+    if (e.type === "goal-target") {
       setGameHitData(e.data);
     }
     switch (e.type) {
@@ -78,16 +100,60 @@ export default function GamePlay({ backPage }) {
       setScore(score + parseInt(e.type.slice(6)));
     }
   };
+
   const onFireGun = () => {
     if (bulletCount < 1) {
       gameStop();
-      //this.props.navigation.goBack(null);
     } else {
+      //soundEffectInit();
       setbulletCount(bulletCount - 1);
       NewFire(bulletSpeed);
     }
   };
 
+  const onMultiFireGun = (multiNum) => {
+    const bullet = bulletCount;
+    if (bulletCount < 1) {
+      gameStop();
+    }
+    else if (bullet < multiNum) {
+      const intervalTime = setInterval(() => {
+        NewFire(bulletSpeed);
+        setbulletCount(0);
+      }, multiShotSpeed);
+      setTimeout(() => {
+        clearInterval(intervalTime);
+      }, multiShotSpeed * bullet + 100);
+    } else {
+      const intervalTime = setInterval(() => {
+        NewFire(bulletSpeed);
+        setbulletCount(bulletCount - multiNum);
+      }, multiShotSpeed);
+      setTimeout(() => {
+        clearInterval(intervalTime);
+      }, multiShotSpeed * multiNum + 100);
+    }
+  };
+
+  const FirePressIn = () => {
+    const pressedIntime = new Date().getTime();
+    if (pressedIntime - pressedTime < 200) {
+      soundEffectPlay(shotSoundObjectTen);
+      onMultiFireGun(9);
+    }
+    pressedTime = pressedIntime;
+  };
+
+  const FirePressOut = () => {
+    const currentTime = new Date().getTime();
+    if (currentTime - pressedTime > 1000) {
+      soundEffectPlay(shotSoundObjectFive);
+      onMultiFireGun(5);
+    } else {
+      soundEffectPlay(shotSoundObjectSingle);
+      onFireGun();
+    }
+  };
   const gameStart = () => {
     const id = setInterval(() => {
       setGamePlayTime((t) => t - 1);
@@ -122,6 +188,30 @@ export default function GamePlay({ backPage }) {
       targetPosition: targetPosition
     };
   };
+
+
+  /* Sound Effect */
+  const soundEffectInit = async () => {
+    try {
+      const { sound: soundObjectSingle } = await Audio.Sound.createAsync(Images.sound.shotSound, { shouldPlay: false });
+      setShotSoundObjectSingle(soundObjectSingle);
+      const { sound: soundObjectFive } = await Audio.Sound.createAsync(Images.sound.mutiShotSound, { shouldPlay: false });
+      setShotSoundObjectFive(soundObjectFive);
+      const { sound: soundObjectTem } = await Audio.Sound.createAsync(Images.sound.holdShotSound, { shouldPlay: false });
+      setShotSoundObjectTen(soundObjectTem);
+    } catch (error) {
+    }
+  };
+
+  const soundEffectPlay = async (soundObject) => {
+    if (soundObject) {
+      try {
+        await soundObject.replayAsync();
+      } catch (e) {
+      }
+    }
+  };
+
   return (
     <View style={{
       flex: 1
@@ -138,7 +228,8 @@ export default function GamePlay({ backPage }) {
         <StatusBar hidden={true}/>
       </GameEngine>
       {
-        gameHitData['size'] && <GetFlareBox size={gameHitData['size']} body={gameHitData['body']} spinInfoData={gameHitData['spinInfoData']}/>
+        gameHitData["size"] &&
+        <GetFlareBox size={gameHitData["size"]} body={gameHitData["body"]} spinInfoData={gameHitData["spinInfoData"]}/>
       }
       <GameDashBoard addSpinCoin={score} passPlayers={passPlayers}/>
       <GameHeaderBar/>
@@ -150,7 +241,8 @@ export default function GamePlay({ backPage }) {
           right: wp("-2"),
           bottom: wp("-2")
         }}
-        onPress={() => onFireGun()}>
+        onPressIn={FirePressIn}
+        onPressOut={FirePressOut}>
         <LocationPulseLoader stopGame={running}/>
       </TouchableOpacity>
     </View>
