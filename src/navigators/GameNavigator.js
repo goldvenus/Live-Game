@@ -44,6 +44,7 @@ const GameNavigator = createStackNavigator({
       header: null
     },
   },
+
 });
 
 GameNavigator.navigationOptions = ({ navigation }) => {

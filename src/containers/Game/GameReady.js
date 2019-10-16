@@ -34,7 +34,7 @@ class GameReady extends React.Component {
   }
 
   componentWillUnmount() {
-    this.setState({unMount: true});
+    //this.setState({unMount: true});
     clearInterval(this.clockCountDown);
   }
 
@@ -113,7 +113,7 @@ class GameReady extends React.Component {
               <View/>
               <View>
                 <Image style={ReadyStyles.flare_border_right}
-                       source={require("../../../assets/images/game/lightning/lightning-cover.png")}/>
+                       source={require("../../../assets/images/game/lightning/lightning-cover.png")} unMount={unMount}/>
                 <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-2")} my={hp("0")}/>
               </View>
             </View>

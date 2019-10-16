@@ -33,7 +33,7 @@ class GameJoin extends React.Component {
   }
 
   onJoinButtonPress() {
-    this.setState({ unMount: true });
+    //this.setState({ unMount: true });
     this.props.navigation.navigate("GameReady");
   }
 
@@ -94,7 +94,7 @@ class GameJoin extends React.Component {
               <View>
                 <Image style={joinStyles.flare_border_right}
                        source={require("../../../assets/images/game/lightning/lightning-cover.png")}/>
-                <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-2")} my={hp("0")}/>
+                <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-2")} my={hp("0")} unMount={this.state.unMount}/>
               </View>
             </View>
             <View style={joinStyles.join_bottom_view}>
