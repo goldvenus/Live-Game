@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { StatusBar, TouchableOpacity, View } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import { Physics, CreateBox, TargetHit, CleanBoxes, NewSpinShow, CreateFire, NewFire } from "./systems";
@@ -9,6 +9,7 @@ import GameDashBoard from "../components/GameDashBoard";
 import GameHeaderBar from "../components/GameHeaderBar";
 import GameBottomBar from "../components/GameBottomBar";
 import { getspinArray } from "./data/levelData";
+import { GetFlareBox } from "../components/animation/GetFlareAnimation";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 
@@ -18,6 +19,7 @@ export default function GamePlay({ backPage }) {
   const [passPlayers, setpassPlayers] = React.useState(0);
   const [bulletCount, setbulletCount] = React.useState(100);
   const [gamePlayTime, setGamePlayTime] = React.useState(100);
+  const [gameHitData, setGameHitData] = React.useState({});
   const [gameStartInternal, setGameStartInternal] = React.useState(null)
   let gameEngine = null;
   let spinSpeed = 5;
@@ -54,6 +56,9 @@ export default function GamePlay({ backPage }) {
   };
 
   const onEvent = (e) => {
+    if(e.type==='goal-target') {
+      setGameHitData(e.data);
+    }
     switch (e.type) {
       case "game-over":
         gameStop();
@@ -132,6 +137,9 @@ export default function GamePlay({ backPage }) {
         entities={setupWorld()}>
         <StatusBar hidden={true}/>
       </GameEngine>
+      {
+        gameHitData['size'] && <GetFlareBox size={gameHitData['size']} body={gameHitData['body']} spinInfoData={gameHitData['spinInfoData']}/>
+      }
       <GameDashBoard addSpinCoin={score} passPlayers={passPlayers}/>
       <GameHeaderBar/>
       <GameBottomBar bulletCount={bulletCount} gamePlayTime={gamePlayTime}/>

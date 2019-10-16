@@ -65,7 +65,7 @@ const CreateBox = (state) => {
       positionY,
       propsSpinInfo.spinSize,
       propsSpinInfo.spinSize,
-      { frictionAir: 0}
+      { frictionAir: 0 }
     );
 
     Matter.World.add(world, [body]);
@@ -73,7 +73,7 @@ const CreateBox = (state) => {
     state[++boxIds] = {
       body: body,
       bullet: false,
-      size: [wp(propsSpinInfo.spinSize*2/3), wp(propsSpinInfo.spinSize*2/3)],
+      size: [wp(propsSpinInfo.spinSize * 2 / 3), wp(propsSpinInfo.spinSize * 2 / 3)],
       color: boxIds % 2 == 0 ? "black" : "#000000",
       spinInfoData: propsSpinInfo,
       renderer: Box
@@ -88,11 +88,11 @@ const CreateFire = (state) => {
   if (ShotBullet) {
     ShotBullet = false;
     body = Matter.Bodies.rectangle(
-      wp('85'),
-      hp('89'),
+      wp("85"),
+      hp("89"),
       wp("3"),
       wp("3"),
-      { frictionAir: 0}
+      { frictionAir: 0 }
     );
     Matter.World.add(world, [body]);
     state[++boxIds] = {
@@ -113,24 +113,25 @@ const TargetHit = (state, { touches, dispatch }) => {
       let body = state[key].body;
       return (
         body &&
-        distance([body.position.x, body.position.y], startPos) < state[key].size[0]*3/5);
+        distance([body.position.x, body.position.y], startPos) < state[key].size[0] * 3 / 5);
     });
     if (boxId) {
       let world = state["physics"].world;
       let targetSpin = state[boxId]["spinInfoData"];
       let targetSpinType = state[boxId]["spinInfoData"].megaType;
+      dispatch({ type: "goal-target", data: state[boxId] });
       Matter.Composite.remove(world, state[boxId].body);
       delete state[boxId];
 
-      if(targetSpin.spinNumber>0) {
+      if (targetSpin.spinNumber > 0) {
         dispatch({ type: `score-${targetSpin.spinNumber}` });
       } else if (targetSpin.spinNumber === 0) {
-        if (targetSpinType==='niki' || targetSpinType==='apple')
-          dispatch({type: 'goal-niki'});
+        if (targetSpinType === "niki" || targetSpinType === "apple")
+          dispatch({ type: "goal-niki" });
         else
-          dispatch({type: 'goal-mega'});
+          dispatch({ type: "goal-mega" });
       } else if (targetSpin.spinNumber === -1) {
-        dispatch({type:"goal-user"});
+        dispatch({ type: "goal-user" });
       }
     }
   }
