@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, TouchableOpacity, View } from "react-native";
+import { StatusBar, TouchableOpacity, View, Alert } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import { Physics, CreateBox, TargetHit, CleanBoxes, NewSpinShow, CreateFire, NewFire } from "./systems";
 import Matter from "matter-js";
@@ -27,13 +27,16 @@ const useVariable = initialValue => {
 };
 
 let pressedTime = 0;
+let firingGun = false;
+let oneFireshotTimer = null;
+let endGameTimer = null;
 
 export default function GamePlay({ backPage }) {
   const [running, setRunning] = React.useState(true);
   const [score, setScore] = React.useState(0);
   const [passPlayers, setpassPlayers] = React.useState(0);
   const [bulletCount, setbulletCount] = React.useState(100);
-  const [gamePlayTime, setGamePlayTime] = React.useState(100);
+  const [gamePlayTime, setGamePlayTime] = React.useState(15);
   const [gameHitData, setGameHitData] = React.useState({});
   const [gameStartInternal, setGameStartInternal] = React.useState(null);
   const [shotSoundObjectSingle, setShotSoundObjectSingle] = useVariable(null);
@@ -57,8 +60,10 @@ export default function GamePlay({ backPage }) {
   }, []);
 
   React.useEffect(() => {
-    if (gamePlayTime < 1)
+    if (gamePlayTime < 1) {
       clearInterval(gameStartInternal);
+      ShowAlertDialog();
+    }
     if (gamePlayTime % targetShowTime === 0 && (gamePlayTime > 3)) {
       const random = (Math.floor(Math.random() * 10000) % wp("70")) + wp("10");
       const targetPosition = { x: random, y: hp("90") };
@@ -70,6 +75,23 @@ export default function GamePlay({ backPage }) {
   const gameStop = () => {
     setRunning(false);
   };
+
+  /*End Game Dialog*/
+  const ShowAlertDialog = (time) => {
+    if (!endGameTimer)
+      endGameTimer = setTimeout(() => {
+        Alert.alert(
+          "Game Over",
+          "Click OK to restart the game\n CANCEL to go to the main.",
+          [
+            { text: "Cancel", onPress: () => backPage("Home"), style: "cancel" },
+            { text: "OK", onPress: () => backPage("GameJoin") }
+          ]
+        );
+        endGameTimer = null;
+      }, time);
+  };
+
 
   const resetGame = () => {
     gameEngine.swap(setupWorld());
@@ -103,9 +125,12 @@ export default function GamePlay({ backPage }) {
 
   const onFireGun = () => {
     if (bulletCount < 1) {
-      gameStop();
+      ShowAlertDialog(10);
+      //gameStop();
     } else {
       //soundEffectInit();
+      if (bulletCount === 1)
+        ShowAlertDialog(1500);
       setbulletCount(bulletCount - 1);
       NewFire(bulletSpeed);
     }
@@ -114,44 +139,57 @@ export default function GamePlay({ backPage }) {
   const onMultiFireGun = (multiNum) => {
     const bullet = bulletCount;
     if (bulletCount < 1) {
-      gameStop();
+      ShowAlertDialog(10);
+      //gameStop();
     }
     else if (bullet < multiNum) {
+      firingGun = true;
       const intervalTime = setInterval(() => {
         NewFire(bulletSpeed);
         setbulletCount(0);
+        ShowAlertDialog(4000);
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
+        firingGun = false;
       }, multiShotSpeed * bullet + 100);
     } else {
+      firingGun = true;
       const intervalTime = setInterval(() => {
         NewFire(bulletSpeed);
         setbulletCount(bulletCount - multiNum);
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
+        firingGun = false;
       }, multiShotSpeed * multiNum + 100);
     }
   };
 
   const FirePressIn = () => {
     const pressedIntime = new Date().getTime();
-    if (pressedIntime - pressedTime < 200) {
+    if (pressedIntime - pressedTime < 200 && !firingGun) {
+      firingGun = true;
+      clearTimeout(oneFireshotTimer);
       soundEffectPlay(shotSoundObjectTen);
-      onMultiFireGun(9);
+      onMultiFireGun(10);
     }
     pressedTime = pressedIntime;
   };
 
   const FirePressOut = () => {
     const currentTime = new Date().getTime();
-    if (currentTime - pressedTime > 1000) {
-      soundEffectPlay(shotSoundObjectFive);
-      onMultiFireGun(5);
-    } else {
-      soundEffectPlay(shotSoundObjectSingle);
-      onFireGun();
+    if (!firingGun) {
+      if (currentTime - pressedTime > 1000) {
+        firingGun = true;
+        soundEffectPlay(shotSoundObjectFive);
+        onMultiFireGun(5);
+      } else {
+        oneFireshotTimer = setTimeout(() => {
+          soundEffectPlay(shotSoundObjectSingle);
+          onFireGun();
+        }, 100);
+      }
     }
   };
   const gameStart = () => {

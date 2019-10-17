@@ -113,7 +113,7 @@ const TargetHit = (state, { touches, dispatch }) => {
       let body = state[key].body;
       return (
         body &&
-        distance([body.position.x, body.position.y], startPos) < state[key].size[0] * 3 / 5);
+        distance([body.position.x, body.position.y], startPos) < state[key].size[0] * 5 / 7);
     });
     if (boxId) {
       let world = state["physics"].world;

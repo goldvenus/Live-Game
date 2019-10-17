@@ -1,5 +1,5 @@
 import { Image, View, Animated } from "react-native";
-import React from "react";
+import React, {useRef} from "react";
 import Images from "../../../../../MocData";
 import { GameTypes } from "../../gameEngine/data/gameType";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
@@ -9,11 +9,20 @@ import { Text } from "native-base";
 function GetFlareBox({ size, body, spinInfoData }) {
   /* User State init */
 
-  let rotateValue = new Animated.Value(0);
-  let fadeValue = new Animated.Value(1);
+  const rotateValue = new useRef(new Animated.Value(0)).current;
+  const saveRotateValue = rotateValue.interpolate({
+    inputRange: [0, 0.5],
+    outputRange: ['0deg', '360deg'] });
 
-  const animationStart=()=>{
-    return Animated.parallel([
+  const fadeValue = new useRef(new Animated.Value(1)).current;
+  const saveOpacity = fadeValue.interpolate({
+    inputRange: [0, 0.8, 1],
+    outputRange: [0, 0, 1]
+  });
+  React.useEffect(()=> {
+    fadeValue.setValue(1);
+    rotateValue.setValue(0);
+    Animated.parallel([
       Animated.timing(rotateValue, {
         toValue: 1,
         duration: 1000,
@@ -25,10 +34,6 @@ function GetFlareBox({ size, body, spinInfoData }) {
         useNativeDriver: true
       })
     ]).start();
-  };
-
-  React.useEffect(()=> {
-    animationStart();
   }, [spinInfoData]);
 
   const width = size[0];
@@ -58,15 +63,12 @@ function GetFlareBox({ size, body, spinInfoData }) {
       height: height
     }}>
       <Animated.View style={{
-        // transform: [
-        //   {
-        //       rotateY: rotateValue.interpolate({
-        //       inputRange: [0, 1],
-        //       outputRange: [6, 0]
-        //     })
-        //   }
-        // ],
-        opacity: fadeValue,
+        transform: [
+          {
+              rotateY: saveRotateValue
+          }
+        ],
+        opacity: saveOpacity,
         display: "flex",
         justifyContent: "center",
         height: hp(spinSize),
