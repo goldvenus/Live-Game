@@ -30,6 +30,8 @@ let pressedTime = 0;
 let firingGun = false;
 let oneFireshotTimer = null;
 let endGameTimer = null;
+let doublefireReady = false;
+let doublefireReadyTimer = null;
 
 export default function GamePlay({ backPage }) {
   const [running, setRunning] = React.useState(true);
@@ -74,19 +76,25 @@ export default function GamePlay({ backPage }) {
 
   const gameStop = () => {
     setRunning(false);
+    clearInterval(gameStartInternal);
+    //gameStartInternal
   };
 
   /*End Game Dialog*/
   const ShowAlertDialog = (time) => {
     if (!endGameTimer)
       endGameTimer = setTimeout(() => {
+        gameStop();
         Alert.alert(
           "Game Over",
-          "Click OK to restart the game\n CANCEL to go to the main.",
+          "Click OK to restart the game",
           [
-            { text: "Cancel", onPress: () => backPage("Home"), style: "cancel" },
-            { text: "OK", onPress: () => backPage("GameJoin") }
-          ]
+            { text: "OK", onPress: () => {
+              backPage("GameJoin");
+              }
+            }
+          ],
+          { cancelable: false }
         );
         endGameTimer = null;
       }, time);
@@ -108,9 +116,11 @@ export default function GamePlay({ backPage }) {
         gameStop();
         break;
       case "goal-mega":
+        gameStop();
         backPage("GameMegaRound");
         break;
       case "goal-niki":
+        gameStop();
         backPage("GameNikiRound");
         break;
       case "goal-user":
@@ -147,7 +157,7 @@ export default function GamePlay({ backPage }) {
       const intervalTime = setInterval(() => {
         NewFire(bulletSpeed);
         setbulletCount(0);
-        ShowAlertDialog(4000);
+        ShowAlertDialog(5000);
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
@@ -168,11 +178,21 @@ export default function GamePlay({ backPage }) {
 
   const FirePressIn = () => {
     const pressedIntime = new Date().getTime();
-    if (pressedIntime - pressedTime < 200 && !firingGun) {
-      firingGun = true;
-      clearTimeout(oneFireshotTimer);
-      soundEffectPlay(shotSoundObjectTen);
-      onMultiFireGun(10);
+    if ((pressedIntime - pressedTime > 500)) doublefireReady = false;
+    if ((pressedIntime - pressedTime < 200) && !firingGun && !doublefireReady) {
+      doublefireReady = true;
+      console.log('2 times');
+      doublefireReadyTimer = setTimeout(()=> {
+        firingGun = true;
+        doublefireReady=false;
+        clearTimeout(oneFireshotTimer);
+        soundEffectPlay(shotSoundObjectTen);
+        onMultiFireGun(10);
+      }, 300);
+    }
+    else if(doublefireReady && (pressedIntime - pressedTime < 300)) {
+      console.log('3times');
+      clearTimeout(doublefireReadyTimer);
     }
     pressedTime = pressedIntime;
   };
