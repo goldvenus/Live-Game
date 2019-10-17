@@ -36,7 +36,7 @@ export default function GamePlay({ backPage }) {
   const [score, setScore] = React.useState(0);
   const [passPlayers, setpassPlayers] = React.useState(0);
   const [bulletCount, setbulletCount] = React.useState(100);
-  const [gamePlayTime, setGamePlayTime] = React.useState(15);
+  const [gamePlayTime, setGamePlayTime] = React.useState(100);
   const [gameHitData, setGameHitData] = React.useState({});
   const [gameStartInternal, setGameStartInternal] = React.useState(null);
   const [shotSoundObjectSingle, setShotSoundObjectSingle] = useVariable(null);
