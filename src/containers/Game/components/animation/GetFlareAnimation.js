@@ -48,9 +48,9 @@ function GetFlareBox({ size, body, spinInfoData }) {
   else if (spinType === GameTypes.spinType.ellipse) {
     ty = spinSize / 8;
   }
-  if (spinNumber === 0) { ////mega type
+  if (spinNumber === 0 && megaType!=='lock') { ////mega type
     ty = spinSize / 6;
-  } else if (spinNumber < 0) {
+  } else if (spinNumber <= 0) {
     ty = spinSize / 8.6;
   }
   return (
@@ -92,8 +92,8 @@ function GetFlareBox({ size, body, spinInfoData }) {
             <Image
               source={spinNumber === 0 ? targetImage.mega[megaType] : Images.game.users[userType]} style={{
               position: "absolute",
-              width: spinNumber === 0 ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
-              height: spinNumber === 0 ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
+              width: spinNumber === 0 && megaType!=='lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
+              height: spinNumber === 0 && megaType!=='lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
               marginTop: hp(ty),
               zIndex: 0
             }}/>

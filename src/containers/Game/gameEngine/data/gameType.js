@@ -3,10 +3,10 @@ export const GameTypes = {
     ellipse: 'circle',
     triangle: 'triangular',
     mega: {
+      lock: 'lock',
       apple:'apple',
-      mega: 'mega',
       niki: 'niki',
-      lock: 'lock'
+      mega: 'mega',
     },
     user: {
       man: 'image1',

@@ -31,7 +31,7 @@ export const getspinArray = () => {
     },
     {
       spinType: GameTypes.spinType.ellipse,
-      megaType: GameTypes.spinType.mega[getRandomType(GameTypes.spinType.mega, 3)],
+      megaType: GameTypes.spinType.mega[getRandomType(GameTypes.spinType.mega, 4)],
       userType: GameTypes.spinType.user.woman,
       spinNumber: 0,
       spinColor: GameTypes.spinColor[getRandomType(GameTypes.spinColor, 4)],

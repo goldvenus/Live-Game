@@ -141,10 +141,14 @@ export default function GamePlay({ backPage }) {
       //soundEffectInit();
       if (bulletCount === 1)
         ShowAlertDialog(1500);
-      setbulletCount(bulletCount - 1);
-      NewFire(bulletSpeed);
+      oneShot();
     }
   };
+
+  const oneShot=()=> {
+    setbulletCount(t=>t - 1);
+    NewFire(bulletSpeed);
+  }
 
   const onMultiFireGun = (multiNum) => {
     const bullet = bulletCount;
@@ -155,8 +159,8 @@ export default function GamePlay({ backPage }) {
     else if (bullet < multiNum) {
       firingGun = true;
       const intervalTime = setInterval(() => {
-        NewFire(bulletSpeed);
-        setbulletCount(0);
+        oneShot();
+        // setbulletCount(0);
         ShowAlertDialog(5000);
       }, multiShotSpeed);
       setTimeout(() => {
@@ -166,8 +170,9 @@ export default function GamePlay({ backPage }) {
     } else {
       firingGun = true;
       const intervalTime = setInterval(() => {
-        NewFire(bulletSpeed);
-        setbulletCount(bulletCount - multiNum);
+        //NewFire(bulletSpeed);
+        oneShot();
+        //setbulletCount(bulletCount - multiNum);
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
@@ -181,7 +186,6 @@ export default function GamePlay({ backPage }) {
     if ((pressedIntime - pressedTime > 500)) doublefireReady = false;
     if ((pressedIntime - pressedTime < 200) && !firingGun && !doublefireReady) {
       doublefireReady = true;
-      console.log('2 times');
       doublefireReadyTimer = setTimeout(()=> {
         firingGun = true;
         doublefireReady=false;

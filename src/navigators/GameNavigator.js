@@ -27,7 +27,12 @@ const GameNavigator = createStackNavigator({
       header: null
     }
   },
-
+  GameCountDown: {
+    screen: GameCountDown,
+    navigationOptions: {
+      header: null
+    }
+  },
   GameNikiRound: {
     screen: GameNikiRound,
     navigationOptions: {
