@@ -5,7 +5,7 @@ import {
   Text
 } from "native-base";
 import {
-  View
+  View, Animated
 } from "react-native";
 import { styles } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
@@ -19,12 +19,21 @@ import Images from "../../../MocData";
 class GameCountDown extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { downTime: 10 };
+    this.state = {
+      downTime: 10,
+      fadeAnim: new Animated.Value(0),
+    };
     this.soundObject = new Audio.Sound();
   }
 
   async componentDidMount() {
     await this.countDownSound();
+    Animated.timing(
+      // Uses easing functions
+      this.state.fadeAnim,
+      {toValue: 1,
+        duration: 2000},
+    ).start();
     this.clockCountDown = setInterval(() => {
       this.decrementClock();
     }, 1000);
@@ -77,7 +86,24 @@ class GameCountDown extends React.Component {
             spinSize: 45,
             spinTextSize: 24
           }} angle={0}/>
-
+          {
+            this.state.downTime < 10 &&
+            <Animated.Text style={{
+              opacity: this.state.fadeAnim,
+              position:'absolute',
+              display: 'flex',
+              top:hp('50'),
+              flexDirection: 'row',
+              width: '100%',
+              alignItems: 'center',
+              textAlign: 'center',
+              justifyContent: 'center',
+              fontSize: wp("18"),
+              color: "white",
+              fontFamily: "Antonio-Bold"
+            }}>{this.state.downTime + 1}
+            </Animated.Text>
+          }
           <View style={{
             display: "flex",
             justifyContent: "center",

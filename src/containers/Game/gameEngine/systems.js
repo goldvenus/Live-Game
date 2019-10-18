@@ -179,7 +179,6 @@ const MoveBox = (state, { touches }) => {
 
 const CleanBoxes = (state, { touches, screen }) => {
   let world = state["physics"].world;
-
   Object.keys(state)
     .filter(key => state[key].body && state[key].body.position.y < 0)
     .forEach(key => {

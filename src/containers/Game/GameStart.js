@@ -6,6 +6,7 @@ import {
 import { styles } from "./styles";
 
 import GamePlay from "./gameEngine";
+
 export default class GameStart extends React.Component {
 
   componentDidMount() {
@@ -22,8 +23,12 @@ export default class GameStart extends React.Component {
 
   goPage = (pageName) => {
     //this.props.navigation.goBack(null);
-    this.props.navigation.replace(pageName);
-  }
+    if (pageName === "GameJoin") {
+      this.props.navigation.navigate(pageName);
+    } else
+      this.props.navigation.replace(pageName);
+  };
+
   render() {
     return (
       <Container style={styles.container}>

@@ -17,31 +17,35 @@ function GameBottomBar({ bulletCount, gamePlayTime }) {
   if (min < 10)
     gamePlayMin = `0${min}`;
   const color = gamePlayTime > 10 ? "#2EC760" : "#d21f3c";
-  if (gamePlayTime === 11) {
-    Audio.Sound.createAsync(Images.sound.countdownSound, { shouldPlay: true });
-  }
+
+  React.useEffect(()=> {
+    if (gamePlayTime === 11) {
+      Audio.Sound.createAsync(Images.sound.countdownSound, { shouldPlay: true });
+    }
+    if(gamePlayTime === 10) {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(scaleValue, {
+            toValue: 1.5,
+            duration: 500,
+            useNativeDriver: true
+          }),
+          Animated.timing(scaleValue, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true
+          })
+        ]),
+        {
+          iterations: 10
+        }
+      ).start();
+    }
+  }, [gamePlayTime])
 
   /*Animation Init*/
   const scaleValue = new useRef(new Animated.Value(1)).current;
-  if(gamePlayTime === 10) {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(scaleValue, {
-          toValue: 1.5,
-          duration: 500,
-          useNativeDriver: true
-        }),
-        Animated.timing(scaleValue, {
-          toValue: 1,
-          duration: 500,
-          useNativeDriver: true
-        })
-      ]),
-      {
-        iterations: 10
-      }
-    ).start();
-  }
+
   const saveScale = scaleValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 1]
