@@ -37,13 +37,16 @@ class GameJoin extends React.Component {
     this.props.navigation.navigate("GameReady");
   }
 
-  onFlareSpinPress() {
+  onFlareSpinPress = () => {
+    this.props.navigation.navigate('FlareSpinWheel');
+  };
 
-  }
+  onRuleObjectPress = () => {
 
-  onRuleObjectPress() {
-
-  }
+  };
+  onMegaSpinPress = () => {
+    this.props.navigation.navigate('MegaSpinWheel');
+  };
 
   render() {
     const RandomFlare = (Math.random() * 100).toFixed(0);
@@ -94,7 +97,8 @@ class GameJoin extends React.Component {
               <View>
                 <Image style={joinStyles.flare_border_right}
                        source={require("../../../assets/images/game/lightning/lightning-cover.png")}/>
-                <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-2")} my={hp("0")} unMount={this.state.unMount}/>
+                <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-2")} my={hp("0")}
+                                 unMount={this.state.unMount}/>
               </View>
             </View>
             <View style={joinStyles.join_bottom_view}>
@@ -172,7 +176,7 @@ class GameJoin extends React.Component {
                   <Text style={joinStyles.setting_item_right_textBox}>1</Text>
                   <TouchableOpacity
                     style={joinStyles.flare_spins_btn}
-                    onPress={this.onFlareSpinPress}>
+                    onPress={this.onMegaSpinPress}>
                     <Image source={require("../../../assets/images/game/icon/arrow.png")} style={{
                       width: wp("2"),
                       height: wp("3")

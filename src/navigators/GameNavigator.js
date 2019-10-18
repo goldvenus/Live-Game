@@ -6,6 +6,8 @@ import GameCountDown from "../containers/Game/GameCountDown";
 import GameStart from "../containers/Game/GameStart";
 import GameMegaRound from "../containers/Game/page/GameMegaRound";
 import GameNikiRound from "../containers/Game/page/GameNikiRound";
+import MegaSpinWheel from "../containers/Game/page/MegaSpinWheel";
+import FlareSpinWheel from "../containers/Game/page/FlareSpinWheel";
 
 const GameNavigator = createStackNavigator({
 
@@ -39,14 +41,24 @@ const GameNavigator = createStackNavigator({
       header: null
     }
   },
-
   GameMegaRound: {
     screen: GameMegaRound,
     navigationOptions: {
       header: null
     }
+  },
+  MegaSpinWheel: {
+    screen: MegaSpinWheel,
+    navigationOptions: {
+      header: null
+    }
+  },
+  FlareSpinWheel: {
+    screen: FlareSpinWheel,
+    navigationOptions: {
+      header: null
+    }
   }
-
 });
 
 GameNavigator.navigationOptions = ({ navigation }) => {
