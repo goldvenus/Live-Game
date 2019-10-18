@@ -44,7 +44,7 @@ class Signup extends Component {
           <View style={styles.logoContainer}>
             <Image
               style={styles.logo}
-              source={require('../../assets/images/icon.png')}
+              source={require('../../../assets/images/icon.png')}
             />
             <Text style={styles.logoText}>Crowdbotics</Text>
           </View>
