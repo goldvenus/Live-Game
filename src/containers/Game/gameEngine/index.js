@@ -191,8 +191,8 @@ export default function GamePlay({ backPage }) {
         doublefireReady=false;
         clearTimeout(oneFireshotTimer);
         soundEffectPlay(shotSoundObjectTen);
-        onMultiFireGun(10);
-      }, 300);
+        onMultiFireGun(9);
+      }, 250);
     }
     else if(doublefireReady && (pressedIntime - pressedTime < 300)) {
       console.log('3times');
