@@ -8,12 +8,7 @@ import GameMegaRound from "../containers/Game/page/GameMegaRound";
 import GameNikiRound from "../containers/Game/page/GameNikiRound";
 
 const GameNavigator = createStackNavigator({
-  GameCountDown: {
-    screen: GameCountDown,
-    navigationOptions: {
-      header: null
-    }
-  },
+
   GameJoin: {
     screen: GameJoin,
     navigationOptions: {
