@@ -56,7 +56,7 @@ class GameCountDown extends React.Component {
     if (this.state.downTime < 1) {
       clearInterval(this.clockCountDown);
       //this.props.navigation.goBack(null);
-      this.props.navigation.navigate("GameStart");
+      this.props.navigation.replace("GameStart");
     }
     else
       this.setState((prevstate) => ({ downTime: prevstate.downTime - 1 }));

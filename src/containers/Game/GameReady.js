@@ -43,7 +43,7 @@ class GameReady extends React.Component {
       clearInterval(this.clockCountDown);
       this.setState({unMount: true});
       //this.props.navigation.goBack(null);
-      this.props.navigation.navigate("GameCountDown");
+      this.props.navigation.replace("GameCountDown");
     }
     else
       this.setState((prevstate) => ({ downTime: prevstate.downTime - 1 }));

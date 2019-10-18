@@ -22,7 +22,7 @@ export default class GameStart extends React.Component {
 
   goPage = (pageName) => {
     //this.props.navigation.goBack(null);
-    this.props.navigation.navigate(pageName);
+    this.props.navigation.replace(pageName);
   }
   render() {
     return (
