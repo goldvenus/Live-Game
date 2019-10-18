@@ -146,8 +146,10 @@ export default function GamePlay({ backPage }) {
   };
 
   const oneShot=()=> {
-    setbulletCount(t=>t - 1);
-    NewFire(bulletSpeed);
+    if(bulletCount >=1) {
+      setbulletCount(t => t - 1);
+      NewFire(bulletSpeed);
+    }
   }
 
   const onMultiFireGun = (multiNum) => {

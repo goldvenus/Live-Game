@@ -70,7 +70,7 @@ function GameBottomBar({ bulletCount, gamePlayTime }) {
         ]
       }}>{`${gamePlayMin}:${gamePlaySec}`}</Animated.Text>
       <Text style={styles.mark_text}>FLARE COUNT:</Text>
-      <Text style={styles.game_mark}>{bulletCount}</Text>
+      <Text style={styles.game_mark}>{bulletCount>=0 ? bulletCount:0}</Text>
     </View>
   );
 };
