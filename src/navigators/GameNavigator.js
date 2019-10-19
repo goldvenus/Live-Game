@@ -11,6 +11,7 @@ import FlareSpinWheel from "../containers/Game/page/FlareSpinWheel";
 
 const GameNavigator = createStackNavigator({
 
+
   GameJoin: {
     screen: GameJoin,
     navigationOptions: {
@@ -47,18 +48,18 @@ const GameNavigator = createStackNavigator({
       header: null
     }
   },
+  FlareSpinWheel: {
+    screen: FlareSpinWheel,
+    navigationOptions: {
+      header: null
+    }
+  },
   MegaSpinWheel: {
     screen: MegaSpinWheel,
     navigationOptions: {
       header: null
     }
   },
-  FlareSpinWheel: {
-    screen: FlareSpinWheel,
-    navigationOptions: {
-      header: null
-    }
-  }
 });
 
 GameNavigator.navigationOptions = ({ navigation }) => {

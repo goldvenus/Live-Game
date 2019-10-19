@@ -55,7 +55,8 @@ export const styles = StyleSheet.create({
     paddingLeft: wp('2')
   },
   header_view: {
-    width: '100%',
+    width: wp('100'),
+    height: hp('8'),
     display: 'flex',
     position: 'absolute',
     zIndex: 10,

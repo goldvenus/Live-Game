@@ -1,74 +1,346 @@
-import React from 'react';
-import Canvas from 'react-native-canvas';
-import { View } from 'react-native';
-export default  function FlareSpinWheel() {
-  const _handleCanvas = (canvas) => {
-    if (canvas !== null) {
-      const options = ['a', 'b', 'c', 'd', 'e'];
-      let ctx = canvas.getContext('2d');
-      canvas.width = 500;
-      canvas.height = 500;
-      let outsideRadius = 20;
-      let textRadius = 110;
-      let insideRadius = 180;
-      let startAngle = 0;
-      let arc = Math.PI / (options.length / 2);
-      ctx.clearRect(0, 0, 800, 800);
-      ctx.strokeStyle = "#00f";
-      ctx.lineWidth = 0;
-      ctx.font = 'bold 14px Open Sans';
+import React from "react";
+import {
+  StyleSheet,
+  View,
+  Text as RNText,
+  Dimensions,
+  Animated,
+  TouchableOpacity,
+  Image as RNImage
+} from "react-native";
+import * as d3Shape from "d3-shape";
+import color from "randomcolor";
+import { snap } from "@popmotion/popcorn";
+import Svg, { Path, G, Text, TSpan, Image } from "react-native-svg";
+import Images from "../../../../MocData";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import GameHeaderBar from "../components/GameHeaderBar";
+const { width } = Dimensions.get("screen");
 
-      for (let i = 0; i < options.length; i++) {
-        let angle = startAngle + i * arc;
-        //ctx.fillStyle = colors[i];
-        ctx.fillStyle = '#f00';
-        ctx.beginPath();
-        ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
-        ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
-        ctx.fill();
+const numberOfSegments = 8;
+const wheelSize = wp(85);
+const fontSize = 26;
+const oneTurn = 360;
+const angleBySegment = oneTurn / numberOfSegments;
+const angleOffset = angleBySegment / 2;
+const knobFill = color({ hue: "purple" });
 
-        ctx.save();
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
-        ctx.shadowBlur = 0;
-        ctx.shadowColor = 'rgb(220,220,220)';
-        ctx.fillStyle = '#666666';
-        ctx.translate(
-          250 + Math.cos(angle + arc / 2) * textRadius,
-          250 + Math.sin(angle + arc / 2) * textRadius
-        );
-        ctx.rotate(80 + angle + arc / 2 + Math.PI / 2);
-        let text = options[i];
-        ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
-        ctx.restore();
+const makeWheel = () => {
+  const data = Array.from({ length: numberOfSegments }).fill(1);
+  const arcs = d3Shape.pie()(data);
+  const colors = color({
+    luminosity: "dark",
+    count: numberOfSegments
+  });
+
+  return arcs.map((arc, index) => {
+    const instance = d3Shape
+      .arc()
+      .padAngle(0.01) // padding arc
+      .outerRadius(wp('50'))
+      .innerRadius(wp('30'));
+
+    return {
+      path: instance(arc),
+      color: "#000",//colors[index], // set arc background color
+      value: index,//Math.round(Math.random() * 10 + 1) * 200, //[200, 2200]
+      centroid: instance.centroid(arc)
+    };
+  });
+};
+
+export default class FlareSpinWheel extends React.Component {
+  _wheelPaths = makeWheel();
+  _angle = new Animated.Value(0);
+  angle = 0;
+
+  state = {
+    enabled: true,
+    finished: false,
+    winner: null
+  };
+
+  ImageArray = Images.wheel.flare;
+
+  goWheel() {
+    const m_speed = 2000;
+    Animated.decay(this._angle, {
+      velocity: m_speed / 1000,
+      deceleration: 0.99924, //0.999 ~ 0.9999 Random
+      useNativeDriver: true
+    }).start(() => {
+      this._angle.setValue(this.angle % oneTurn);
+      const snapTo = snap(oneTurn / numberOfSegments);
+      Animated.timing(this._angle, {
+        toValue: snapTo(this.angle),
+        duration: 700,
+        useNativeDriver: true
+      }).start(() => {
+        const winnerIndex = this._getWinnerIndex();
+        this.setState({
+          enabled: true,
+          finished: true,
+          winner: this._wheelPaths[winnerIndex].value
+        });
+      });
+      // do something here;
+    });
+  }
+
+  backButtonPress() {
+    this.props.navigation.goBack(null);
+  }
+
+  componentDidMount() {
+    this._angle.addListener(event => {
+      if (this.state.enabled) {
+        this.setState({
+          enabled: false,
+          finished: false
+        });
       }
-      ctx.beginPath();
-      ctx.shadowOffsetX = 5;
-      ctx.shadowOffsetY = 5;
-      ctx.shadowBlur = 3;
-      ctx.shadowColor = 'rgb(220,220,220)';
-      ctx.lineWidth = 20;
-      ctx.arc(250, 250, insideRadius, 0, 2 * Math.PI, false);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.lineWidth = 10;
-      ctx.strokeStyle = '#ff0';
-      ctx.arc(250, 250, outsideRadius, 0, 2 * Math.PI, false);
-      ctx.stroke();
-    }
+      this.angle = event.value;
+    });
+  }
+
+  _getWinnerIndex = () => {
+    const deg = Math.abs(Math.round(this.angle % oneTurn));
+    return Math.floor(deg / angleBySegment);
   };
 
-  const _renderCanvas = () => {
-    return <Canvas ref={_handleCanvas} />;
-  };
-  return <View style={{
-    flex:1,
-    width: '100%',
-    heigth: '100%',
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center'
-  }}>{_renderCanvas()}</View>;
+  render() {
+    return (
+      <View
+        style={styles.container}>
+        <GameHeaderBar/>
+        <View style={styles.headerTitleSection}>
+          <RNText style={styles.headerTopTitle}>MEGA SPINS:</RNText>
+          <RNText style={styles.headerTopCount}>0</RNText>
+        </View>
+        <View style={styles.wheelContainer}>
+          {this._renderSvgWheel()}
+          {/*this.state.finished && this.state.enabled && this._renderWinner()*/}
+        </View>
+        <View style={styles.winnerTextContainer}>
+          <RNText style={styles.winnerText}>
+            MEGA CREDITS NEEDED: 1
+          </RNText>
+        </View>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => this.backButtonPress()}>
+          <RNImage source={Images.game.icon.arrow} style={styles.backButtonImage}/>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
+  _renderKnob = () => {
+    const knobSize = 30;
+    // [0, numberOfSegments]
+    const YOLO = Animated.modulo(
+      Animated.divide(
+        Animated.modulo(Animated.subtract(this._angle, angleOffset), oneTurn),
+        new Animated.Value(angleBySegment)
+      ),
+      1
+    );
+
+    return (
+      <Animated.View
+        style={{
+          width: knobSize,
+          height: knobSize * 2,
+          justifyContent: "flex-end",
+          zIndex: 1,
+          transform: [
+            {
+              rotate: YOLO.interpolate({
+                inputRange: [-1, -0.5, -0.0001, 0.0001, 0.5, 1],
+                outputRange: [
+                  "0deg",
+                  "0deg",
+                  "35deg",
+                  "-35deg",
+                  "0deg",
+                  "0deg"
+                ]
+              })
+            }
+          ]
+        }}>
+        <Svg
+          width={knobSize}
+          height={(knobSize * 100) / 57}
+          viewBox={`0 0 57 100`}
+          style={{ transform: [{ translateY: 8 }] }}>
+          <Path
+            d="M28.034,0C12.552,0,0,12.552,0,28.034S28.034,100,28.034,100s28.034-56.483,28.034-71.966S43.517,0,28.034,0z   M28.034,40.477c-6.871,0-12.442-5.572-12.442-12.442c0-6.872,5.571-12.442,12.442-12.442c6.872,0,12.442,5.57,12.442,12.442  C40.477,34.905,34.906,40.477,28.034,40.477z"
+            fill={knobFill}
+          />
+        </Svg>
+      </Animated.View>
+    );
+  };
+
+  _renderWinner = () => {
+    return (
+      <RNText style={{
+        color: 'white'
+      }}>Winner is: {this.state.winner}</RNText>
+    );
+  };
+
+  _renderSvgWheel = () => {
+    return (
+      <View>
+        {/*this._renderKnob()*/}
+        <Animated.View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            transform: [
+              {
+                rotate: this._angle.interpolate({
+                  inputRange: [-oneTurn, 0, oneTurn],
+                  outputRange: [`-${oneTurn}deg`, `0deg`, `${oneTurn}deg`]
+                })
+              }
+            ]
+          }}>
+          <Svg
+            width={wheelSize}
+            height={wheelSize}
+            viewBox={`0 0 ${width} ${width}`}
+            style={{ transform: [{ rotate: `-${angleOffset}deg` }] }}>
+            <G y={width / 2} x={width / 2}>
+              {this._wheelPaths.map((arc, i) => {
+                const [x, y] = arc.centroid;
+                const number = arc.value.toString();
+
+                return (
+                  <G key={`arc-${i}`}>
+                    <Path d={arc.path} fill={arc.color}/>
+                    <G
+                      rotation={(i * oneTurn) / numberOfSegments + angleOffset}
+                      origin={`${x}, ${y}`}>
+                      <Image
+                        x={x - wp('4')}
+                        y={y - wp('4')}
+                        width={wp('8')}
+                        height={wp('8')}
+                        preserveAspectRatio="xMidYMid slice"
+                        href={this.ImageArray[Object.keys(this.ImageArray)[i]]}
+                      />
+                      {/*<Text
+                        x={x}
+                        y={y - 30}
+                        fill="white"
+                        textAnchor="middle"
+                        fontSize={fontSize}>
+                        {Array.from({ length: number.length }).map((_, j) => {
+                          return (
+                            <TSpan
+                              x={x}
+                              dy={fontSize}
+                              key={`arc-${i}-slice-${j}`}>
+                              {number.charAt(j)}
+                            </TSpan>
+                          );
+                        })}
+                      </Text>*/}
+                    </G>
+                  </G>
+                );
+              })}
+            </G>
+          </Svg>
+        </Animated.View>
+        <TouchableOpacity style={styles.wheelBackgroundContainer}
+          onPress={() => this.goWheel()}>
+          <RNImage source={Images.wheel.background.first} style={styles.wheelBackground}/>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 }
+
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+    backgroundColor: "#181818"
+  },
+  wheelContainer: {
+    flex: 1,
+    padding:hp('5')
+  },
+  backButton: {
+    position: 'absolute',
+    zIndex: 3,
+    top:hp('15'),
+    left: 0,
+    paddingLeft: wp('3'),
+    paddingTop: hp('1.1'),
+    paddingBottom: hp('1.1'),
+    paddingRight: hp('3'),
+    borderTopRightRadius: wp('5'),
+    borderBottomRightRadius: wp('5'),
+    backgroundColor: '#242424'
+  },
+  backButtonImage: {
+    transform: [
+      {
+        scaleX: -1,
+      }
+    ],
+    width: wp('2.5'),
+    height: wp('5'),
+    resizeMode: 'contain'
+  },
+  headerTitleSection: {
+    display: 'flex',
+    flexDirection:'row',
+    alignItems: 'center',
+    paddingTop: hp('15'),
+  },
+  headerTopTitle: {
+    color: 'white',
+    opacity: 0.3,
+    fontFamily: 'Antonio',
+    fontSize: wp('7.5'),
+  },
+  headerTopCount: {
+    color: 'white',
+    fontFamily: 'Antonio-Bold',
+    fontSize: wp('7.7'),
+    paddingLeft: wp('1')
+
+  },
+  winnerTextContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    paddingBottom: hp('6')
+  },
+  winnerText: {
+    color: 'white',
+    opacity: 0.5,
+    fontFamily: 'Antonio',
+    fontSize: wp('5.6')
+  },
+  wheelBackgroundContainer: {
+    position: 'absolute',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: "flex",
+    flexDirection: 'row',
+  },
+  wheelBackground: {
+    width: wp('45'),
+    resizeMode: 'contain'
+  }
+});
