@@ -6,7 +6,7 @@ import {
   Dimensions,
   Animated,
   TouchableOpacity,
-  Image as RNImage
+  Image as RNImage, Alert
 } from "react-native";
 import * as d3Shape from "d3-shape";
 import color from "randomcolor";
@@ -19,7 +19,6 @@ import GameHeaderBar from "../components/GameHeaderBar";
 const width = wp("100");
 const numberOfSegments = 8;
 const wheelSize = wp('75');
-const fontSize = 26;
 const oneTurn = 360;
 const angleBySegment = oneTurn / numberOfSegments;
 const angleOffset = angleBySegment / 2;
@@ -61,12 +60,26 @@ export default class FlareSpinWheel extends React.Component {
   };
 
   ImageArray = Images.wheel.flare;
-
+  showWinnerResult = (mark) => {
+    Alert.alert(
+      "Choose Flare",
+      `You get the (${mark}) flare.`,
+      [
+        {
+          text: "OK", onPress: () => this.props.navigation.goBack(null)
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+  getRandomDeceleration() {
+    return 0.999+(Math.floor(Math.random()*100)%70)/100000;
+  }
   goWheel() {
-    const m_speed = 2000;
+    const m_speed = -2000;
     Animated.decay(this._angle, {
       velocity: m_speed / 1000,
-      deceleration: 0.99924, //0.999 ~ 0.9999 Random
+      deceleration: this.getRandomDeceleration(), //0.999 ~ 0.9999 Random
       useNativeDriver: true
     }).start(() => {
       this._angle.setValue(this.angle % oneTurn);
@@ -77,6 +90,7 @@ export default class FlareSpinWheel extends React.Component {
         useNativeDriver: true
       }).start(() => {
         const winnerIndex = this._getWinnerIndex();
+        this.showWinnerResult(winnerIndex);
         this.setState({
           enabled: true,
           finished: true,
@@ -193,12 +207,17 @@ export default class FlareSpinWheel extends React.Component {
 
   _renderSvgWheel = () => {
     return (
-      <View>
+      <View style={{
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: 'row',
+      }}>
         {/*this._renderKnob()*/}
         <Animated.View
           style={{
             alignItems: "center",
             justifyContent: "center",
+            flexDirection: 'row',
             transform: [
               {
                 rotate: this._angle.interpolate({
@@ -216,8 +235,6 @@ export default class FlareSpinWheel extends React.Component {
             <G y={width / 2} x={width / 2}>
               {this._wheelPaths.map((arc, i) => {
                 const [x, y] = arc.centroid;
-                const number = arc.value.toString();
-
                 return (
                   <G key={`arc-${i}`}>
                     <Path d={arc.path} fill={arc.color}/>
@@ -232,23 +249,6 @@ export default class FlareSpinWheel extends React.Component {
                         preserveAspectRatio="xMidYMid slice"
                         href={this.ImageArray[Object.keys(this.ImageArray)[i]]}
                       />
-                      {/*<Text
-                        x={x}
-                        y={y - 30}
-                        fill="white"
-                        textAnchor="middle"
-                        fontSize={fontSize}>
-                        {Array.from({ length: number.length }).map((_, j) => {
-                          return (
-                            <TSpan
-                              x={x}
-                              dy={fontSize}
-                              key={`arc-${i}-slice-${j}`}>
-                              {number.charAt(j)}
-                            </TSpan>
-                          );
-                        })}
-                      </Text>*/}
                     </G>
                   </G>
                 );
@@ -278,7 +278,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
-    padding: hp("5")
+    paddingTop: hp("5"),
+    paddingBottom: hp('5')
   },
   backButton: {
     position: "absolute",
@@ -307,7 +308,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    paddingTop: hp("5")
+    paddingTop: hp('5')
   },
   headerTopTitle: {
     color: "white",
