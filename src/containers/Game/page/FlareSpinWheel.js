@@ -13,12 +13,12 @@ import color from "randomcolor";
 import { snap } from "@popmotion/popcorn";
 import Svg, { Path, G, Text, TSpan, Image } from "react-native-svg";
 import Images from "../../../../MocData";
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import GameHeaderBar from "../components/GameHeaderBar";
-const { width } = Dimensions.get("screen");
 
+const width = wp("100");
 const numberOfSegments = 8;
-const wheelSize = wp(85);
+const wheelSize = wp('75');
 const fontSize = 26;
 const oneTurn = 360;
 const angleBySegment = oneTurn / numberOfSegments;
@@ -37,8 +37,8 @@ const makeWheel = () => {
     const instance = d3Shape
       .arc()
       .padAngle(0.01) // padding arc
-      .outerRadius(wp('50'))
-      .innerRadius(wp('30'));
+      .outerRadius(wp("50"))
+      .innerRadius(wp("30"));
 
     return {
       path: instance(arc),
@@ -186,7 +186,7 @@ export default class FlareSpinWheel extends React.Component {
   _renderWinner = () => {
     return (
       <RNText style={{
-        color: 'white'
+        color: "white"
       }}>Winner is: {this.state.winner}</RNText>
     );
   };
@@ -225,10 +225,10 @@ export default class FlareSpinWheel extends React.Component {
                       rotation={(i * oneTurn) / numberOfSegments + angleOffset}
                       origin={`${x}, ${y}`}>
                       <Image
-                        x={x - wp('4')}
-                        y={y - wp('4')}
-                        width={wp('8')}
-                        height={wp('8')}
+                        x={x - wp("4")}
+                        y={y - wp("4")}
+                        width={wp("8")}
+                        height={wp("8")}
                         preserveAspectRatio="xMidYMid slice"
                         href={this.ImageArray[Object.keys(this.ImageArray)[i]]}
                       />
@@ -257,7 +257,7 @@ export default class FlareSpinWheel extends React.Component {
           </Svg>
         </Animated.View>
         <TouchableOpacity style={styles.wheelBackgroundContainer}
-          onPress={() => this.goWheel()}>
+                          onPress={() => this.goWheel()}>
           <RNImage source={Images.wheel.background.first} style={styles.wheelBackground}/>
         </TouchableOpacity>
       </View>
@@ -274,73 +274,76 @@ const styles = StyleSheet.create({
     backgroundColor: "#181818"
   },
   wheelContainer: {
-    flex: 1,
-    padding:hp('5')
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    padding: hp("5")
   },
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 3,
-    top:hp('15'),
+    top: hp("15"),
     left: 0,
-    paddingLeft: wp('3'),
-    paddingTop: hp('1.1'),
-    paddingBottom: hp('1.1'),
-    paddingRight: hp('3'),
-    borderTopRightRadius: wp('5'),
-    borderBottomRightRadius: wp('5'),
-    backgroundColor: '#242424'
+    paddingLeft: wp("3"),
+    paddingTop: hp("1.1"),
+    paddingBottom: hp("1.1"),
+    paddingRight: hp("3"),
+    borderTopRightRadius: wp("5"),
+    borderBottomRightRadius: wp("5"),
+    backgroundColor: "#242424"
   },
   backButtonImage: {
     transform: [
       {
-        scaleX: -1,
+        scaleX: -1
       }
     ],
-    width: wp('2.5'),
-    height: wp('5'),
-    resizeMode: 'contain'
+    width: wp("2.5"),
+    height: wp("5"),
+    resizeMode: "contain"
   },
   headerTitleSection: {
-    display: 'flex',
-    flexDirection:'row',
-    alignItems: 'center',
-    paddingTop: hp('15'),
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingTop: hp("5")
   },
   headerTopTitle: {
-    color: 'white',
+    color: "white",
     opacity: 0.3,
-    fontFamily: 'Antonio',
-    fontSize: wp('7.5'),
+    fontFamily: "Antonio",
+    fontSize: wp("7.5")
   },
   headerTopCount: {
-    color: 'white',
-    fontFamily: 'Antonio-Bold',
-    fontSize: wp('7.7'),
-    paddingLeft: wp('1')
+    color: "white",
+    fontFamily: "Antonio-Bold",
+    fontSize: wp("7.7"),
+    paddingLeft: wp("1")
 
   },
   winnerTextContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    paddingBottom: hp('6')
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    paddingTop: hp('5')
   },
   winnerText: {
-    color: 'white',
+    color: "white",
     opacity: 0.5,
-    fontFamily: 'Antonio',
-    fontSize: wp('5.6')
+    fontFamily: "Antonio",
+    fontSize: wp("5.6")
   },
   wheelBackgroundContainer: {
-    position: 'absolute',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    position: "absolute",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     display: "flex",
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   wheelBackground: {
-    width: wp('45'),
-    resizeMode: 'contain'
+    width: wp("45"),
+    resizeMode: "contain"
   }
 });

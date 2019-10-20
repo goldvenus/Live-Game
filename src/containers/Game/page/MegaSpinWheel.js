@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   Text as RNText,
-  Dimensions,
   Animated,
   TouchableOpacity,
   Image as RNImage
@@ -17,7 +16,6 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 import GameHeaderBar from "../components/GameHeaderBar";
 
 const width=wp('100');
-
 const numberOfSegments = 10;
 const numberOfWheelLine = 80;
 const wheelSize = wp('85');
@@ -56,6 +54,7 @@ export default class MegaSpinWheel extends React.Component {
   _wheelPaths = makeWheel(numberOfSegments);
   _wheelLinePaths = makeWheel(numberOfWheelLine);
   _angle = new Animated.Value(0);
+  _zomeOutIn = new Animated.Value(0);
   angle = 0;
 
   state = {
@@ -246,7 +245,7 @@ export default class MegaSpinWheel extends React.Component {
         alignItems: 'center',
         flexDirection: 'row'
       }}>
-        {/*this._renderKnob()*/}
+        {/*{this._renderKnob()}*/}
         <Animated.View
           style={{
             alignItems: "center",
@@ -410,7 +409,6 @@ const styles = StyleSheet.create({
   wheelBackgroundContainer: {
     position: "absolute",
     width: "100%",
-    height: wp('85'),
     justifyContent: "center",
     display: "flex",
     flexDirection: "row"

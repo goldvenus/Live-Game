@@ -78,9 +78,18 @@ const Images = {
       niki: {
         nikiShoe: require('./assets/images/game/pages/niki/niki-shoe.png')
       },
-      roundLock: require('./assets/images/game/pages/round-lock.png'),
-      roundBgOrange: require('./assets/images/game/pages/round-top-bg-orange.png'),
-      roundBgRed: require('./assets/images/game/pages/round-top-bg-red.png')
+      nikiQuestion: {
+        first: require('./assets/images/game/pages/nikiQuestion/first.png'),
+        second: require('./assets/images/game/pages/nikiQuestion/second.png'),
+        third: require('./assets/images/game/pages/nikiQuestion/third.png'),
+      },
+      flareAnswer: {
+        first: require('./assets/images/game/pages/flareAnswer/buttonBG.png'),
+        background: require('./assets/images/game/pages/flareAnswer/answerBg.png')
+      },
+      roundLock: require('./assets/images/game/pages/first.png'),
+      roundBgOrange: require('./assets/images/game/pages/second.png'),
+      roundBgRed: require('./assets/images/game/pages/third.png')
     },
     icon: {
       arrow: require('./assets/images/game/icon/arrow.png'),

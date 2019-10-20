@@ -43,7 +43,7 @@ class GameJoin extends React.Component {
   };
 
   onRuleObjectPress = () => {
-
+    this.props.navigation.navigate('NikiQuestion');
   };
   onMegaSpinPress = () => {
     this.props.navigation.navigate('MegaSpinWheel');
