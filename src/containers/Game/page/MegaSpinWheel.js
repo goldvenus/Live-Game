@@ -60,7 +60,8 @@ export default class MegaSpinWheel extends React.Component {
   state = {
     enabled: true,
     finished: false,
-    winner: null
+    winner: null,
+    playWheel: false
   };
 
   ImageArray = Images.wheel.mega;
@@ -123,8 +124,10 @@ export default class MegaSpinWheel extends React.Component {
     return 0.999+(Math.floor(Math.random()*100)%100)/100000;
   }
   goWheel() {
-    console.log(this.getRandomDeceleration())
     const m_speed = -2000;
+    if (this.state.playWheel)
+      return;
+    this.setState({playWheel: true});
     Animated.decay(this._angle, {
       velocity: m_speed / 1000,
       deceleration: this.getRandomDeceleration(), //0.999 ~ 0.9999 Random
@@ -158,7 +161,7 @@ export default class MegaSpinWheel extends React.Component {
       if (this.state.enabled) {
         this.setState({
           enabled: false,
-          finished: false
+          finished: false,
         });
       }
       this.angle = event.value;

@@ -18,7 +18,7 @@ import GameHeaderBar from "../components/GameHeaderBar";
 
 const width = wp("100");
 const numberOfSegments = 8;
-const wheelSize = wp('75');
+const wheelSize = wp("75");
 const oneTurn = 360;
 const angleBySegment = oneTurn / numberOfSegments;
 const angleOffset = angleBySegment / 2;
@@ -56,7 +56,8 @@ export default class FlareSpinWheel extends React.Component {
   state = {
     enabled: true,
     finished: false,
-    winner: null
+    winner: null,
+    playWheel: false
   };
 
   ImageArray = Images.wheel.flare;
@@ -72,10 +73,15 @@ export default class FlareSpinWheel extends React.Component {
       { cancelable: false }
     );
   };
+
   getRandomDeceleration() {
-    return 0.999+(Math.floor(Math.random()*100)%70)/100000;
+    return 0.999 + (Math.floor(Math.random() * 100) % 70) / 100000;
   }
+
   goWheel() {
+    if (this.state.playWheel)
+      return;
+    this.setState({ playWheel: true });
     const m_speed = -2000;
     Animated.decay(this._angle, {
       velocity: m_speed / 1000,
@@ -210,14 +216,14 @@ export default class FlareSpinWheel extends React.Component {
       <View style={{
         alignItems: "center",
         justifyContent: "center",
-        flexDirection: 'row',
+        flexDirection: "row"
       }}>
         {/*this._renderKnob()*/}
         <Animated.View
           style={{
             alignItems: "center",
             justifyContent: "center",
-            flexDirection: 'row',
+            flexDirection: "row",
             transform: [
               {
                 rotate: this._angle.interpolate({
@@ -274,12 +280,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#181818"
   },
   wheelContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
     paddingTop: hp("5"),
-    paddingBottom: hp('5')
+    paddingBottom: hp("5")
   },
   backButton: {
     position: "absolute",
@@ -308,7 +314,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    paddingTop: hp('5')
+    paddingTop: hp("5")
   },
   headerTopTitle: {
     color: "white",
@@ -327,7 +333,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     position: "relative",
-    paddingTop: hp('5')
+    paddingTop: hp("5")
   },
   winnerText: {
     color: "white",
@@ -341,7 +347,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "row"
   },
   wheelBackground: {
     width: wp("45"),
