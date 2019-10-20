@@ -8,7 +8,6 @@ import { middleware } from '../navigators/AppNavigator';
 
 import reducers from './reducers';
 
-
 // redux debugging
 let composeEnhancers = compose;
 if (__DEV__) {

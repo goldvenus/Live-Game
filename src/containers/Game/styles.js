@@ -288,6 +288,7 @@ export const joinStyles = StyleSheet.create( {
     alignItems: 'center'
   },
   flare_spins_btn: {
+
   },
   game_MegaSpin_item: {
     paddingLeft: wp('5'),

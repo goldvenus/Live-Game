@@ -1,6 +1,6 @@
 import { RootNavigator } from '../../navigators/AppNavigator';
 
-const splashAction = RootNavigator.router.getActionForPathAndParams('Game');
+const splashAction = RootNavigator.router.getActionForPathAndParams('Home');
 const splashState = RootNavigator.router.getStateForAction(splashAction);
 
 const INITIAL_STATE = splashState;

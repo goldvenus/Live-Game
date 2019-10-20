@@ -153,38 +153,40 @@ class GameJoin extends React.Component {
             <View style={joinStyles.game_flareSpin_item}>
               <Image style={joinStyles.game_flareSpin_item_image}
                      source={Images.game.gameplay.target.triangular.green}/>
-              <View style={joinStyles.setting_item_list}>
+              <TouchableOpacity style={joinStyles.setting_item_list}
+                                onPress={this.onFlareSpinPress}
+                                activeOpacity={0.4}>
                 <Text style={GameGlobal.h5}>Flare Spins</Text>
                 <View style={joinStyles.setting_item_right_view}>
                   <Text style={joinStyles.setting_item_right_textBox}>2</Text>
-                  <TouchableOpacity
-                    style={joinStyles.flare_spins_btn}
-                    onPress={this.onFlareSpinPress}>
+                  <View
+                    style={joinStyles.flare_spins_btn}>
                     <Image source={Images.game.icon.arrow} style={{
                       width: wp("2"),
                       height: wp("3")
                     }}/>
-                  </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
             <View style={joinStyles.game_MegaSpin_item}>
               <Image style={joinStyles.game_flareSpin_item_image}
                      source={Images.game.icon.megaSpin}/>
-              <View style={joinStyles.setting_mega_item_list}>
+              <TouchableOpacity style={joinStyles.setting_mega_item_list}
+                                onPress={this.onMegaSpinPress}
+                                activeOpacity={0.4}>
                 <Text style={GameGlobal.h5}>Mega Spins</Text>
                 <View style={joinStyles.setting_item_right_view}>
                   <Text style={joinStyles.setting_item_right_textBox}>1</Text>
-                  <TouchableOpacity
-                    style={joinStyles.flare_spins_btn}
-                    onPress={this.onMegaSpinPress}>
+                  <View
+                    style={joinStyles.flare_spins_btn}>
                     <Image source={Images.game.icon.arrow} style={{
                       width: wp("2"),
                       height: wp("3")
                     }}/>
-                  </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
             <View style={joinStyles.game_MegaSpin_item}>
               <Image style={{
@@ -193,19 +195,20 @@ class GameJoin extends React.Component {
                 marginRight: wp("1"),
                 marginLeft: wp("1")
               }} source={Images.game.icon.ruleObject}/>
-              <View style={joinStyles.setting_mega_item_list}>
+              <TouchableOpacity style={joinStyles.setting_mega_item_list}
+                                onPress={this.onRuleObjectPress}
+                                activeOpacity={0.4}>
                 <Text style={GameGlobal.h5}>Rules and Objective</Text>
                 <View style={joinStyles.setting_item_right_view}>
-                  <TouchableOpacity
-                    style={joinStyles.flare_spins_btn}
-                    onPress={this.onRuleObjectPress}>
+                  <View
+                    style={joinStyles.flare_spins_btn}>
                     <Image source={Images.game.icon.arrow} style={{
                       width: wp("2"),
                       height: wp("3")
                     }}/>
-                  </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         </Content>
