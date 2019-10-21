@@ -12,6 +12,9 @@ import { getspinArray } from "./data/levelData";
 import { GetFlareBox } from "../components/animation/GetFlareAnimation";
 import Images from "../../../../MocData";
 import { Audio } from "expo-av";
+import {connect} from 'react-redux'
+import { bindActionCreators } from 'redux';
+import {addFlareScore} from '../../../redux/action/game'
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 
@@ -33,7 +36,7 @@ let endGameTimer = null;
 let doublefireReady = false;
 let doublefireReadyTimer = null;
 
-export default function GamePlay({ backPage }) {
+function GamePlay({ backPage, addFlareScore }) {
   const [running, setRunning] = React.useState(true);
   const [score, setScore] = React.useState(0);
   const [passPlayers, setpassPlayers] = React.useState(0);
@@ -129,6 +132,7 @@ export default function GamePlay({ backPage }) {
     }
     ///update score
     if (e.type.includes("score")) {
+      addFlareScore(parseInt(e.type.slice(6)));
       setScore(score + parseInt(e.type.slice(6)));
     }
   };
@@ -312,3 +316,14 @@ export default function GamePlay({ backPage }) {
     </View>
   );
 }
+
+const mapDispatchToProps = (dispatch)=> {
+  return {
+    dispatch,
+    ...bindActionCreators({
+      addFlareScore: addFlareScore
+    }, dispatch)
+  }
+};
+
+export default connect(null, mapDispatchToProps)(GamePlay);
