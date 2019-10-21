@@ -55,7 +55,8 @@ export const styles = StyleSheet.create({
     paddingLeft: wp('2')
   },
   header_view: {
-    width: '100%',
+    width: wp('100'),
+    height: hp('8'),
     display: 'flex',
     position: 'absolute',
     zIndex: 10,
@@ -287,6 +288,7 @@ export const joinStyles = StyleSheet.create( {
     alignItems: 'center'
   },
   flare_spins_btn: {
+
   },
   game_MegaSpin_item: {
     paddingLeft: wp('5'),

@@ -17,6 +17,7 @@ import {
   handleAndroidBackButton,
   removeAndroidBackButtonHandler
 } from "../../services/BackPress";
+import Images from "../../../MocData";
 
 class GameJoin extends React.Component {
   state = {
@@ -37,13 +38,16 @@ class GameJoin extends React.Component {
     this.props.navigation.navigate("GameReady");
   }
 
-  onFlareSpinPress() {
+  onFlareSpinPress = () => {
+    this.props.navigation.navigate('FlareSpinWheel');
+  };
 
-  }
-
-  onRuleObjectPress() {
-
-  }
+  onRuleObjectPress = () => {
+    this.props.navigation.navigate('NikiQuestion');
+  };
+  onMegaSpinPress = () => {
+    this.props.navigation.navigate('MegaSpinWheel');
+  };
 
   render() {
     const RandomFlare = (Math.random() * 100).toFixed(0);
@@ -65,7 +69,7 @@ class GameJoin extends React.Component {
             <View style={joinStyles.join_top_view}>
               <View>
                 <Image style={joinStyles.flare_border}
-                       source={require("../../../assets/images/game/lightning/lightning-cover.png")}/>
+                       source={Images.game.lightning.image}/>
                 <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-4")} my={hp("0")}
                                  unMount={this.state.unMount}/>
               </View>
@@ -93,8 +97,9 @@ class GameJoin extends React.Component {
               </View>
               <View>
                 <Image style={joinStyles.flare_border_right}
-                       source={require("../../../assets/images/game/lightning/lightning-cover.png")}/>
-                <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-2")} my={hp("0")} unMount={this.state.unMount}/>
+                       source={Images.game.lightning.image}/>
+                <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-2")} my={hp("0")}
+                                 unMount={this.state.unMount}/>
               </View>
             </View>
             <View style={joinStyles.join_bottom_view}>
@@ -147,39 +152,41 @@ class GameJoin extends React.Component {
             </View>
             <View style={joinStyles.game_flareSpin_item}>
               <Image style={joinStyles.game_flareSpin_item_image}
-                     source={require("../../../assets/images/game/gameplay/target/triangular/target-bg-green-3.png")}/>
-              <View style={joinStyles.setting_item_list}>
+                     source={Images.game.gameplay.target.triangular.green}/>
+              <TouchableOpacity style={joinStyles.setting_item_list}
+                                onPress={this.onFlareSpinPress}
+                                activeOpacity={0.4}>
                 <Text style={GameGlobal.h5}>Flare Spins</Text>
                 <View style={joinStyles.setting_item_right_view}>
                   <Text style={joinStyles.setting_item_right_textBox}>2</Text>
-                  <TouchableOpacity
-                    style={joinStyles.flare_spins_btn}
-                    onPress={this.onFlareSpinPress}>
-                    <Image source={require("../../../assets/images/game/icon/arrow.png")} style={{
+                  <View
+                    style={joinStyles.flare_spins_btn}>
+                    <Image source={Images.game.icon.arrow} style={{
                       width: wp("2"),
                       height: wp("3")
                     }}/>
-                  </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
             <View style={joinStyles.game_MegaSpin_item}>
               <Image style={joinStyles.game_flareSpin_item_image}
-                     source={require("../../../assets/images/game/icon/mega-spin.png")}/>
-              <View style={joinStyles.setting_mega_item_list}>
+                     source={Images.game.icon.megaSpin}/>
+              <TouchableOpacity style={joinStyles.setting_mega_item_list}
+                                onPress={this.onMegaSpinPress}
+                                activeOpacity={0.4}>
                 <Text style={GameGlobal.h5}>Mega Spins</Text>
                 <View style={joinStyles.setting_item_right_view}>
                   <Text style={joinStyles.setting_item_right_textBox}>1</Text>
-                  <TouchableOpacity
-                    style={joinStyles.flare_spins_btn}
-                    onPress={this.onFlareSpinPress}>
-                    <Image source={require("../../../assets/images/game/icon/arrow.png")} style={{
+                  <View
+                    style={joinStyles.flare_spins_btn}>
+                    <Image source={Images.game.icon.arrow} style={{
                       width: wp("2"),
                       height: wp("3")
                     }}/>
-                  </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
             <View style={joinStyles.game_MegaSpin_item}>
               <Image style={{
@@ -187,20 +194,21 @@ class GameJoin extends React.Component {
                 height: wp("6"),
                 marginRight: wp("1"),
                 marginLeft: wp("1")
-              }} source={require("../../../assets/images/game/icon/rule-objective.png")}/>
-              <View style={joinStyles.setting_mega_item_list}>
+              }} source={Images.game.icon.ruleObject}/>
+              <TouchableOpacity style={joinStyles.setting_mega_item_list}
+                                onPress={this.onRuleObjectPress}
+                                activeOpacity={0.4}>
                 <Text style={GameGlobal.h5}>Rules and Objective</Text>
                 <View style={joinStyles.setting_item_right_view}>
-                  <TouchableOpacity
-                    style={joinStyles.flare_spins_btn}
-                    onPress={this.onRuleObjectPress}>
-                    <Image source={require("../../../assets/images/game/icon/arrow.png")} style={{
+                  <View
+                    style={joinStyles.flare_spins_btn}>
+                    <Image source={Images.game.icon.arrow} style={{
                       width: wp("2"),
                       height: wp("3")
                     }}/>
-                  </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         </Content>

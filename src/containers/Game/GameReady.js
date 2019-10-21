@@ -17,6 +17,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
 import LightningEffect from "./components/animation/LightningEffect";
 import CreateUserImage from "./components/CreateUserImage";
+import Images from "../../../MocData";
 
 class GameReady extends React.Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class GameReady extends React.Component {
               <TouchableOpacity
                 style={ReadyStyles.Back_Button}
                 onPress={() => this.backButtonPress()}>
-                <Image source={require("../../../assets/images/game/icon/arrow.png")} style={ReadyStyles.Back_Button_Image}/>
+                <Image source={Images.game.icon.arrow} style={ReadyStyles.Back_Button_Image}/>
               </TouchableOpacity>
               <View style={{
                 display: "flex",
@@ -84,7 +85,7 @@ class GameReady extends React.Component {
             <View style={ReadyStyles.GameReady_CountDown_View}>
               <View>
                 <Image style={ReadyStyles.flare_border}
-                       source={require("../../../assets/images/game/lightning/lightning-cover.png")}/>
+                       source={Images.game.lightning.image}/>
                 <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-4")} my={hp("0")} unMount={unMount}/>
               </View>
               <View style={{
@@ -113,7 +114,7 @@ class GameReady extends React.Component {
               <View/>
               <View>
                 <Image style={ReadyStyles.flare_border_right}
-                       source={require("../../../assets/images/game/lightning/lightning-cover.png")} unMount={unMount}/>
+                       source={Images.game.lightning.image} unMount={unMount}/>
                 <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-2")} my={hp("0")}/>
               </View>
             </View>

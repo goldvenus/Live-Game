@@ -1,0 +1,1 @@
+export const ADD_FLARE_SCORE = 'ADD_FLARE_SCORE';

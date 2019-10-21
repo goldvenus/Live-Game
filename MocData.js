@@ -78,9 +78,24 @@ const Images = {
       niki: {
         nikiShoe: require('./assets/images/game/pages/niki/niki-shoe.png')
       },
-      roundLock: require('./assets/images/game/pages/round-lock.png'),
-      roundBgOrange: require('./assets/images/game/pages/round-top-bg-orange.png'),
-      roundBgRed: require('./assets/images/game/pages/round-top-bg-red.png')
+      nikiQuestion: {
+        first: require('./assets/images/game/pages/nikiQuestion/first.png'),
+        second: require('./assets/images/game/pages/nikiQuestion/second.png'),
+        third: require('./assets/images/game/pages/nikiQuestion/third.png'),
+      },
+      flareAnswer: {
+        first: require('./assets/images/game/pages/flareAnswer/buttonBG.png'),
+        background: require('./assets/images/game/pages/flareAnswer/answerBg.png')
+      },
+      roundLock: require('./assets/images/game/pages/first.png'),
+      roundBgOrange: require('./assets/images/game/pages/second.png'),
+      roundBgRed: require('./assets/images/game/pages/third.png')
+    },
+    icon: {
+      arrow: require('./assets/images/game/icon/arrow.png'),
+      megaSpin: require('./assets/images/game/icon/mega-spin.png'),
+      ruleObject: require('./assets/images/game/icon/rule-objective.png'),
+      waveScore: require('./assets/images/game/icon/wavescore.png'),
     }
   },
   sound: {
@@ -88,6 +103,34 @@ const Images = {
     shotSound: require('./assets/audio/shot.mp3'),
     mutiShotSound: require('./assets/audio/multishot.mp3'),
     holdShotSound: require('./assets/audio/holdshot.mp3')
+  },
+  wheel: {
+    flare: {
+      first: require('./assets/images/wheel/flare/wheel1.png'),
+      second: require('./assets/images/wheel/flare/wheel2.png'),
+      third: require('./assets/images/wheel/flare/wheel3.png'),
+      fourth: require('./assets/images/wheel/flare/wheel4.png'),
+      fifth: require('./assets/images/wheel/flare/wheel5.png'),
+      sixth: require('./assets/images/wheel/flare/wheel6.png'),
+      seventh: require('./assets/images/wheel/flare/wheel7.png'),
+      eighth: require('./assets/images/wheel/flare/wheel8.png'),
+    },
+    background:{
+      first: require('./assets/images/wheel/background/wheel_back1.png'),
+      second: require('./assets/images/wheel/background/wheel_back2.png')
+    },
+    mega: {
+      first: require('./assets/images/wheel/mega/mega1.png'),
+      second: require('./assets/images/wheel/mega/75.png'),
+      tenth:require('./assets/images/wheel/mega/mega3.png'),
+      third: require('./assets/images/wheel/mega/150.png'),
+      fourth: require('./assets/images/wheel/mega/200.png'),
+      fifth: require('./assets/images/wheel/mega/mega2.png'),
+      sixth: require('./assets/images/wheel/mega/45.png'),
+      seventh: require('./assets/images/wheel/mega/100.png'),
+      eighth: require('./assets/images/wheel/mega/15.png'),
+      ninth: require('./assets/images/wheel/mega/30.png'),
+    }
   }
 };
 
