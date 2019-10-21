@@ -16,8 +16,7 @@ class GameDashBoard extends React.Component {
   }
 
   render() {
-    const { score, passPlayers } = this.props;
-    console.log(score);
+    const { score, passPlayers, addSpinCoin } = this.props;
     return (
       <View style={styles.game_dashboard_view}>
         <View style={styles.game_dashboard_top_view}>
@@ -34,7 +33,7 @@ class GameDashBoard extends React.Component {
         </View>
         <View style={styles.game_dashboard_bottom_view}>
           <Text style={styles.game_spin_coins_title}>SPIN COINS WON</Text>
-          <Text style={styles.game_spin_coins}>{score.flareScore}</Text>
+          <Text style={styles.game_spin_coins}>{addSpinCoin}</Text>
         </View>
       </View>
     );
