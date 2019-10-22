@@ -10,8 +10,8 @@ function GameNikiRound({ nikeSpinNum, navigation }) {
   let j = nikeSpinNum > 9 ? 9 : nikeSpinNum;
   if (nikeSpinNum === 9) {
     setTimeout(() => {
-      navigation.navigate("GetAnswerFlare");
-    }, 2000);
+      navigation.navigate("NikiQuestion");
+    }, 1500);
   }
   for (let i = 0; i < j; i++) {
     gameRoundState[i] = 1;
