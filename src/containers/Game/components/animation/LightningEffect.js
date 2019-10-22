@@ -18,12 +18,6 @@ export default class LightningEffect extends React.Component {
     this.next();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.unMount !== this.props.unMount) {
-      clearInterval(this.disableInternal);
-    }
-  }
-
   next() {
     this.disableInternal = setInterval(() => {
       this.setState({ index: Math.floor(Math.random() * 10) % 4 });

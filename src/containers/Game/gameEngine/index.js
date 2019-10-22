@@ -14,7 +14,8 @@ import Images from "../../../../MocData";
 import { Audio } from "expo-av";
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux';
-import {addFlareScore} from '../../../redux/action/game'
+import { addFlareScore, addSpin, setFlareToken, setMegaToken } from "../../../redux/action/game";
+import { ADD_MEGA_SPIN, ADD_NIKE_SPIN } from "../../../redux/action/type";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 
@@ -36,9 +37,8 @@ let endGameTimer = null;
 let doublefireReady = false;
 let doublefireReadyTimer = null;
 
-function GamePlay({ backPage, addFlareScore }) {
+function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpin }) {
   const [running, setRunning] = React.useState(true);
-  const [score, setScore] = React.useState(0);
   const [passPlayers, setpassPlayers] = React.useState(0);
   const [bulletCount, setbulletCount] = React.useState(100);
   const [gamePlayTime, setGamePlayTime] = React.useState(100);
@@ -58,6 +58,8 @@ function GamePlay({ backPage, addFlareScore }) {
   React.useEffect(() => {
     gameStart();
     soundEffectInit();
+    setMegaToken(1);
+    setFlareToken(2);
     return () => {
       clearInterval(gameStartInternal);
       gameStop();
@@ -107,7 +109,6 @@ function GamePlay({ backPage, addFlareScore }) {
   const resetGame = () => {
     gameEngine.swap(setupWorld());
     setRunning(true);
-    setScore(0);
   };
 
   const onEvent = (e) => {
@@ -120,10 +121,12 @@ function GamePlay({ backPage, addFlareScore }) {
         break;
       case "goal-mega":
         gameStop();
+        addSpin(ADD_MEGA_SPIN);
         backPage("GameMegaRound");
         break;
       case "goal-niki":
         gameStop();
+        addSpin(ADD_NIKE_SPIN);
         backPage("GameNikiRound");
         break;
       case "goal-user":
@@ -133,7 +136,6 @@ function GamePlay({ backPage, addFlareScore }) {
     ///update score
     if (e.type.includes("score")) {
       addFlareScore(parseInt(e.type.slice(6)));
-      setScore(score + parseInt(e.type.slice(6)));
     }
   };
 
@@ -166,7 +168,6 @@ function GamePlay({ backPage, addFlareScore }) {
       firingGun = true;
       const intervalTime = setInterval(() => {
         oneShot();
-        // setbulletCount(0);
         ShowAlertDialog(5000);
       }, multiShotSpeed);
       setTimeout(() => {
@@ -176,9 +177,7 @@ function GamePlay({ backPage, addFlareScore }) {
     } else {
       firingGun = true;
       const intervalTime = setInterval(() => {
-        //NewFire(bulletSpeed);
         oneShot();
-        //setbulletCount(bulletCount - multiNum);
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
@@ -299,7 +298,7 @@ function GamePlay({ backPage, addFlareScore }) {
         gameHitData["size"] &&
         <GetFlareBox size={gameHitData["size"]} body={gameHitData["body"]} spinInfoData={gameHitData["spinInfoData"]}/>
       }
-      <GameDashBoard addSpinCoin={score} passPlayers={passPlayers}/>
+      <GameDashBoard passPlayers={passPlayers}/>
       <GameHeaderBar/>
       <GameBottomBar bulletCount={bulletCount} gamePlayTime={gamePlayTime}/>
       <TouchableOpacity
@@ -321,7 +320,10 @@ const mapDispatchToProps = (dispatch)=> {
   return {
     dispatch,
     ...bindActionCreators({
-      addFlareScore: addFlareScore
+      addFlareScore: addFlareScore,
+      setFlareToken: setFlareToken,
+      setMegaToken: setMegaToken,
+      addSpin: addSpin,
     }, dispatch)
   }
 };

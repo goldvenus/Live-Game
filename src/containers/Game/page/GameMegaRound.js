@@ -1,12 +1,22 @@
 import React from "react";
 import { View, Image, Text } from "react-native";
+import { connect } from "react-redux";
 import Images from "../../../../MocData";
 import { styles } from "./styles";
 import GameHeaderBar from "../components/GameHeaderBar";
 import RoundPannel from "./RoundPannel";
 
-const GameMegaRound = () => {
-  const gameRoundState = [1,1,1,1,1,1,1,0,0];
+function GameMegaRound(megaSpinCount, navigation) {
+  let gameRoundState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let j = megaSpinCount > 9 ? 9 : megaSpinCount;
+  if (megaSpinCount === 9) {
+    setTimeout(() => {
+      navigation.navigate("MegaSpinWheel");
+    }, 2000);
+  }
+  for (let i = 0; i < j; i++) {
+    gameRoundState[i] = 1;
+  }
   return (
     <View style={styles.megaRoundParent}>
       <GameHeaderBar/>
@@ -30,6 +40,12 @@ const GameMegaRound = () => {
       </View>
     </View>
   );
+}
+
+const mapStateToProps = state => {
+  return {
+    megaSpinCount: state.game.score.megaSpin
+  };
 };
 
-export default GameMegaRound;
+export default connect(mapStateToProps, null)(GameMegaRound);
