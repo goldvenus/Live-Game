@@ -13,8 +13,20 @@ import GetAnswerFlare from "../containers/Game/page/GetAnswerFlare"
 
 const GameNavigator = createStackNavigator({
 
+  GameStart: {
+    screen: GameStart,
+    navigationOptions: {
+      header: null
+    }
+  },
   GameJoin: {
     screen: GameJoin,
+    navigationOptions: {
+      header: null
+    }
+  },
+  GameMegaRound: {
+    screen: GameMegaRound,
     navigationOptions: {
       header: null
     }
@@ -31,12 +43,6 @@ const GameNavigator = createStackNavigator({
       header: null
     }
   },
-  GameStart: {
-    screen: GameStart,
-    navigationOptions: {
-      header: null
-    }
-  },
   GameCountDown: {
     screen: GameCountDown,
     navigationOptions: {
@@ -45,12 +51,6 @@ const GameNavigator = createStackNavigator({
   },
   GameNikiRound: {
     screen: GameNikiRound,
-    navigationOptions: {
-      header: null
-    }
-  },
-  GameMegaRound: {
-    screen: GameMegaRound,
     navigationOptions: {
       header: null
     }

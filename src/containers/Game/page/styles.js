@@ -114,7 +114,8 @@ export const styles = StyleSheet.create({
     marginLeft: wp('6'),
     marginRight: wp('6'),
     backgroundColor: '#292929',
-    borderRadius: wp('9')
+    borderRadius: wp('9'),
+    marginTop:hp('3.3')
   },
   roundlockImage: {
     position: 'absolute',
@@ -137,5 +138,52 @@ export const styles = StyleSheet.create({
     marginTop: wp('-4'),
     paddingLeft: wp('10'),
     fontSize: wp('10')
-  }
+  },
+  header_view: {
+    width: wp('100'),
+    height: hp('8'),
+    display: 'flex',
+    position: 'absolute',
+    zIndex: 10,
+    top: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: wp('5'),
+    paddingRight: wp('5'),
+    backgroundColor: 'black',
+    borderBottomWidth: 2,
+    borderBottomColor: '#ffffff3b',
+    justifyContent: 'space-between'
+  },
+  header_arrow_btn: {
+    width: wp('5'),
+    height: wp('5'),
+    transform: [
+      {
+        scaleX: -1,
+      },
+      {
+        scaleY: 1
+      }
+    ]
+  },
+  header_middle_view: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  game_mark_icon: {
+    width: wp('9'),
+    height: wp('9')
+  },
+  game_header_title: {
+    color: '#ffffff',
+    fontFamily: 'Antonio-Bold',
+    fontSize: wp('4.3')
+  },
+  header_user_img: {
+    width: wp('7'),
+    height: wp('7')
+  },
 });

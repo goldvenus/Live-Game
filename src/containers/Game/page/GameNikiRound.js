@@ -1,25 +1,46 @@
 import React from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import Images from "../../../../MocData";
 import { styles } from "./styles";
-import GameHeaderBar from "../components/GameHeaderBar";
 import RoundPannel from "./RoundPannel";
 
-function GameNikiRound(nikeSpinNum, navigation) {
+function GameNikiRound({ nikeSpinNum, navigation }) {
   let gameRoundState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   let j = nikeSpinNum > 9 ? 9 : nikeSpinNum;
   if (nikeSpinNum === 9) {
     setTimeout(() => {
-      navigation.navigate("MegaSpinWheel");
+      navigation.navigate("GetAnswerFlare");
     }, 2000);
   }
   for (let i = 0; i < j; i++) {
     gameRoundState[i] = 1;
   }
+  const resumeGame = () => {
+    navigation.goBack(null);
+  };
   return (
     <View style={styles.megaRoundParent}>
-      <GameHeaderBar/>
+      <View style={styles.header_view}>
+        <TouchableOpacity onPress={()=>resumeGame()}>
+          <Image
+            style={styles.header_arrow_btn}
+            source={Images.game.header.amber}
+          />
+        </TouchableOpacity>
+        <View style={styles.header_middle_view}>
+          <Image
+            style={styles.game_mark_icon}
+            source={Images.bottomBar.gameActive}/>
+          <Text style={styles.game_header_title}>
+            ZENDUJA LIVE
+          </Text>
+        </View>
+        <Image
+          style={styles.header_user_img}
+          source={Images.game.header.user}
+        />
+      </View>
       <View style={styles.topSection}>
         <Image source={Images.game.page.niki.nikiShoe}
                style={styles.nikiUnlockImage}/>
@@ -41,10 +62,10 @@ function GameNikiRound(nikeSpinNum, navigation) {
   );
 }
 
-const mapStatetToProps = state => {
+const mapStateToProps = state => {
   return {
     nikeSpinNum: state.game.score.nikeSpin
   };
 };
 
-export default connect(mapStatetToProps, null)(GameNikiRound);
+export default connect(mapStateToProps, null)(GameNikiRound);

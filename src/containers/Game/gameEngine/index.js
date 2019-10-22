@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, TouchableOpacity, View, Alert } from "react-native";
+import { StatusBar, TouchableOpacity, View, Alert, Text } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import { Physics, CreateBox, TargetHit, CleanBoxes, NewSpinShow, CreateFire, NewFire } from "./systems";
 import Matter from "matter-js";
@@ -12,8 +12,8 @@ import { getspinArray } from "./data/levelData";
 import { GetFlareBox } from "../components/animation/GetFlareAnimation";
 import Images from "../../../../MocData";
 import { Audio } from "expo-av";
-import {connect} from 'react-redux'
-import { bindActionCreators } from 'redux';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { addFlareScore, addSpin, setFlareToken, setMegaToken } from "../../../redux/action/game";
 import { ADD_MEGA_SPIN, ADD_NIKE_SPIN } from "../../../redux/action/type";
 
@@ -42,6 +42,7 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
   const [passPlayers, setpassPlayers] = React.useState(0);
   const [bulletCount, setbulletCount] = React.useState(100);
   const [gamePlayTime, setGamePlayTime] = React.useState(100);
+  const [gamePauseState, setGamePauseState] = React.useState(false);
   const [gameHitData, setGameHitData] = React.useState({});
   const [gameStartInternal, setGameStartInternal] = React.useState(null);
   const [shotSoundObjectSingle, setShotSoundObjectSingle] = useVariable(null);
@@ -85,6 +86,11 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
     //gameStartInternal
   };
 
+  const gamePause = () => {
+    setRunning(false);
+    clearInterval(gameStartInternal);
+    setGamePauseState(true);
+  };
   /*End Game Dialog*/
   const ShowAlertDialog = (time) => {
     if (!endGameTimer)
@@ -94,8 +100,9 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
           "Game Over",
           "Click OK to restart the game",
           [
-            { text: "OK", onPress: () => {
-              backPage("GameJoin");
+            {
+              text: "OK", onPress: () => {
+                backPage("GameJoin");
               }
             }
           ],
@@ -103,12 +110,6 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
         );
         endGameTimer = null;
       }, time);
-  };
-
-
-  const resetGame = () => {
-    gameEngine.swap(setupWorld());
-    setRunning(true);
   };
 
   const onEvent = (e) => {
@@ -120,12 +121,12 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
         gameStop();
         break;
       case "goal-mega":
-        gameStop();
+        gamePause();
         addSpin(ADD_MEGA_SPIN);
         backPage("GameMegaRound");
         break;
       case "goal-niki":
-        gameStop();
+        gamePause();
         addSpin(ADD_NIKE_SPIN);
         backPage("GameNikiRound");
         break;
@@ -151,12 +152,12 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
     }
   };
 
-  const oneShot=()=> {
-    if(bulletCount >=1) {
+  const oneShot = () => {
+    if (bulletCount >= 1) {
       setbulletCount(t => t - 1);
       NewFire(bulletSpeed);
     }
-  }
+  };
 
   const onMultiFireGun = (multiNum) => {
     const bullet = bulletCount;
@@ -191,16 +192,16 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
     if ((pressedIntime - pressedTime > 500)) doublefireReady = false;
     if ((pressedIntime - pressedTime < 200) && !firingGun && !doublefireReady) {
       doublefireReady = true;
-      doublefireReadyTimer = setTimeout(()=> {
+      doublefireReadyTimer = setTimeout(() => {
         firingGun = true;
-        doublefireReady=false;
+        doublefireReady = false;
         clearTimeout(oneFireshotTimer);
         soundEffectPlay(shotSoundObjectTen);
         onMultiFireGun(9);
       }, 250);
     }
-    else if(doublefireReady && (pressedIntime - pressedTime < 300)) {
-      console.log('3times');
+    else if (doublefireReady && (pressedIntime - pressedTime < 300)) {
+      console.log("3times");
       clearTimeout(doublefireReadyTimer);
     }
     pressedTime = pressedIntime;
@@ -226,6 +227,8 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
       setGamePlayTime((t) => t - 1);
     }, 1000);
     setGameStartInternal(id);
+    setRunning(true);
+    setGamePauseState(false);
   };
 
   const setupWorld = () => {
@@ -312,20 +315,51 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
         onPressOut={FirePressOut}>
         <LocationPulseLoader stopGame={running}/>
       </TouchableOpacity>
+      {
+        gamePauseState &&
+        <View style={{
+          top: 0,
+          backgroundColor: "black",
+          opacity: 0.5,
+          position: "absolute",
+          zIndex: 20,
+          width: wp("100"),
+          height: hp("100"),
+        }}>
+          <TouchableOpacity onPress={gameStart}
+          style={{
+            flex: 1,
+          }}>
+            <View style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row"
+            }}>
+              <Text style={{
+                fontSize: wp("7"),
+                color: 'white',
+                opacity: 1,
+                fontFamily: "Antonio-Bold"
+              }}>Touch screen to continue...</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      }
     </View>
   );
 }
 
-const mapDispatchToProps = (dispatch)=> {
+const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     ...bindActionCreators({
       addFlareScore: addFlareScore,
       setFlareToken: setFlareToken,
       setMegaToken: setMegaToken,
-      addSpin: addSpin,
+      addSpin: addSpin
     }, dispatch)
-  }
+  };
 };
 
 export default connect(null, mapDispatchToProps)(GamePlay);

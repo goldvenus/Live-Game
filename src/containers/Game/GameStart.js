@@ -23,10 +23,11 @@ export default class GameStart extends React.Component {
 
   goPage = (pageName) => {
     //this.props.navigation.goBack(null);
-    if (pageName === "GameJoin") {
-      this.props.navigation.navigate(pageName);
-    } else
-      this.props.navigation.replace(pageName);
+    this.props.navigation.navigate(pageName);
+    // if (pageName === "GameJoin") {
+    //   this.props.navigation.navigate(pageName);
+    // } else
+    //   this.props.navigation.replace(pageName);
   };
 
   render() {
