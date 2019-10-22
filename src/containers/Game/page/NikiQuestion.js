@@ -7,7 +7,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 class NikiQuestion extends React.Component {
 
   getFlare = ()=> {
-    this.props.navigation.navigate('GetAnswerFlare');
+    this.props.navigation.replace('GetAnswerFlare');
   };
   render() {
     return (
