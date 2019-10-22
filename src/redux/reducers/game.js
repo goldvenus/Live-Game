@@ -15,8 +15,8 @@ const initialState = {
     nikeSpin: 0
   },
   spinToken: {
-    flareSpin: 2,
-    megaSpin: 1
+    flareSpin: 0,
+    megaSpin: 0
   }
 };
 
