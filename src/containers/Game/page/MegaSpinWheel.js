@@ -61,7 +61,7 @@ class MegaSpinWheel extends React.Component {
 
   ImageArray = Images.wheel.flare;
   closeDialog = () => {
-    this.setState({finished: false});
+    this.setState({ finished: false });
   };
 
   getRandomDeceleration() {
@@ -71,8 +71,8 @@ class MegaSpinWheel extends React.Component {
   goWheel() {
     if (this.state.playWheel || this.props.spinToken.megaSpin < 1)
       return;
-    const {setMegaToken, spinToken} = this.props;
-    setMegaToken(spinToken.megaSpin-1);
+    const { setMegaToken, spinToken } = this.props;
+    setMegaToken(spinToken.megaSpin - 1);
     this.setState({ playWheel: true });
     const m_speed = -2000;
     Animated.decay(this._angle, {
@@ -108,7 +108,7 @@ class MegaSpinWheel extends React.Component {
       if (this.state.enabled) {
         this.setState({
           enabled: false,
-          finished: false,
+          finished: false
         });
       }
       this.angle = event.value;
@@ -146,42 +146,42 @@ class MegaSpinWheel extends React.Component {
         <Modal
           isVisible={this.state.finished}>
           <View style={{
-            width: wp('90'),
-            height: hp('20'),
-            backgroundColor: 'white',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            borderRadius: 10,
+            width: wp("90"),
+            height: hp("20"),
+            backgroundColor: "white",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            borderRadius: 10
           }}>
             <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center'
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center"
             }}>
               <RNText style={{
-                fontSize: wp('7'),
-                fontFamily: 'Antonio-Bold',
-                paddingRight: wp('2')
+                fontSize: wp("7"),
+                fontFamily: "Antonio-Bold",
+                paddingRight: wp("2")
               }}>YOU GOT </RNText>
               <RNImage source={this.ImageArray[Object.keys(this.ImageArray)[this.state.winner]]}
-                style={{
-                  width: wp('10'),
-                  resizeMode: 'contain'
-              }}/>
+                       style={{
+                         width: wp("10"),
+                         resizeMode: "contain"
+                       }}/>
               <RNText style={{
-                fontSize: wp('7'),
-                fontFamily: 'Antonio-Bold',
-                paddingLeft: wp('2')
+                fontSize: wp("7"),
+                fontFamily: "Antonio-Bold",
+                paddingLeft: wp("2")
               }}>SPIN!</RNText>
             </View>
 
             <TouchableOpacity onPress={this.closeDialog}>
               <RNText style={{
-                color: '#5C7FFF',
-                fontFamily: 'Antonio-Bold',
-                fontSize: wp('4'),
-                paddingTop: hp('5')
+                color: "#5C7FFF",
+                fontFamily: "Antonio-Bold",
+                fontSize: wp("4"),
+                paddingTop: hp("5")
               }}>OK</RNText>
             </TouchableOpacity>
           </View>
@@ -274,14 +274,22 @@ class MegaSpinWheel extends React.Component {
                     <G
                       rotation={(i * oneTurn) / numberOfSegments + angleOffset}
                       origin={`${x}, ${y}`}>
-                      <Image
-                        x={x - wp("4")}
-                        y={y - wp("4")}
-                        width={wp("8")}
-                        height={wp("8")}
-                        preserveAspectRatio="xMidYMid slice"
-                        href={this.ImageArray[Object.keys(this.ImageArray)[i]]}
-                      />
+                      {i === 4 ?
+                        <Image
+                          x={x - wp("7")}
+                          y={y - wp("4")}
+                          width={wp("15")}
+                          height={hp("5")}
+                          preserveAspectRatio="xMidYMid slice"
+                          href={this.ImageArray[Object.keys(this.ImageArray)[i]]}
+                        /> : <Image
+                          x={x - wp("4")}
+                          y={y - wp("4")}
+                          width={wp("8")}
+                          height={wp("8")}
+                          preserveAspectRatio="xMidYMid slice"
+                          href={this.ImageArray[Object.keys(this.ImageArray)[i]]}
+                        />}
                     </G>
                   </G>
                 );
@@ -391,7 +399,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     ...bindActionCreators({
-      setMegaToken: setMegaToken,
+      setMegaToken: setMegaToken
     }, dispatch)
   };
 };
