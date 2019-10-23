@@ -7,7 +7,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 class NikiQuestion extends React.Component {
 
   getFlare = ()=> {
-    this.props.navigation.navigate('GetAnswerFlare');
+    this.props.navigation.replace('GetAnswerFlare');
   };
   render() {
     return (
@@ -24,7 +24,7 @@ class NikiQuestion extends React.Component {
         <View style={styles.flaresSection}>
           {
             Object.keys(Images.game.page.nikiQuestion).map((image, index) =>
-              <TouchableOpacity key={index} onPress={this.getFlare}>
+              <TouchableOpacity key={index} onPress={()=>this.getFlare()}>
                 <Image source={Images.game.page.nikiQuestion[image]} style={styles.nikiImages}/>
               </TouchableOpacity>
             )

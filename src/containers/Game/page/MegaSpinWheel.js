@@ -7,32 +7,29 @@ import {
   TouchableOpacity,
   Image as RNImage, Alert
 } from "react-native";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import * as d3Shape from "d3-shape";
 import color from "randomcolor";
 import { snap } from "@popmotion/popcorn";
-import Svg, { Path, G, Image, Line, Text } from "react-native-svg";
+import Svg, { Path, G, Image } from "react-native-svg";
 import Images from "../../../../MocData";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import GameHeaderBar from "../components/GameHeaderBar";
+import { setMegaToken } from "../../../redux/action/game";
+import Modal from "react-native-modal";
 
-const width=wp('100');
-const numberOfSegments = 10;
-const numberOfWheelLine = 80;
-const wheelSize = wp('85');
+const width = wp("100");
+const numberOfSegments = 8;
+const wheelSize = wp("75");
 const oneTurn = 360;
-const angleBySegment1 = oneTurn / numberOfWheelLine;
 const angleBySegment = oneTurn / numberOfSegments;
-const angleOffset1 = angleBySegment1 / 2;
 const angleOffset = angleBySegment / 2;
 const knobFill = color({ hue: "purple" });
 
-const makeWheel = (count) => {
-  const data = Array.from({ length: count }).fill(1);
+const makeWheel = () => {
+  const data = Array.from({ length: numberOfSegments }).fill(1);
   const arcs = d3Shape.pie()(data);
-  const colors = color({
-    luminosity: "dark",
-    count: numberOfSegments
-  });
 
   return arcs.map((arc, index) => {
     const instance = d3Shape
@@ -43,18 +40,16 @@ const makeWheel = (count) => {
 
     return {
       path: instance(arc),
-      color: "#181818",//colors[index], // set arc background color
+      color: "#000",//colors[index], // set arc background color
       value: index,//Math.round(Math.random() * 10 + 1) * 200, //[200, 2200]
       centroid: instance.centroid(arc)
     };
   });
 };
 
-export default class MegaSpinWheel extends React.Component {
-  _wheelPaths = makeWheel(numberOfSegments);
-  _wheelLinePaths = makeWheel(numberOfWheelLine);
+class MegaSpinWheel extends React.Component {
+  _wheelPaths = makeWheel();
   _angle = new Animated.Value(0);
-  _zomeOutIn = new Animated.Value(0);
   angle = 0;
 
   state = {
@@ -64,70 +59,22 @@ export default class MegaSpinWheel extends React.Component {
     playWheel: false
   };
 
-  ImageArray = Images.wheel.mega;
-
-  WheelData = [
-    {
-      type: "image",
-      url: Images.wheel.mega.first
-    },
-    {
-      type: "text",
-      num: "75"
-    },
-    {
-      type: "image",
-      url: Images.wheel.mega.third
-    },
-    {
-      type: "text",
-      num: "150"
-    },
-    {
-      type: "text",
-      num: "200"
-    },
-    {
-      type: "image",
-      url: Images.wheel.mega.second
-    },
-    {
-      type: "text",
-      num: "45"
-    },
-    {
-      type: "text",
-      num: "100"
-    },
-    {
-      type: "text",
-      num: "15"
-    },
-    {
-      type: "text",
-      num: "30"
-    }
-  ];
-  showWinnerResult = (mark) => {
-    Alert.alert(
-      "Choose Flare",
-      `You get the (${mark}) flare.`,
-      [
-        {
-          text: "OK", onPress: () =>  this.props.navigation.goBack(null)
-        }
-      ],
-      { cancelable: false }
-    );
+  ImageArray = Images.wheel.flare;
+  closeDialog = () => {
+    this.setState({finished: false});
   };
+
   getRandomDeceleration() {
-    return 0.999+(Math.floor(Math.random()*100)%100)/100000;
+    return 0.999 + (Math.floor(Math.random() * 100) % 60) / 100000;
   }
+
   goWheel() {
-    const m_speed = -2000;
-    if (this.state.playWheel)
+    if (this.state.playWheel || this.props.spinToken.megaSpin < 1)
       return;
-    this.setState({playWheel: true});
+    const {setMegaToken, spinToken} = this.props;
+    setMegaToken(spinToken.megaSpin-1);
+    this.setState({ playWheel: true });
+    const m_speed = -2000;
     Animated.decay(this._angle, {
       velocity: m_speed / 1000,
       deceleration: this.getRandomDeceleration(), //0.999 ~ 0.9999 Random
@@ -141,10 +88,10 @@ export default class MegaSpinWheel extends React.Component {
         useNativeDriver: true
       }).start(() => {
         const winnerIndex = this._getWinnerIndex();
-        this.showWinnerResult(winnerIndex);
         this.setState({
           enabled: true,
           finished: true,
+          playWheel: false,
           winner: this._wheelPaths[winnerIndex].value
         });
       });
@@ -179,8 +126,8 @@ export default class MegaSpinWheel extends React.Component {
         style={styles.container}>
         <GameHeaderBar/>
         <View style={styles.headerTitleSection}>
-          <RNText style={styles.headerTopTitle}>FLARE SPINS:</RNText>
-          <RNText style={styles.headerTopCount}>2</RNText>
+          <RNText style={styles.headerTopTitle}>MEGA SPINS:</RNText>
+          <RNText style={styles.headerTopCount}>{this.props.spinToken.megaSpin}</RNText>
         </View>
         <View style={styles.wheelContainer}>
           {this._renderSvgWheel()}
@@ -188,7 +135,7 @@ export default class MegaSpinWheel extends React.Component {
         </View>
         <View style={styles.winnerTextContainer}>
           <RNText style={styles.winnerText}>
-            MEGA CREDITS CREDITS: 9
+            MEGA CREDITS NEEDED: 1
           </RNText>
         </View>
         <TouchableOpacity
@@ -196,6 +143,49 @@ export default class MegaSpinWheel extends React.Component {
           onPress={() => this.backButtonPress()}>
           <RNImage source={Images.game.icon.arrow} style={styles.backButtonImage}/>
         </TouchableOpacity>
+        <Modal
+          isVisible={this.state.finished}>
+          <View style={{
+            width: wp('90'),
+            height: hp('20'),
+            backgroundColor: 'white',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            borderRadius: 10,
+          }}>
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <RNText style={{
+                fontSize: wp('7'),
+                fontFamily: 'Antonio-Bold',
+                paddingRight: wp('2')
+              }}>YOU GOT </RNText>
+              <RNImage source={this.ImageArray[Object.keys(this.ImageArray)[this.state.winner]]}
+                style={{
+                  width: wp('10'),
+                  resizeMode: 'contain'
+              }}/>
+              <RNText style={{
+                fontSize: wp('7'),
+                fontFamily: 'Antonio-Bold',
+                paddingLeft: wp('2')
+              }}>SPIN!</RNText>
+            </View>
+
+            <TouchableOpacity onPress={this.closeDialog}>
+              <RNText style={{
+                color: '#5C7FFF',
+                fontFamily: 'Antonio-Bold',
+                fontSize: wp('4'),
+                paddingTop: hp('5')
+              }}>OK</RNText>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -248,27 +238,19 @@ export default class MegaSpinWheel extends React.Component {
     );
   };
 
-  _renderWinner = () => {
-    return (
-      <RNText style={{
-        color: "white"
-      }}>Winner is: {this.state.winner}</RNText>
-    );
-  };
-
   _renderSvgWheel = () => {
     return (
       <View style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row'
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row"
       }}>
-        {/*{this._renderKnob()}*/}
+        {/*this._renderKnob()*/}
         <Animated.View
           style={{
             alignItems: "center",
             justifyContent: "center",
+            flexDirection: "row",
             transform: [
               {
                 rotate: this._angle.interpolate({
@@ -278,78 +260,38 @@ export default class MegaSpinWheel extends React.Component {
               }
             ]
           }}>
-          <View style={{
-            position: "absolute"
-          }}>
-            <Svg
-              width={wheelSize}
-              height={wheelSize}
-              viewBox={`0 0 ${width} ${width}`}
-              style={{ transform: [{ rotate: `-${angleOffset1}deg` }] }}>
-              <G y={width / 2} x={width / 2}>
-                {
-                  this._wheelLinePaths.map((arc, i) => {
-                    const [x, y] = arc.centroid;
-                    const removeLine = i % 8;
-                    if (removeLine < 2 || removeLine === (7))
-                      return;
-                    return (
-                      <G key={`arc-${i}`}>
-                        <G
-                          rotation={(i * oneTurn) / numberOfWheelLine + angleOffset1}
-                          origin={`${x}, ${y}`}>
-                          <Line
-                            x1={x}
-                            y1={y}
-                            x2={x}
-                            y2={y - wp("3")}
-                            stroke="#47494C"
-                            strokeWidth="2"
-                          />
-                        </G>
-                      </G>
-                    );
-                  })
-                }
-              </G>
-            </Svg>
-          </View>
           <Svg
             width={wheelSize}
             height={wheelSize}
             viewBox={`0 0 ${width} ${width}`}
             style={{ transform: [{ rotate: `-${angleOffset}deg` }] }}>
             <G y={width / 2} x={width / 2}>
-              {
-                this._wheelPaths.map((arc, i) => {
-                  const [x, y] = arc.centroid;
-                  const number = arc.value.toString();
-
-                  return (
-                    <G key={`arc-${i}`}>
-                      <G
-                        rotation={(i * oneTurn) / numberOfSegments + angleOffset}
-                        origin={`${x}, ${y}`}>
-                        <Image
-                          x={x - (i === 2 ? wp('7') : wp("3"))}
-                          y={y - wp("6")}
-                          width={i === 2 ? wp("14") : wp("7")}
-                          height={i === 2 ? wp("12") : wp("7")}
-                          preserveAspectRatio="xMidYMid slice"
-                          href={this.ImageArray[Object.keys(this.ImageArray)[i]]}
-                        />
-                      </G>
+              {this._wheelPaths.map((arc, i) => {
+                const [x, y] = arc.centroid;
+                return (
+                  <G key={`arc-${i}`}>
+                    <Path d={arc.path} fill={arc.color}/>
+                    <G
+                      rotation={(i * oneTurn) / numberOfSegments + angleOffset}
+                      origin={`${x}, ${y}`}>
+                      <Image
+                        x={x - wp("4")}
+                        y={y - wp("4")}
+                        width={wp("8")}
+                        height={wp("8")}
+                        preserveAspectRatio="xMidYMid slice"
+                        href={this.ImageArray[Object.keys(this.ImageArray)[i]]}
+                      />
                     </G>
-                  );
-                })
-              }
-
+                  </G>
+                );
+              })}
             </G>
           </Svg>
         </Animated.View>
         <TouchableOpacity style={styles.wheelBackgroundContainer}
                           onPress={() => this.goWheel()}>
-          <RNImage source={Images.wheel.background.second} style={styles.wheelBackground}/>
+          <RNImage source={Images.wheel.background.first} style={styles.wheelBackground}/>
         </TouchableOpacity>
       </View>
     );
@@ -365,11 +307,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#181818"
   },
   wheelContainer: {
-    padding: hp("5"),
-    justifyContent: 'center',
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row'
+    justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    paddingTop: hp("5"),
+    paddingBottom: hp("5")
   },
   backButton: {
     position: "absolute",
@@ -398,7 +341,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    paddingTop: hp("10")
+    paddingTop: hp("5")
   },
   headerTopTitle: {
     color: "white",
@@ -417,7 +360,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     position: "relative",
-    paddingBottom: hp("6")
+    paddingTop: hp("5")
   },
   winnerText: {
     color: "white",
@@ -428,12 +371,29 @@ const styles = StyleSheet.create({
   wheelBackgroundContainer: {
     position: "absolute",
     width: "100%",
+    alignItems: "center",
     justifyContent: "center",
     display: "flex",
     flexDirection: "row"
   },
   wheelBackground: {
-    width: wp("60"),
+    width: wp("45"),
     resizeMode: "contain"
   }
 });
+
+const mapStateToProps = state => {
+  return {
+    spinToken: state.game.spinToken
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    ...bindActionCreators({
+      setMegaToken: setMegaToken,
+    }, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MegaSpinWheel);

@@ -19,6 +19,18 @@ const GameNavigator = createStackNavigator({
       header: null
     }
   },
+  GameStart: {
+    screen: GameStart,
+    navigationOptions: {
+      header: null
+    }
+  },
+  GameMegaRound: {
+    screen: GameMegaRound,
+    navigationOptions: {
+      header: null
+    }
+  },
   NikiQuestion: {
     screen: NikiQuestion,
     navigationOptions: {
@@ -31,12 +43,6 @@ const GameNavigator = createStackNavigator({
       header: null
     }
   },
-  GameStart: {
-    screen: GameStart,
-    navigationOptions: {
-      header: null
-    }
-  },
   GameCountDown: {
     screen: GameCountDown,
     navigationOptions: {
@@ -45,12 +51,6 @@ const GameNavigator = createStackNavigator({
   },
   GameNikiRound: {
     screen: GameNikiRound,
-    navigationOptions: {
-      header: null
-    }
-  },
-  GameMegaRound: {
-    screen: GameMegaRound,
     navigationOptions: {
       header: null
     }

@@ -98,7 +98,7 @@ export const styles = StyleSheet.create({
     width: wp('95'),
     height: hp(35),
     position: 'absolute',
-    top: hp('7'),
+    top: hp('10'),
     left: wp('2.5'),
     backgroundColor: '#292929',
     borderRadius: wp('3')
