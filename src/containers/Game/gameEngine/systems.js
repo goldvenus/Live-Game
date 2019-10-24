@@ -12,6 +12,12 @@ let spinPosition = {
   x: 0,
   y: 0
 };
+
+let BulletPosition = {
+  x: wp('83'),
+  y: hp('91'),
+  size: wp('2')
+}
 let propsSpinInfo = {};
 /********************Control Creating & Get Mark Functions******************************/
 const NewSpinShow = (targetPosition, spinInfoData, speed) => {
@@ -31,45 +37,41 @@ const NewFire = (speed) => {
 const distance = ([x1, y1], [x2, y2]) =>
   Math.sqrt(Math.abs(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
 
-const Physics = (state, { touches, time }) => {
+const Physics = (state, { touches, time, dispatch }) => {
   let engine = state["physics"].engine;
-  Object.keys(state)
-    .filter(key => state[key].body)
-    .forEach(key => {
-      if (state[key].bullet)
-        Matter.Body.setVelocity(state[key].body, {
-          x: -1 * BulletSpeed,
-          y: -1 * BulletSpeed
-        });
-      else {
-        Matter.Body.setVelocity(state[key].body, {
-          x: 0,
-          y: -1 * SpinSpeed
-        });
-      }
-    });
-  Matter.Engine.update(engine, time.delta);
-  return state;
-};
-
-const CreateBox = (state) => {
   let world = state["physics"].world;
-  world.gravity.y = -0.1;
+  Matter.Engine.update(engine, time.delta);
+  world.gravity.y = 0;
+
   let positionX = spinPosition.x;
   let positionY = spinPosition.y;
 
-  if (createFlag) {
+
+  if (ShotBullet) {
+    ShotBullet = false;
+    let body = Matter.Bodies.rectangle(
+      BulletPosition.x,
+      BulletPosition.y,
+      BulletPosition.size,
+      BulletPosition.size,
+    );
+    Matter.World.add(world, [body]);
+    state[++boxIds] = {
+      body: body,
+      bullet: true,
+      size: [BulletPosition.size, BulletPosition.size],
+      renderer: Bullet
+    };
+  } else  if (createFlag) {
     createFlag = false;
     let body = Matter.Bodies.rectangle(
       positionX,
       positionY,
       propsSpinInfo.spinSize,
       propsSpinInfo.spinSize,
-      { frictionAir: 0 }
     );
 
     Matter.World.add(world, [body]);
-    //	Matter.Body.translate([body], {x: 0, y: -2});
     state[++boxIds] = {
       body: body,
       bullet: false,
@@ -79,33 +81,18 @@ const CreateBox = (state) => {
       renderer: Box
     };
   }
-  return state;
-};
 
-const CreateFire = (state) => {
-  let world = state["physics"].world;
-  let body;
-  if (ShotBullet) {
-    ShotBullet = false;
-    body = Matter.Bodies.rectangle(
-      wp("85"),
-      hp("89"),
-      wp("3"),
-      wp("3"),
-      { frictionAir: 0 }
-    );
-    Matter.World.add(world, [body]);
-    state[++boxIds] = {
-      body: body,
-      bullet: true,
-      size: [wp("3"), wp("3")],
-      renderer: Bullet
-    };
-  }
-  return state;
-};
 
-const TargetHit = (state, { touches, dispatch }) => {
+  /// Clean Object
+  Object.keys(state)
+    .filter(key => state[key].body && state[key].body.position.y < 0)
+    .forEach(key => {
+      Matter.Composite.remove(world, state[key].body);
+      delete state[key];
+    });
+
+
+  /// Goal Target
   let start = touches.find(x => x.type === "press");
   if (start) {
     let startPos = [start.event.pageX, start.event.pageY];
@@ -135,58 +122,24 @@ const TargetHit = (state, { touches, dispatch }) => {
       }
     }
   }
-  return state;
-};
 
-const MoveBox = (state, { touches }) => {
-  let constraint = state["physics"].constraint;
-  //-- Handle start touch
-  let start = touches.find(x => x.type === "start");
-
-  if (start) {
-    let startPos = [start.event.pageX, start.event.pageY];
-    let boxId = Object.keys(state).find(key => {
-      let body = state[key].body;
-      return (
-        body &&
-        distance([body.position.x, body.position.y], startPos) < 25
-      );
-    });
-    if (boxId) {
-      constraint.pointA = { x: startPos[0], y: startPos[1] };
-      constraint.bodyB = state[boxId].body;
-      constraint.pointB = { x: 0, y: 0 };
-      constraint.angleB = state[boxId].body.angle;
-    }
-  }
-  //-- Handle move touch
-  let move = touches.find(x => x.type === "move");
-
-  if (move) {
-    constraint.pointA = { x: move.event.pageX, y: move.event.pageY };
-  }
-
-  //-- Handle end touch
-  let end = touches.find(x => x.type === "end");
-
-  if (end) {
-    constraint.pointA = null;
-    constraint.bodyB = null;
-    constraint.pointB = null;
-  }
-  return state;
-};
-
-const CleanBoxes = (state, { touches, screen }) => {
-  let world = state["physics"].world;
+  /// Move
   Object.keys(state)
-    .filter(key => state[key].body && state[key].body.position.y < 0)
+    .filter(key => state[key].body)
     .forEach(key => {
-      Matter.Composite.remove(world, state[key].body);
-      delete state[key];
+      if (state[key].bullet)
+        Matter.Body.setVelocity(state[key].body, {
+          x: -1 * BulletSpeed,
+          y: -1 * BulletSpeed
+        });
+      else {
+        Matter.Body.setVelocity(state[key].body, {
+          x: 0,
+          y: -1 * SpinSpeed
+        });
+      }
     });
-
   return state;
 };
 
-export { Physics, CreateBox, CreateFire, TargetHit, CleanBoxes, NewSpinShow, NewFire };
+export { Physics, NewSpinShow, NewFire };

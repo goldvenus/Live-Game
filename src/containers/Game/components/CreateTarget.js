@@ -7,7 +7,7 @@ import Images from "../../../../MocData";
 import { GameTypes } from "../gameEngine/data/gameType";
 
 const CreateTarget = ({ spinInfoData, angle }) => {
-  const { spinType, spinNumber, spinColor, shadowColor, spinSize, spinTextSize, megaType, userType } = spinInfoData;
+  const { spinType, spinNumber, spinColor, spinSize, spinTextSize, megaType, userType } = spinInfoData;
   const targetImage = Images.game.gameplay.target;
   let ty = spinSize / 8;
   if (spinType === GameTypes.spinType.triangle)

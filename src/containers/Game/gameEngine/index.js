@@ -1,7 +1,7 @@
 import React from "react";
 import { StatusBar, TouchableOpacity, View, Alert, Text } from "react-native";
 import { GameEngine } from "react-native-game-engine";
-import { Physics, CreateBox, TargetHit, CleanBoxes, NewSpinShow, CreateFire, NewFire } from "./systems";
+import { Physics, NewSpinShow, NewFire } from "./systems";
 import Matter from "matter-js";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import LocationPulseLoader from "../components/animation/PulseLoader";
@@ -50,8 +50,8 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
   const [shotSoundObjectTen, setShotSoundObjectTen] = useVariable(null);
 
   let gameEngine = null;
-  let spinSpeed = 5;
-  let bulletSpeed = 10;
+  let spinSpeed = 4;
+  let bulletSpeed = 8;
   let targetShowTime = 3;
   const multiShotSpeed = 300;
 
@@ -234,27 +234,10 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
   const setupWorld = () => {
     const random = Math.floor(Math.random() * 10000) % wp("100");
     const targetPosition = { x: random, y: hp("89") };
-    const width = wp("100");
-    const height = hp("100");
-    const boxSize = Math.trunc(Math.max(width, height) * 0.075);
-
     const engine = Matter.Engine.create({ enableSleeping: false });
     const world = engine.world;
-    const body = Matter.Bodies.rectangle(width / 2, -1000, boxSize, boxSize, { frictionAir: 0.021 });
-    const floor = Matter.Bodies.rectangle(width / 2, height - boxSize / 2, width, boxSize, { isStatic: true });
-    const constraint = Matter.Constraint.create({
-      label: "Drag Constraint",
-      pointA: { x: 0, y: 0 },
-      pointB: { x: 0, y: 0 },
-      length: 0.01,
-      stiffness: 0.1,
-      angularStiffness: 1
-    });
-
-    Matter.World.add(world, [body, floor]);
-    Matter.World.addConstraint(world, constraint);
     return {
-      physics: { engine: engine, world: world, constraint: constraint },
+      physics: { engine: engine, world: world },
       targetPosition: targetPosition
     };
   };
@@ -292,7 +275,7 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
           gameEngine = ref;
         }}
         onEvent={onEvent}
-        systems={[Physics, CreateBox, TargetHit, CreateFire, CleanBoxes]}
+        systems={[Physics]}
         running={running}
         entities={setupWorld()}>
         <StatusBar hidden={true}/>
