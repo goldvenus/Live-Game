@@ -19,6 +19,7 @@ import GameHeaderBar from "../components/GameHeaderBar";
 import { bindActionCreators } from "redux";
 import { setFlareToken } from "../../../redux/action/game";
 import Modal from "react-native-modal";
+import { handleAndroidBackButton, removeAndroidBackButtonHandler } from "../../../services/BackPress";
 
 const width = wp("100");
 const numberOfSegments = 10;
@@ -59,7 +60,6 @@ class FlareSpinWheel extends React.Component {
   _wheelPaths = makeWheel(numberOfSegments);
   _wheelLinePaths = makeWheel(numberOfWheelLine);
   _angle = new Animated.Value(0);
-  _zomeOutIn = new Animated.Value(0);
   angle = 0;
 
   state = {
@@ -156,6 +156,7 @@ class FlareSpinWheel extends React.Component {
   }
 
   componentDidMount() {
+    handleAndroidBackButton(()=>{this.props.navigation.goBack(null)})
     this._angle.addListener(event => {
       if (this.state.enabled) {
         this.setState({
@@ -165,6 +166,10 @@ class FlareSpinWheel extends React.Component {
       }
       this.angle = event.value;
     });
+  }
+
+  componentWillUnmount() {
+    removeAndroidBackButtonHandler();
   }
 
   _getWinnerIndex = () => {
