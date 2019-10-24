@@ -10,6 +10,10 @@ import {
   View,
   ScrollView
 } from "react-native";
+import {
+  handleAndroidBackButton,
+  removeAndroidBackButtonHandler
+} from "../../services/BackPress";
 
 import { styles, ReadyStyles, GameGlobal } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
@@ -29,6 +33,7 @@ class GameReady extends React.Component {
   }
 
   componentDidMount() {
+    handleAndroidBackButton(() => this.props.navigation.goBack(null));
     this.clockCountDown = setInterval(() => {
       this.decrementClock();
     }, 1000);
@@ -36,6 +41,7 @@ class GameReady extends React.Component {
 
   componentWillUnmount() {
     //this.setState({unMount: true});
+    removeAndroidBackButtonHandler();
     clearInterval(this.clockCountDown);
   }
 

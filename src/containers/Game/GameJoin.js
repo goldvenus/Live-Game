@@ -24,7 +24,7 @@ import Images from "../../../MocData";
 function GameJoin({ navigation, spinToken }) {
 
   React.useEffect(() => {
-    handleAndroidBackButton(() => navigation.navigate("GameJoin"));
+    handleAndroidBackButton(()=>{return false});
     return () => {
       removeAndroidBackButtonHandler();
     };

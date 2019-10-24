@@ -6,28 +6,20 @@ import {
 import { styles } from "./styles";
 
 import GamePlay from "./gameEngine";
+import { handleAndroidBackButton, removeAndroidBackButtonHandler } from "../../services/BackPress";
 
 export default class GameStart extends React.Component {
 
   componentDidMount() {
-    // this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-    //   this.goBack(); // works best when the goBack is async
-    //   return true;
-    // });
-    //handleAndroidBackButton(()=>this.goPage('GameJoin'));
+    handleAndroidBackButton(()=>{return false})
   }
 
   componentWillUnmount() {
-    //removeAndroidBackButtonHandler();
+    removeAndroidBackButtonHandler();
   }
 
   goPage = (pageName) => {
-    //this.props.navigation.goBack(null);
     this.props.navigation.navigate(pageName);
-    // if (pageName === "GameJoin") {
-    //   this.props.navigation.navigate(pageName);
-    // } else
-    //   this.props.navigation.replace(pageName);
   };
 
   render() {

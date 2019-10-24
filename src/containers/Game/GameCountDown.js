@@ -15,6 +15,7 @@ import { Audio } from "expo-av";
 import CreateTarget from "./components/CreateTarget";
 import { GameTypes } from "./gameEngine/data/gameType";
 import Images from "../../../MocData";
+import { handleAndroidBackButton, removeAndroidBackButtonHandler } from "../../services/BackPress";
 
 class GameCountDown extends React.Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class GameCountDown extends React.Component {
   }
 
   async componentDidMount() {
+    handleAndroidBackButton(()=>{this.props.navigation.goBack(null)})
     await this.countDownSound();
     Animated.timing(
       // Uses easing functions
@@ -49,6 +51,7 @@ class GameCountDown extends React.Component {
   }
 
   async componentWillUnmount() {
+    removeAndroidBackButtonHandler();
     try {
       await this.soundObject.stopAsync();
     } catch (e) {
