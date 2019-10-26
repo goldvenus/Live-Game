@@ -2,7 +2,8 @@ import React from "react";
 import { View } from "react-native";
 import CreateTarget from "../components/CreateTarget";
 import CreateBullet from "../components/CreateBullet";
-
+import { heightPercentageToDP as hp, widthPercentageToDP as wp }
+  from "react-native-responsive-screen";
 const Box = ({ size, body, spinInfoData }) => {
   const width = size[0];
   const height = size[1];
@@ -36,9 +37,10 @@ const Bullet = ({ size, body }) => {
       zIndex:4,
       width: width,
       height: height,
-      marginTop: size[1] / -1.7
+      borderRadius: wp('2'),
+      backgroundColor: '#2EC760'
     }}>
-      <CreateBullet angle = {angle}/>
+      {/*<CreateBullet angle = {angle}/>*/}
     </View>
   );
 };

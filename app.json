@@ -30,6 +30,10 @@
     },
     "android": {
       "package": "com.zenduja.game"
-    }
+    },
+    "platforms": [
+      "android",
+      "ios"
+    ]
   }
 }
