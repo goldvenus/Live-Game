@@ -22,19 +22,23 @@ class GameCountDown extends React.Component {
     super(props);
     this.state = {
       downTime: 10,
-      fadeAnim: new Animated.Value(0),
+      fadeAnim: new Animated.Value(0)
     };
     this.soundObject = new Audio.Sound();
   }
 
   async componentDidMount() {
-    handleAndroidBackButton(()=>{this.props.navigation.goBack(null)})
+    handleAndroidBackButton(() => {
+      this.props.navigation.goBack(null);
+    });
     await this.countDownSound();
     Animated.timing(
       // Uses easing functions
       this.state.fadeAnim,
-      {toValue: 1,
-        duration: 2000},
+      {
+        toValue: 1,
+        duration: 2000
+      }
     ).start();
     this.clockCountDown = setInterval(() => {
       this.decrementClock();
@@ -79,28 +83,37 @@ class GameCountDown extends React.Component {
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
           <GameHeaderBar/>
-          <CreateTarget spinInfoData = {{
-            spinType:GameTypes.spinType.triangle,
-            megaType:GameTypes.spinType.mega.apple,
-            userType:GameTypes.spinType.user.woman,
-            spinNumber:50,
-            spinColor:GameTypes.spinColor.green,
-            shadowColor:GameTypes.shadowColor.white,
-            spinSize: 45,
-            spinTextSize: 24
-          }} angle={0}/>
+          <View style={{
+            position: 'absolute',
+            top: hp('30'),
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            width: '100%'
+          }}>
+            <CreateTarget spinInfoData={{
+              spinType: GameTypes.spinType.triangle,
+              megaType: GameTypes.spinType.mega.apple,
+              userType: GameTypes.spinType.user.woman,
+              spinNumber: 50,
+              spinColor: GameTypes.spinColor.green,
+              shadowColor: GameTypes.shadowColor.white,
+              spinSize: 45,
+              spinTextSize: 24
+            }} angle={0}/>
+          </View>
           {
             this.state.downTime < 10 &&
             <Animated.Text style={{
               opacity: this.state.fadeAnim,
-              position:'absolute',
-              display: 'flex',
-              top:hp('50'),
-              flexDirection: 'row',
-              width: '100%',
-              alignItems: 'center',
-              textAlign: 'center',
-              justifyContent: 'center',
+              position: "absolute",
+              display: "flex",
+              top: hp("50"),
+              flexDirection: "row",
+              width: "100%",
+              alignItems: "center",
+              textAlign: "center",
+              justifyContent: "center",
               fontSize: wp("18"),
               color: "white",
               fontFamily: "Antonio-Bold"
