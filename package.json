@@ -15,7 +15,7 @@
     "expo-asset": "latest",
     "expo-av": "^7.0.1",
     "expo-font": "latest",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "matter-js": "^0.13.0",
     "native-base": "^2.10.0",
     "prop-types": "^15.6.2",

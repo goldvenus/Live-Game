@@ -5,7 +5,23 @@ import Images from "../../../../MocData";
 import { styles } from "./styles";
 import RoundPannel from "./RoundPannel";
 
-function GameNikiRound({ nikeSpinNum, navigation }) {
+function GameNikiRound({ score, navigation }) {
+
+  let nikeSpinNum = 0;
+  const type = navigation.getParam('param', 'NO-ID');
+  switch(type.param) {
+    case 'niki':
+      nikeSpinNum = score.nikeSpin;
+      break;
+    case 'apple':
+      nikeSpinNum = score.appleSpin;
+      break;
+    case 'mega':
+      nikeSpinNum = score.megaSpin;
+      break;
+    default:
+      break;
+  }
   let gameRoundState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   let j = nikeSpinNum > 9 ? 9 : nikeSpinNum;
   if (nikeSpinNum === 9) {
@@ -25,7 +41,7 @@ function GameNikiRound({ nikeSpinNum, navigation }) {
         <TouchableOpacity onPress={()=>resumeGame()}>
           <Image
             style={styles.header_arrow_btn}
-            source={Images.game.header.amber}
+            source={Images.public.close}
           />
         </TouchableOpacity>
         <View style={styles.header_middle_view}>
@@ -56,7 +72,7 @@ function GameNikiRound({ nikeSpinNum, navigation }) {
           <Text style={styles.roundTitleBoldtext}>9 BADGES</Text>
           <Text style={styles.roundTitletext}> TO REDEEM YOUR PRIZE!</Text>
         </View>
-        <RoundPannel roundState={gameRoundState} type="niki"/>
+        <RoundPannel roundState={gameRoundState} type={type.param}/>
       </View>
     </View>
   );
@@ -64,7 +80,7 @@ function GameNikiRound({ nikeSpinNum, navigation }) {
 
 const mapStateToProps = state => {
   return {
-    nikeSpinNum: state.game.score.nikeSpin
+    score: state.game.score
   };
 };
 

@@ -6,7 +6,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
 import Images from "../../../../MocData";
 import { GameTypes } from "../gameEngine/data/gameType";
 
-const CreateTarget = ({ spinInfoData, angle }) => {
+const CreateTarget = ({ spinInfoData, angle, shadow=true, running = true }) => {
   const { spinType, spinNumber, spinColor, spinSize, spinTextSize, megaType, userType } = spinInfoData;
   const targetImage = Images.game.gameplay.target;
   let ty = spinSize / 8;
@@ -24,22 +24,24 @@ const CreateTarget = ({ spinInfoData, angle }) => {
     <View style={{
       display: "flex",
       justifyContent: "center",
-      height: hp(spinSize),
       flexDirection: "row",
-      marginTop: hp(spinSize/-6),
+      marginTop: hp(spinSize/-8),
     }}>
-      <Image source={targetImage.shadow[spinColor]} style={{
-        marginTop: wp(spinSize / 6),
-        width: wp(spinSize * 2 / 3),
-        height: hp(spinSize * 3 / 2),
-        opacity: 0.4,
-        position: "absolute",
-        resizeMode: "contain"
-      }}/>
+      {
+        shadow &&  <Image source={targetImage.shadow[spinColor]} style={{
+          marginTop: wp(spinSize / 6),
+          width: wp(spinSize * 2 / 3),
+          height: hp(spinSize * 3 / 2),
+          opacity: 0.4,
+          position: "absolute",
+          resizeMode: "contain"
+        }}/>
+      }
 
       <Image source={targetImage[spinType][spinColor]} style={{
         width: wp(spinSize),
         height: wp(spinSize),
+        tintColor: (running && !shadow) ? 'gray': null,
         transform: [{ rotate: angle + "rad" }]
       }}/>
       {

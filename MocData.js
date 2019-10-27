@@ -131,6 +131,9 @@ const Images = {
       eighth: require('./assets/images/wheel/mega/15.png'),
       ninth: require('./assets/images/wheel/mega/30.png'),
     }
+  },
+  public: {
+    close: require('./assets/images/close.png')
   }
 };
 
