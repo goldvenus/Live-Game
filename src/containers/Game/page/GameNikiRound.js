@@ -5,7 +5,7 @@ import Images from "../../../../MocData";
 import { styles } from "./styles";
 import RoundPannel from "./RoundPannel";
 
-function GameNikiRound({ score, navigation }) {
+function GameNikiRound({ score, navigation, getSpinListItems }) {
 
   let nikeSpinNum = 0;
   const type = navigation.getParam('param', 'NO-ID');
@@ -35,15 +35,20 @@ function GameNikiRound({ score, navigation }) {
   const resumeGame = () => {
     navigation.goBack(null);
   };
+
   return (
     <View style={styles.megaRoundParent}>
       <View style={styles.header_view}>
-        <TouchableOpacity onPress={()=>resumeGame()}>
-          <Image
-            style={styles.header_arrow_btn}
-            source={Images.public.close}
-          />
-        </TouchableOpacity>
+        {
+          getSpinListItems.length>0 ?
+          <TouchableOpacity onPress={()=>resumeGame()}>
+            <Image
+              style={styles.header_arrow_btn}
+              source={Images.public.close}
+            />
+          </TouchableOpacity> : <View/>
+        }
+
         <View style={styles.header_middle_view}>
           <Image
             style={styles.game_mark_icon}
@@ -80,7 +85,8 @@ function GameNikiRound({ score, navigation }) {
 
 const mapStateToProps = state => {
   return {
-    score: state.game.score
+    score: state.game.score,
+    getSpinListItems: state.game.getSpinListItems
   };
 };
 

@@ -17,7 +17,7 @@ import { addFlareScore, addSpin, addSpinList, setFlareToken, setMegaToken } from
 import { ADD_APPLE_SPIN, ADD_LOCK_SPIN, ADD_MEGA_SPIN, ADD_NIKE_SPIN } from "../../../redux/action/type";
 import GetBubbleLeftScreen from "../page/GetBubbleLeftScreen";
 import { leftSpinList } from "./data/LeftSpinListData";
-import GameStartHeader from "./GameStartHeader";
+import GameHeaderBar from "../components/GameHeaderBar";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 
@@ -38,6 +38,8 @@ let oneFireshotTimer = null;
 let endGameTimer = null;
 let doublefireReady = false;
 let doublefireReadyTimer = null;
+let burstFireTimer = null;
+let burstFireTemp = false;
 
 function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpin, addSpinList }) {
   const [running, setRunning] = React.useState(true);
@@ -55,7 +57,7 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
   let spinSpeed = 4;
   let bulletSpeed = 8;
   let targetShowTime = 3;
-  const multiShotSpeed = 300;
+  const multiShotSpeed = 80;
 
 
   React.useEffect(() => {
@@ -176,7 +178,7 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
       setTimeout(() => {
         clearInterval(intervalTime);
         firingGun = false;
-      }, multiShotSpeed * bullet + 100);
+      }, multiShotSpeed * bullet + 50);
     } else {
       firingGun = true;
       const intervalTime = setInterval(() => {
@@ -185,14 +187,20 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
       setTimeout(() => {
         clearInterval(intervalTime);
         firingGun = false;
-      }, multiShotSpeed * multiNum + 100);
+      }, multiShotSpeed * multiNum + 50);
     }
   };
 
   const FirePressIn = () => {
+    burstFireTimer = setInterval(()=> {
+      doublefireReady = true;
+      burstFireTemp = true;
+      onMultiFireGun(5);
+      soundEffectPlay(shotSoundObjectFive);
+    }, 1500);
     const pressedIntime = new Date().getTime();
     if ((pressedIntime - pressedTime > 500)) doublefireReady = false;
-    if ((pressedIntime - pressedTime < 200) && !firingGun && !doublefireReady && running) {
+    if ((pressedIntime - pressedTime < 170) && !firingGun && !doublefireReady && running) {
       doublefireReady = true;
       doublefireReadyTimer = setTimeout(() => {
         firingGun = true;
@@ -200,7 +208,7 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
         clearTimeout(oneFireshotTimer);
         soundEffectPlay(shotSoundObjectTen);
         onMultiFireGun(9);
-      }, 250);
+      }, 180);
     }
     else if (doublefireReady && (pressedIntime - pressedTime < 300)) {
       clearTimeout(doublefireReadyTimer);
@@ -210,18 +218,19 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
 
   const FirePressOut = () => {
     const currentTime = new Date().getTime();
-    if (!firingGun && running) {
-      if (currentTime - pressedTime > 1000) {
-        firingGun = true;
-        soundEffectPlay(shotSoundObjectFive);
-        onMultiFireGun(5);
-      } else {
-        oneFireshotTimer = setTimeout(() => {
-          soundEffectPlay(shotSoundObjectSingle);
-          onFireGun();
-        }, 100);
-      }
+    if (!firingGun && running && !burstFireTemp) {
+      // if (currentTime - pressedTime > 1000) {
+      //   firingGun = true;
+      //   soundEffectPlay(shotSoundObjectFive);
+      //   onMultiFireGun(5);
+      // }
+      oneFireshotTimer = setTimeout(() => {
+        soundEffectPlay(shotSoundObjectSingle);
+        onFireGun();
+      }, 220);
     }
+    clearInterval(burstFireTimer);
+      burstFireTemp = false
   };
   const gameStart = () => {
     const id = setInterval(() => {
@@ -286,7 +295,7 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
         <GetFlareBox size={gameHitData["size"]} body={gameHitData["body"]} spinInfoData={gameHitData["spinInfoData"]}/>
       }
       <GameDashBoard passPlayers={passPlayers}/>
-      <GameStartHeader running={running} backPage={backPage}/>
+      <GameHeaderBar/>
       <GameBottomBar bulletCount={bulletCount} gamePlayTime={gamePlayTime}/>
       <TouchableOpacity
         style={{

@@ -6,8 +6,20 @@ import { bindActionCreators } from "redux";
 import { removeSpinList } from "../../../redux/action/game";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
+import * as Animatable from 'react-native-animatable';
 
 function GetBubbleLeftScreen({ removeSpinList, spinInfoData, getSpinListItems, running, backPage }) {
+  const zoomAnimation = {
+    0: {
+      scale: 1
+    },
+    0.5: {
+      scale: 2
+    },
+    1: {
+      scale: 1
+    }
+  };
   const onOpenGetMegaSpinResultPage = (index) => {
     if(running)
       return;
@@ -39,13 +51,17 @@ function GetBubbleLeftScreen({ removeSpinList, spinInfoData, getSpinListItems, r
       left: wp("1")
     }}>
       {getSpinListItems.map((item, index) =>
-        <TouchableOpacity key={index} onPress={() =>onOpenGetMegaSpinResultPage(item.megaType)}>
-          <View style={{
-            opacity: running ? 0.6 : 1
-          }}>
+        <Animatable.View style={{
+          opacity: running ? 0.6 : 1,
+          transform: [
+            {scaleX: 0},
+            {scaleY: 0}
+          ],
+        }} animation={zoomAnimation} key={index}>
+          <TouchableOpacity  onPress={() =>onOpenGetMegaSpinResultPage(item.megaType)}>
             <CreateTarget spinInfoData={item} angle={0} shadow={false} running={running}/>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </Animatable.View>
       )}
     </View>
   );

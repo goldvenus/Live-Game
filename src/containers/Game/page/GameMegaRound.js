@@ -5,7 +5,7 @@ import Images from "../../../../MocData";
 import { styles } from "./styles";
 import RoundPannel from "./RoundPannel";
 
-function GameMegaRound({megaSpinCount, navigation}) {
+function GameMegaRound({megaSpinCount, navigation, getSpinListItems}) {
   let gameRoundState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   let j = megaSpinCount > 9 ? 9 : megaSpinCount;
   if (megaSpinCount === 9) {
@@ -22,12 +22,16 @@ function GameMegaRound({megaSpinCount, navigation}) {
   return (
     <View style={styles.megaRoundParent}>
       <View style={styles.header_view}>
+      {
+        getSpinListItems.length>0 ?
         <TouchableOpacity onPress={()=>resumeGame()}>
-        <Image
-          style={styles.header_arrow_btn}
-          source={Images.game.header.amber}
-        />
-        </TouchableOpacity>
+          <Image
+            style={styles.header_arrow_btn}
+            source={Images.public.close}
+          />
+        </TouchableOpacity>: <View/>
+      }
+
         <View style={styles.header_middle_view}>
           <Image
             style={styles.game_mark_icon}
@@ -65,7 +69,8 @@ function GameMegaRound({megaSpinCount, navigation}) {
 
 const mapStateToProps = state => {
   return {
-    megaSpinCount: state.game.score.megaSpin
+    megaSpinCount: state.game.score.megaSpin,
+    getSpinListItems: state.game.getSpinListItems
   };
 };
 
