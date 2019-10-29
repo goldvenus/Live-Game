@@ -11,15 +11,17 @@ import { handleAndroidBackButton, removeAndroidBackButtonHandler } from "../../s
 export default class GameStart extends React.Component {
 
   componentDidMount() {
-    handleAndroidBackButton(()=>{return false})
+    handleAndroidBackButton(() => {
+      return false;
+    });
   }
 
   componentWillUnmount() {
     removeAndroidBackButtonHandler();
   }
 
-  goPage = (pageName) => {
-    this.props.navigation.navigate(pageName);
+  goPage = (pageName, param) => {
+    this.props.navigation.navigate(pageName, { param: param });
   };
 
   render() {

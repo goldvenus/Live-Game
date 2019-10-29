@@ -113,10 +113,7 @@ const Physics = (state, { touches, time, dispatch }) => {
       if (targetSpin.spinNumber > 0) {
         dispatch({ type: `score-${targetSpin.spinNumber}` });
       } else if (targetSpin.spinNumber === 0) {
-        if (targetSpinType === "niki" || targetSpinType === "apple")
-          dispatch({ type: "goal-niki" });
-        else
-          dispatch({ type: "goal-mega" });
+        dispatch({ type: `goal-${targetSpinType}`})
       } else if (targetSpin.spinNumber === -1) {
         dispatch({ type: "goal-user" });
       }

@@ -1,4 +1,11 @@
-import { ADD_FLARE_SCORE, ADD_SPIN, SET_TOKEN_FLARE_SCORE, SET_TOKEN_MEGA_SCORE } from "./type";
+import {
+  ADD_FLARE_SCORE,
+  ADD_GET_SPIN_LIST,
+  ADD_SPIN,
+  REMOVE_SPIN_LIST,
+  SET_TOKEN_FLARE_SCORE,
+  SET_TOKEN_MEGA_SCORE
+} from "./type";
 
 export const addFlareScore = score =>{
   return{
@@ -26,6 +33,20 @@ export const addSpin = spinType => {
   return {
     type: ADD_SPIN,
     payload: spinType
+  }
+};
+
+export const addSpinList = addSpin => {
+  return {
+    type: ADD_GET_SPIN_LIST,
+    payload: addSpin
+  }
+};
+
+export const removeSpinList = removeSpin => {
+  return {
+    type: REMOVE_SPIN_LIST,
+    payload: removeSpin
   }
 }
 

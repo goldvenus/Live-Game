@@ -4,3 +4,7 @@ export const SET_TOKEN_MEGA_SCORE = 'SET_TOKEN_MEGA_SCORE';
 export const ADD_SPIN = 'ADD_SPIN';
 export const ADD_MEGA_SPIN = 'ADD_MEGA_SPIN';
 export const ADD_NIKE_SPIN = 'ADD_NIKE_SPIN';
+export const ADD_APPLE_SPIN = 'ADD_APPLE_SPIN';
+export const ADD_LOCK_SPIN = 'ADD_LOCK_SPIN';
+export const ADD_GET_SPIN_LIST = 'ADD_GET_SPIN_LIST';
+export const REMOVE_SPIN_LIST = 'REMOVE_SPIN_LIST';

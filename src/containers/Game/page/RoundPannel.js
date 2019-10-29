@@ -4,7 +4,6 @@ import { styles } from "./styles";
 import Images from "../../../../MocData";
 
 const RoundPannel = ({ roundState, type }) => {
-
   return (
     <View style={styles.roundPannel}>
       {
@@ -14,7 +13,7 @@ const RoundPannel = ({ roundState, type }) => {
               <View key={key}>
                 <Image source={type==='mega'?Images.game.gameplay.target.circle.blue: Images.game.gameplay.target.circle.orange}
                        style={styles.roundImage}/>
-                <Image source={type==='mega'?Images.game.page.mega.roundUnlock:Images.game.gameplay.target.mega.niki}
+                <Image source={type==='mega'?Images.game.page.mega.roundUnlock:Images.game.gameplay.target.mega[type]}
                        style={styles.roundlock}/>
               </View>);
           else
