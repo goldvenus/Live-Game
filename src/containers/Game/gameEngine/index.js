@@ -13,7 +13,14 @@ import Images from "../../../../MocData";
 import { Audio } from "expo-av";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { addFlareScore, addSpin, addSpinList, setFlareToken, setMegaToken } from "../../../redux/action/game";
+import {
+  addFlareScore,
+  addSpin,
+  addSpinList,
+  resetAnimation,
+  setFlareToken,
+  setMegaToken
+} from "../../../redux/action/game";
 import { ADD_APPLE_SPIN, ADD_LOCK_SPIN, ADD_MEGA_SPIN, ADD_NIKE_SPIN } from "../../../redux/action/type";
 import GetBubbleLeftScreen from "../page/GetBubbleLeftScreen";
 import { leftSpinList } from "./data/LeftSpinListData";
@@ -41,7 +48,7 @@ let doublefireReadyTimer = null;
 let burstFireTimer = null;
 let burstFireTemp = false;
 
-function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpin, addSpinList }) {
+function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpin, addSpinList, resetAnimation }) {
   const [running, setRunning] = React.useState(true);
   const [passPlayers, setpassPlayers] = React.useState(0);
   const [bulletCount, setbulletCount] = React.useState(100);
@@ -128,20 +135,26 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
       case "goal-mega":
         //gamePause();
         addSpin(ADD_MEGA_SPIN);
+        resetAnimation();
         addSpinList(leftSpinList[1]);
-        //backPage("GameMegaRound");
         break;
       case "goal-niki":
         //gamePause();
+
+        resetAnimation();
         addSpinList(leftSpinList[0]);
         addSpin(ADD_NIKE_SPIN);
         //backPage("GameNikiRound");
         break;
       case 'goal-lock':
+
+        resetAnimation();
         addSpinList(leftSpinList[3]);
         addSpin(ADD_LOCK_SPIN);
         break;
       case 'goal-apple':
+
+        resetAnimation();
         addSpinList(leftSpinList[2]);
         addSpin(ADD_APPLE_SPIN);
         break;
@@ -358,7 +371,8 @@ const mapDispatchToProps = (dispatch) => {
       setFlareToken: setFlareToken,
       setMegaToken: setMegaToken,
       addSpin: addSpin,
-      addSpinList:addSpinList
+      addSpinList:addSpinList,
+      resetAnimation: resetAnimation
     }, dispatch)
   };
 };

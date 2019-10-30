@@ -2,7 +2,7 @@ import {
   ADD_FLARE_SCORE,
   ADD_GET_SPIN_LIST,
   ADD_SPIN,
-  REMOVE_SPIN_LIST,
+  REMOVE_SPIN_LIST, RESET_ANIMATION,
   SET_TOKEN_FLARE_SCORE,
   SET_TOKEN_MEGA_SCORE
 } from "./type";
@@ -48,5 +48,12 @@ export const removeSpinList = removeSpin => {
     type: REMOVE_SPIN_LIST,
     payload: removeSpin
   }
-}
+};
+
+export const resetAnimation = () => {
+  return {
+    type: RESET_ANIMATION,
+    payload: -1,
+  }
+};
 

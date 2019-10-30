@@ -3,12 +3,11 @@ import {
   ADD_FLARE_SCORE, ADD_GET_SPIN_LIST, ADD_LOCK_SPIN,
   ADD_MEGA_SPIN,
   ADD_NIKE_SPIN,
-  ADD_SPIN, REMOVE_SPIN_LIST,
+  ADD_SPIN, REMOVE_SPIN_LIST, RESET_ANIMATION,
   SET_TOKEN_FLARE_SCORE,
   SET_TOKEN_MEGA_SCORE
 } from "../action/type";
 import concat from 'lodash/concat';
-import pullAt from 'lodash/pullAt';
 const initialState = {
   score: {
     flareScore: 0,
@@ -22,7 +21,9 @@ const initialState = {
     flareSpin: 0,
     megaSpin: 0
   },
-  getSpinListItems: []
+
+  getSpinListItems: [],
+  leftSpinUpdate: 0
 };
 
 const GameReducer = (state = initialState, action) => {
@@ -90,19 +91,28 @@ const GameReducer = (state = initialState, action) => {
       }
     case ADD_GET_SPIN_LIST:
       if(state.getSpinListItems.filter(item=>item.megaType===action.payload.megaType).length>0) {
-        return state;
+        return {
+          ...state,
+          leftSpinUpdate: state.getSpinListItems.findIndex(item=>item.megaType===action.payload.megaType)
+        };
       }
       else {
         const addedItem = concat(...state.getSpinListItems, action.payload);
         return {
           ...state,
-          getSpinListItems: addedItem
+          getSpinListItems: addedItem,
+          leftSpinUpdate: state.getSpinListItems.length
         };
       }
     case REMOVE_SPIN_LIST:
       return {
         ...state,
         getSpinListItems: state.getSpinListItems.filter(item=>item.megaType!==action.payload)
+      };
+    case RESET_ANIMATION :
+      return {
+        ...state,
+        leftSpinUpdate: -1
       };
     default :
       return state;

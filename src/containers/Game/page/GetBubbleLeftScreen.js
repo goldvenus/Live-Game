@@ -1,14 +1,15 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import {View, TouchableOpacity} from "react-native";
 import CreateTarget from "../components/CreateTarget";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { removeSpinList } from "../../../redux/action/game";
-import { heightPercentageToDP as hp, widthPercentageToDP as wp }
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {removeSpinList} from "../../../redux/action/game";
+import {heightPercentageToDP as hp, widthPercentageToDP as wp}
   from "react-native-responsive-screen";
 import * as Animatable from 'react-native-animatable';
 
-function GetBubbleLeftScreen({ removeSpinList, spinInfoData, getSpinListItems, running, backPage }) {
+function GetBubbleLeftScreen({removeSpinList, spinInfoData, getSpinListItems, running, backPage, leftSpinUpdate}) {
+
   const zoomAnimation = {
     0: {
       scale: 1
@@ -20,8 +21,20 @@ function GetBubbleLeftScreen({ removeSpinList, spinInfoData, getSpinListItems, r
       scale: 1
     }
   };
+
+  const repeatAnimation = {
+    0: {
+      scale: 1
+    },
+    0.5: {
+      scale: 1
+    },
+    1: {
+      scale: 1
+    }
+  };
   const onOpenGetMegaSpinResultPage = (index) => {
-    if(running)
+    if (running)
       return;
     switch (index) {
       case 'niki':
@@ -29,19 +42,20 @@ function GetBubbleLeftScreen({ removeSpinList, spinInfoData, getSpinListItems, r
         removeSpinList('niki');
         break;
       case 'apple':
-        backPage("GameNikiRound", {param:'apple'});
+        backPage("GameNikiRound", {param: 'apple'});
         removeSpinList('apple');
         break;
       case 'mega':
-        backPage("GameNikiRound", {param:'mega'});
+        backPage("GameNikiRound", {param: 'mega'});
         removeSpinList('mega');
         break;
       case 'lock':
-        backPage("GameMegaRound", {param:'lock'});
+        backPage("GameMegaRound", {param: 'lock'});
         removeSpinList('lock');
         break;
     }
   };
+
   return (
     <View style={{
       flex: 1,
@@ -57,8 +71,9 @@ function GetBubbleLeftScreen({ removeSpinList, spinInfoData, getSpinListItems, r
             {scaleX: 0},
             {scaleY: 0}
           ],
-        }} animation={zoomAnimation} key={index}>
-          <TouchableOpacity  onPress={() =>onOpenGetMegaSpinResultPage(item.megaType)}>
+        }}
+           animation={leftSpinUpdate === index ? zoomAnimation : repeatAnimation} key={index}>
+          <TouchableOpacity onPress={() => onOpenGetMegaSpinResultPage(item.megaType)}>
             <CreateTarget spinInfoData={item} angle={0} shadow={false} running={running}/>
           </TouchableOpacity>
         </Animatable.View>
@@ -69,7 +84,8 @@ function GetBubbleLeftScreen({ removeSpinList, spinInfoData, getSpinListItems, r
 
 const mapStateToProps = state => {
   return {
-    getSpinListItems: state.game.getSpinListItems
+    getSpinListItems: state.game.getSpinListItems,
+    leftSpinUpdate: state.game.leftSpinUpdate
   };
 };
 
