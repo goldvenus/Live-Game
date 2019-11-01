@@ -69,7 +69,7 @@ function GameMegaRound({megaSpinCount, navigation, getSpinListItems}) {
 
 const mapStateToProps = state => {
   return {
-    megaSpinCount: state.game.score.megaSpin,
+    megaSpinCount: state.game.score.lockSpin,
     getSpinListItems: state.game.getSpinListItems
   };
 };

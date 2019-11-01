@@ -148,7 +148,6 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
         //backPage("GameNikiRound");
         break;
       case 'goal-lock':
-
         resetAnimation();
         addSpinList(leftSpinList[3]);
         addSpin(ADD_LOCK_SPIN);
