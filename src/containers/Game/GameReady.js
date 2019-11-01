@@ -129,8 +129,6 @@ class GameReady extends React.Component {
                     fontFamily: "Antonio-Bold",
                     fontSize: wp("15"),
                     color: "white",
-                    paddingLeft: wp("12"),
-                    paddingRight: wp("12"),
                     marginBottom: hp("-1")
                   }}>{`00:${downTime > 9 ? downTime : `0${downTime}`}`}</Text>
                 </View>
