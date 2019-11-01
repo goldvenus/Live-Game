@@ -3,8 +3,6 @@ import { Text } from "native-base";
 import { Animated, View } from "react-native";
 import React, { useRef } from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { Audio } from "expo-av";
-import Images from "../../../../MocData";
 
 function GameBottomBar({ bulletCount, gamePlayTime }) {
   const min = Math.floor(gamePlayTime / 60);
@@ -19,9 +17,6 @@ function GameBottomBar({ bulletCount, gamePlayTime }) {
   const color = gamePlayTime > 10 ? "#2EC760" : "#d21f3c";
 
   React.useEffect(()=> {
-    if (gamePlayTime === 11) {
-      Audio.Sound.createAsync(Images.sound.countdownSound, { shouldPlay: true });
-    }
     if(gamePlayTime === 10) {
       Animated.loop(
         Animated.sequence([

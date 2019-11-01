@@ -100,7 +100,7 @@ const Physics = (state, { touches, time, dispatch }) => {
       let body = state[key].body;
       return (
         body &&
-        distance([body.position.x, body.position.y], startPos) < state[key].size[0] * 5 / 7);
+        distance([body.position.x, body.position.y], startPos) < state[key].size[0]);
     });
     if (boxId) {
       let world = state["physics"].world;
