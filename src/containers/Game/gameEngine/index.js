@@ -135,9 +135,9 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
         break;
       case "goal-mega":
         //gamePause();
-        addSpin(ADD_MEGA_SPIN);
-        resetAnimation();
-        addSpinList(leftSpinList[1]);
+        //addSpin(ADD_MEGA_SPIN);
+        //resetAnimation();
+        //addSpinList(leftSpinList[1]);
         break;
       case "goal-niki":
         //gamePause();
