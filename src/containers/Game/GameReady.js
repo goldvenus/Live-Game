@@ -14,7 +14,7 @@ import {
   handleAndroidBackButton,
   removeAndroidBackButtonHandler
 } from "../../services/BackPress";
-
+import * as Animatable from 'react-native-animatable';
 import { styles, ReadyStyles, GameGlobal } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
@@ -22,17 +22,23 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
 import LightningEffect from "./components/animation/LightningEffect";
 import CreateUserImage from "./components/CreateUserImage";
 import Images from "../../../MocData";
+import { Audio } from "expo-av";
+import CountdownCircle from 'react-native-countdown-circle';
 
 class GameReady extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       downTime: 15,
-      unMount: false
+      unMount: false,
+      soundObject: null
     };
+
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    const { sound: soundObjectFive } = await Audio.Sound.createAsync(Images.sound.countdownSound, { shouldPlay: false });
+    this.setState({soundObject: soundObjectFive});
     handleAndroidBackButton(() => this.props.navigation.goBack(null));
     this.clockCountDown = setInterval(() => {
       this.decrementClock();
@@ -44,13 +50,15 @@ class GameReady extends React.Component {
     removeAndroidBackButtonHandler();
     clearInterval(this.clockCountDown);
   }
-
+   playSound = async() => {
+     await this.state.soundObject.replayAsync();
+  }
   decrementClock = () => {
-    if (this.state.downTime < 12) {
+    if(this.state.downTime < 7 && this.state.downTime>1) {
+      this.playSound();
+    }
+    if (this.state.downTime < 2) {
       clearInterval(this.clockCountDown);
-      this.setState({unMount: true});
-      //this.props.navigation.goBack(null);
-      this.props.navigation.replace("GameCountDown");
     }
     else
       this.setState((prevstate) => ({ downTime: prevstate.downTime - 1 }));
@@ -63,6 +71,14 @@ class GameReady extends React.Component {
 
   render() {
     const { downTime, unMount } = this.state;
+    const fadeAnimation = {
+      0: {
+        opacity: 0
+      },
+      0.5: {
+        opacity: 1
+      }
+    }
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
@@ -88,42 +104,62 @@ class GameReady extends React.Component {
                 }}>9PM</Text>
               </View>
             </View>
-            <View style={ReadyStyles.GameReady_CountDown_View}>
-              <View>
-                <Image style={ReadyStyles.flare_border}
-                       source={Images.game.lightning.image}/>
-                <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-4")} my={hp("0")} unMount={unMount}/>
+            {
+              downTime > 5 ? <View style={ReadyStyles.GameReady_CountDown_View}>
+                <View>
+                  <Image style={ReadyStyles.flare_border}
+                         source={Images.game.lightning.image}/>
+                  <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-4")} my={hp("0")} unMount={unMount}/>
+                </View>
+                <View style={{
+                  width: wp(62),
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}>
+                  <Text style={{
+                    fontFamily: "Antonio",
+                    fontSize: wp("6"),
+                    color: "white",
+                    opacity: 0.3,
+                    marginTop: hp("-1")
+                  }}>LIVE GAME BEGINS IN</Text>
+                  <Text style={{
+                    fontFamily: "Antonio-Bold",
+                    fontSize: wp("15"),
+                    color: "white",
+                    paddingLeft: wp("12"),
+                    paddingRight: wp("12"),
+                    marginBottom: hp("-1")
+                  }}>{`00:${downTime > 9 ? downTime : `0${downTime}`}`}</Text>
+                </View>
+                <View/>
+                <View>
+                  <Image style={ReadyStyles.flare_border_right}
+                         source={Images.game.lightning.image} unMount={unMount}/>
+                  <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-2")} my={hp("0")}/>
+                </View>
               </View>
-              <View style={{
-                width: wp(62),
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center"
-              }}>
-                <Text style={{
-                  fontFamily: "Antonio",
-                  fontSize: wp("6"),
-                  color: "white",
-                  opacity: 0.3,
-                  marginTop: hp("-1")
-                }}>LIVE GAME BEGINS IN</Text>
-                <Text style={{
-                  fontFamily: "Antonio-Bold",
-                  fontSize: wp("15"),
-                  color: "white",
-                  paddingLeft: wp("12"),
-                  paddingRight: wp("12"),
-                  marginBottom: hp("-1")
-                }}>{`00:${downTime > 9 ? downTime : `0${downTime}`}`}</Text>
-              </View>
-              <View/>
-              <View>
-                <Image style={ReadyStyles.flare_border_right}
-                       source={Images.game.lightning.image} unMount={unMount}/>
-                <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-2")} my={hp("0")}/>
-              </View>
-            </View>
+                : <Animatable.View style={ReadyStyles.GameReady_CountDown_View} animation={fadeAnimation}>
+                  <CountdownCircle
+                    seconds={5}
+                    radius= {wp('30')}
+                    shadowColor="#303030"
+                    borderWidth={wp('8')}
+                    color="#BF66FB"
+                    updateText={(elapsedSecs, totalSecs) => {
+                      return (totalSecs - elapsedSecs)===0 ? (totalSecs + 1 - elapsedSecs).toString(): (totalSecs - elapsedSecs).toString();
+                    }}
+                    onTimeElapsed={() => setTimeout(()=> {
+                      this.props.navigation.replace("GameStart")
+                    }, 30)}
+                    bgColor="#181818"
+                    textStyle={{fontSize: wp("15"), color: 'white', fontFamily: 'Antonio-Bold'}}
+                  />
+                </Animatable.View>
+            }
+
             <View style={ReadyStyles.Game_Members_Title}>
               <Text style={ReadyStyles.Game_Members_text1}>THERE ARE</Text>
               <Text style={ReadyStyles.Game_Members_text2}>127 PRO PLAYERS</Text>

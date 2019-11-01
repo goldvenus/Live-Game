@@ -38,6 +38,7 @@
     "react-redux": "^6.0.0",
     "react-style-proptype": "^3.2.2",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "react-native-countdown-circle": "3.0.1"
   }
 }

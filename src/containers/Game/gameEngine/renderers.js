@@ -1,7 +1,6 @@
 import React from "react";
 import { View } from "react-native";
 import CreateTarget from "../components/CreateTarget";
-import CreateBullet from "../components/CreateBullet";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
 const Box = ({ size, body, spinInfoData }) => {

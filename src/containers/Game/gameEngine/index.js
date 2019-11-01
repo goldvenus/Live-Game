@@ -25,6 +25,7 @@ import { ADD_APPLE_SPIN, ADD_LOCK_SPIN, ADD_MEGA_SPIN, ADD_NIKE_SPIN } from "../
 import GetBubbleLeftScreen from "../page/GetBubbleLeftScreen";
 import { leftSpinList } from "./data/LeftSpinListData";
 import GameHeaderBar from "../components/GameHeaderBar";
+import GameStartHeader from "./GameStartHeader";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 
@@ -48,7 +49,7 @@ let doublefireReadyTimer = null;
 let burstFireTimer = null;
 let burstFireTemp = false;
 
-function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpin, addSpinList, resetAnimation }) {
+function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpin, addSpinList, resetAnimation, getSpinListItems }) {
   const [running, setRunning] = React.useState(true);
   const [passPlayers, setpassPlayers] = React.useState(0);
   const [bulletCount, setbulletCount] = React.useState(100);
@@ -308,7 +309,9 @@ function GamePlay({ backPage, addFlareScore, setMegaToken, setFlareToken, addSpi
         <GetFlareBox size={gameHitData["size"]} body={gameHitData["body"]} spinInfoData={gameHitData["spinInfoData"]}/>
       }
       <GameDashBoard passPlayers={passPlayers}/>
-      <GameHeaderBar/>
+      {
+        !running && getSpinListItems.length < 1 ? <GameStartHeader backPage={backPage}/>: <GameHeaderBar/>
+      }
       <GameBottomBar bulletCount={bulletCount} gamePlayTime={gamePlayTime}/>
       <TouchableOpacity
         style={{

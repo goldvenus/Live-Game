@@ -19,14 +19,14 @@ const GameNavigator = createStackNavigator({
       header: null
     }
   },
-  GameCountDown: {
-    screen: GameCountDown,
+  GameStart: {
+    screen: GameStart,
     navigationOptions: {
       header: null
     }
   },
-  GameStart: {
-    screen: GameStart,
+  GameCountDown: {
+    screen: GameCountDown,
     navigationOptions: {
       header: null
     }
