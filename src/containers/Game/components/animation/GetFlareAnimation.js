@@ -6,9 +6,9 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
 import { Text } from "native-base";
 
-function GetFlareBox({ size, body, spinInfoData }) {
+function GetFlareBox({ size, body, spinInfoData, mark}) {
   /* User State init */
-
+  const m_mark = mark;
   const rotateValue = new useRef(new Animated.Value(0)).current;
   const saveRotateValue = rotateValue.interpolate({
     inputRange: [0, 0.5],
@@ -19,18 +19,43 @@ function GetFlareBox({ size, body, spinInfoData }) {
     inputRange: [0, 0.8, 1],
     outputRange: [0, 0, 1]
   });
+
+  const fadeValue_text = new useRef(new Animated.Value(1)).current;
+  const saveOpacity_text = fadeValue.interpolate({
+    inputRange: [0, 1, 1],
+    outputRange: [0, 1, 0]
+  });
+
+  const transYValue_text = new useRef(new Animated.Value(0)).current;
+  const saveTransY_text = rotateValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -150] });
   React.useEffect(()=> {
     fadeValue.setValue(1);
     rotateValue.setValue(0);
+    fadeValue_text.setValue(1);
+    Animated.parallel([
+      Animated.timing(transYValue_text, {
+        toValue: 1,
+        duration: 1500,
+        useNativeDriver: true
+      }),
+      Animated.timing(fadeValue_text, {
+        toValue: 0,
+        duration: 1500,
+        useNativeDriver: true
+      })
+    ]).start();
+    transYValue_text.setValue(0);
     Animated.parallel([
       Animated.timing(rotateValue, {
         toValue: 1,
-        duration: 1000,
+        duration: 1500,
         useNativeDriver: true
       }),
       Animated.timing(fadeValue, {
         toValue: 0,
-        duration: 1000,
+        duration: 1500,
         useNativeDriver: true
       })
     ]).start();
@@ -62,6 +87,23 @@ function GetFlareBox({ size, body, spinInfoData }) {
       width: width,
       height: height
     }}>
+      {
+        m_mark!==0 && <Animated.Text style={{
+          fontFamily: 'Antonio-Bold',
+          fontSize: wp('15'),
+          marginTop: wp('-17'),
+          color: 'white',
+          textAlign: 'center',
+          opacity: saveOpacity_text,
+          transform: [
+            {
+              translateY: saveTransY_text
+            }
+          ]
+        }}>
+          {m_mark}
+          </Animated.Text>
+      }
       <Animated.View style={{
         transform: [
           {

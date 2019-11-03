@@ -1,16 +1,19 @@
 import {
   ADD_APPLE_SPIN,
-  ADD_FLARE_SCORE, ADD_GET_SPIN_LIST, ADD_LOCK_SPIN,
+  ADD_SPIN_COINS_SCORE, ADD_GET_SPIN_LIST, ADD_LOCK_SPIN,
   ADD_MEGA_SPIN,
   ADD_NIKE_SPIN,
   ADD_SPIN, REMOVE_SPIN_LIST, RESET_ANIMATION,
   SET_TOKEN_FLARE_SCORE,
-  SET_TOKEN_MEGA_SCORE
+  SET_TOKEN_MEGA_SCORE,
+  ADD_WAVE_SCORE,
+  ADD_PASS_SCORE, REDUCE_MEGA_SPIN
 } from "../action/type";
 import concat from 'lodash/concat';
 const initialState = {
   score: {
-    flareScore: 0,
+    waveScore: 0,
+    spinCoins: 0,
     playerPassScore: 0,
     megaSpin: 0,
     nikeSpin: 0,
@@ -28,12 +31,29 @@ const initialState = {
 
 const GameReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_FLARE_SCORE:
+    case ADD_SPIN_COINS_SCORE:
       return {
         ...state,
         score: {
           ...state.score,
-          flareScore: state.score.flareScore + parseInt(action.payload)
+          spinCoins: state.score.spinCoins + parseInt(action.payload)
+        }
+      };
+    case ADD_WAVE_SCORE:
+      return {
+        ...state,
+        score: {
+          ...state.score,
+          waveScore: state.score.waveScore + parseInt(action.payload),
+          playerPassScore: Math.floor((state.score.waveScore + parseInt(action.payload))/500)
+        }
+      };
+    case ADD_PASS_SCORE:
+      return {
+        ...state,
+        score: {
+          ...state.score,
+          playerPassScore: state.score.playerPassScore + parseInt(action.payload)
         }
       };
     case SET_TOKEN_FLARE_SCORE:
@@ -84,6 +104,14 @@ const GameReducer = (state = initialState, action) => {
             score: {
               ...state.score,
               lockSpin: state.score.lockSpin + 1
+            }
+          };
+        case REDUCE_MEGA_SPIN:
+          return {
+            ...state,
+            score: {
+              ...state.score,
+              megaSpin: state.score.megaSpin - 1
             }
           };
         default :

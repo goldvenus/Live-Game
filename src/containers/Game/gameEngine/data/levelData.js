@@ -1,4 +1,5 @@
 import { GameTypes } from "./gameType";
+import {randomNumber} from "../../../../share/engine";
 
 const getRandomType = (objectType, range) => {
   return Object.keys(objectType)[RandomNumber(range)];
@@ -13,7 +14,7 @@ export const getspinArray = () => {
       spinType: GameTypes.spinType.triangle,
       megaType: GameTypes.spinType.mega.apple,
       userType: GameTypes.spinType.user.woman,
-      spinNumber: RandomNumber(50),
+      spinNumber: randomNumber(1, 50),
       spinColor: GameTypes.spinColor[getRandomType(GameTypes.spinColor, 2)],
       shadowColor: GameTypes.shadowColor.white,
       spinSize: GameTypes.spinSize.small,
@@ -23,7 +24,7 @@ export const getspinArray = () => {
       spinType: GameTypes.spinType.ellipse,
       megaType: GameTypes.spinType.mega.apple,
       userType: GameTypes.spinType.user.woman,
-      spinNumber: RandomNumber(50),
+      spinNumber: randomNumber(1, 50),
       spinColor: GameTypes.spinColor[getRandomType(GameTypes.spinColor, 4)],
       shadowColor: GameTypes.shadowColor.white,
       spinSize: GameTypes.spinSize.normal,

@@ -16,8 +16,9 @@ import Svg, { Path, G, Image } from "react-native-svg";
 import Images from "../../../../MocData";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import GameHeaderBar from "../components/GameHeaderBar";
-import { setMegaToken } from "../../../redux/action/game";
+import {addSpin} from "../../../redux/action/game";
 import Modal from "react-native-modal";
+import {REDUCE_MEGA_SPIN} from "../../../redux/action/type";
 
 const width = wp("100");
 const numberOfSegments = 8;
@@ -69,10 +70,10 @@ class MegaSpinWheel extends React.Component {
   }
 
   goWheel() {
-    if (this.state.playWheel || this.props.spinToken.megaSpin < 1)
+    if (this.state.playWheel || this.props.spinToken < 1)
       return;
-    const { setMegaToken, spinToken } = this.props;
-    setMegaToken(spinToken.megaSpin - 1);
+    const { addSpin } = this.props;
+    addSpin(REDUCE_MEGA_SPIN);
     this.setState({ playWheel: true });
     const m_speed = -2000;
     Animated.decay(this._angle, {
@@ -127,7 +128,7 @@ class MegaSpinWheel extends React.Component {
         <GameHeaderBar/>
         <View style={styles.headerTitleSection}>
           <RNText style={styles.headerTopTitle}>MEGA SPINS:</RNText>
-          <RNText style={styles.headerTopCount}>{this.props.spinToken.megaSpin}</RNText>
+          <RNText style={styles.headerTopCount}>{this.props.spinToken}</RNText>
         </View>
         <View style={styles.wheelContainer}>
           {this._renderSvgWheel()}
@@ -392,14 +393,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    spinToken: state.game.spinToken
+    spinToken: state.game.score.megaSpin
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatch,
     ...bindActionCreators({
-      setMegaToken: setMegaToken
+      addSpin: addSpin
     }, dispatch)
   };
 };

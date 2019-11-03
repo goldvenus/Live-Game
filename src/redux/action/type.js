@@ -1,8 +1,11 @@
-export const ADD_FLARE_SCORE = 'ADD_FLARE_SCORE';
+export const ADD_SPIN_COINS_SCORE = 'ADD_FLARE_SCORE';
+export const ADD_WAVE_SCORE = 'ADD_WAVE_SCORE';
+export const ADD_PASS_SCORE = 'ADD_PASS_SCORE';
 export const SET_TOKEN_FLARE_SCORE = 'SET_TOKEN_FLARE_SCORE';
 export const SET_TOKEN_MEGA_SCORE = 'SET_TOKEN_MEGA_SCORE';
 export const ADD_SPIN = 'ADD_SPIN';
 export const ADD_MEGA_SPIN = 'ADD_MEGA_SPIN';
+export const REDUCE_MEGA_SPIN = 'REDUCE_MEGA_SPIN';
 export const ADD_NIKE_SPIN = 'ADD_NIKE_SPIN';
 export const ADD_APPLE_SPIN = 'ADD_APPLE_SPIN';
 export const ADD_LOCK_SPIN = 'ADD_LOCK_SPIN';

@@ -16,6 +16,7 @@ const Box = ({ size, body, spinInfoData }) => {
       position: "absolute",
       zIndex:4,
       width: width,
+      marinTop: width/4,
       height: height,
     }}>
       <CreateTarget spinInfoData={spinInfoData} angle = {angle}/>
@@ -34,8 +35,8 @@ const Bullet = ({ size, body }) => {
       top: y,
       position: "absolute",
       zIndex:4,
-      width: width,
-      height: height,
+      width: width*1.5,
+      height: height*1.5,
       borderRadius: wp('2'),
       backgroundColor: '#2EC760'
     }}>

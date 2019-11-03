@@ -142,9 +142,9 @@ class GameReady extends React.Component {
                 : <Animatable.View style={ReadyStyles.GameReady_CountDown_View} animation={fadeAnimation}>
                   <CountdownCircle
                     seconds={5}
-                    radius= {wp('30')}
+                    radius= {wp('24')}
                     shadowColor="#303030"
-                    borderWidth={wp('8')}
+                    borderWidth={wp('6')}
                     color="#BF66FB"
                     updateText={(elapsedSecs, totalSecs) => {
                       return (totalSecs - elapsedSecs)===0 ? (totalSecs + 1 - elapsedSecs).toString(): (totalSecs - elapsedSecs).toString();

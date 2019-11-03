@@ -1,15 +1,31 @@
 import {
-  ADD_FLARE_SCORE,
+  ADD_SPIN_COINS_SCORE,
   ADD_GET_SPIN_LIST,
   ADD_SPIN,
+  ADD_WAVE_SCORE,
   REMOVE_SPIN_LIST, RESET_ANIMATION,
   SET_TOKEN_FLARE_SCORE,
-  SET_TOKEN_MEGA_SCORE
+  SET_TOKEN_MEGA_SCORE,
+  ADD_PASS_SCORE
 } from "./type";
 
-export const addFlareScore = score =>{
+export const addSpinCoinsScore = score =>{
   return{
-    type: ADD_FLARE_SCORE,
+    type: ADD_SPIN_COINS_SCORE,
+    payload: score
+  }
+};
+
+export const addWaveScore = score => {
+  return {
+    type: ADD_WAVE_SCORE,
+    payload: score
+  }
+};
+
+export const addPassScore = score => {
+  return {
+    type: ADD_PASS_SCORE,
     payload: score
   }
 };
@@ -56,4 +72,5 @@ export const resetAnimation = () => {
     payload: -1,
   }
 };
+
 

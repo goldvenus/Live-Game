@@ -21,7 +21,7 @@ import {
 } from "../../services/BackPress";
 import Images from "../../../MocData";
 
-function GameJoin({ navigation, spinToken }) {
+function GameJoin({ navigation, spinToken, score }) {
 
   React.useEffect(() => {
     handleAndroidBackButton(()=>{return false});
@@ -56,7 +56,7 @@ function GameJoin({ navigation, spinToken }) {
     navigation.navigate("NikiQuestion");
   };
   const onMegaSpinPress = () => {
-    if (spinToken.megaSpin < 1) {
+    if (score.megaSpin < 1) {
       disableShowSpinePage();
     } else
       navigation.navigate("MegaSpinWheel");
@@ -120,7 +120,7 @@ function GameJoin({ navigation, spinToken }) {
               justifyContent: "center",
               width: "50%"
             }}>
-              <Text style={GameGlobal.h4}>{RandomFlare.toString()}</Text>
+              <Text style={GameGlobal.h4}>{score.spinCoins}</Text>
               <Text style={GameGlobal.h6}>Spin Coins</Text>
             </View>
             <View style={{
@@ -135,7 +135,7 @@ function GameJoin({ navigation, spinToken }) {
               justifyContent: "center",
               width: "50%"
             }}>
-              <Text style={GameGlobal.h4}>1</Text>
+              <Text style={GameGlobal.h4}>{score.megaSpin}</Text>
               <Text style={GameGlobal.h6}>Mega Spin Credits</Text>
             </View>
           </View>
@@ -187,7 +187,7 @@ function GameJoin({ navigation, spinToken }) {
                               activeOpacity={0.4}>
               <Text style={GameGlobal.h5}>Mega Spins</Text>
               <View style={joinStyles.setting_item_right_view}>
-                <Text style={joinStyles.setting_item_right_textBox}>{spinToken.megaSpin}</Text>
+                <Text style={joinStyles.setting_item_right_textBox}>{score.megaSpin}</Text>
                 <View
                   style={joinStyles.flare_spins_btn}>
                   <Image source={Images.game.icon.arrow} style={{
@@ -228,7 +228,8 @@ function GameJoin({ navigation, spinToken }) {
 
 const mapStateToProps = state => {
   return {
-    spinToken: state.game.spinToken
+    spinToken: state.game.spinToken,
+    score: state.game.score
   };
 };
 
