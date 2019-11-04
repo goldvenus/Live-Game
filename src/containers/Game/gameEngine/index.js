@@ -53,7 +53,6 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
   const [running, setRunning] = React.useState(true);
   const [bulletCount, setBulletCount] = React.useState(100);
   const [gamePlayTime, setGamePlayTime] = React.useState(100);
-  const [userProSpin, setUserProSpin] = React.useState(0);
   const [gamePauseState, setGamePauseState] = React.useState(false);
   const [gameHitData, setGameHitData] = React.useState({});
   const [gameStartInternal, setGameStartInternal] = React.useState(null);
@@ -81,7 +80,7 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
   React.useEffect(() => {
     if (gamePlayTime < 1) {
       let getSpinCoin = 0;
-      for (let i=0; i<= userProSpin; i++) {
+      for (let i=0; i<= gameScore.playerPassScore; i++) {
         getSpinCoin += i;
         if(i===12)
           break;
@@ -94,7 +93,7 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
     if (gamePlayTime % targetShowTime === 0 && (gamePlayTime > 3)) {
       const random = (randomNumber(0, 10000) % wp("70")) + wp("10");
       const targetPosition = { x: random, y: hp("90") };
-      const spinInfoData = getspinArray()[randomNumber(0, 10) % 4];
+      const spinInfoData = getspinArray()[randomNumber(2, 4)];
       NewSpinShow(targetPosition, spinInfoData, spinSpeed);
     }
   }, [gamePlayTime]);
@@ -143,7 +142,6 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
         addSpin(ADD_APPLE_SPIN);
         break;
       case "goal-user":
-        setUserProSpin(userProSpin + 1);
         proImageTargetMark = randomNumber(10, 100);
         addWaveScore(proImageTargetMark);
         break;
@@ -293,7 +291,7 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
                      spinInfoData={gameHitData["spinInfoData"]}
                      mark={proImageTargetMark}/>
       }
-      <GameDashBoard userProSpin={userProSpin}/>
+      <GameDashBoard />
       {
         !running && getSpinListItems.length < 1 ? <GameStartHeader backPage={backPage}/>: <GameHeaderBar/>
       }

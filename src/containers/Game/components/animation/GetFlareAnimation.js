@@ -91,7 +91,7 @@ function GetFlareBox({ size, body, spinInfoData, mark}) {
         m_mark!==0 && <Animated.Text style={{
           fontFamily: 'Antonio-Bold',
           fontSize: wp('15'),
-          marginTop: wp('-17'),
+          marginTop: wp('-20'),
           color: 'white',
           textAlign: 'center',
           opacity: saveOpacity_text,

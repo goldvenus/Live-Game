@@ -11,9 +11,9 @@ import {connect} from "react-redux";
 import Images from "../../../../MocData";
 import {convertNumberWithCommas} from "../../../share/engine";
 
-function GameDashBoard({score, userProSpin}) {
+function GameDashBoard({score}) {
   let getSpinCoin = 0;
-  for (let i=0; i<= userProSpin; i++) {
+  for (let i=0; i<= score.playerPassScore; i++) {
     getSpinCoin += i;
     if(i===12)
       break;
