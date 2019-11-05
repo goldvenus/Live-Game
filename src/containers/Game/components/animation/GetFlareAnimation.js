@@ -49,8 +49,11 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
 
 
   const [fireWorksSound, setFireWorksSound] = useVariable(null);
+  const [fireWorksSound1, setFireWorksSound1] = useVariable(null);
   React.useEffect(() => {
-    soundEffectPlay(fireWorksSound);
+    if (m_mark >= 1000)
+      soundEffectPlay(fireWorksSound);
+    else soundEffectPlay(fireWorksSound1);
     fadeValue.setValue(1);
     rotateValue.setValue(0);
     fadeValue_text.setValue(1);
@@ -86,6 +89,8 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
   const soundEffectInit = async () => {
     const {sound: soundObjectSingle} = await Audio.Sound.createAsync(Images.sound.fireworks, {shouldPlay: false});
     setFireWorksSound(soundObjectSingle);
+    const {sound: soundObjectFinger} = await Audio.Sound.createAsync(Images.sound.tapClickSound, {shouldPlay: false});
+    setFireWorksSound1(soundObjectFinger);
   };
   const soundEffectPlay = async (soundObject) => {
     if (soundObject) {

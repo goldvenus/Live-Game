@@ -122,6 +122,7 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
       case "goal-mega":
         //gamePause();
         addSpin(ADD_MEGA_SPIN);
+        soundEffectPlay(tapClickSound);
         //resetAnimation();
         //addSpinList(leftSpinList[1]);
         break;
@@ -148,6 +149,7 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
         break;
       case "goal-mega-tap":
         //gamePause();
+        soundEffectPlay(tapClickSound);
         proImageTargetMark = 1000;
         addSpin(ADD_MEGA_SPIN);
         //resetAnimation();
@@ -177,7 +179,7 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
         addWaveScore(proImageTargetMark-1000);
         break;
       case "no-goal":
-        soundEffectPlay(tapClickSound);
+        //soundEffectPlay(tapClickSound);
         break;
     }
     if (e.type.includes("score")) {
@@ -290,7 +292,7 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
       setShotSoundObjectFive(soundObjectFive);
       const { sound: soundObjectTem } = await Audio.Sound.createAsync(Images.sound.holdShotSound, { shouldPlay: false });
       setShotSoundObjectTen(soundObjectTem);
-      const { sound: soundObjectTapClick } = await Audio.Sound.createAsync(Images.sound.tapClickSound, { shouldPlay: false });
+      const { sound: soundObjectTapClick } = await Audio.Sound.createAsync(Images.sound.megaSpinSound, { shouldPlay: false });
       setTapClickSound(soundObjectTapClick);
     } catch (error) {
     }
