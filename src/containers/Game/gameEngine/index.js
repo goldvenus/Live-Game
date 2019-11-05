@@ -60,6 +60,8 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
   const [shotSoundObjectFive, setShotSoundObjectFive] = useVariable(null);
   const [shotSoundObjectTen, setShotSoundObjectTen] = useVariable(null);
   const [tapClickSound, setTapClickSound] = useVariable(null);
+  const [fireWorksSound, setFireWorksSound] = useVariable(null);
+  const [fireWorksSound1, setFireWorksSound1] = useVariable(null);
 
   let gameEngine = null;
   let spinSpeed = 4;
@@ -123,33 +125,38 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
         //gamePause();
         addSpin(ADD_MEGA_SPIN);
         soundEffectPlay(tapClickSound);
+        soundEffectPlay(fireWorksSound1);
         //resetAnimation();
         //addSpinList(leftSpinList[1]);
         break;
       case "goal-niki":
         //gamePause();
-
+        soundEffectPlay(fireWorksSound1);
         resetAnimation();
         addSpinList(leftSpinList[0]);
         addSpin(ADD_NIKE_SPIN);
         break;
       case 'goal-lock':
+        soundEffectPlay(fireWorksSound1);
         resetAnimation();
         addSpinList(leftSpinList[3]);
         addSpin(ADD_LOCK_SPIN);
         break;
       case 'goal-apple':
+        soundEffectPlay(fireWorksSound1);
         resetAnimation();
         addSpinList(leftSpinList[2]);
         addSpin(ADD_APPLE_SPIN);
         break;
       case "goal-user":
+        soundEffectPlay(fireWorksSound1);
         proImageTargetMark = randomNumber(10, 100);
         addWaveScore(proImageTargetMark);
         break;
       case "goal-mega-tap":
         //gamePause();
         soundEffectPlay(tapClickSound);
+        soundEffectPlay(fireWorksSound);
         proImageTargetMark = 1000;
         addSpin(ADD_MEGA_SPIN);
         //resetAnimation();
@@ -157,24 +164,28 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
         break;
       case "goal-niki-tap":
         //gamePause();
+        soundEffectPlay(fireWorksSound);
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[0]);
         addSpin(ADD_NIKE_SPIN);
         break;
       case 'goal-lock-tap':
+        soundEffectPlay(fireWorksSound);
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[3]);
         addSpin(ADD_LOCK_SPIN);
         break;
       case 'goal-apple-tap':
+        soundEffectPlay(fireWorksSound);
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[2]);
         addSpin(ADD_APPLE_SPIN);
         break;
       case "goal-user-tap":
+        soundEffectPlay(fireWorksSound);
         proImageTargetMark = 1000 + randomNumber(10, 100);
         addWaveScore(proImageTargetMark-1000);
         break;
@@ -294,6 +305,10 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
       setShotSoundObjectTen(soundObjectTem);
       const { sound: soundObjectTapClick } = await Audio.Sound.createAsync(Images.sound.megaSpinSound, { shouldPlay: false });
       setTapClickSound(soundObjectTapClick);
+      const {sound: soundObjectSingle11} = await Audio.Sound.createAsync(Images.sound.fireworks, {shouldPlay: false});
+      setFireWorksSound(soundObjectSingle11);
+      const {sound: soundObjectFinger} = await Audio.Sound.createAsync(Images.sound.tapClickSound, {shouldPlay: false});
+      setFireWorksSound1(soundObjectFinger);
     } catch (error) {
     }
   };
