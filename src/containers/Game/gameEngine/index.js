@@ -145,6 +145,36 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
         proImageTargetMark = randomNumber(10, 100);
         addWaveScore(proImageTargetMark);
         break;
+      case "goal-mega-tap":
+        //gamePause();
+        proImageTargetMark = 1000;
+        addSpin(ADD_MEGA_SPIN);
+        //resetAnimation();
+        //addSpinList(leftSpinList[1]);
+        break;
+      case "goal-niki-tap":
+        //gamePause();
+        proImageTargetMark = 1000;
+        resetAnimation();
+        addSpinList(leftSpinList[0]);
+        addSpin(ADD_NIKE_SPIN);
+        break;
+      case 'goal-lock-tap':
+        proImageTargetMark = 1000;
+        resetAnimation();
+        addSpinList(leftSpinList[3]);
+        addSpin(ADD_LOCK_SPIN);
+        break;
+      case 'goal-apple-tap':
+        proImageTargetMark = 1000;
+        resetAnimation();
+        addSpinList(leftSpinList[2]);
+        addSpin(ADD_APPLE_SPIN);
+        break;
+      case "goal-user-tap":
+        proImageTargetMark = 1000 + randomNumber(10, 100);
+        addWaveScore(proImageTargetMark-1000);
+        break;
     }
     if (e.type.includes("score")) {
       addWaveScore(parseInt(e.type.slice(6)));

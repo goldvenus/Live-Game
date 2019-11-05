@@ -1,18 +1,19 @@
-import { Image, View, Animated } from "react-native";
+import {Image, View, Animated} from "react-native";
 import React, {useRef} from "react";
 import Images from "../../../../../MocData";
-import { GameTypes } from "../../gameEngine/data/gameType";
-import { heightPercentageToDP as hp, widthPercentageToDP as wp }
+import {GameTypes} from "../../gameEngine/data/gameType";
+import {heightPercentageToDP as hp, widthPercentageToDP as wp}
   from "react-native-responsive-screen";
-import { Text } from "native-base";
+import {Text} from "native-base";
 
-function GetFlareBox({ size, body, spinInfoData, mark}) {
+function GetFlareBox({size, body, spinInfoData, mark}) {
   /* User State init */
   const m_mark = mark;
   const rotateValue = new useRef(new Animated.Value(0)).current;
   const saveRotateValue = rotateValue.interpolate({
     inputRange: [0, 0.5],
-    outputRange: ['0deg', '360deg'] });
+    outputRange: ['0deg', '360deg']
+  });
 
   const fadeValue = new useRef(new Animated.Value(1)).current;
   const saveOpacity = fadeValue.interpolate({
@@ -29,8 +30,9 @@ function GetFlareBox({ size, body, spinInfoData, mark}) {
   const transYValue_text = new useRef(new Animated.Value(0)).current;
   const saveTransY_text = rotateValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -150] });
-  React.useEffect(()=> {
+    outputRange: [0, -150]
+  });
+  React.useEffect(() => {
     fadeValue.setValue(1);
     rotateValue.setValue(0);
     fadeValue_text.setValue(1);
@@ -50,12 +52,12 @@ function GetFlareBox({ size, body, spinInfoData, mark}) {
     Animated.parallel([
       Animated.timing(rotateValue, {
         toValue: 1,
-        duration: 1500,
+        duration: 1000,
         useNativeDriver: true
       }),
       Animated.timing(fadeValue, {
         toValue: 0,
-        duration: 1500,
+        duration: 1000,
         useNativeDriver: true
       })
     ]).start();
@@ -65,7 +67,7 @@ function GetFlareBox({ size, body, spinInfoData, mark}) {
   const height = size[1];
   const x = body.position.x - width / 2;
   const y = body.position.y - height / 2;
-  const { spinType, spinNumber, spinColor, spinSize, spinTextSize, megaType, userType } = spinInfoData;
+  const {spinType, spinNumber, spinColor, spinSize, spinTextSize, megaType, userType} = spinInfoData;
   const targetImage = Images.game.gameplay.target;
   let ty = spinSize / 8;
   if (spinType === GameTypes.spinType.triangle)
@@ -73,7 +75,7 @@ function GetFlareBox({ size, body, spinInfoData, mark}) {
   else if (spinType === GameTypes.spinType.ellipse) {
     ty = spinSize / 8;
   }
-  if (spinNumber === 0 && megaType!=='lock') { ////mega type
+  if (spinNumber === 0 && megaType !== 'lock') { ////mega type
     ty = spinSize / 6;
   } else if (spinNumber <= 0) {
     ty = spinSize / 8.6;
@@ -84,13 +86,14 @@ function GetFlareBox({ size, body, spinInfoData, mark}) {
       top: y,
       position: "absolute",
       zIndex: 4,
-      width: width,
+      marginLeft: width* -0.5,
+      width: width * 2,
       height: height
     }}>
       {
-        m_mark!==0 && <Animated.Text style={{
+        m_mark !== 0 && <Animated.Text style={{
           fontFamily: 'Antonio-Bold',
-          fontSize: wp('15'),
+          fontSize: wp('13'),
           marginTop: wp('-20'),
           color: 'white',
           textAlign: 'center',
@@ -101,13 +104,13 @@ function GetFlareBox({ size, body, spinInfoData, mark}) {
             }
           ]
         }}>
-          {m_mark}
-          </Animated.Text>
+          {m_mark === 1000 ? '50' : m_mark > 1000 ? `50+${m_mark - 1000}` : m_mark > 0 ? m_mark : ''}
+        </Animated.Text>
       }
       <Animated.View style={{
         transform: [
           {
-              rotateY: saveRotateValue
+            rotateY: saveRotateValue
           }
         ],
         opacity: saveOpacity,
@@ -134,8 +137,8 @@ function GetFlareBox({ size, body, spinInfoData, mark}) {
             <Image
               source={spinNumber === 0 ? targetImage.mega[megaType] : Images.game.users[userType]} style={{
               position: "absolute",
-              width: spinNumber === 0 && megaType!=='lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
-              height: spinNumber === 0 && megaType!=='lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
+              width: spinNumber === 0 && megaType !== 'lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
+              height: spinNumber === 0 && megaType !== 'lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
               marginTop: hp(ty),
               zIndex: 0
             }}/>
@@ -145,4 +148,4 @@ function GetFlareBox({ size, body, spinInfoData, mark}) {
   );
 }
 
-export { GetFlareBox };
+export {GetFlareBox};
