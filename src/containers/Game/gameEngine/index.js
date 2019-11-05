@@ -59,6 +59,7 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
   const [shotSoundObjectSingle, setShotSoundObjectSingle] = useVariable(null);
   const [shotSoundObjectFive, setShotSoundObjectFive] = useVariable(null);
   const [shotSoundObjectTen, setShotSoundObjectTen] = useVariable(null);
+  const [tapClickSound, setTapClickSound] = useVariable(null);
 
   let gameEngine = null;
   let spinSpeed = 4;
@@ -175,6 +176,9 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
         proImageTargetMark = 1000 + randomNumber(10, 100);
         addWaveScore(proImageTargetMark-1000);
         break;
+      case "no-goal":
+        soundEffectPlay(tapClickSound);
+        break;
     }
     if (e.type.includes("score")) {
       addWaveScore(parseInt(e.type.slice(6)));
@@ -286,6 +290,8 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
       setShotSoundObjectFive(soundObjectFive);
       const { sound: soundObjectTem } = await Audio.Sound.createAsync(Images.sound.holdShotSound, { shouldPlay: false });
       setShotSoundObjectTen(soundObjectTem);
+      const { sound: soundObjectTapClick } = await Audio.Sound.createAsync(Images.sound.tapClickSound, { shouldPlay: false });
+      setTapClickSound(soundObjectTapClick);
     } catch (error) {
     }
   };

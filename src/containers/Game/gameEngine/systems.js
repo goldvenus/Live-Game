@@ -155,6 +155,7 @@ const TargetShotFillter = (startPos, state, dispatch, bulletKey = -1) => {
       } else if (targetSpin.spinNumber === -1) {
         dispatch({type: "goal-user"});
       }
+
     } else {
       if (targetSpin.spinNumber > 0 ) {
         dispatch({type: `score-${targetSpin.spinNumber}-tap`});
@@ -164,7 +165,8 @@ const TargetShotFillter = (startPos, state, dispatch, bulletKey = -1) => {
         dispatch({type: "goal-user-tap"});
       }
     }
-
+  } else if(bulletKey===-1){
+    dispatch({type: "no-goal"});
   }
 };
 

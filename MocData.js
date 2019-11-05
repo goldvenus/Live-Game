@@ -102,7 +102,9 @@ const Images = {
     countdownSound: require('./assets/audio/countDown.mp3'),
     shotSound: require('./assets/audio/shot.mp3'),
     mutiShotSound: require('./assets/audio/multishot.mp3'),
-    holdShotSound: require('./assets/audio/holdshot.mp3')
+    holdShotSound: require('./assets/audio/multishot.mp3'),
+    fireworks: require('./assets/audio/Fireworks.mp3'),
+    tapClickSound: require('./assets/audio/tap-click-sound.mp3')
   },
   wheel: {
     flare: {

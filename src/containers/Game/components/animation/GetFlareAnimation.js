@@ -5,6 +5,20 @@ import {GameTypes} from "../../gameEngine/data/gameType";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp}
   from "react-native-responsive-screen";
 import {Text} from "native-base";
+import * as Audio from "expo-av/build/Audio";
+
+
+const useVariable = initialValue => {
+  const ref = React.useRef([
+    initialValue,
+    param => {
+      ref.current[0] =
+        typeof param === "function" ? param(ref.current[0]) : param;
+    }
+  ]);
+  return ref.current;
+};
+
 
 function GetFlareBox({size, body, spinInfoData, mark}) {
   /* User State init */
@@ -32,7 +46,11 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
     inputRange: [0, 1],
     outputRange: [0, -150]
   });
+
+
+  const [fireWorksSound, setFireWorksSound] = useVariable(null);
   React.useEffect(() => {
+    soundEffectPlay(fireWorksSound);
     fadeValue.setValue(1);
     rotateValue.setValue(0);
     fadeValue_text.setValue(1);
@@ -62,7 +80,21 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
       })
     ]).start();
   }, [spinInfoData]);
-
+  React.useEffect(() => {
+    soundEffectInit();
+  }, []);
+  const soundEffectInit = async () => {
+    const {sound: soundObjectSingle} = await Audio.Sound.createAsync(Images.sound.fireworks, {shouldPlay: false});
+    setFireWorksSound(soundObjectSingle);
+  };
+  const soundEffectPlay = async (soundObject) => {
+    if (soundObject) {
+      try {
+        await soundObject.replayAsync();
+      } catch (e) {
+      }
+    }
+  };
   const width = size[0];
   const height = size[1];
   const x = body.position.x - width / 2;
@@ -86,7 +118,7 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
       top: y,
       position: "absolute",
       zIndex: 4,
-      marginLeft: width* -0.5,
+      marginLeft: width * -0.5,
       width: width * 2,
       height: height
     }}>

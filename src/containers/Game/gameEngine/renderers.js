@@ -3,6 +3,7 @@ import { View } from "react-native";
 import CreateTarget from "../components/CreateTarget";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
+import { LinearGradient } from 'expo-linear-gradient';
 const Box = ({ size, body, spinInfoData }) => {
   const width = size[0];
   const height = size[1];
@@ -38,8 +39,17 @@ const Bullet = ({ size, body }) => {
       width: width*1.5,
       height: height*1.5,
       borderRadius: wp('2'),
-      backgroundColor: '#2EC760'
+      backgroundColor: '#2EC760',
+      alignItems: 'center',
+      transform: [{ rotate: -3.14/4 + "rad" }]
     }}>
+      <LinearGradient
+        colors={['#2EC760', '#181818']}
+        style={{
+          width: wp('1.5'),
+          opacity: 0.2,
+          height: wp('35')
+      }}/>
       {/*<CreateBullet angle = {angle}/>*/}
     </View>
   );
