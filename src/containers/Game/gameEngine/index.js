@@ -252,8 +252,8 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
         doubleFireReady = false;
         clearTimeout(oneFireShotTimer);
         soundEffectPlay(shotSoundObjectTen);
-        onMultiFireGun(9);
-        addWaveScore(450);
+        onMultiFireGun(3);
+        addWaveScore(150);
       }, 180);
     }
     else if (doubleFireReady && (pressedIntime - pressedTime < 300)) {
