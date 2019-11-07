@@ -101,7 +101,7 @@ const Physics = (state, {touches, time, dispatch}) => {
     });
 
   /// Goal Target
-  let start = touches.find(x => x.type === "press");
+  let start = touches.find(x => x.type === "start" || x.type === "end" || x.type === "press");
   if (start) {
     let startPos = [start.event.pageX, start.event.pageY];
     TargetShotFillter(startPos, state, dispatch);
