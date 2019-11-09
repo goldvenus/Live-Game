@@ -2,7 +2,7 @@ import React from "react";
 import { View, Image, TouchableOpacity, Animated, Easing } from "react-native";
 import Pulse from "./Pulse";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import Images  from "../../../../../MocData";
+import Images  from "../../../share/data/MocData";
 
 export default class LocationPulseLoader extends React.Component {
   constructor(props) {

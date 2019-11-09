@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image, Text,TouchableOpacity } from "react-native";
 import GameHeaderBar from "../components/GameHeaderBar";
-import Images from "../../../../MocData";
+import Images from "../../../share/data/MocData";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 class NikiQuestion extends React.Component {

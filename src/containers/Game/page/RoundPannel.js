@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image } from "react-native";
 import { styles } from "./styles";
-import Images from "../../../../MocData";
+import Images from "../../../share/data/MocData";
 
 const RoundPannel = ({ roundState, type }) => {
   return (

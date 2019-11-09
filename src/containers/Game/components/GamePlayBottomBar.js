@@ -4,7 +4,7 @@ import { Animated, View } from "react-native";
 import React, { useRef } from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import * as Audio from "expo-av/build/Audio";
-import Images from "../../../../MocData";
+import Images from "../../../share/data/MocData";
 
 const useVariable = initialValue => {
   const ref = React.useRef([
@@ -17,7 +17,7 @@ const useVariable = initialValue => {
   return ref.current;
 };
 
-function GameBottomBar({ bulletCount, gamePlayTime }) {
+function GamePlayBottomBar({ bulletCount, gamePlayTime }) {
   const [countDownSound, setCountDownSound] = useVariable(null);
 
   const min = Math.floor(gamePlayTime / 60);
@@ -104,4 +104,4 @@ function GameBottomBar({ bulletCount, gamePlayTime }) {
     </View>
   );
 };
-export default GameBottomBar;
+export default GamePlayBottomBar;

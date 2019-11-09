@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import CreateTarget from "../components/CreateTarget";
+import FlareSpin from "../components/FlareSpin";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -20,7 +20,7 @@ const Box = ({ size, body, spinInfoData }) => {
       marinTop: width/4,
       height: height,
     }}>
-      <CreateTarget spinInfoData={spinInfoData} angle = {angle}/>
+      <FlareSpin spinInfoData={spinInfoData} angle = {angle}/>
     </View>
   );
 };

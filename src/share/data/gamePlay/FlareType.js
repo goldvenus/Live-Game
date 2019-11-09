@@ -1,4 +1,4 @@
-export const GameTypes = {
+export const FlareType = {
   spinType: {
     ellipse: 'circle',
     triangle: 'triangular',

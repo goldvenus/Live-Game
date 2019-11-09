@@ -3,16 +3,16 @@ import { Image, View } from "react-native";
 import React from "react";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
-import Images from "../../../../MocData";
-import { GameTypes } from "../gameEngine/data/gameType";
+import Images from "../../../share/data/MocData";
+import { FlareType } from "../../../share/data/gamePlay/FlareType";
 
-const CreateTarget = ({ spinInfoData, angle, shadow=true, running = true }) => {
+const FlareSpin = ({ spinInfoData, angle, shadow=true, running = true }) => {
   const { spinType, spinNumber, spinColor, spinSize, spinTextSize, megaType, userType } = spinInfoData;
   const targetImage = Images.game.gameplay.target;
   let ty = spinSize / 8;
-  if (spinType === GameTypes.spinType.triangle)
+  if (spinType === FlareType.spinType.triangle)
     ty = spinSize / 20;
-  else if (spinType === GameTypes.spinType.ellipse) {
+  else if (spinType === FlareType.spinType.ellipse) {
     ty = spinSize / 8;
   }
   if (spinNumber === 0 && megaType!=='lock') { ////mega type
@@ -69,4 +69,4 @@ const CreateTarget = ({ spinInfoData, angle, shadow=true, running = true }) => {
   );
 };
 
-export default CreateTarget;
+export default FlareSpin;

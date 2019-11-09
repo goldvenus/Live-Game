@@ -5,10 +5,10 @@ import {
 } from "native-base";
 import { styles } from "./styles";
 
-import GamePlay from "./gameEngine";
+import GameEnginePlay from "./gameEngine";
 import { handleAndroidBackButton, removeAndroidBackButtonHandler } from "../../services/BackPress";
 
-export default class GameStart extends React.Component {
+export default class GamePlay extends React.Component {
 
   componentDidMount() {
     handleAndroidBackButton(() => {
@@ -28,7 +28,7 @@ export default class GameStart extends React.Component {
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
-          <GamePlay backPage={this.goPage}/>
+          <GameEnginePlay backPage={this.goPage}/>
         </Content>
       </Container>
     );

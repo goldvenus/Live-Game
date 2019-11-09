@@ -1,6 +1,6 @@
 import React from "react";
 import {View, TouchableOpacity} from "react-native";
-import CreateTarget from "../components/CreateTarget";
+import FlareSpin from "../components/FlareSpin";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {removeSpinList} from "../../../redux/action/game";
@@ -74,7 +74,7 @@ function GetBubbleLeftScreen({removeSpinList, spinInfoData, getSpinListItems, ru
         }}
            animation={leftSpinUpdate === index ? zoomAnimation : repeatAnimation} key={index}>
           <TouchableOpacity onPress={() => onOpenGetMegaSpinResultPage(item.megaType)}>
-            <CreateTarget spinInfoData={item} angle={0} shadow={false} running={running}/>
+            <FlareSpin spinInfoData={item} angle={0} shadow={false} running={running}/>
           </TouchableOpacity>
         </Animatable.View>
       )}

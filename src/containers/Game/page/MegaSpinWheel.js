@@ -13,7 +13,7 @@ import * as d3Shape from "d3-shape";
 import color from "randomcolor";
 import { snap } from "@popmotion/popcorn";
 import Svg, { Path, G, Image } from "react-native-svg";
-import Images from "../../../../MocData";
+import Images from "../../../share/data/MocData";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import GameHeaderBar from "../components/GameHeaderBar";
 import {addSpin} from "../../../redux/action/game";

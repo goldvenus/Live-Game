@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import Images from "../../../../MocData";
+import Images from "../../../share/data/MocData";
 import { styles } from "./styles";
 import RoundPannel from "./RoundPannel";
 

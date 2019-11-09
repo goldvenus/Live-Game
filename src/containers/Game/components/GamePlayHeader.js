@@ -1,10 +1,10 @@
 import React from "react";
 import { styles } from "../page/styles";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import Images from "../../../../MocData";
+import Images from "../../../share/data/MocData";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
-function GameStartHeader({ running, backPage }) {
+function GamePlayHeader({ running, backPage }) {
 
   const onBackPress= ()=> {
       if(running)
@@ -47,4 +47,4 @@ function GameStartHeader({ running, backPage }) {
   );
 }
 
-export default GameStartHeader;
+export default GamePlayHeader;

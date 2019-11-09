@@ -8,10 +8,10 @@ import {
 } from "react-native";
 import {styles} from "../styles";
 import {connect} from "react-redux";
-import Images from "../../../../MocData";
+import Images from "../../../share/data/MocData";
 import {convertNumberWithCommas} from "../../../share/engine";
 
-function GameDashBoard({score}) {
+function GamePlayDashboard({score}) {
   let getSpinCoin = 0;
   for (let i=0; i<= score.playerPassScore; i++) {
     getSpinCoin += i;
@@ -47,4 +47,4 @@ const mapStateToProps = state => {
 };
 
 
-export default connect(mapStateToProps, null)(GameDashBoard);
+export default connect(mapStateToProps, null)(GamePlayDashboard);

@@ -14,12 +14,12 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 
 import { joinStyles, styles, GameGlobal } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
-import LightningEffect from "./components/animation/LightningEffect";
+import LightningEffect from "./animation/LightningEffect";
 import {
   handleAndroidBackButton,
   removeAndroidBackButtonHandler
 } from "../../services/BackPress";
-import Images from "../../../MocData";
+import Images from "../../share/data/MocData";
 
 function GameJoin({ navigation, spinToken, score }) {
 

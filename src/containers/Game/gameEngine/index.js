@@ -4,12 +4,12 @@ import { GameEngine } from "react-native-game-engine";
 import { Physics, NewSpinShow, NewFire } from "./systems";
 import Matter from "matter-js";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import LocationPulseLoader from "../components/animation/PulseLoader";
-import GameDashBoard from "../components/GameDashBoard";
-import GameBottomBar from "../components/GameBottomBar";
-import { getspinArray } from "./data/levelData";
-import { GetFlareBox } from "../components/animation/GetFlareAnimation";
-import Images from "../../../../MocData";
+import LocationPulseLoader from "../animation/PulseLoader";
+import GameDashBoard from "../components/GamePlayDashboard";
+import GamePlayBottomBar from "../components/GamePlayBottomBar";
+import { getspinArray } from "../../../share/data/gamePlay/FlareArray";
+import { GetFlareBox } from "../animation/GetFlareAnimation";
+import Images from "../../../share/data/MocData";
 import { Audio } from "expo-av";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -23,9 +23,9 @@ import {
 } from "../../../redux/action/game";
 import { ADD_APPLE_SPIN, ADD_LOCK_SPIN, ADD_MEGA_SPIN, ADD_NIKE_SPIN } from "../../../redux/action/type";
 import GetBubbleLeftScreen from "../page/GetBubbleLeftScreen";
-import { leftSpinList } from "./data/LeftSpinListData";
+import { leftSpinList } from "../../../share/data/gamePlay/LeftFlareData";
 import GameHeaderBar from "../components/GameHeaderBar";
-import GameStartHeader from "./GameStartHeader";
+import GamePlayHeader from "../components/GamePlayHeader";
 import {randomNumber} from "../../../share/engine";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
@@ -49,7 +49,7 @@ let doubleFireReadyTimer = null;
 let burstFireTimer = null;
 let burstFireTemp = false;
 let proImageTargetMark = 0;
-function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoinsScore,addSpin, addSpinList, resetAnimation, getSpinListItems }) {
+function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoinsScore,addSpin, addSpinList, resetAnimation, getSpinListItems }) {
   const [running, setRunning] = React.useState(true);
   const [bulletCount, setBulletCount] = React.useState(100);
   const [gamePlayTime, setGamePlayTime] = React.useState(100);
@@ -346,9 +346,9 @@ function GamePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoin
       }
       <GameDashBoard />
       {
-        !running && getSpinListItems.length < 1 ? <GameStartHeader backPage={backPage}/>: <GameHeaderBar/>
+        !running && getSpinListItems.length < 1 ? <GamePlayHeader backPage={backPage}/>: <GameHeaderBar/>
       }
-      <GameBottomBar bulletCount={bulletCount} gamePlayTime={gamePlayTime}/>
+      <GamePlayBottomBar bulletCount={bulletCount} gamePlayTime={gamePlayTime}/>
       <TouchableOpacity
         style={{
           position: "absolute",
@@ -418,4 +418,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GamePlay);
+export default connect(mapStateToProps, mapDispatchToProps)(GameEnginePlay);

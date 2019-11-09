@@ -1,7 +1,7 @@
 import {Image, View, Animated} from "react-native";
 import React, {useRef} from "react";
-import Images from "../../../../../MocData";
-import {GameTypes} from "../../gameEngine/data/gameType";
+import Images from "../../../share/data/MocData";
+import {FlareType} from "../../../share/data/gamePlay/FlareType";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp}
   from "react-native-responsive-screen";
 import {Text} from "native-base";
@@ -107,9 +107,9 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
   const {spinType, spinNumber, spinColor, spinSize, spinTextSize, megaType, userType} = spinInfoData;
   const targetImage = Images.game.gameplay.target;
   let ty = spinSize / 8;
-  if (spinType === GameTypes.spinType.triangle)
+  if (spinType === FlareType.spinType.triangle)
     ty = spinSize / 20;
-  else if (spinType === GameTypes.spinType.ellipse) {
+  else if (spinType === FlareType.spinType.ellipse) {
     ty = spinSize / 8;
   }
   if (spinNumber === 0 && megaType !== 'lock') { ////mega type

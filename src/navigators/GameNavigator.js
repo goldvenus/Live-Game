@@ -3,7 +3,7 @@ import { createStackNavigator } from "react-navigation";
 import GameReady from "../containers/Game/GameReady";
 import GameJoin from "../containers/Game/GameJoin";
 import GameCountDown from "../containers/Game/GameCountDown";
-import GameStart from "../containers/Game/GameStart";
+import GamePlay from "../containers/Game/GamePlay";
 import GameMegaRound from "../containers/Game/page/GameMegaRound";
 import GameNikiRound from "../containers/Game/page/GameNikiRound";
 import MegaSpinWheel from "../containers/Game/page/MegaSpinWheel";
@@ -19,8 +19,8 @@ const GameNavigator = createStackNavigator({
       header: null
     }
   },
-  GameStart: {
-    screen: GameStart,
+  GamePlay: {
+    screen: GamePlay,
     navigationOptions: {
       header: null
     }
@@ -80,7 +80,7 @@ GameNavigator.navigationOptions = ({ navigation }) => {
   let { routeName } = navigation.state.routes[navigation.state.index];
   let navigationOptions = {};
 
-  if (routeName === "GameStart" || routeName==="GetAnswerFlare") {
+  if (routeName === "GamePlay" || routeName==="GetAnswerFlare") {
     navigationOptions.tabBarVisible = false;
   }
 

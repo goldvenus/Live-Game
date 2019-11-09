@@ -19,9 +19,9 @@ import { styles, ReadyStyles, GameGlobal } from "./styles";
 import GameHeaderBar from "./components/GameHeaderBar";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
-import LightningEffect from "./components/animation/LightningEffect";
+import LightningEffect from "./animation/LightningEffect";
 import CreateUserImage from "./components/CreateUserImage";
-import Images from "../../../MocData";
+import Images from "../../share/data/MocData";
 import { Audio } from "expo-av";
 import CountdownCircle from 'react-native-countdown-circle';
 
@@ -150,7 +150,7 @@ class GameReady extends React.Component {
                       return (totalSecs - elapsedSecs)===0 ? (totalSecs + 1 - elapsedSecs).toString(): (totalSecs - elapsedSecs).toString();
                     }}
                     onTimeElapsed={() => setTimeout(()=> {
-                      this.props.navigation.replace("GameStart")
+                      this.props.navigation.replace("GamePlay")
                     }, 30)}
                     bgColor="#181818"
                     textStyle={{fontSize: wp("15"), color: 'white', fontFamily: 'Antonio-Bold'}}

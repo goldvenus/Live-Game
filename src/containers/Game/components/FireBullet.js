@@ -2,9 +2,9 @@ import { Image, View } from "react-native";
 import React from "react";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
-import Images from "../../../../MocData";
+import Images from "../../../share/data/MocData";
 
-const CreateBullet = ({ angle }) => {
+const FireBullet = ({ angle }) => {
   return (
     <View style={{
       display: "flex",
@@ -31,4 +31,4 @@ const CreateBullet = ({ angle }) => {
   );
 };
 
-export default CreateBullet;
+export default FireBullet;

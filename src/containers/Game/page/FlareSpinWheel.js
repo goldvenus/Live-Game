@@ -14,7 +14,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 import { connect } from "react-redux";
 
 import Svg, { Path, G, Image, Line } from "react-native-svg";
-import Images from "../../../../MocData";
+import Images from "../../../share/data/MocData";
 import GameHeaderBar from "../components/GameHeaderBar";
 import { bindActionCreators } from "redux";
 import { setFlareToken } from "../../../redux/action/game";

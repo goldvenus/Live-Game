@@ -6,7 +6,7 @@ import { AppNavigator } from "./src/navigators/AppNavigator";
 import store from "./src/redux/store";
 import { Asset } from 'expo-asset';
 import AppLoading from "expo/build/launch/AppLoading";
-import Images from './MocData'
+import Images from './src/share/data/MocData'
 class App extends Component {
   state = {
     isLoadingComplete: false,

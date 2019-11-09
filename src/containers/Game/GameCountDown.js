@@ -12,9 +12,9 @@ import GameHeaderBar from "./components/GameHeaderBar";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
 import { Audio } from "expo-av";
-import CreateTarget from "./components/CreateTarget";
-import { GameTypes } from "./gameEngine/data/gameType";
-import Images from "../../../MocData";
+import FlareSpin from "./components/FlareSpin";
+import { FlareType } from "../../share/data/gamePlay/FlareType";
+import Images from "../../share/data/MocData";
 import { handleAndroidBackButton, removeAndroidBackButtonHandler } from "../../services/BackPress";
 
 class GameCountDown extends React.Component {
@@ -72,7 +72,7 @@ class GameCountDown extends React.Component {
     if (this.state.downTime < 1) {
       clearInterval(this.clockCountDown);
       //this.props.navigation.goBack(null);
-      this.props.navigation.replace("GameStart");
+      this.props.navigation.replace("GamePlay");
     }
     else
       this.setState((prevstate) => ({ downTime: prevstate.downTime - 1 }));
@@ -91,13 +91,13 @@ class GameCountDown extends React.Component {
             justifyContent: 'center',
             width: '100%'
           }}>
-            <CreateTarget spinInfoData={{
-              spinType: GameTypes.spinType.triangle,
-              megaType: GameTypes.spinType.mega.apple,
-              userType: GameTypes.spinType.user.woman,
+            <FlareSpin spinInfoData={{
+              spinType: FlareType.spinType.triangle,
+              megaType: FlareType.spinType.mega.apple,
+              userType: FlareType.spinType.user.woman,
               spinNumber: 50,
-              spinColor: GameTypes.spinColor.green,
-              shadowColor: GameTypes.shadowColor.white,
+              spinColor: FlareType.spinColor.green,
+              shadowColor: FlareType.shadowColor.white,
               spinSize: 45,
               spinTextSize: 24
             }} angle={0}/>

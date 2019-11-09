@@ -1,6 +1,6 @@
 import React from "react";
 import { ImageBackground, TouchableOpacity, StyleSheet, Image, Text } from "react-native";
-import Images from "../../../../MocData";
+import Images from "../../../share/data/MocData";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 class GetAnswerFlare extends React.Component {
