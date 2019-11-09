@@ -3,12 +3,12 @@ import { Image, View } from "react-native";
 import React from "react";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
-import Images from "../../../share/data/MocData";
+import AppMocData from "../../../share/data/MocData";
 import { FlareType } from "../../../share/data/gamePlay/FlareType";
 
 const FlareSpin = ({ spinInfoData, angle, shadow=true, running = true }) => {
   const { spinType, spinNumber, spinColor, spinSize, spinTextSize, megaType, userType } = spinInfoData;
-  const targetImage = Images.game.gameplay.target;
+  const targetImage = AppMocData.game.gameplay.target;
   let ty = spinSize / 8;
   if (spinType === FlareType.spinType.triangle)
     ty = spinSize / 20;
@@ -55,7 +55,7 @@ const FlareSpin = ({ spinInfoData, angle, shadow=true, running = true }) => {
             transform: [{ rotate: angle + "rad" }]
           }}>{spinNumber}</Text> :
           <Image
-            source={spinNumber === 0 ? targetImage.mega[megaType] : Images.game.users[userType]}
+            source={spinNumber === 0 ? targetImage.mega[megaType] : AppMocData.game.users[userType]}
             style={{
             position: "absolute",
             width: spinNumber === 0 && megaType!=='lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),

@@ -1,7 +1,7 @@
 import React from "react";
 import { styles } from "../page/styles";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import Images from "../../../share/data/MocData";
+import AppMocData from "../../../share/data/MocData";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 function GamePlayHeader({ running, backPage }) {
@@ -28,20 +28,20 @@ function GamePlayHeader({ running, backPage }) {
               }
             ]
           }}
-          source={Images.game.header.amber}
+          source={AppMocData.game.header.amber}
         />
       </TouchableOpacity>
       <View style={styles.header_middle_view}>
         <Image
           style={styles.game_mark_icon}
-          source={Images.bottomBar.gameActive}/>
+          source={AppMocData.bottomBar.gameActive}/>
         <Text style={styles.game_header_title}>
           ZENDUJA LIVE
         </Text>
       </View>
       <Image
         style={styles.header_user_img}
-        source={Images.game.header.user}
+        source={AppMocData.game.header.user}
       />
     </View>
   );

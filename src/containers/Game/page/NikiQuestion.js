@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image, Text,TouchableOpacity } from "react-native";
 import GameHeaderBar from "../components/GameHeaderBar";
-import Images from "../../../share/data/MocData";
+import AppMocData from "../../../share/data/MocData";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 class NikiQuestion extends React.Component {
@@ -14,8 +14,8 @@ class NikiQuestion extends React.Component {
       <View style={styles.container}>
         <GameHeaderBar/>
         <View style={styles.headerSection}>
-          <Image source={Images.game.page.roundBgOrange} style={styles.headerImageCircle}/>
-          <Image source={Images.game.gameplay.target.mega.niki} style={styles.headerMark}/>
+          <Image source={AppMocData.game.page.roundBgOrange} style={styles.headerImageCircle}/>
+          <Image source={AppMocData.game.gameplay.target.mega.niki} style={styles.headerMark}/>
         </View>
         <View style={styles.headerTitleSection}>
           <Text style={styles.headerSectionTitle}>WHAT SPORT DO YOU</Text>
@@ -23,9 +23,9 @@ class NikiQuestion extends React.Component {
         </View>
         <View style={styles.flaresSection}>
           {
-            Object.keys(Images.game.page.nikiQuestion).map((image, index) =>
+            Object.keys(AppMocData.game.page.nikiQuestion).map((image, index) =>
               <TouchableOpacity key={index} onPress={()=>this.getFlare()}>
-                <Image source={Images.game.page.nikiQuestion[image]} style={styles.nikiImages}/>
+                <Image source={AppMocData.game.page.nikiQuestion[image]} style={styles.nikiAppMocData}/>
               </TouchableOpacity>
             )
           }
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row"
   },
-  nikiImages: {
+  nikiAppMocData: {
     width: wp("31"),
     height: hp("35"),
     resizeMode: "contain",

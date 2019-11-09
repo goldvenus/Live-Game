@@ -19,12 +19,14 @@ import {
   handleAndroidBackButton,
   removeAndroidBackButtonHandler
 } from "../../services/BackPress";
-import Images from "../../share/data/MocData";
+import AppMocData from "../../share/data/MocData";
+import {soundEffectInit} from "../../share/soundPlay";
 
 function GameJoin({ navigation, spinToken, score }) {
 
   React.useEffect(() => {
     handleAndroidBackButton(()=>{return false});
+    soundEffectInit();
     return () => {
       removeAndroidBackButtonHandler();
     };
@@ -81,7 +83,7 @@ function GameJoin({ navigation, spinToken, score }) {
           <View style={joinStyles.join_top_view}>
             <View>
               <Image style={joinStyles.flare_border}
-                     source={Images.game.lightning.image}/>
+                     source={AppMocData.game.lightning.image}/>
               <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-4")} my={hp("0")}/>
             </View>
             <View style={{
@@ -108,7 +110,7 @@ function GameJoin({ navigation, spinToken, score }) {
             </View>
             <View>
               <Image style={joinStyles.flare_border_right}
-                     source={Images.game.lightning.image}/>
+                     source={AppMocData.game.lightning.image}/>
               <LightningEffect lightw={wp("15")} lighth={hp("25")} mx={wp("-2")} my={hp("0")}/>
             </View>
           </View>
@@ -162,7 +164,7 @@ function GameJoin({ navigation, spinToken, score }) {
           </View>
           <View style={joinStyles.game_flareSpin_item}>
             <Image style={joinStyles.game_flareSpin_item_image}
-                   source={Images.game.gameplay.target.triangular.green}/>
+                   source={AppMocData.game.gameplay.target.triangular.green}/>
             <TouchableOpacity style={joinStyles.setting_item_list}
                               onPress={onFlareSpinPress}
                               activeOpacity={0.4}>
@@ -171,7 +173,7 @@ function GameJoin({ navigation, spinToken, score }) {
                 <Text style={joinStyles.setting_item_right_textBox}>{spinToken.flareSpin}</Text>
                 <View
                   style={joinStyles.flare_spins_btn}>
-                  <Image source={Images.game.icon.arrow} style={{
+                  <Image source={AppMocData.game.icon.arrow} style={{
                     width: wp("2"),
                     height: wp("3")
                   }}/>
@@ -181,7 +183,7 @@ function GameJoin({ navigation, spinToken, score }) {
           </View>
           <View style={joinStyles.game_MegaSpin_item}>
             <Image style={joinStyles.game_flareSpin_item_image}
-                   source={Images.game.icon.megaSpin}/>
+                   source={AppMocData.game.icon.megaSpin}/>
             <TouchableOpacity style={joinStyles.setting_mega_item_list}
                               onPress={onMegaSpinPress}
                               activeOpacity={0.4}>
@@ -190,7 +192,7 @@ function GameJoin({ navigation, spinToken, score }) {
                 <Text style={joinStyles.setting_item_right_textBox}>{score.megaSpin}</Text>
                 <View
                   style={joinStyles.flare_spins_btn}>
-                  <Image source={Images.game.icon.arrow} style={{
+                  <Image source={AppMocData.game.icon.arrow} style={{
                     width: wp("2"),
                     height: wp("3")
                   }}/>
@@ -204,7 +206,7 @@ function GameJoin({ navigation, spinToken, score }) {
               height: wp("6"),
               marginRight: wp("1"),
               marginLeft: wp("1")
-            }} source={Images.game.icon.ruleObject}/>
+            }} source={AppMocData.game.icon.ruleObject}/>
             <TouchableOpacity style={joinStyles.setting_mega_item_list}
                               onPress={onRuleObjectPress}
                               activeOpacity={0.4}>
@@ -212,7 +214,7 @@ function GameJoin({ navigation, spinToken, score }) {
               <View style={joinStyles.setting_item_right_view}>
                 <View
                   style={joinStyles.flare_spins_btn}>
-                  <Image source={Images.game.icon.arrow} style={{
+                  <Image source={AppMocData.game.icon.arrow} style={{
                     width: wp("2"),
                     height: wp("3")
                   }}/>

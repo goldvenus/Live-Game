@@ -14,7 +14,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 import { connect } from "react-redux";
 
 import Svg, { Path, G, Image, Line } from "react-native-svg";
-import Images from "../../../share/data/MocData";
+import AppMocData from "../../../share/data/MocData";
 import GameHeaderBar from "../components/GameHeaderBar";
 import { bindActionCreators } from "redux";
 import { setFlareToken } from "../../../redux/action/game";
@@ -69,12 +69,12 @@ class FlareSpinWheel extends React.Component {
     playWheel: false
   };
 
-  ImageArray = Images.wheel.mega;
+  ImageArray = AppMocData.wheel.mega;
 
   WheelData = [
     {
       type: "image",
-      url: Images.wheel.mega.first
+      url: AppMocData.wheel.mega.first
     },
     {
       type: "text",
@@ -82,7 +82,7 @@ class FlareSpinWheel extends React.Component {
     },
     {
       type: "image",
-      url: Images.wheel.mega.third
+      url: AppMocData.wheel.mega.third
     },
     {
       type: "text",
@@ -94,7 +94,7 @@ class FlareSpinWheel extends React.Component {
     },
     {
       type: "image",
-      url: Images.wheel.mega.second
+      url: AppMocData.wheel.mega.second
     },
     {
       type: "text",
@@ -199,7 +199,7 @@ class FlareSpinWheel extends React.Component {
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => this.backButtonPress()}>
-          <RNImage source={Images.game.icon.arrow} style={styles.backButtonImage}/>
+          <RNImage source={AppMocData.game.icon.arrow} style={styles.backButtonImage}/>
         </TouchableOpacity>
         <Modal
           isVisible={this.state.finished}>
@@ -397,7 +397,7 @@ class FlareSpinWheel extends React.Component {
         </Animated.View>
         <TouchableOpacity style={styles.wheelBackgroundContainer}
                           onPress={() => this.goWheel()}>
-          <RNImage source={Images.wheel.background.second} style={styles.wheelBackground}/>
+          <RNImage source={AppMocData.wheel.background.second} style={styles.wheelBackground}/>
         </TouchableOpacity>
       </View>
     );

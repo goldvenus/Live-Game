@@ -14,7 +14,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
 import { Audio } from "expo-av";
 import FlareSpin from "./components/FlareSpin";
 import { FlareType } from "../../share/data/gamePlay/FlareType";
-import Images from "../../share/data/MocData";
+import AppMocData from "../../share/data/MocData";
 import { handleAndroidBackButton, removeAndroidBackButtonHandler } from "../../services/BackPress";
 
 class GameCountDown extends React.Component {
@@ -47,7 +47,7 @@ class GameCountDown extends React.Component {
 
   async countDownSound() {
     try {
-      await this.soundObject.loadAsync(Images.sound.countdownSound);
+      await this.soundObject.loadAsync(AppMocData.sound.countdownSound);
       await this.soundObject.playAsync();
     } catch (error) {
       console.log(error);

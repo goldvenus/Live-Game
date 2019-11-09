@@ -6,16 +6,16 @@ import { AppNavigator } from "./src/navigators/AppNavigator";
 import store from "./src/redux/store";
 import { Asset } from 'expo-asset';
 import AppLoading from "expo/build/launch/AppLoading";
-import Images from './src/share/data/MocData'
+import AppMocData from './src/share/data/MocData'
 class App extends Component {
   state = {
     isLoadingComplete: false,
   };
   imageArray = [];
-  loadImagesUrl(obj) {
+  loadAppMocDataUrl(obj) {
     for (let key in obj) {
       if (typeof obj[key] === "object") {
-        this.loadImagesUrl(obj[key]);
+        this.loadAppMocDataUrl(obj[key]);
       } else {
         this.imageArray.push(obj[key]);
       }
@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   _loadResourcesAsync = async () => {
-    this.loadImagesUrl(Images)
+    this.loadAppMocDataUrl(AppMocData)
     return Promise.all([
       Asset.loadAsync(this.imageArray),
       Font.loadAsync({

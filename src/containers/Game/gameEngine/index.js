@@ -9,8 +9,6 @@ import GameDashBoard from "../components/GamePlayDashboard";
 import GamePlayBottomBar from "../components/GamePlayBottomBar";
 import { getspinArray } from "../../../share/data/gamePlay/FlareArray";
 import { GetFlareBox } from "../animation/GetFlareAnimation";
-import Images from "../../../share/data/MocData";
-import { Audio } from "expo-av";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
@@ -27,19 +25,10 @@ import { leftSpinList } from "../../../share/data/gamePlay/LeftFlareData";
 import GameHeaderBar from "../components/GameHeaderBar";
 import GamePlayHeader from "../components/GamePlayHeader";
 import {randomNumber} from "../../../share/engine";
+import {soundPlay} from "../../../share/soundPlay";
+import {soundPlayNames} from "../../../share/soundPlay/soundName";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
-
-const useVariable = initialValue => {
-  const ref = React.useRef([
-    initialValue,
-    param => {
-      ref.current[0] =
-        typeof param === "function" ? param(ref.current[0]) : param;
-    }
-  ]);
-  return ref.current;
-};
 
 let pressedTime = 0;
 let firingGun = false;
@@ -49,6 +38,7 @@ let doubleFireReadyTimer = null;
 let burstFireTimer = null;
 let burstFireTemp = false;
 let proImageTargetMark = 0;
+
 function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoinsScore,addSpin, addSpinList, resetAnimation, getSpinListItems }) {
   const [running, setRunning] = React.useState(true);
   const [bulletCount, setBulletCount] = React.useState(100);
@@ -56,12 +46,6 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   const [gamePauseState, setGamePauseState] = React.useState(false);
   const [gameHitData, setGameHitData] = React.useState({});
   const [gameStartInternal, setGameStartInternal] = React.useState(null);
-  const [shotSoundObjectSingle, setShotSoundObjectSingle] = useVariable(null);
-  const [shotSoundObjectFive, setShotSoundObjectFive] = useVariable(null);
-  const [shotSoundObjectTen, setShotSoundObjectTen] = useVariable(null);
-  const [tapClickSound, setTapClickSound] = useVariable(null);
-  const [fireWorksSound, setFireWorksSound] = useVariable(null);
-  const [fireWorksSound1, setFireWorksSound1] = useVariable(null);
 
   let gameEngine = null;
   let spinSpeed = 4;
@@ -69,11 +53,9 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   let targetShowTime = 3;
   const multiShotSpeed = 80;
 
-
   React.useEffect(() => {
     addWaveScore(-1* gameScore.waveScore);
     gameStart();
-    soundEffectInit();
     return () => {
       clearInterval(gameStartInternal);
       gameStop();
@@ -124,73 +106,66 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       case "goal-mega":
         //gamePause();
         addSpin(ADD_MEGA_SPIN);
-        soundEffectPlay(tapClickSound);
-        soundEffectPlay(fireWorksSound1);
-        //resetAnimation();
-        //addSpinList(leftSpinList[1]);
+        soundPlay(soundPlayNames.GamePlay.getMegaSpin);
+        soundPlay(soundPlayNames.GamePlay.tapClickTarget);
         break;
       case "goal-niki":
         //gamePause();
-        soundEffectPlay(fireWorksSound1);
+        soundPlay(soundPlayNames.GamePlay.tapClickTarget);
         resetAnimation();
         addSpinList(leftSpinList[0]);
         addSpin(ADD_NIKE_SPIN);
         break;
       case 'goal-lock':
-        soundEffectPlay(fireWorksSound1);
+        soundPlay(soundPlayNames.GamePlay.tapClickTarget);
         resetAnimation();
         addSpinList(leftSpinList[3]);
         addSpin(ADD_LOCK_SPIN);
         break;
       case 'goal-apple':
-        soundEffectPlay(fireWorksSound1);
+        soundPlay(soundPlayNames.GamePlay.tapClickTarget);
         resetAnimation();
         addSpinList(leftSpinList[2]);
         addSpin(ADD_APPLE_SPIN);
         break;
       case "goal-user":
-        soundEffectPlay(fireWorksSound1);
+        soundPlay(soundPlayNames.GamePlay.tapClickTarget);
         proImageTargetMark = randomNumber(10, 100);
         addWaveScore(proImageTargetMark);
         break;
       case "goal-mega-tap":
-        //gamePause();
-        soundEffectPlay(tapClickSound);
-        soundEffectPlay(fireWorksSound);
+        soundPlay(soundPlayNames.GamePlay.getMegaSpin);
+        soundPlay(soundPlayNames.GamePlay.fireWorks);
         proImageTargetMark = 1000;
         addSpin(ADD_MEGA_SPIN);
-        //resetAnimation();
-        //addSpinList(leftSpinList[1]);
         break;
       case "goal-niki-tap":
-        //gamePause();
-        soundEffectPlay(fireWorksSound);
+        soundPlay(soundPlayNames.GamePlay.fireWorks);
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[0]);
         addSpin(ADD_NIKE_SPIN);
         break;
       case 'goal-lock-tap':
-        soundEffectPlay(fireWorksSound);
+        soundPlay(soundPlayNames.GamePlay.fireWorks);
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[3]);
         addSpin(ADD_LOCK_SPIN);
         break;
       case 'goal-apple-tap':
-        soundEffectPlay(fireWorksSound);
+        soundPlay(soundPlayNames.GamePlay.fireWorks);
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[2]);
         addSpin(ADD_APPLE_SPIN);
         break;
       case "goal-user-tap":
-        soundEffectPlay(fireWorksSound);
+        soundPlay(soundPlayNames.GamePlay.fireWorks);
         proImageTargetMark = 1000 + randomNumber(10, 100);
         addWaveScore(proImageTargetMark-1000);
         break;
       case "no-goal":
-        //soundEffectPlay(tapClickSound);
         break;
     }
     if (e.type.includes("score")) {
@@ -206,7 +181,6 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
 
   const oneShot = () => {
     if (bulletCount >= 1) {
-       //addWaveScore(50);
       setBulletCount(t => t - 1);
       NewFire(bulletSpeed);
     }
@@ -241,7 +215,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       burstFireTemp = true;
       onMultiFireGun(5);
       addWaveScore(250);
-      soundEffectPlay(shotSoundObjectFive);
+      soundPlay(soundPlayNames.GamePlay.fireMultiShot);
     }, 1500);
     const pressedIntime = new Date().getTime();
     if ((pressedIntime - pressedTime > 500)) doubleFireReady = false;
@@ -251,7 +225,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         firingGun = true;
         doubleFireReady = false;
         clearTimeout(oneFireShotTimer);
-        soundEffectPlay(shotSoundObjectTen);
+        soundPlay(soundPlayNames.GamePlay.fireLongShot);
         onMultiFireGun(3);
         addWaveScore(150);
       }, 180);
@@ -265,7 +239,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   const FirePressOut = () => {
     if (!firingGun && running && !burstFireTemp) {
       oneFireShotTimer = setTimeout(() => {
-        soundEffectPlay(shotSoundObjectSingle);
+        soundPlay(soundPlayNames.GamePlay.fireShot);
         onFireGun();
         addWaveScore(50);
       }, 220);
@@ -291,35 +265,6 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       physics: { engine: engine, world: world },
       targetPosition: targetPosition
     };
-  };
-
-
-  /* Sound Effect */
-  const soundEffectInit = async () => {
-    try {
-      const { sound: soundObjectSingle } = await Audio.Sound.createAsync(Images.sound.shotSound, { shouldPlay: false });
-      setShotSoundObjectSingle(soundObjectSingle);
-      const { sound: soundObjectFive } = await Audio.Sound.createAsync(Images.sound.mutiShotSound, { shouldPlay: false });
-      setShotSoundObjectFive(soundObjectFive);
-      const { sound: soundObjectTem } = await Audio.Sound.createAsync(Images.sound.holdShotSound, { shouldPlay: false });
-      setShotSoundObjectTen(soundObjectTem);
-      const { sound: soundObjectTapClick } = await Audio.Sound.createAsync(Images.sound.megaSpinSound, { shouldPlay: false });
-      setTapClickSound(soundObjectTapClick);
-      const {sound: soundObjectSingle11} = await Audio.Sound.createAsync(Images.sound.fireworks, {shouldPlay: false});
-      setFireWorksSound(soundObjectSingle11);
-      const {sound: soundObjectFinger} = await Audio.Sound.createAsync(Images.sound.tapClickSound, {shouldPlay: false});
-      setFireWorksSound1(soundObjectFinger);
-    } catch (error) {
-    }
-  };
-
-  const soundEffectPlay = async (soundObject) => {
-    if (soundObject) {
-      try {
-        await soundObject.replayAsync();
-      } catch (e) {
-      }
-    }
   };
 
   return (

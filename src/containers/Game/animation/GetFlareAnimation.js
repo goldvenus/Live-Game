@@ -1,24 +1,11 @@
 import {Image, View, Animated} from "react-native";
 import React, {useRef} from "react";
-import Images from "../../../share/data/MocData";
+import AppMocData from "../../../share/data/MocData";
 import {FlareType} from "../../../share/data/gamePlay/FlareType";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp}
   from "react-native-responsive-screen";
 import {Text} from "native-base";
 import * as Audio from "expo-av/build/Audio";
-
-
-const useVariable = initialValue => {
-  const ref = React.useRef([
-    initialValue,
-    param => {
-      ref.current[0] =
-        typeof param === "function" ? param(ref.current[0]) : param;
-    }
-  ]);
-  return ref.current;
-};
-
 
 function GetFlareBox({size, body, spinInfoData, mark}) {
   /* User State init */
@@ -47,13 +34,8 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
     outputRange: [0, -150]
   });
 
-
-  // const [fireWorksSound, setFireWorksSound] = useVariable(null);
-  // const [fireWorksSound1, setFireWorksSound1] = useVariable(null);
   React.useEffect(() => {
-    // if (m_mark >= 1000)
-    //   soundEffectPlay(fireWorksSound);
-    // else soundEffectPlay(fireWorksSound1);
+
     fadeValue.setValue(1);
     rotateValue.setValue(0);
     fadeValue_text.setValue(1);
@@ -83,29 +65,13 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
       })
     ]).start();
   }, [spinInfoData]);
-  React.useEffect(() => {
-    //soundEffectInit();
-  }, []);
-  const soundEffectInit = async () => {
-    // const {sound: soundObjectSingle} = await Audio.Sound.createAsync(Images.sound.fireworks, {shouldPlay: false});
-    // setFireWorksSound(soundObjectSingle);
-    // const {sound: soundObjectFinger} = await Audio.Sound.createAsync(Images.sound.tapClickSound, {shouldPlay: false});
-    // setFireWorksSound1(soundObjectFinger);
-  };
-  const soundEffectPlay = async (soundObject) => {
-    if (soundObject) {
-      try {
-        await soundObject.replayAsync();
-      } catch (e) {
-      }
-    }
-  };
+
   const width = size[0];
   const height = size[1];
   const x = body.position.x - width / 2;
   const y = body.position.y - height / 2;
   const {spinType, spinNumber, spinColor, spinSize, spinTextSize, megaType, userType} = spinInfoData;
-  const targetImage = Images.game.gameplay.target;
+  const targetImage = AppMocData.game.gameplay.target;
   let ty = spinSize / 8;
   if (spinType === FlareType.spinType.triangle)
     ty = spinSize / 20;
@@ -172,7 +138,7 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
               color: "white"
             }}>{spinNumber}</Text> :
             <Image
-              source={spinNumber === 0 ? targetImage.mega[megaType] : Images.game.users[userType]} style={{
+              source={spinNumber === 0 ? targetImage.mega[megaType] : AppMocData.game.users[userType]} style={{
               position: "absolute",
               width: spinNumber === 0 && megaType !== 'lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
               height: spinNumber === 0 && megaType !== 'lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),

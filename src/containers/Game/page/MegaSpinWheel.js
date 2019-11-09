@@ -13,7 +13,7 @@ import * as d3Shape from "d3-shape";
 import color from "randomcolor";
 import { snap } from "@popmotion/popcorn";
 import Svg, { Path, G, Image } from "react-native-svg";
-import Images from "../../../share/data/MocData";
+import AppMocData from "../../../share/data/MocData";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import GameHeaderBar from "../components/GameHeaderBar";
 import {addSpin} from "../../../redux/action/game";
@@ -60,7 +60,7 @@ class MegaSpinWheel extends React.Component {
     playWheel: false
   };
 
-  ImageArray = Images.wheel.flare;
+  ImageArray = AppMocData.wheel.flare;
   closeDialog = () => {
     this.setState({ finished: false });
   };
@@ -142,7 +142,7 @@ class MegaSpinWheel extends React.Component {
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => this.backButtonPress()}>
-          <RNImage source={Images.game.icon.arrow} style={styles.backButtonImage}/>
+          <RNImage source={AppMocData.game.icon.arrow} style={styles.backButtonImage}/>
         </TouchableOpacity>
         <Modal
           isVisible={this.state.finished}>
@@ -300,7 +300,7 @@ class MegaSpinWheel extends React.Component {
         </Animated.View>
         <TouchableOpacity style={styles.wheelBackgroundContainer}
                           onPress={() => this.goWheel()}>
-          <RNImage source={Images.wheel.background.first} style={styles.wheelBackground}/>
+          <RNImage source={AppMocData.wheel.background.first} style={styles.wheelBackground}/>
         </TouchableOpacity>
       </View>
     );

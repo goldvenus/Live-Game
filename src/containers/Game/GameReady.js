@@ -21,24 +21,21 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from "react-native-responsive-screen";
 import LightningEffect from "./animation/LightningEffect";
 import CreateUserImage from "./components/CreateUserImage";
-import Images from "../../share/data/MocData";
-import { Audio } from "expo-av";
+import AppMocData from "../../share/data/MocData";
 import CountdownCircle from 'react-native-countdown-circle';
+import {soundPlay} from "../../share/soundPlay";
+import {soundPlayNames} from "../../share/soundPlay/soundName";
 
 class GameReady extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       downTime: 15,
-      unMount: false,
-      soundObject: null
+      unMount: false
     };
-
   }
 
   async componentDidMount() {
-    const { sound: soundObjectFive } = await Audio.Sound.createAsync(Images.sound.countdownSound, { shouldPlay: false });
-    this.setState({soundObject: soundObjectFive});
     handleAndroidBackButton(() => this.props.navigation.goBack(null));
     this.clockCountDown = setInterval(() => {
       this.decrementClock();
@@ -50,12 +47,10 @@ class GameReady extends React.Component {
     removeAndroidBackButtonHandler();
     clearInterval(this.clockCountDown);
   }
-   playSound = async() => {
-     await this.state.soundObject.replayAsync();
-  }
+
   decrementClock = () => {
     if(this.state.downTime < 7 && this.state.downTime>1) {
-      this.playSound();
+      soundPlay(soundPlayNames.GamePlay.countDown);
     }
     if (this.state.downTime < 2) {
       clearInterval(this.clockCountDown);
@@ -78,7 +73,7 @@ class GameReady extends React.Component {
       0.5: {
         opacity: 1
       }
-    }
+    };
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
@@ -88,7 +83,7 @@ class GameReady extends React.Component {
               <TouchableOpacity
                 style={ReadyStyles.Back_Button}
                 onPress={() => this.backButtonPress()}>
-                <Image source={Images.game.icon.arrow} style={ReadyStyles.Back_Button_Image}/>
+                <Image source={AppMocData.game.icon.arrow} style={ReadyStyles.Back_Button_Image}/>
               </TouchableOpacity>
               <View style={{
                 display: "flex",
@@ -108,7 +103,7 @@ class GameReady extends React.Component {
               downTime > 5 ? <View style={ReadyStyles.GameReady_CountDown_View}>
                 <View>
                   <Image style={ReadyStyles.flare_border}
-                         source={Images.game.lightning.image}/>
+                         source={AppMocData.game.lightning.image}/>
                   <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-4")} my={hp("0")} unMount={unMount}/>
                 </View>
                 <View style={{
@@ -135,7 +130,7 @@ class GameReady extends React.Component {
                 <View/>
                 <View>
                   <Image style={ReadyStyles.flare_border_right}
-                         source={Images.game.lightning.image} unMount={unMount}/>
+                         source={AppMocData.game.lightning.image} unMount={unMount}/>
                   <LightningEffect lightw={wp("17")} lighth={hp("28")} mx={wp("-2")} my={hp("0")}/>
                 </View>
               </View>

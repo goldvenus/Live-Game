@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import Images from "../../../share/data/MocData";
+import AppMocData from "../../../share/data/MocData";
 import { styles } from "./styles";
 import RoundPannel from "./RoundPannel";
 
@@ -27,7 +27,7 @@ function GameMegaRound({megaSpinCount, navigation, getSpinListItems}) {
         <TouchableOpacity onPress={()=>resumeGame()}>
           <Image
             style={styles.header_arrow_btn}
-            source={Images.public.close}
+            source={AppMocData.public.close}
           />
         </TouchableOpacity>: <View/>
       }
@@ -35,22 +35,22 @@ function GameMegaRound({megaSpinCount, navigation, getSpinListItems}) {
         <View style={styles.header_middle_view}>
           <Image
             style={styles.game_mark_icon}
-            source={Images.bottomBar.gameActive}/>
+            source={AppMocData.bottomBar.gameActive}/>
           <Text style={styles.game_header_title}>
             ZENDUJA LIVE
           </Text>
         </View>
         <Image
           style={styles.header_user_img}
-          source={Images.game.header.user}
+          source={AppMocData.game.header.user}
         />
       </View>
       <View style={styles.topSection}>
-        <Image source={Images.game.page.mega.megaTopMark}
+        <Image source={AppMocData.game.page.mega.megaTopMark}
                style={styles.topMarkImage}/>
-        <Image source={Images.game.page.mega.megaBig}
+        <Image source={AppMocData.game.page.mega.megaBig}
                style={styles.megaUnlockImage}/>
-        <Image source={Images.game.page.roundBgRed}
+        <Image source={AppMocData.game.page.roundBgRed}
                style={styles.topCirclebgImage}/>
         <Text style={styles.topSectionTitle}>BLUZAG</Text>
         <Text style={styles.roundLocktxt}>49 / 1000 LEFT</Text>

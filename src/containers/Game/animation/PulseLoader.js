@@ -2,7 +2,7 @@ import React from "react";
 import { View, Image, TouchableOpacity, Animated, Easing } from "react-native";
 import Pulse from "./Pulse";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import Images  from "../../../share/data/MocData";
+import AppMocData  from "../../../share/data/MocData";
 
 export default class LocationPulseLoader extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ export default class LocationPulseLoader extends React.Component {
           />
         ))}
         <Image
-          source={Images.game.gameplay.shot.gun.green}
+          source={AppMocData.game.gameplay.shot.gun.green}
           style={{
             width: this.props.pulseMaxSize,
             height: this.props.pulseMaxSize

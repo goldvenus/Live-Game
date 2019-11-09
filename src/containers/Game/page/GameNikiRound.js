@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import Images from "../../../share/data/MocData";
+import AppMocData from "../../../share/data/MocData";
 import { styles } from "./styles";
 import RoundPannel from "./RoundPannel";
 
@@ -44,7 +44,7 @@ function GameNikiRound({ score, navigation, getSpinListItems }) {
           <TouchableOpacity onPress={()=>resumeGame()}>
             <Image
               style={styles.header_arrow_btn}
-              source={Images.public.close}
+              source={AppMocData.public.close}
             />
           </TouchableOpacity> : <View/>
         }
@@ -52,20 +52,20 @@ function GameNikiRound({ score, navigation, getSpinListItems }) {
         <View style={styles.header_middle_view}>
           <Image
             style={styles.game_mark_icon}
-            source={Images.bottomBar.gameActive}/>
+            source={AppMocData.bottomBar.gameActive}/>
           <Text style={styles.game_header_title}>
             ZENDUJA LIVE
           </Text>
         </View>
         <Image
           style={styles.header_user_img}
-          source={Images.game.header.user}
+          source={AppMocData.game.header.user}
         />
       </View>
       <View style={styles.topSection}>
-        <Image source={Images.game.page.niki.nikiShoe}
+        <Image source={AppMocData.game.page.niki.nikiShoe}
                style={styles.nikiUnlockImage}/>
-        <Image source={Images.game.page.roundBgOrange}
+        <Image source={AppMocData.game.page.roundBgOrange}
                style={styles.topCirclebgNikiImage}/>
         <Text style={styles.topTitleNiki}>NIKE</Text>
         <Text style={styles.topSTitleNiki}>VAPORMAX</Text>

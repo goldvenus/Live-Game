@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import {styles} from "../styles";
 import {connect} from "react-redux";
-import Images from "../../../share/data/MocData";
+import AppMocData from "../../../share/data/MocData";
 import {convertNumberWithCommas} from "../../../share/engine";
 
 function GamePlayDashboard({score}) {
@@ -24,7 +24,7 @@ function GamePlayDashboard({score}) {
         <View style={styles.game_wavescore_view}>
           <Image
             style={styles.game_wavescore}
-            source={Images.game.icon.waveScore}/>
+            source={AppMocData.game.icon.waveScore}/>
           <Text style={styles.game_wavescore_text}>{convertNumberWithCommas(score.waveScore)}</Text>
         </View>
         <View style={styles.game_play_passed_view}>

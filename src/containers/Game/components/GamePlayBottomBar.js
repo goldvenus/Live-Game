@@ -4,21 +4,11 @@ import { Animated, View } from "react-native";
 import React, { useRef } from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import * as Audio from "expo-av/build/Audio";
-import Images from "../../../share/data/MocData";
-
-const useVariable = initialValue => {
-  const ref = React.useRef([
-    initialValue,
-    param => {
-      ref.current[0] =
-        typeof param === "function" ? param(ref.current[0]) : param;
-    }
-  ]);
-  return ref.current;
-};
+import AppMocData from "../../../share/data/MocData";
+import {soundPlay} from "../../../share/soundPlay";
+import {soundPlayNames} from "../../../share/soundPlay/soundName";
 
 function GamePlayBottomBar({ bulletCount, gamePlayTime }) {
-  const [countDownSound, setCountDownSound] = useVariable(null);
 
   const min = Math.floor(gamePlayTime / 60);
   const sec = gamePlayTime - 60 * min;
@@ -33,7 +23,7 @@ function GamePlayBottomBar({ bulletCount, gamePlayTime }) {
 
   React.useEffect(()=> {
     if(gamePlayTime < 6)
-      soundEffectPlay(countDownSound);
+      soundPlay(soundPlayNames.GamePlay.countDown);
     if(gamePlayTime === 10) {
       Animated.loop(
         Animated.sequence([
@@ -53,26 +43,8 @@ function GamePlayBottomBar({ bulletCount, gamePlayTime }) {
         }
       ).start();
     }
-  }, [gamePlayTime])
+  }, [gamePlayTime]);
 
-  React.useEffect(()=> {
-    soundEffectInit();
-  }, []);
-  const soundEffectInit = async () => {
-    try {
-      const { sound: soundObjectSingle } = await Audio.Sound.createAsync(Images.sound.countdownSound, { shouldPlay: false });
-      setCountDownSound(soundObjectSingle);
-    } catch (error) {
-    }
-  };
-  const soundEffectPlay = async (soundObject) => {
-    if (soundObject) {
-      try {
-        await soundObject.replayAsync();
-      } catch (e) {
-      }
-    }
-  };
   /*Animation Init*/
   const scaleValue = new useRef(new Animated.Value(1)).current;
 

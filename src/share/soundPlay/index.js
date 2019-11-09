@@ -1,18 +1,65 @@
-import Sound from 'react-native-sound';
+import AppMocData from "../data/MocData";
+import { Audio } from "expo-av";
+import React from "react";
+import {soundPlayNames} from "./soundName";
 
-Sound.setCategory('Ambient', true);
+let fireShot;
+let fireMultiShot;
+let fireLongShot;
+let getMegaSpin;
+let fireWorks;
+let tapClickTarget;
+let countDown;
 
-const buttonPress = new Sound(require('../audio/button.mp3'), error => console.log(error));
-export const playButtonPress = () => {
-  buttonPress.play((success) => buttonPress.reset());
-}
+export const soundEffectInit = async () => {
+  const { sound: soundObject1 } = await Audio.Sound.createAsync(AppMocData.sound.shotSound, { shouldPlay: false });
+  fireShot = soundObject1;
+  const { sound: soundObject2 } = await Audio.Sound.createAsync(AppMocData.sound.mutiShotSound, { shouldPlay: false });
+  fireMultiShot = soundObject2;
+  const { sound: soundObject3 } = await Audio.Sound.createAsync(AppMocData.sound.holdShotSound, { shouldPlay: false });
+  fireLongShot = soundObject3;
+  const { sound: soundObject4 } = await Audio.Sound.createAsync(AppMocData.sound.megaSpinSound, { shouldPlay: false });
+  getMegaSpin = soundObject4;
+  const { sound: soundObject5 } = await Audio.Sound.createAsync(AppMocData.sound.fireworks, { shouldPlay: false });
+  fireWorks = soundObject5;
+  const { sound: soundObject6 } = await Audio.Sound.createAsync(AppMocData.sound.tapClickSound, { shouldPlay: false });
+  tapClickTarget = soundObject6;
+  const { sound: soundObject7 } = await Audio.Sound.createAsync(AppMocData.sound.countdownSound, { shouldPlay: false });
+  countDown = soundObject7;
 
-const playListPull = new Sound(require('../audio/pull.mp3'), error => console.log(error));
-export const playListPull = () => {
-  pull.play((success) => pull.reset());
-}
+};
 
-const playListPullFinished = new Sound(require('../audio/pullFinished.mp3'), error => console.log(error));
-export const playListPullFinished = () => {
-  pullFinished.play((success) => pullFinished.reset());
-}
+export const soundPlay = async (soundName) => {
+  let soundObject = null;
+  if (soundName) {
+    switch (soundName) {
+      case soundPlayNames.GamePlay.fireShot:
+        soundObject = fireShot;
+        break;
+      case soundPlayNames.GamePlay.fireMultiShot:
+        soundObject = fireMultiShot;
+        break;
+      case soundPlayNames.GamePlay.fireLongShot:
+        soundObject = fireLongShot;
+        break;
+      case soundPlayNames.GamePlay.fireWorks:
+        soundObject = fireWorks;
+        break;
+      case soundPlayNames.GamePlay.getMegaSpin:
+        soundObject = getMegaSpin;
+        break;
+      case soundPlayNames.GamePlay.tapClickTarget:
+        soundObject = tapClickTarget;
+        break;
+      case soundPlayNames.GamePlay.countDown:
+        soundObject = countDown;
+      default :
+        break;
+    }
+  }
+  if (soundObject) {
+    try {
+      await soundObject.replayAsync();
+    } catch (e) {}
+  }
+};

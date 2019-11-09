@@ -1,6 +1,6 @@
 import React from "react";
 import { ImageBackground, TouchableOpacity, StyleSheet, Image, Text } from "react-native";
-import Images from "../../../share/data/MocData";
+import AppMocData from "../../../share/data/MocData";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 class GetAnswerFlare extends React.Component {
@@ -9,10 +9,10 @@ class GetAnswerFlare extends React.Component {
   }
   render() {
     return (
-      <ImageBackground source={Images.game.page.flareAnswer.background}
+      <ImageBackground source={AppMocData.game.page.flareAnswer.background}
                        style={styles.container}>
         <TouchableOpacity style={styles.getFlareButton} onPress={this.onBackButtonEvent}>
-          <Image source={Images.game.page.flareAnswer.first} style={styles.button}/>
+          <Image source={AppMocData.game.page.flareAnswer.first} style={styles.button}/>
           <Text style={styles.flareButtonText}>GET 3 FLARES</Text>
         </TouchableOpacity>
       </ImageBackground>
