@@ -118,6 +118,23 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     return resultScore;
   };
 
+  const glowBallBonusFlare = (spinInfoData) => {
+    if (spinInfoData.spinSize === FlareType.spinSize.big)
+    switch (spinInfoData.spinColor) {
+      case FlareType.spinColor.amber:
+        setBulletCount(bulletCount+3);
+        break;
+      case FlareType.spinColor.white:
+        setBulletCount(bulletCount+3);
+        break;
+      case FlareType.spinColor.orange:
+        setBulletCount(bulletCount+10);
+        break;
+      case FlareType.spinColor.red:
+        setBulletCount(bulletCount+25);
+        break;
+    }
+  };
   const onEvent = (e) => {
     if (e.type === "goal-target") {
       setGameHitData(e.data);
@@ -139,18 +156,21 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       case "goal-niki":
         //gamePause();
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
+        glowBallBonusFlare(getFlareData);
         resetAnimation();
         addSpinList(leftSpinList[0]);
         addSpin(ADD_NIKE_SPIN);
         break;
       case 'goal-lock':
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
+        glowBallBonusFlare(getFlareData);
         resetAnimation();
         addSpinList(leftSpinList[3]);
         addSpin(ADD_LOCK_SPIN);
         break;
       case 'goal-apple':
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
+        glowBallBonusFlare(getFlareData);
         resetAnimation();
         addSpinList(leftSpinList[2]);
         addSpin(ADD_APPLE_SPIN);
@@ -168,6 +188,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         break;
       case "goal-niki-tap":
         soundPlay(soundPlayNames.GamePlay.fireWorks);
+        glowBallBonusFlare(getFlareData);
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[0]);
@@ -175,6 +196,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         break;
       case 'goal-lock-tap':
         soundPlay(soundPlayNames.GamePlay.fireWorks);
+        glowBallBonusFlare(getFlareData);
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[3]);
@@ -182,6 +204,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         break;
       case 'goal-apple-tap':
         soundPlay(soundPlayNames.GamePlay.fireWorks);
+        glowBallBonusFlare(getFlareData);
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[2]);
@@ -190,7 +213,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       case "goal-user-tap":
         soundPlay(soundPlayNames.GamePlay.fireWorks);
         proImageTargetMark = calculatorScore(getFlareData) + 1000;// hit the profile Orbs
-        addWaveScore(proImageTargetMark);
+        addWaveScore(proImageTargetMark-1000);
         break;
       case "no-goal":
         break;

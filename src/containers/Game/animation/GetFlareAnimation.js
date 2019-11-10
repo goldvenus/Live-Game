@@ -5,7 +5,6 @@ import {FlareType} from "../../../share/data/gamePlay/FlareType";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp}
   from "react-native-responsive-screen";
 import {Text} from "native-base";
-import * as Audio from "expo-av/build/Audio";
 
 function GetFlareBox({size, body, spinInfoData, mark}) {
   /* User State init */
@@ -71,6 +70,8 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
   const x = body.position.x - width / 2;
   const y = body.position.y - height / 2;
   const {spinType, spinNumber, spinColor, spinSize, spinTextSize, megaType, userType} = spinInfoData;
+  let flareType = spinType;
+
   const targetImage = AppMocData.game.gameplay.target;
   let ty = spinSize / 8;
   if (spinType === FlareType.spinType.triangle)
@@ -83,6 +84,28 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
   } else if (spinNumber <= 0) {
     ty = spinSize / 8.6;
   }
+
+  // Glow Ball bonus
+  let bonusText = '';
+  let glowBall = false;
+  if(spinInfoData.spinNumber === 0 && spinInfoData.spinSize === FlareType.spinSize.big && megaType !== FlareType.spinType.mega.mega) {
+    glowBall = true;
+    flareType = FlareType.spinType.glow;
+    switch (spinColor) {
+      case FlareType.spinColor.amber:
+        bonusText = '3 Flares';
+        break;
+      case FlareType.spinColor.white:
+        bonusText = '3 Flares';
+        break;
+      case FlareType.spinColor.orange:
+        bonusText = '10 Flares';
+        break;
+      case FlareType.spinColor.red:
+        bonusText = '25 Flares';
+        break;
+    }
+  }
   return (
     <View style={{
       left: x,
@@ -94,10 +117,10 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
       height: height
     }}>
       {
-        m_mark !== 0 && <Animated.Text style={{
+        (m_mark !== 0 || glowBall) && <Animated.Text style={{
           fontFamily: 'Antonio-Bold',
-          fontSize: wp('13'),
-          marginTop: wp('-20'),
+          fontSize: glowBall ? wp('10'): wp('13'),
+          marginTop: glowBall ? wp('-12') : wp('-20'),
           color: 'white',
           textAlign: 'center',
           opacity: saveOpacity_text,
@@ -107,7 +130,7 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
             }
           ]
         }}>
-          {m_mark === 1000 ? '50' : m_mark > 1000 ? `50+${m_mark - 1000}` : m_mark > 0 ? m_mark : ''}
+          {glowBall ? bonusText : (m_mark === 1000 ? '50' : m_mark > 1000 ? `50+${m_mark - 1000}` : m_mark > 0 ? m_mark : '')}
         </Animated.Text>
       }
       <Animated.View style={{
@@ -124,7 +147,7 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
         marginTop: hp(spinSize / -6)
       }}>
 
-        <Image source={targetImage[spinType][spinColor]} style={{
+        <Image source={targetImage[flareType][spinColor]} style={{
           width: wp(spinSize),
           height: wp(spinSize)
         }}/>

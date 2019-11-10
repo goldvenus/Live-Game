@@ -39,6 +39,12 @@ const AppMocData = {
           white: require('../../../assets/images/game/gameplay/target/circle/target-bg-white-c.png'),
           amber: require('../../../assets/images/game/gameplay/target/circle/target-bg-amber-c.png')
         },
+        glow: {
+          orange: require('../../../assets/images/game/gameplay/target/glowBall/glow-bg-orange-c.png'),
+          red: require('../../../assets/images/game/gameplay/target/glowBall/glow-bg-red-c.png'),
+          white: require('../../../assets/images/game/gameplay/target/glowBall/glow-bg-white-c.png'),
+          amber: require('../../../assets/images/game/gameplay/target/glowBall/glow-bg-amber-c.png')
+        },
         mega: {
           apple: require('../../../assets/images/game/gameplay/target/mega/apple.png'),
           lock: require('../../../assets/images/game/gameplay/target/mega/lock.png'),

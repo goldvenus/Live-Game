@@ -2,6 +2,7 @@ export const FlareType = {
   spinType: {
     ellipse: 'circle',
     triangle: 'triangular',
+    glow: 'glow',
     mega: {
       lock: 'lock',
       apple:'apple',

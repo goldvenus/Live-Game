@@ -8,6 +8,7 @@ import { FlareType } from "../../../share/data/gamePlay/FlareType";
 
 const FlareSpin = ({ spinInfoData, angle, shadow=true, running = true }) => {
   const { spinType, spinNumber, spinColor, spinSize, spinTextSize, megaType, userType } = spinInfoData;
+  let flareType = spinType;
   const targetImage = AppMocData.game.gameplay.target;
   let ty = spinSize / 8;
   if (spinType === FlareType.spinType.triangle)
@@ -21,6 +22,9 @@ const FlareSpin = ({ spinInfoData, angle, shadow=true, running = true }) => {
     ty = spinSize / 8.6;
   }
 
+  if(spinInfoData.spinNumber === 0 && spinInfoData.spinSize === FlareType.spinSize.big && megaType !== FlareType.spinType.mega.mega) {
+    flareType = FlareType.spinType.glow;
+  }
   return (
     <View style={{
       display: "flex",
@@ -39,7 +43,7 @@ const FlareSpin = ({ spinInfoData, angle, shadow=true, running = true }) => {
         }}/>
       }
 
-      <Image source={targetImage[spinType][spinColor]} style={{
+      <Image source={targetImage[flareType][spinColor]} style={{
         width: wp(spinSize),
         height: wp(spinSize),
         tintColor: (running && !shadow) ? 'gray': null,
