@@ -3,6 +3,7 @@ export const FlareType = {
     ellipse: 'circle',
     triangle: 'triangular',
     glow: 'glow',
+    survey: 'survey',
     mega: {
       lock: 'lock',
       apple:'apple',
@@ -49,5 +50,8 @@ export const FlareType = {
     amber: 'amber',
     orange: 'orange',
     red: 'red'
+  },
+  surveyType: {
+    surveyFirst: 'survey_first'
   }
 };

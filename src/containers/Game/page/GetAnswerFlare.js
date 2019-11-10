@@ -5,8 +5,10 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 
 class GetAnswerFlare extends React.Component {
   onBackButtonEvent = () => {
+    const { params } = this.props.navigation.state;
+    params.getFlare(3);
     this.props.navigation.goBack(null);
-  }
+  };
   render() {
     return (
       <ImageBackground source={AppMocData.game.page.flareAnswer.background}

@@ -6,7 +6,7 @@ import {heightPercentageToDP as hp, widthPercentageToDP as wp}
   from "react-native-responsive-screen";
 import {Text} from "native-base";
 
-function GetFlareBox({size, body, spinInfoData, mark}) {
+function GetFlareBox({size, body, spinInfoData, mark, navigation, gamePause, setGameHitData, getFlare}) {
   /* User State init */
   const m_mark = mark;
   const rotateValue = new useRef(new Animated.Value(0)).current;
@@ -88,7 +88,11 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
   // Glow Ball bonus
   let bonusText = '';
   let glowBall = false;
-  if(spinInfoData.spinNumber === 0 && spinInfoData.spinSize === FlareType.spinSize.big && megaType !== FlareType.spinType.mega.mega) {
+  let survey = false;
+  if(spinInfoData.spinNumber === 0 &&
+    spinInfoData.spinSize === FlareType.spinSize.big &&
+    megaType !== FlareType.spinType.mega.mega &&
+    spinType !== FlareType.spinType.survey) {
     glowBall = true;
     flareType = FlareType.spinType.glow;
     switch (spinColor) {
@@ -105,6 +109,16 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
         bonusText = '25 Flares';
         break;
     }
+  } else if(spinType === FlareType.spinType.survey) {
+    glowBall = true;
+    survey = true;
+    flareType = FlareType.spinType.survey;
+    bonusText = '3 Flare Survey';
+    setTimeout(()=> {
+      setGameHitData({});
+      gamePause();
+      navigation.navigate('NikiQuestion', {getFlare: getFlare});
+    }, 1000)
   }
   return (
     <View style={{
@@ -119,8 +133,9 @@ function GetFlareBox({size, body, spinInfoData, mark}) {
       {
         (m_mark !== 0 || glowBall) && <Animated.Text style={{
           fontFamily: 'Antonio-Bold',
-          fontSize: glowBall ? wp('10'): wp('13'),
-          marginTop: glowBall ? wp('-12') : wp('-20'),
+          fontSize: survey ? wp('5') : glowBall ? wp('10'): wp('13'),
+          marginTop: survey ? wp('-10') : glowBall ? wp('-12') : wp('-20'),
+          paddingBottom: survey ? wp('5') : 0,
           color: 'white',
           textAlign: 'center',
           opacity: saveOpacity_text,

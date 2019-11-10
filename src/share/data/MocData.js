@@ -48,19 +48,26 @@ const AppMocData = {
         mega: {
           apple: require('../../../assets/images/game/gameplay/target/mega/apple.png'),
           lock: require('../../../assets/images/game/gameplay/target/mega/lock.png'),
-          mega: require('../../../assets/images/game/gameplay/target/mega/mega-spin.png'),
           niki: require('../../../assets/images/game/gameplay/target/mega/niki.png'),
+          mega: require('../../../assets/images/game/gameplay/target/mega/mega-spin.png')
         },
         shadow: {
           white: require('../../../assets/images/game/gameplay/target/shadow/target-trace-white-3.png'),
           blue: require('../../../assets/images/game/gameplay/target/shadow/target-trace-blue-3.png'),
           purple: require('../../../assets/images/game/gameplay/target/shadow/target-trace-purple-3.png'),
           green: require('../../../assets/images/game/gameplay/target/shadow/target-trace-green-3.png'),
-          orange: require('../../../assets/images/game/gameplay/target/shadow/target-trace-orange-3.png')
+          orange: require('../../../assets/images/game/gameplay/target/shadow/target-trace-orange-3.png'),
+          red: require('../../../assets/images/game/gameplay/target/shadow/target-trace-red-3.png'),
+          pink: require('../../../assets/images/game/gameplay/target/shadow/target-trace-pink-3.png'),
+          amber: require('../../../assets/images/game/gameplay/target/shadow/target-trace-amber-3.png'),
+          survey_first: require('../../../assets/images/game/gameplay/target/shadow/target-trace-red-3.png'),
         },
         triangular: {
           green: require('../../../assets/images/game/gameplay/target/triangular/target-bg-green-3.png'),
           orange: require('../../../assets/images/game/gameplay/target/triangular/target-bg-orange-3.png')
+        },
+        survey: {
+          survey_first: require('../../../assets/images/game/gameplay/target/survey/survey_bg.png')
         }
       }
     },

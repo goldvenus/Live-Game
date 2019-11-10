@@ -28,7 +28,7 @@ export default class GamePlay extends React.Component {
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
-          <GameEnginePlay backPage={this.goPage}/>
+          <GameEnginePlay backPage={this.goPage} navigation={this.props.navigation}/>
         </Content>
       </Container>
     );

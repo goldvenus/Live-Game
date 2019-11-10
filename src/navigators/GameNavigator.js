@@ -13,26 +13,26 @@ import GetAnswerFlare from "../containers/Game/page/GetAnswerFlare"
 
 const GameNavigator = createStackNavigator({
 
-  GamePlay: {
-    screen: GamePlay,
-    navigationOptions: {
-      header: null
-    }
-  },
   GameJoin: {
     screen: GameJoin,
     navigationOptions: {
       header: null
     }
   },
-  GameCountDown: {
-    screen: GameCountDown,
+  GamePlay: {
+    screen: GamePlay,
     navigationOptions: {
       header: null
     }
   },
   GameMegaRound: {
     screen: GameMegaRound,
+    navigationOptions: {
+      header: null
+    }
+  },
+  GameCountDown: {
+    screen: GameCountDown,
     navigationOptions: {
       header: null
     }

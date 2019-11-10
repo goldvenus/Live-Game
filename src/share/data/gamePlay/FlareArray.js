@@ -49,6 +49,16 @@ export const getspinArray = () => {
       shadowColor: FlareType.shadowColor.white,
       spinSize: FlareType.spinSize[getRandomType(FlareType.spinSize, 3)],
       spinTextSize: FlareType.spinTextSize.small
-    }
+    },
+    {
+      spinType: FlareType.spinType.survey,
+      megaType: FlareType.spinType.mega[getRandomType(FlareType.spinType.mega, 3)],
+      userType: FlareType.spinType.user.woman,
+      spinNumber: 0,
+      spinColor: FlareType.surveyType.surveyFirst,
+      shadowColor: FlareType.shadowColor.white,
+      spinSize: FlareType.spinSize[getRandomType(FlareType.spinSize, 3)],
+      spinTextSize: FlareType.spinTextSize.small
+    },
   ];
 };

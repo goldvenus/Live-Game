@@ -22,7 +22,10 @@ const FlareSpin = ({ spinInfoData, angle, shadow=true, running = true }) => {
     ty = spinSize / 8.6;
   }
 
-  if(spinInfoData.spinNumber === 0 && spinInfoData.spinSize === FlareType.spinSize.big && megaType !== FlareType.spinType.mega.mega) {
+  if(spinInfoData.spinNumber === 0 &&
+    spinInfoData.spinSize === FlareType.spinSize.big &&
+    megaType !== FlareType.spinType.mega.mega &&
+    spinType !== FlareType.spinType.survey) {
     flareType = FlareType.spinType.glow;
   }
   return (
@@ -33,7 +36,7 @@ const FlareSpin = ({ spinInfoData, angle, shadow=true, running = true }) => {
       marginTop: hp(spinSize/-8),
     }}>
       {
-        shadow &&  <Image source={targetImage.shadow['orange']} style={{
+        shadow &&  <Image source={targetImage.shadow[spinColor]} style={{
           marginTop: wp(spinSize / 6),
           width: wp(spinSize * 2 / 3),
           height: hp(spinSize * 3 / 2),

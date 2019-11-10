@@ -41,7 +41,7 @@ let burstFireTemp = false;
 let proImageTargetMark = 0;
 let getFlareData;
 
-function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoinsScore, addSpin, addSpinList, resetAnimation, getSpinListItems}) {
+function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoinsScore, addSpin, addSpinList, resetAnimation, getSpinListItems, navigation}) {
   const [running, setRunning] = React.useState(true);
   const [bulletCount, setBulletCount] = React.useState(100);
   const [gamePlayTime, setGamePlayTime] = React.useState(100);
@@ -54,7 +54,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   let bulletSpeed = 8;
   let targetShowTime = 3;
   const multiShotSpeed = 80;
-
+  const surveyShowTime = 12;
   React.useEffect(() => {
     addWaveScore(-1 * gameScore.waveScore);
     gameStart();
@@ -77,7 +77,12 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       clearInterval(gameStartInternal);
       gameStop();
     }
-    if (gamePlayTime % targetShowTime === 0 && (gamePlayTime > 3)) {
+    if(gamePlayTime % surveyShowTime === 0 && (gamePlayTime > 3) && gamePlayTime !== 96) {
+      const random = (randomNumber(0, 10000) % wp("70")) + wp("10");
+      const targetPosition = {x: random, y: hp("90")};
+      const spinInfoData = getspinArray()[4];
+      NewSpinShow(targetPosition, spinInfoData, spinSpeed);
+    } else if (gamePlayTime % targetShowTime === 0 && (gamePlayTime > 3)) {
       const random = (randomNumber(0, 10000) % wp("70")) + wp("10");
       const targetPosition = {x: random, y: hp("90")};
       const spinInfoData = getspinArray()[randomNumber(2, 4)];
@@ -94,6 +99,10 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     setRunning(false);
     clearInterval(gameStartInternal);
     setGamePauseState(true);
+  };
+
+  const getFlareSpinThree = (count) => {
+    setBulletCount(bulletCount+count);
   };
 
   const calculatorScore = (spinInfoData) => {
@@ -337,6 +346,10 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         <GetFlareBox size={gameHitData["size"]}
                      body={gameHitData["body"]}
                      spinInfoData={gameHitData["spinInfoData"]}
+                     navigation={navigation}
+                     gamePause={gamePause}
+                     getFlare={getFlareSpinThree}
+                     setGameHitData={setGameHitData}
                      mark={proImageTargetMark}/>
       }
       <GameDashBoard/>
