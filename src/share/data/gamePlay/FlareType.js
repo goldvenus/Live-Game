@@ -17,6 +17,10 @@ export const FlareType = {
     green: 'green',
     orange: 'orange',
     blue:'blue',
+    purple: 'purple',
+    white: 'white',
+    amber: 'amber',
+    red: 'red',
     pink: 'pink'
   },
   shadowColor: {
@@ -31,5 +35,18 @@ export const FlareType = {
     small: 10,
     normal: 12,
     big: 15,
+  },
+  profileOrbsColor: {
+    green: 'green',
+    blue:'blue',
+    purple: 'purple',
+    pink: 'pink',
+    amber: 'amber'
+  },
+  flareOrbsColor: {
+    white: 'white',
+    amber: 'amber',
+    orange: 'orange',
+    red: 'red'
   }
-}
+};

@@ -36,7 +36,7 @@ export const leftSpinList = [
     megaType: FlareType.spinType.mega['lock'],
     userType: FlareType.spinType.user.woman,
     spinNumber: 0,
-    spinColor: FlareType.spinColor['pink'],
+    spinColor: FlareType.spinColor['purple'],
     shadowColor: FlareType.shadowColor.white,
     spinSize: FlareType.spinSize['small'],
     spinTextSize: FlareType.spinTextSize.small

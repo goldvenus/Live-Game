@@ -20,6 +20,7 @@ const FlareSpin = ({ spinInfoData, angle, shadow=true, running = true }) => {
   } else if (spinNumber <= 0) {
     ty = spinSize / 8.6;
   }
+
   return (
     <View style={{
       display: "flex",
@@ -28,7 +29,7 @@ const FlareSpin = ({ spinInfoData, angle, shadow=true, running = true }) => {
       marginTop: hp(spinSize/-8),
     }}>
       {
-        shadow &&  <Image source={targetImage.shadow[spinColor]} style={{
+        shadow &&  <Image source={targetImage.shadow['orange']} style={{
           marginTop: wp(spinSize / 6),
           width: wp(spinSize * 2 / 3),
           height: hp(spinSize * 3 / 2),

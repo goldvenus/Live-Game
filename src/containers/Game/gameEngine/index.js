@@ -1,16 +1,16 @@
 import React from "react";
-import { StatusBar, TouchableOpacity, View, Alert, Text } from "react-native";
-import { GameEngine } from "react-native-game-engine";
-import { Physics, NewSpinShow, NewFire } from "./systems";
+import {StatusBar, TouchableOpacity, View, Alert, Text} from "react-native";
+import {GameEngine} from "react-native-game-engine";
+import {Physics, NewSpinShow, NewFire} from "./systems";
 import Matter from "matter-js";
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 import LocationPulseLoader from "../animation/PulseLoader";
 import GameDashBoard from "../components/GamePlayDashboard";
 import GamePlayBottomBar from "../components/GamePlayBottomBar";
-import { getspinArray } from "../../../share/data/gamePlay/FlareArray";
+import {getspinArray} from "../../../share/data/gamePlay/FlareArray";
 import { GetFlareBox } from "../animation/GetFlareAnimation";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 import {
   addSpinCoinsScore,
   addSpin,
@@ -19,14 +19,15 @@ import {
   addWaveScore,
   addPassScore, setFlareToken
 } from "../../../redux/action/game";
-import { ADD_APPLE_SPIN, ADD_LOCK_SPIN, ADD_MEGA_SPIN, ADD_NIKE_SPIN } from "../../../redux/action/type";
+import {ADD_APPLE_SPIN, ADD_LOCK_SPIN, ADD_MEGA_SPIN, ADD_NIKE_SPIN} from "../../../redux/action/type";
 import GetBubbleLeftScreen from "../page/GetBubbleLeftScreen";
-import { leftSpinList } from "../../../share/data/gamePlay/LeftFlareData";
+import {leftSpinList} from "../../../share/data/gamePlay/LeftFlareData";
 import GameHeaderBar from "../components/GameHeaderBar";
 import GamePlayHeader from "../components/GamePlayHeader";
 import {randomNumber} from "../../../share/engine";
 import {soundPlay} from "../../../share/soundPlay";
 import {soundPlayNames} from "../../../share/soundPlay/soundName";
+import {FlareType} from "../../../share/data/gamePlay/FlareType";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 
@@ -38,8 +39,9 @@ let doubleFireReadyTimer = null;
 let burstFireTimer = null;
 let burstFireTemp = false;
 let proImageTargetMark = 0;
+let getFlareData;
 
-function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoinsScore,addSpin, addSpinList, resetAnimation, getSpinListItems }) {
+function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoinsScore, addSpin, addSpinList, resetAnimation, getSpinListItems}) {
   const [running, setRunning] = React.useState(true);
   const [bulletCount, setBulletCount] = React.useState(100);
   const [gamePlayTime, setGamePlayTime] = React.useState(100);
@@ -54,7 +56,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   const multiShotSpeed = 80;
 
   React.useEffect(() => {
-    addWaveScore(-1* gameScore.waveScore);
+    addWaveScore(-1 * gameScore.waveScore);
     gameStart();
     return () => {
       clearInterval(gameStartInternal);
@@ -65,19 +67,19 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   React.useEffect(() => {
     if (gamePlayTime < 1) {
       let getSpinCoin = 0;
-      for (let i=0; i<= gameScore.playerPassScore; i++) {
+      for (let i = 0; i <= gameScore.playerPassScore; i++) {
         getSpinCoin += i;
-        if(i===12)
+        if (i === 12)
           break;
       }
-      setFlareToken(Math.floor((getSpinCoin+gameScore.spinCoins)/25));
+      setFlareToken(Math.floor((getSpinCoin + gameScore.spinCoins) / 25));
       addSpinCoinsScore(getSpinCoin);
       clearInterval(gameStartInternal);
       gameStop();
     }
     if (gamePlayTime % targetShowTime === 0 && (gamePlayTime > 3)) {
       const random = (randomNumber(0, 10000) % wp("70")) + wp("10");
-      const targetPosition = { x: random, y: hp("90") };
+      const targetPosition = {x: random, y: hp("90")};
       const spinInfoData = getspinArray()[randomNumber(2, 4)];
       NewSpinShow(targetPosition, spinInfoData, spinSpeed);
     }
@@ -94,9 +96,34 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     setGamePauseState(true);
   };
 
+  const calculatorScore = (spinInfoData) => {
+    let resultScore = 0;
+    switch (spinInfoData["spinColor"]) {
+      case FlareType.profileOrbsColor.green:
+        resultScore = 5;
+        break;
+      case FlareType.profileOrbsColor.blue:
+        resultScore = 7;
+        break;
+      case FlareType.profileOrbsColor.purple:
+        resultScore = 10;
+        break;
+      case FlareType.profileOrbsColor.pink:
+        resultScore = 15;
+        break;
+      case FlareType.profileOrbsColor.amber:
+        resultScore = 25;
+        break;
+    }
+    return resultScore;
+  };
+
   const onEvent = (e) => {
     if (e.type === "goal-target") {
       setGameHitData(e.data);
+      if(e.data["spinInfoData"]) {
+        getFlareData = e.data["spinInfoData"];
+      }
       proImageTargetMark = 0;
     }
     switch (e.type) {
@@ -130,7 +157,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         break;
       case "goal-user":
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
-        proImageTargetMark = randomNumber(10, 100);
+        proImageTargetMark = calculatorScore(getFlareData); // tap the profile orbs
         addWaveScore(proImageTargetMark);
         break;
       case "goal-mega-tap":
@@ -162,8 +189,8 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         break;
       case "goal-user-tap":
         soundPlay(soundPlayNames.GamePlay.fireWorks);
-        proImageTargetMark = 1000 + randomNumber(10, 100);
-        addWaveScore(proImageTargetMark-1000);
+        proImageTargetMark = calculatorScore(getFlareData) + 1000;// hit the profile Orbs
+        addWaveScore(proImageTargetMark);
         break;
       case "no-goal":
         break;
@@ -210,7 +237,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   };
 
   const FirePressIn = () => {
-    burstFireTimer = setInterval(()=> {
+    burstFireTimer = setInterval(() => {
       doubleFireReady = true;
       burstFireTemp = true;
       onMultiFireGun(5);
@@ -245,7 +272,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       }, 220);
     }
     clearInterval(burstFireTimer);
-      burstFireTemp = false
+    burstFireTemp = false
   };
   const gameStart = () => {
     const id = setInterval(() => {
@@ -258,11 +285,11 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
 
   const setupWorld = () => {
     const random = Math.floor(Math.random() * 10000) % wp("100");
-    const targetPosition = { x: random, y: hp("89") };
-    const engine = Matter.Engine.create({ enableSleeping: false });
+    const targetPosition = {x: random, y: hp("89")};
+    const engine = Matter.Engine.create({enableSleeping: false});
     const world = engine.world;
     return {
-      physics: { engine: engine, world: world },
+      physics: {engine: engine, world: world},
       targetPosition: targetPosition
     };
   };
@@ -272,7 +299,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       flex: 1
     }}>
       <GameEngine
-        style={{ zIndex: 3 }}
+        style={{zIndex: 3}}
         ref={(ref) => {
           gameEngine = ref;
         }}
@@ -289,9 +316,9 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
                      spinInfoData={gameHitData["spinInfoData"]}
                      mark={proImageTargetMark}/>
       }
-      <GameDashBoard />
+      <GameDashBoard/>
       {
-        !running && getSpinListItems.length < 1 ? <GamePlayHeader backPage={backPage}/>: <GameHeaderBar/>
+        !running && getSpinListItems.length < 1 ? <GamePlayHeader backPage={backPage}/> : <GameHeaderBar/>
       }
       <GamePlayBottomBar bulletCount={bulletCount} gamePlayTime={gamePlayTime}/>
       <TouchableOpacity
@@ -317,9 +344,9 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
           height: hp("100"),
         }}>
           <TouchableOpacity onPress={gameStart}
-          style={{
-            flex: 1,
-          }}>
+                            style={{
+                              flex: 1,
+                            }}>
             <View style={{
               flex: 1,
               alignItems: "center",
@@ -356,7 +383,7 @@ const mapDispatchToProps = (dispatch) => {
       addWaveScore: addWaveScore,
       addPassScore: addPassScore,
       addSpin: addSpin,
-      addSpinList:addSpinList,
+      addSpinList: addSpinList,
       resetAnimation: resetAnimation,
       setFlareToken: setFlareToken
     }, dispatch)

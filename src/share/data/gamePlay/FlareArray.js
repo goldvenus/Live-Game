@@ -35,7 +35,7 @@ export const getspinArray = () => {
       megaType: FlareType.spinType.mega[getRandomType(FlareType.spinType.mega, 4)],
       userType: FlareType.spinType.user.woman,
       spinNumber: 0,
-      spinColor: FlareType.spinColor[getRandomType(FlareType.spinColor, 4)],
+      spinColor: FlareType.spinColor[getRandomType(FlareType.flareOrbsColor, 5)],
       shadowColor: FlareType.shadowColor.white,
       spinSize: FlareType.spinSize[getRandomType(FlareType.spinSize, 3)],
       spinTextSize: FlareType.spinTextSize.small
@@ -45,7 +45,7 @@ export const getspinArray = () => {
       megaType: FlareType.spinType.mega.apple,
       userType: FlareType.spinType.user[getRandomType(FlareType.spinType.user, 2)],
       spinNumber: -1,
-      spinColor: FlareType.spinColor[getRandomType(FlareType.spinColor, 4)],
+      spinColor: FlareType.spinColor[getRandomType(FlareType.profileOrbsColor, 4)],
       shadowColor: FlareType.shadowColor.white,
       spinSize: FlareType.spinSize[getRandomType(FlareType.spinSize, 3)],
       spinTextSize: FlareType.spinTextSize.small

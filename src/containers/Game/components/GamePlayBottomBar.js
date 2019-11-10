@@ -3,8 +3,6 @@ import { Text } from "native-base";
 import { Animated, View } from "react-native";
 import React, { useRef } from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import * as Audio from "expo-av/build/Audio";
-import AppMocData from "../../../share/data/MocData";
 import {soundPlay} from "../../../share/soundPlay";
 import {soundPlayNames} from "../../../share/soundPlay/soundName";
 

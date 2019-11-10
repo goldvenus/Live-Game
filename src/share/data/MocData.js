@@ -33,7 +33,11 @@ const AppMocData = {
           blue: require('../../../assets/images/game/gameplay/target/circle/target-bg-blue-c.png'),
           green: require('../../../assets/images/game/gameplay/target/circle/target-bg-green-c.png'),
           orange: require('../../../assets/images/game/gameplay/target/circle/target-bg-orange-c.png'),
-          pink: require('../../../assets/images/game/gameplay/target/circle/target-bg-pink-c.png')
+          purple: require('../../../assets/images/game/gameplay/target/circle/target-bg-purple-c.png'),
+          pink: require('../../../assets/images/game/gameplay/target/circle/target-bg-pink-c.png'),
+          red: require('../../../assets/images/game/gameplay/target/circle/target-bg-red-c.png'),
+          white: require('../../../assets/images/game/gameplay/target/circle/target-bg-white-c.png'),
+          amber: require('../../../assets/images/game/gameplay/target/circle/target-bg-amber-c.png')
         },
         mega: {
           apple: require('../../../assets/images/game/gameplay/target/mega/apple.png'),
@@ -44,7 +48,7 @@ const AppMocData = {
         shadow: {
           white: require('../../../assets/images/game/gameplay/target/shadow/target-trace-white-3.png'),
           blue: require('../../../assets/images/game/gameplay/target/shadow/target-trace-blue-3.png'),
-          pink: require('../../../assets/images/game/gameplay/target/shadow/target-trace-pink-3.png'),
+          purple: require('../../../assets/images/game/gameplay/target/shadow/target-trace-purple-3.png'),
           green: require('../../../assets/images/game/gameplay/target/shadow/target-trace-green-3.png'),
           orange: require('../../../assets/images/game/gameplay/target/shadow/target-trace-orange-3.png')
         },
