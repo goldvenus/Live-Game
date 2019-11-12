@@ -101,10 +101,6 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     setGamePauseState(true);
   };
 
-  const getFlareSpinThree = (count) => {
-    setBulletCount(bulletCount+count);
-  };
-
   const calculatorScore = (spinInfoData) => {
     let resultScore = 0;
     switch (spinInfoData["spinColor"]) {
@@ -168,21 +164,27 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         glowBallBonusFlare(getFlareData);
         resetAnimation();
         addSpinList(leftSpinList[0]);
-        addSpin(ADD_NIKE_SPIN);
+        if (getFlareData.spinType === FlareType.spinType.survey)
+          addSpin(ADD_NIKE_SPIN, 3);
+        else addSpin(ADD_NIKE_SPIN);
         break;
       case 'goal-lock':
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
         glowBallBonusFlare(getFlareData);
         resetAnimation();
         addSpinList(leftSpinList[3]);
-        addSpin(ADD_LOCK_SPIN);
+        if (getFlareData.spinType === FlareType.spinType.survey)
+          addSpin(ADD_LOCK_SPIN, 3);
+        else  addSpin(ADD_LOCK_SPIN);
         break;
       case 'goal-apple':
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
         glowBallBonusFlare(getFlareData);
         resetAnimation();
         addSpinList(leftSpinList[2]);
-        addSpin(ADD_APPLE_SPIN);
+        if (getFlareData.spinType === FlareType.spinType.survey)
+          addSpin(ADD_APPLE_SPIN, 3);
+        else  addSpin(ADD_APPLE_SPIN);
         break;
       case "goal-user":
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
@@ -201,7 +203,9 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[0]);
-        addSpin(ADD_NIKE_SPIN);
+        if (getFlareData.spinType === FlareType.spinType.survey)
+          addSpin(ADD_NIKE_SPIN, 3);
+        else  addSpin(ADD_NIKE_SPIN);
         break;
       case 'goal-lock-tap':
         soundPlay(soundPlayNames.GamePlay.fireWorks);
@@ -209,7 +213,9 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[3]);
-        addSpin(ADD_LOCK_SPIN);
+        if (getFlareData.spinType === FlareType.spinType.survey)
+          addSpin(ADD_LOCK_SPIN, 3);
+        else  addSpin(ADD_LOCK_SPIN);
         break;
       case 'goal-apple-tap':
         soundPlay(soundPlayNames.GamePlay.fireWorks);
@@ -217,7 +223,9 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[2]);
-        addSpin(ADD_APPLE_SPIN);
+        if (getFlareData.spinType === FlareType.spinType.survey)
+          addSpin(ADD_APPLE_SPIN, 3);
+        else  addSpin(ADD_APPLE_SPIN);
         break;
       case "goal-user-tap":
         soundPlay(soundPlayNames.GamePlay.fireWorks);
@@ -254,16 +262,16 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
-        firingGun = false;
+        //firingGun = false;
       }, multiShotSpeed * bullet + 50);
     } else {
-      firingGun = true;
+      //firingGun = true;
       const intervalTime = setInterval(() => {
         oneShot();
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
-        firingGun = false;
+        //firingGun = false;
       }, multiShotSpeed * multiNum + 50);
     }
   };
@@ -281,7 +289,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     if ((pressedIntime - pressedTime < 170) && !firingGun && !doubleFireReady && running) {
       doubleFireReady = true;
       doubleFireReadyTimer = setTimeout(() => {
-        firingGun = true;
+        //firingGun = true;
         doubleFireReady = false;
         clearTimeout(oneFireShotTimer);
         soundPlay(soundPlayNames.GamePlay.fireLongShot);
@@ -348,7 +356,6 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
                      spinInfoData={gameHitData["spinInfoData"]}
                      navigation={navigation}
                      gamePause={gamePause}
-                     getFlare={getFlareSpinThree}
                      setGameHitData={setGameHitData}
                      mark={proImageTargetMark}/>
       }

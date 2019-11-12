@@ -73,13 +73,13 @@ const GameReducer = (state = initialState, action) => {
         }
       };
     case ADD_SPIN:
-      switch (action.payload) {
+      switch (action.payload.spinType) {
         case ADD_MEGA_SPIN:
           return {
             ...state,
             score: {
               ...state.score,
-              megaSpin: state.score.megaSpin + 1
+              megaSpin: state.score.megaSpin + action.payload.score
             }
           };
         case ADD_NIKE_SPIN :
@@ -87,7 +87,7 @@ const GameReducer = (state = initialState, action) => {
             ...state,
             score: {
               ...state.score,
-              nikeSpin: state.score.nikeSpin + 1
+              nikeSpin: state.score.nikeSpin + action.payload.score
             }
           };
         case ADD_APPLE_SPIN :
@@ -95,7 +95,7 @@ const GameReducer = (state = initialState, action) => {
             ...state,
             score: {
               ...state.score,
-              appleSpin: state.score.appleSpin + 1
+              appleSpin: state.score.appleSpin + action.payload.score
             }
           };
         case ADD_LOCK_SPIN :
@@ -103,7 +103,7 @@ const GameReducer = (state = initialState, action) => {
             ...state,
             score: {
               ...state.score,
-              lockSpin: state.score.lockSpin + 1
+              lockSpin: state.score.lockSpin + action.payload.score
             }
           };
         case REDUCE_MEGA_SPIN:
@@ -111,7 +111,7 @@ const GameReducer = (state = initialState, action) => {
             ...state,
             score: {
               ...state.score,
-              megaSpin: state.score.megaSpin - 1
+              megaSpin: state.score.megaSpin - action.payload.score
             }
           };
         default :

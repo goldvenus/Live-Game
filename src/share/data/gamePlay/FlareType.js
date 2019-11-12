@@ -11,8 +11,14 @@ export const FlareType = {
       mega: 'mega',
     },
     user: {
-      man: 'image1',
-      woman: 'image2'
+      user1: 'image1',
+      user2: 'image2',
+      user3: 'image3',
+      user4: 'image4',
+      user5: 'image5',
+      user6: 'image6',
+      user7: 'image7',
+      user8: 'image8'
     }
   },
   spinColor: {
@@ -46,12 +52,17 @@ export const FlareType = {
     amber: 'amber'
   },
   flareOrbsColor: {
-    white: 'white',
     amber: 'amber',
     orange: 'orange',
-    red: 'red'
+    red: 'red',
+    white: 'white'
   },
   surveyType: {
-    surveyFirst: 'survey_first'
+    surveyFirst: 'survey_first',
+    surveySecond: 'survey_second'
+  },
+  flag: {
+    jap: 'JAP',
+    us: 'USA'
   }
 };

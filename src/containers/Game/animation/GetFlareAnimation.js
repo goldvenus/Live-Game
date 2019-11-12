@@ -6,7 +6,7 @@ import {heightPercentageToDP as hp, widthPercentageToDP as wp}
   from "react-native-responsive-screen";
 import {Text} from "native-base";
 
-function GetFlareBox({size, body, spinInfoData, mark, navigation, gamePause, setGameHitData, getFlare}) {
+function GetFlareBox({size, body, spinInfoData, mark, navigation, gamePause, setGameHitData}) {
   /* User State init */
   const m_mark = mark;
   const rotateValue = new useRef(new Animated.Value(0)).current;
@@ -114,11 +114,11 @@ function GetFlareBox({size, body, spinInfoData, mark, navigation, gamePause, set
     survey = true;
     flareType = FlareType.spinType.survey;
     bonusText = '3 Flare Survey';
-    setTimeout(()=> {
-      setGameHitData({});
-      gamePause();
-      navigation.navigate('NikiQuestion', {getFlare: getFlare});
-    }, 1000)
+    // setTimeout(()=> {
+    //   setGameHitData({});
+    //   gamePause();
+    //   navigation.navigate('NikiQuestion', {getFlare: getFlare});
+    // }, 1000)
   }
   return (
     <View style={{

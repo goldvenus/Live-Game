@@ -35,7 +35,7 @@ export const getspinArray = () => {
       megaType: FlareType.spinType.mega[getRandomType(FlareType.spinType.mega, 4)],
       userType: FlareType.spinType.user.woman,
       spinNumber: 0,
-      spinColor: FlareType.spinColor[getRandomType(FlareType.flareOrbsColor, 4)],
+      spinColor: FlareType.spinColor[getRandomType(FlareType.flareOrbsColor, 3)],
       shadowColor: FlareType.shadowColor.white,
       spinSize: FlareType.spinSize[getRandomType(FlareType.spinSize, 3)],
       spinTextSize: FlareType.spinTextSize.small
@@ -43,7 +43,7 @@ export const getspinArray = () => {
     {
       spinType: FlareType.spinType.ellipse,
       megaType: FlareType.spinType.mega.apple,
-      userType: FlareType.spinType.user[getRandomType(FlareType.spinType.user, 2)],
+      userType: FlareType.spinType.user[getRandomType(FlareType.spinType.user, 8)],
       spinNumber: -1,
       spinColor: FlareType.spinColor[getRandomType(FlareType.profileOrbsColor, 5)],
       shadowColor: FlareType.shadowColor.white,
@@ -55,7 +55,7 @@ export const getspinArray = () => {
       megaType: FlareType.spinType.mega[getRandomType(FlareType.spinType.mega, 3)],
       userType: FlareType.spinType.user.woman,
       spinNumber: 0,
-      spinColor: FlareType.surveyType.surveyFirst,
+      spinColor: FlareType.surveyType[getRandomType(FlareType.surveyType, 2)],
       shadowColor: FlareType.shadowColor.white,
       spinSize: FlareType.spinSize[getRandomType(FlareType.spinSize, 3)],
       spinTextSize: FlareType.spinTextSize.small

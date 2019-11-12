@@ -12,6 +12,16 @@ const AppMocData = {
       JAP: require('../../../assets/images/game/flag/JAP.png'),
       USA: require('../../../assets/images/game/flag/USA.png')
     },
+    users: {
+      image1: require('../../../assets/images/game/users/AlexandraGravesPink.png'),
+      image2: require('../../../assets/images/game/users/AustinTondu.png'),
+      image3: require('../../../assets/images/game/users/Faizan.png'),
+      image4: require('../../../assets/images/game/users/JamesMichino.png'),
+      image5: require('../../../assets/images/game/users/KathyKeenPink.png'),
+      image6: require('../../../assets/images/game/users/MorrisCoe.png'),
+      image7: require('../../../assets/images/game/users/ScarlettThomas.png'),
+      image8: require('../../../assets/images/game/users/TyThomasSarah.png'),
+    },
     gameplay: {
       shot: {
         gun: {
@@ -42,8 +52,8 @@ const AppMocData = {
         glow: {
           orange: require('../../../assets/images/game/gameplay/target/glowBall/glow-bg-orange-c.png'),
           red: require('../../../assets/images/game/gameplay/target/glowBall/glow-bg-red-c.png'),
+          amber: require('../../../assets/images/game/gameplay/target/glowBall/glow-bg-amber-c.png'),
           white: require('../../../assets/images/game/gameplay/target/glowBall/glow-bg-white-c.png'),
-          amber: require('../../../assets/images/game/gameplay/target/glowBall/glow-bg-amber-c.png')
         },
         mega: {
           apple: require('../../../assets/images/game/gameplay/target/mega/apple.png'),
@@ -67,7 +77,8 @@ const AppMocData = {
           orange: require('../../../assets/images/game/gameplay/target/triangular/target-bg-orange-3.png')
         },
         survey: {
-          survey_first: require('../../../assets/images/game/gameplay/target/survey/survey_bg.png')
+          survey_first: require('../../../assets/images/game/gameplay/target/survey/survey_bg.png'),
+          survey_second: require('../../../assets/images/game/gameplay/target/survey/survey_bg1.png')
         }
       }
     },
@@ -81,10 +92,6 @@ const AppMocData = {
       third: require('../../../assets/images/game/lightning/lightning3.png'),
       fourth: require('../../../assets/images/game/lightning/lightning4.png'),
       image: require('../../../assets/images/game/lightning/lightning-cover.png')
-    },
-    users: {
-      image1: require('../../../assets/images/game/users/3.png'),
-      image2: require('../../../assets/images/game/users/4.png')
     },
     page: {
       mega: {

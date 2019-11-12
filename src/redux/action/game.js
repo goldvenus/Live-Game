@@ -45,10 +45,13 @@ export const setMegaToken = megaToken => {
   }
 };
 
-export const addSpin = spinType => {
+export const addSpin = (spinType, score = 1) => {
   return {
     type: ADD_SPIN,
-    payload: spinType
+    payload: {
+      spinType,
+      score
+    }
   }
 };
 
