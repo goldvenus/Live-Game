@@ -24,11 +24,11 @@ function GameNikiRound({ score, navigation, getSpinListItems }) {
   }
   let gameRoundState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   let j = nikeSpinNum > 9 ? 9 : nikeSpinNum;
-  if (nikeSpinNum >= 9) {
-    setTimeout(() => {
-      navigation.navigate("NikiQuestion");
-    }, 1500);
-  }
+  // if (nikeSpinNum >= 9) {
+  //   setTimeout(() => {
+  //     navigation.navigate("NikiQuestion");
+  //   }, 1500);
+  // }
   for (let i = 0; i < j; i++) {
     gameRoundState[i] = 1;
   }

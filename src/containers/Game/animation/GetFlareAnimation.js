@@ -174,7 +174,7 @@ function GetFlareBox({size, body, spinInfoData, mark, navigation, gamePause, set
               marginTop: hp(ty),
               fontFamily: "Antonio-Bold",
               color: "white"
-            }}>{spinNumber}</Text> : (spinNumber !== -1 && spinType !== FlareType.spinType.survey) &&
+            }}>{spinNumber}</Text> : (spinNumber !== -1 && spinType !== FlareType.spinType.survey && flareType !== FlareType.spinType.glow) &&
             <Image
               source={spinNumber === 0 ? targetImage.mega[megaType] : AppMocData.game.users[userType]} style={{
               position: "absolute",

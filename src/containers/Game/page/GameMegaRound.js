@@ -9,9 +9,9 @@ function GameMegaRound({megaSpinCount, navigation, getSpinListItems}) {
   let gameRoundState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   let j = megaSpinCount > 9 ? 9 : megaSpinCount;
   if (megaSpinCount === 9) {
-    setTimeout(() => {
-      navigation.navigate("NikiQuestion");
-    }, 1500);
+    // setTimeout(() => {
+    //   navigation.navigate("NikiQuestion");
+    // }, 1500);
   }
   for (let i = 0; i < j; i++) {
     gameRoundState[i] = 1;

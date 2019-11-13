@@ -66,7 +66,7 @@ const FlareSpin = ({spinInfoData, angle, shadow = true, running = true}) => {
             fontFamily: "Antonio-Bold",
             color: "white",
             transform: [{rotate: angle + "rad"}]
-          }}>{spinNumber}</Text> : (spinNumber !== -1 && spinType !== FlareType.spinType.survey) &&
+          }}>{spinNumber}</Text> : (spinNumber !== -1 && spinType !== FlareType.spinType.survey && flareType !== FlareType.spinType.glow) &&
           <Image
             source={targetImage.mega[megaType]}
             style={{

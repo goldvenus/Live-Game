@@ -125,21 +125,24 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   };
 
   const glowBallBonusFlare = (spinInfoData) => {
-    if (spinInfoData.spinSize === FlareType.spinSize.big)
-    switch (spinInfoData.spinColor) {
-      case FlareType.spinColor.amber:
-        setBulletCount(bulletCount+3);
-        break;
-      case FlareType.spinColor.white:
-        setBulletCount(bulletCount+3);
-        break;
-      case FlareType.spinColor.orange:
-        setBulletCount(bulletCount+10);
-        break;
-      case FlareType.spinColor.red:
-        setBulletCount(bulletCount+25);
-        break;
+    if (spinInfoData.spinSize === FlareType.spinSize.big) {
+      switch (spinInfoData.spinColor) {
+        case FlareType.spinColor.amber:
+          setBulletCount(bulletCount+3);
+          break;
+        case FlareType.spinColor.white:
+          setBulletCount(bulletCount+3);
+          break;
+        case FlareType.spinColor.orange:
+          setBulletCount(bulletCount+10);
+          break;
+        case FlareType.spinColor.red:
+          setBulletCount(bulletCount+25);
+          break;
+      }
+      return true;
     }
+    return false;
   };
   const onEvent = (e) => {
     if (e.type === "goal-target") {
@@ -168,24 +171,27 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       case "goal-niki":
         //gamePause();
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
-        glowBallBonusFlare(getFlareData);
-        resetAnimation();
-        addSpinList(leftSpinList[0]);
-        addSpin(ADD_NIKE_SPIN);
+        if (!glowBallBonusFlare(getFlareData)) {
+          resetAnimation();
+          addSpinList(leftSpinList[0]);
+          addSpin(ADD_NIKE_SPIN);
+        }
         break;
       case 'goal-lock':
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
-        glowBallBonusFlare(getFlareData);
-        resetAnimation();
-        addSpinList(leftSpinList[3]);
-        addSpin(ADD_LOCK_SPIN);
+        if (!glowBallBonusFlare(getFlareData)) {
+          resetAnimation();
+          addSpinList(leftSpinList[3]);
+          addSpin(ADD_LOCK_SPIN);
+        }
         break;
       case 'goal-apple':
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
-        glowBallBonusFlare(getFlareData);
-        resetAnimation();
-        addSpinList(leftSpinList[2]);
-        addSpin(ADD_APPLE_SPIN);
+        if (!glowBallBonusFlare(getFlareData)) {
+          resetAnimation();
+          addSpinList(leftSpinList[2]);
+          addSpin(ADD_APPLE_SPIN);
+        }
         break;
       case "goal-user":
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
@@ -200,27 +206,30 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         break;
       case "goal-niki-tap":
         soundPlay(soundPlayNames.GamePlay.fireWorks);
-        glowBallBonusFlare(getFlareData);
-        proImageTargetMark = 1000;
-        resetAnimation();
-        addSpinList(leftSpinList[0]);
-        addSpin(ADD_NIKE_SPIN);
+        if (!glowBallBonusFlare(getFlareData)) {
+          proImageTargetMark = 1000;
+          resetAnimation();
+          addSpinList(leftSpinList[0]);
+          addSpin(ADD_NIKE_SPIN);
+        }
         break;
       case 'goal-lock-tap':
         soundPlay(soundPlayNames.GamePlay.fireWorks);
-        glowBallBonusFlare(getFlareData);
-        proImageTargetMark = 1000;
-        resetAnimation();
-        addSpinList(leftSpinList[3]);
-        addSpin(ADD_LOCK_SPIN);
+        if (!glowBallBonusFlare(getFlareData)) {
+          proImageTargetMark = 1000;
+          resetAnimation();
+          addSpinList(leftSpinList[3]);
+          addSpin(ADD_LOCK_SPIN);
+        }
         break;
       case 'goal-apple-tap':
         soundPlay(soundPlayNames.GamePlay.fireWorks);
-        glowBallBonusFlare(getFlareData);
-        proImageTargetMark = 1000;
-        resetAnimation();
-        addSpinList(leftSpinList[2]);
-        addSpin(ADD_APPLE_SPIN);
+        if (!glowBallBonusFlare(getFlareData)) {
+          proImageTargetMark = 1000;
+          resetAnimation();
+          addSpinList(leftSpinList[2]);
+          addSpin(ADD_APPLE_SPIN);
+        }
         break;
       case "goal-user-tap":
         soundPlay(soundPlayNames.GamePlay.fireWorks);

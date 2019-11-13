@@ -60,7 +60,6 @@ function GetBubbleLeftScreen({removeSpinList, spinInfoData, getSpinListItems, ru
 
     }
   };
-  console.log('left-list',getSpinListItems)
   return (
     <View style={{
       flex: 1,
