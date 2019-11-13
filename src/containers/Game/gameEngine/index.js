@@ -20,7 +20,7 @@ import {
   addPassScore, setFlareToken
 } from "../../../redux/action/game";
 import {ADD_APPLE_SPIN, ADD_LOCK_SPIN, ADD_MEGA_SPIN, ADD_NIKE_SPIN} from "../../../redux/action/type";
-import GetBubbleLeftScreen from "../page/GetBubbleLeftScreen";
+import GetBubbleLeftScreen from "../components/GetBubbleLeftScreen";
 import {leftSpinList} from "../../../share/data/gamePlay/LeftFlareData";
 import GameHeaderBar from "../components/GameHeaderBar";
 import GamePlayHeader from "../components/GamePlayHeader";
@@ -77,15 +77,16 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       clearInterval(gameStartInternal);
       gameStop();
     }
-    if(gamePlayTime % surveyShowTime === 0 && (gamePlayTime > 3) && gamePlayTime !== 96) {
+    // if(gamePlayTime % surveyShowTime === 0 && (gamePlayTime > 3) && gamePlayTime !== 96) {
+    //   const random = (randomNumber(0, 10000) % wp("70")) + wp("10");
+    //   const targetPosition = {x: random, y: hp("90")};
+    //   const spinInfoData = getspinArray()[4];
+    //   NewSpinShow(targetPosition, spinInfoData, spinSpeed);
+    // } else if
+    if (gamePlayTime % targetShowTime === 0 && (gamePlayTime > 3)) {
       const random = (randomNumber(0, 10000) % wp("70")) + wp("10");
       const targetPosition = {x: random, y: hp("90")};
-      const spinInfoData = getspinArray()[4];
-      NewSpinShow(targetPosition, spinInfoData, spinSpeed);
-    } else if (gamePlayTime % targetShowTime === 0 && (gamePlayTime > 3)) {
-      const random = (randomNumber(0, 10000) % wp("70")) + wp("10");
-      const targetPosition = {x: random, y: hp("90")};
-      const spinInfoData = getspinArray()[randomNumber(2, 4)];
+      const spinInfoData = getspinArray()[randomNumber(2, 5)];
       NewSpinShow(targetPosition, spinInfoData, spinSpeed);
     }
   }, [gamePlayTime]);
@@ -103,7 +104,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
 
   const calculatorScore = (spinInfoData) => {
     let resultScore = 0;
-    switch (spinInfoData["spinColor"]) {
+    switch (spinInfoData.userType.userColor) {
       case FlareType.profileOrbsColor.green:
         resultScore = 5;
         break;
@@ -158,33 +159,33 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         soundPlay(soundPlayNames.GamePlay.getMegaSpin);
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
         break;
+      case "goal-survey":
+        soundPlay(soundPlayNames.GamePlay.tapClickTarget);
+        resetAnimation();
+        addSpinList(leftSpinList[4]);
+        addSpin(ADD_NIKE_SPIN);
+        break;
       case "goal-niki":
         //gamePause();
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
         glowBallBonusFlare(getFlareData);
         resetAnimation();
         addSpinList(leftSpinList[0]);
-        if (getFlareData.spinType === FlareType.spinType.survey)
-          addSpin(ADD_NIKE_SPIN, 3);
-        else addSpin(ADD_NIKE_SPIN);
+        addSpin(ADD_NIKE_SPIN);
         break;
       case 'goal-lock':
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
         glowBallBonusFlare(getFlareData);
         resetAnimation();
         addSpinList(leftSpinList[3]);
-        if (getFlareData.spinType === FlareType.spinType.survey)
-          addSpin(ADD_LOCK_SPIN, 3);
-        else  addSpin(ADD_LOCK_SPIN);
+        addSpin(ADD_LOCK_SPIN);
         break;
       case 'goal-apple':
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
         glowBallBonusFlare(getFlareData);
         resetAnimation();
         addSpinList(leftSpinList[2]);
-        if (getFlareData.spinType === FlareType.spinType.survey)
-          addSpin(ADD_APPLE_SPIN, 3);
-        else  addSpin(ADD_APPLE_SPIN);
+        addSpin(ADD_APPLE_SPIN);
         break;
       case "goal-user":
         soundPlay(soundPlayNames.GamePlay.tapClickTarget);
@@ -203,9 +204,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[0]);
-        if (getFlareData.spinType === FlareType.spinType.survey)
-          addSpin(ADD_NIKE_SPIN, 3);
-        else  addSpin(ADD_NIKE_SPIN);
+        addSpin(ADD_NIKE_SPIN);
         break;
       case 'goal-lock-tap':
         soundPlay(soundPlayNames.GamePlay.fireWorks);
@@ -213,9 +212,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[3]);
-        if (getFlareData.spinType === FlareType.spinType.survey)
-          addSpin(ADD_LOCK_SPIN, 3);
-        else  addSpin(ADD_LOCK_SPIN);
+        addSpin(ADD_LOCK_SPIN);
         break;
       case 'goal-apple-tap':
         soundPlay(soundPlayNames.GamePlay.fireWorks);
@@ -223,9 +220,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         proImageTargetMark = 1000;
         resetAnimation();
         addSpinList(leftSpinList[2]);
-        if (getFlareData.spinType === FlareType.spinType.survey)
-          addSpin(ADD_APPLE_SPIN, 3);
-        else  addSpin(ADD_APPLE_SPIN);
+        addSpin(ADD_APPLE_SPIN);
         break;
       case "goal-user-tap":
         soundPlay(soundPlayNames.GamePlay.fireWorks);

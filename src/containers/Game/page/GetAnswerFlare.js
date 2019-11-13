@@ -2,11 +2,15 @@ import React from "react";
 import { ImageBackground, TouchableOpacity, StyleSheet, Image, Text } from "react-native";
 import AppMocData from "../../../share/data/MocData";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { connect } from "react-redux";
+import {bindActionCreators} from "redux";
+import {addBulletFlare} from "../../../redux/action/game";
 
 class GetAnswerFlare extends React.Component {
   onBackButtonEvent = () => {
     // const { params } = this.props.navigation.state;
     // params.getFlare(3);
+    this.props.addBulletFlare(3);
     this.props.navigation.goBack(null);
   };
   render() {
@@ -48,4 +52,13 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
-export default GetAnswerFlare;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+    ...bindActionCreators({
+      addBulletFlare: addBulletFlare
+    }, dispatch)
+  }
+};
+export default connect(null, mapDispatchToProps)(GetAnswerFlare);

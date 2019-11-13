@@ -1,6 +1,6 @@
 import React from "react";
 import {View, TouchableOpacity} from "react-native";
-import FlareSpin from "../components/FlareSpin";
+import FlareSpin from "./FlareSpin";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {removeSpinList} from "../../../redux/action/game";
@@ -53,9 +53,14 @@ function GetBubbleLeftScreen({removeSpinList, spinInfoData, getSpinListItems, ru
         backPage("GameMegaRound", {param: 'lock'});
         removeSpinList('lock');
         break;
+      case 'survey':
+        backPage("NikiQuestion", {param: 'lock'});
+        removeSpinList('survey');
+        break;
+
     }
   };
-
+  console.log('left-list',getSpinListItems)
   return (
     <View style={{
       flex: 1,

@@ -18,7 +18,8 @@ export const FlareType = {
       user5: 'image5',
       user6: 'image6',
       user7: 'image7',
-      user8: 'image8'
+      user8: 'image8',
+      user9: 'image9'
     }
   },
   spinColor: {

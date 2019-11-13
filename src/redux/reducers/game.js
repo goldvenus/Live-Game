@@ -7,9 +7,11 @@ import {
   SET_TOKEN_FLARE_SCORE,
   SET_TOKEN_MEGA_SCORE,
   ADD_WAVE_SCORE,
-  ADD_PASS_SCORE, REDUCE_MEGA_SPIN
+  ADD_PASS_SCORE, REDUCE_MEGA_SPIN,
+  ADD_ALL_BULLET_FLARE
 } from "../action/type";
 import concat from 'lodash/concat';
+
 const initialState = {
   score: {
     waveScore: 0,
@@ -24,7 +26,7 @@ const initialState = {
     flareSpin: 0,
     megaSpin: 0
   },
-
+  bulletFlare: 100,
   getSpinListItems: [],
   leftSpinUpdate: 0
 };
@@ -45,7 +47,7 @@ const GameReducer = (state = initialState, action) => {
         score: {
           ...state.score,
           waveScore: state.score.waveScore + parseInt(action.payload),
-          playerPassScore: Math.floor((state.score.waveScore + parseInt(action.payload))/500)
+          playerPassScore: Math.floor((state.score.waveScore + parseInt(action.payload)) / 500)
         }
       };
     case ADD_PASS_SCORE:
@@ -118,10 +120,10 @@ const GameReducer = (state = initialState, action) => {
           return state;
       }
     case ADD_GET_SPIN_LIST:
-      if(state.getSpinListItems.filter(item=>item.megaType===action.payload.megaType).length>0) {
+      if (state.getSpinListItems.filter(item => item.megaType === action.payload.megaType).length > 0) {
         return {
           ...state,
-          leftSpinUpdate: state.getSpinListItems.findIndex(item=>item.megaType===action.payload.megaType)
+          leftSpinUpdate: state.getSpinListItems.findIndex(item => item.megaType === action.payload.megaType)
         };
       }
       else {
@@ -135,12 +137,17 @@ const GameReducer = (state = initialState, action) => {
     case REMOVE_SPIN_LIST:
       return {
         ...state,
-        getSpinListItems: state.getSpinListItems.filter(item=>item.megaType!==action.payload)
+        getSpinListItems: state.getSpinListItems.filter(item => item.megaType !== action.payload)
       };
     case RESET_ANIMATION :
       return {
         ...state,
         leftSpinUpdate: -1
+      };
+    case ADD_ALL_BULLET_FLARE:
+      return {
+        ...state,
+        bulletFlare: state.bulletFlare+action.payload
       };
     default :
       return state;

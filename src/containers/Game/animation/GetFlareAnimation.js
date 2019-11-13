@@ -133,8 +133,8 @@ function GetFlareBox({size, body, spinInfoData, mark, navigation, gamePause, set
       {
         (m_mark !== 0 || glowBall) && <Animated.Text style={{
           fontFamily: 'Antonio-Bold',
-          fontSize: survey ? wp('5') : glowBall ? wp('10'): wp('13'),
-          marginTop: survey ? wp('-10') : glowBall ? wp('-12') : wp('-20'),
+          fontSize: survey ? wp('5') : glowBall ? wp('7'): wp('10'),
+          marginTop: survey ? wp('-10') : glowBall ? wp('-9') : wp('-17'),
           paddingBottom: survey ? wp('5') : 0,
           color: 'white',
           textAlign: 'center',
@@ -162,7 +162,7 @@ function GetFlareBox({size, body, spinInfoData, mark, navigation, gamePause, set
         marginTop: hp(spinSize / -6)
       }}>
 
-        <Image source={targetImage[flareType][spinColor]} style={{
+        <Image source={spinNumber === -1 ? AppMocData.game.users[userType.userImage] : targetImage[flareType][spinColor]} style={{
           width: wp(spinSize),
           height: wp(spinSize)
         }}/>
@@ -174,7 +174,7 @@ function GetFlareBox({size, body, spinInfoData, mark, navigation, gamePause, set
               marginTop: hp(ty),
               fontFamily: "Antonio-Bold",
               color: "white"
-            }}>{spinNumber}</Text> :
+            }}>{spinNumber}</Text> : (spinNumber !== -1 && spinType !== FlareType.spinType.survey) &&
             <Image
               source={spinNumber === 0 ? targetImage.mega[megaType] : AppMocData.game.users[userType]} style={{
               position: "absolute",

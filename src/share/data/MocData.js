@@ -15,12 +15,13 @@ const AppMocData = {
     users: {
       image1: require('../../../assets/images/game/users/AlexandraGravesPink.png'),
       image2: require('../../../assets/images/game/users/AustinTondu.png'),
-      image3: require('../../../assets/images/game/users/Faizan.png'),
-      image4: require('../../../assets/images/game/users/JamesMichino.png'),
-      image5: require('../../../assets/images/game/users/KathyKeenPink.png'),
-      image6: require('../../../assets/images/game/users/MorrisCoe.png'),
-      image7: require('../../../assets/images/game/users/ScarlettThomas.png'),
-      image8: require('../../../assets/images/game/users/TyThomasSarah.png'),
+      image3: require('../../../assets/images/game/users/BlazeDineroAmber.png'),
+      image4: require('../../../assets/images/game/users/Faizan.png'),
+      image5: require('../../../assets/images/game/users/JamesMichino.png'),
+      image6: require('../../../assets/images/game/users/KathyKeenPink.png'),
+      image7: require('../../../assets/images/game/users/MorrisCoe.png'),
+      image8: require('../../../assets/images/game/users/ScarlettThomas.png'),
+      image9: require('../../../assets/images/game/users/TyThomasSarah.png'),
     },
     gameplay: {
       shot: {
@@ -78,7 +79,9 @@ const AppMocData = {
         },
         survey: {
           survey_first: require('../../../assets/images/game/gameplay/target/survey/survey_bg.png'),
-          survey_second: require('../../../assets/images/game/gameplay/target/survey/survey_bg1.png')
+          survey_second: require('../../../assets/images/game/gameplay/target/survey/survey_bg1.png'),
+          survey_third: require('../../../assets/images/game/gameplay/target/survey/survey_bg3.png'),
+          survey_icon: require('../../../assets/images/game/gameplay/target/survey/survey_icon.png')
         }
       }
     },

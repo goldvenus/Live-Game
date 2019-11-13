@@ -6,7 +6,7 @@ import {
   REMOVE_SPIN_LIST, RESET_ANIMATION,
   SET_TOKEN_FLARE_SCORE,
   SET_TOKEN_MEGA_SCORE,
-  ADD_PASS_SCORE
+  ADD_PASS_SCORE, ADD_ALL_BULLET_FLARE
 } from "./type";
 
 export const addSpinCoinsScore = score =>{
@@ -76,4 +76,10 @@ export const resetAnimation = () => {
   }
 };
 
+export const addBulletFlare = (bulletFlare) => {
+  return {
+    type: ADD_ALL_BULLET_FLARE,
+    payload: bulletFlare
+  }
+};
 

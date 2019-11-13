@@ -2,6 +2,7 @@ import {Box, Bullet} from "./renderers";
 import Matter from "matter-js";
 import {heightPercentageToDP as hp, widthPercentageToDP as wp}
   from "react-native-responsive-screen";
+import {FlareType} from "../../../share/data/gamePlay/FlareType";
 
 let boxIds = 0;
 let createFlag = false;
@@ -147,8 +148,11 @@ const TargetShotFillter = (startPos, state, dispatch, bulletKey = -1) => {
     }
     Matter.Composite.remove(world, state[boxId].body);
     delete state[boxId];
-    if(bulletKey===-1) {
-      if (targetSpin.spinNumber > 0 ) {
+    if (targetSpin.spinType === FlareType.spinType.survey) {
+      dispatch({type: "goal-survey"});
+    }
+    else if (bulletKey === -1) {
+      if (targetSpin.spinNumber > 0) {
         dispatch({type: `score-${targetSpin.spinNumber}`});
       } else if (targetSpin.spinNumber === 0) {
         dispatch({type: `goal-${targetSpinType}`})
@@ -157,7 +161,7 @@ const TargetShotFillter = (startPos, state, dispatch, bulletKey = -1) => {
       }
 
     } else {
-      if (targetSpin.spinNumber > 0 ) {
+      if (targetSpin.spinNumber > 0) {
         dispatch({type: `score-${targetSpin.spinNumber}-tap`});
       } else if (targetSpin.spinNumber === 0) {
         dispatch({type: `goal-${targetSpinType}-tap`})
@@ -165,7 +169,7 @@ const TargetShotFillter = (startPos, state, dispatch, bulletKey = -1) => {
         dispatch({type: "goal-user-tap"});
       }
     }
-  } else if(bulletKey===-1){
+  } else if (bulletKey === -1) {
     dispatch({type: "no-goal"});
   }
 };

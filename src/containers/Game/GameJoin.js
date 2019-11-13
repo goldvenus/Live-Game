@@ -22,7 +22,8 @@ import {
 import AppMocData from "../../share/data/MocData";
 import {soundEffectInit} from "../../share/soundPlay";
 
-function GameJoin({ navigation, spinToken, score }) {
+
+function GameJoin({ navigation, spinToken, score, bulletFlare }) {
 
   React.useEffect(() => {
     handleAndroidBackButton(()=>{return false});
@@ -99,7 +100,7 @@ function GameJoin({ navigation, spinToken, score }) {
                 paddingLeft: wp("12"),
                 paddingRight: wp("12"),
                 marginBottom: hp("-1")
-              }}>100</Text>
+              }}>{bulletFlare}</Text>
               <Text style={{
                 fontFamily: "Antonio",
                 fontSize: wp("7"),
@@ -231,7 +232,8 @@ function GameJoin({ navigation, spinToken, score }) {
 const mapStateToProps = state => {
   return {
     spinToken: state.game.spinToken,
-    score: state.game.score
+    score: state.game.score,
+    bulletFlare: state.game.bulletFlare
   };
 };
 
