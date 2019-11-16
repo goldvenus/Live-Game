@@ -19,6 +19,7 @@ import GameHeaderBar from "../components/GameHeaderBar";
 import {addSpin} from "../../../redux/action/game";
 import Modal from "react-native-modal";
 import {REDUCE_MEGA_SPIN} from "../../../redux/action/type";
+import {randomNumber} from "../../../share/engine";
 
 const width = wp("100");
 const numberOfSegments = 8;
@@ -66,7 +67,8 @@ class MegaSpinWheel extends React.Component {
   };
 
   getRandomDeceleration() {
-    return 0.999 + (Math.floor(Math.random() * 100) % 60) / 100000;
+    const ppp = 0.999 + randomNumber(60, 70) / 100000;
+    return ppp;
   }
 
   goWheel() {
@@ -136,7 +138,7 @@ class MegaSpinWheel extends React.Component {
         </View>
         <View style={styles.winnerTextContainer}>
           <RNText style={styles.winnerText}>
-            MEGA CREDITS NEEDED: 1
+            MEGA SPIN NEEDED: 1
           </RNText>
         </View>
         <TouchableOpacity
@@ -149,21 +151,22 @@ class MegaSpinWheel extends React.Component {
           <View style={{
             width: wp("90"),
             height: hp("20"),
-            backgroundColor: "white",
+            backgroundColor: "#181818",
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            borderRadius: 10
+            borderRadius: 10,
           }}>
             <View style={{
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: "center"
+              justifyContent: "center",
             }}>
               <RNText style={{
                 fontSize: wp("7"),
                 fontFamily: "Antonio-Bold",
-                paddingRight: wp("2")
+                paddingRight: wp("2"),
+                color: 'white'
               }}>YOU GOT </RNText>
               <RNImage source={this.ImageArray[Object.keys(this.ImageArray)[this.state.winner]]}
                        style={{
@@ -173,16 +176,20 @@ class MegaSpinWheel extends React.Component {
               <RNText style={{
                 fontSize: wp("7"),
                 fontFamily: "Antonio-Bold",
-                paddingLeft: wp("2")
+                paddingLeft: wp("2"),
+                color: 'white'
               }}>SPIN!</RNText>
             </View>
 
-            <TouchableOpacity onPress={this.closeDialog}>
+            <TouchableOpacity onPress={this.closeDialog} style={{
+              position: 'absolute',
+              bottom: 20,
+              right: 50
+            }}>
               <RNText style={{
                 color: "#5C7FFF",
                 fontFamily: "Antonio-Bold",
-                fontSize: wp("4"),
-                paddingTop: hp("5")
+                fontSize: wp("5"),
               }}>OK</RNText>
             </TouchableOpacity>
           </View>

@@ -8,7 +8,7 @@ import LocationPulseLoader from "../animation/PulseLoader";
 import GameDashBoard from "../components/GamePlayDashboard";
 import GamePlayBottomBar from "../components/GamePlayBottomBar";
 import {getspinArray} from "../../../share/data/gamePlay/FlareArray";
-import { GetFlareBox } from "../animation/GetFlareAnimation";
+import {GetFlareBox} from "../animation/GetFlareAnimation";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {
@@ -75,7 +75,10 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       setFlareToken(Math.floor((getSpinCoin + gameScore.spinCoins) / 25));
       addSpinCoinsScore(getSpinCoin);
       clearInterval(gameStartInternal);
-      gameStop();
+      setTimeout(() => {
+        gameStop();
+      }, 3000);
+
     }
     // if(gamePlayTime % surveyShowTime === 0 && (gamePlayTime > 3) && gamePlayTime !== 96) {
     //   const random = (randomNumber(0, 10000) % wp("70")) + wp("10");
@@ -83,7 +86,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     //   const spinInfoData = getspinArray()[4];
     //   NewSpinShow(targetPosition, spinInfoData, spinSpeed);
     // } else if
-    if (gamePlayTime % targetShowTime === 0 && (gamePlayTime > 3)) {
+    if (gamePlayTime % targetShowTime === 0 && (gamePlayTime > 0)) {
       const random = (randomNumber(0, 10000) % wp("70")) + wp("10");
       const targetPosition = {x: random, y: hp("90")};
       const spinInfoData = getspinArray()[randomNumber(2, 5)];
@@ -128,16 +131,16 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     if (spinInfoData.spinSize === FlareType.spinSize.big) {
       switch (spinInfoData.spinColor) {
         case FlareType.spinColor.amber:
-          setBulletCount(bulletCount+3);
+          setBulletCount(bulletCount + 5);
           break;
         case FlareType.spinColor.white:
-          setBulletCount(bulletCount+3);
+          setBulletCount(bulletCount + 3);
           break;
         case FlareType.spinColor.orange:
-          setBulletCount(bulletCount+10);
+          setBulletCount(bulletCount + 10);
           break;
         case FlareType.spinColor.red:
-          setBulletCount(bulletCount+25);
+          setBulletCount(bulletCount + 25);
           break;
       }
       return true;
@@ -147,7 +150,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   const onEvent = (e) => {
     if (e.type === "goal-target") {
       setGameHitData(e.data);
-      if(e.data["spinInfoData"]) {
+      if (e.data["spinInfoData"]) {
         getFlareData = e.data["spinInfoData"];
       }
       proImageTargetMark = 0;
@@ -234,7 +237,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       case "goal-user-tap":
         soundPlay(soundPlayNames.GamePlay.fireWorks);
         proImageTargetMark = calculatorScore(getFlareData) + 1000;// hit the profile Orbs
-        addWaveScore(proImageTargetMark-1000);
+        addWaveScore(proImageTargetMark - 1000);
         break;
       case "no-goal":
         break;
@@ -256,7 +259,6 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       NewFire(bulletSpeed);
     }
   };
-
   const onMultiFireGun = (multiNum) => {
     const bullet = bulletCount;
     if (bullet < multiNum) {
@@ -266,16 +268,16 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
-        //firingGun = false;
+        firingGun = false;
       }, multiShotSpeed * bullet + 50);
     } else {
-      //firingGun = true;
+      firingGun = true;
       const intervalTime = setInterval(() => {
         oneShot();
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
-        //firingGun = false;
+        firingGun = false;
       }, multiShotSpeed * multiNum + 50);
     }
   };
@@ -290,18 +292,18 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     }, 1500);
     const pressedIntime = new Date().getTime();
     if ((pressedIntime - pressedTime > 500)) doubleFireReady = false;
-    if ((pressedIntime - pressedTime < 170) && !firingGun && !doubleFireReady && running) {
+    if ((pressedIntime - pressedTime < 270) && !firingGun && !doubleFireReady && running) {
       doubleFireReady = true;
+      clearTimeout(oneFireShotTimer);
       doubleFireReadyTimer = setTimeout(() => {
-        //firingGun = true;
+        firingGun = true;
         doubleFireReady = false;
-        clearTimeout(oneFireShotTimer);
         soundPlay(soundPlayNames.GamePlay.fireLongShot);
         onMultiFireGun(3);
         addWaveScore(150);
-      }, 180);
+      }, 280);
     }
-    else if (doubleFireReady && (pressedIntime - pressedTime < 300)) {
+    else if (doubleFireReady && (pressedIntime - pressedTime < 350)) {
       clearTimeout(doubleFireReadyTimer);
     }
     pressedTime = pressedIntime;
@@ -313,7 +315,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         soundPlay(soundPlayNames.GamePlay.fireShot);
         onFireGun();
         addWaveScore(50);
-      }, 220);
+      }, 320);
     }
     clearInterval(burstFireTimer);
     burstFireTemp = false
@@ -342,6 +344,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     <View style={{
       flex: 1
     }}>
+
       <GameEngine
         style={{zIndex: 3}}
         ref={(ref) => {
@@ -369,14 +372,15 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       }
       <GamePlayBottomBar bulletCount={bulletCount} gamePlayTime={gamePlayTime}/>
       <TouchableOpacity
+        activeOpacity={bulletCount > 1 ? 0.6 : 1}
         style={{
           position: "absolute",
           zIndex: 3,
           right: wp("-2"),
           bottom: wp("-2")
         }}
-        onPressIn={FirePressIn}
-        onPressOut={FirePressOut}>
+        onPressIn={bulletCount > 0 && gamePlayTime > 0 ? FirePressIn : null}
+        onPressOut={bulletCount > 0 && gamePlayTime > 0 ? FirePressOut : null}>
         <LocationPulseLoader stopGame={running}/>
       </TouchableOpacity>
       {

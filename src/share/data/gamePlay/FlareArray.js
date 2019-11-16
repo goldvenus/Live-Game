@@ -58,7 +58,7 @@ export const getspinArray = () => {
       spinNumber: 0,
       spinColor: FlareType.surveyType[getRandomType(FlareType.surveyType, 2)],
       shadowColor: FlareType.shadowColor.white,
-      spinSize: FlareType.spinSize[getRandomType(FlareType.spinSize, 3)],
+      spinSize: FlareType.spinSize.big,
       spinTextSize: FlareType.spinTextSize.small
     },
   ];

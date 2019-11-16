@@ -97,7 +97,7 @@ function GetFlareBox({size, body, spinInfoData, mark, navigation, gamePause, set
     flareType = FlareType.spinType.glow;
     switch (spinColor) {
       case FlareType.spinColor.amber:
-        bonusText = '3 Flares';
+        bonusText = '5 Flares';
         break;
       case FlareType.spinColor.white:
         bonusText = '3 Flares';
@@ -133,9 +133,9 @@ function GetFlareBox({size, body, spinInfoData, mark, navigation, gamePause, set
       {
         (m_mark !== 0 || glowBall) && <Animated.Text style={{
           fontFamily: 'Antonio-Bold',
-          fontSize: survey ? wp('5') : glowBall ? wp('7'): wp('10'),
-          marginTop: survey ? wp('-10') : glowBall ? wp('-9') : wp('-17'),
-          paddingBottom: survey ? wp('5') : 0,
+          fontSize: survey ? wp('5') : glowBall ? wp('5'): wp('5'),
+          marginTop: survey ? wp('-10') : glowBall ? wp('-7') : wp('-12'),
+          paddingBottom: survey ? wp('5') : wp('5'),
           color: 'white',
           textAlign: 'center',
           opacity: saveOpacity_text,
@@ -145,7 +145,7 @@ function GetFlareBox({size, body, spinInfoData, mark, navigation, gamePause, set
             }
           ]
         }}>
-          {glowBall ? bonusText : (m_mark === 1000 ? '50' : m_mark > 1000 ? `50+${m_mark - 1000}` : m_mark > 0 ? m_mark : '')}
+          {glowBall ? bonusText : (m_mark === 1000 ? '50 Points' : m_mark > 1000 ? `50+${m_mark - 1000} Points` : m_mark > 0 ? `${m_mark} Points` : '')}
         </Animated.Text>
       }
       <Animated.View style={{
