@@ -1,6 +1,5 @@
 import React from "react";
-import {StatusBar, TouchableOpacity, View, Alert, Text} from "react-native";
-import {GameEngine} from "react-native-game-engine";
+import { TouchableOpacity, View, Text} from "react-native";
 import {Physics, NewSpinShow, NewFire} from "./systems";
 import Matter from "matter-js";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
@@ -28,6 +27,7 @@ import {randomNumber} from "../../../share/engine";
 import {soundPlay} from "../../../share/soundPlay";
 import {soundPlayNames} from "../../../share/soundPlay/soundName";
 import {FlareType} from "../../../share/data/gamePlay/FlareType";
+import GameEnginePure from "./GameEnginePure";
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 
@@ -49,12 +49,10 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   const [gameHitData, setGameHitData] = React.useState({});
   const [gameStartInternal, setGameStartInternal] = React.useState(null);
 
-  let gameEngine = null;
   let spinSpeed = 4;
   let bulletSpeed = 8;
   let targetShowTime = 3;
   const multiShotSpeed = 80;
-  const surveyShowTime = 12;
   React.useEffect(() => {
     addWaveScore(-1 * gameScore.waveScore);
     gameStart();
@@ -129,18 +127,19 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
 
   const glowBallBonusFlare = (spinInfoData) => {
     if (spinInfoData.spinSize === FlareType.spinSize.big) {
+      console.log(bulletCount);
       switch (spinInfoData.spinColor) {
         case FlareType.spinColor.amber:
-          setBulletCount(bulletCount + 5);
+          setBulletCount(t => t + 5);
           break;
         case FlareType.spinColor.white:
-          setBulletCount(bulletCount + 3);
+          setBulletCount(t => t + 3);
           break;
         case FlareType.spinColor.orange:
-          setBulletCount(bulletCount + 10);
+          setBulletCount(t => t + 10);
           break;
         case FlareType.spinColor.red:
-          setBulletCount(bulletCount + 25);
+          setBulletCount(t => t + 25);
           break;
       }
       return true;
@@ -345,17 +344,12 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       flex: 1
     }}>
 
-      <GameEngine
+      <GameEnginePure
         style={{zIndex: 3}}
-        ref={(ref) => {
-          gameEngine = ref;
-        }}
         onEvent={onEvent}
-        systems={[Physics]}
         running={running}
         entities={setupWorld()}>
-        <StatusBar hidden={true}/>
-      </GameEngine>
+      </GameEnginePure>
       {
         gameHitData["size"] &&
         <GetFlareBox size={gameHitData["size"]}

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, TouchableOpacity, Animated, Easing } from "react-native";
+import { View, Image, Easing } from "react-native";
 import Pulse from "./Pulse";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import AppMocData  from "../../../share/data/MocData";
@@ -14,17 +14,14 @@ export default class LocationPulseLoader extends React.Component {
 
     this.counter = 1;
     this.setInterval = null;
-    this.anim = new Animated.Value(1);
   }
 
   componentDidMount() {
     this.setCircleInterval();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(this.props.running !== nextProps.running) {
-      this.setInterval.clear();
-    }
+  componentWillUnmount  () {
+    clearInterval(this.setInterval);
   }
 
   setCircleInterval() {
