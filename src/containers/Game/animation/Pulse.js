@@ -13,7 +13,7 @@ export default class Pulse extends React.Component {
     Animated.timing(this.anim, {
       toValue: 1,
       duration: this.props.interval,
-      easing: Easing.in,
+      easing: Easing.in
     })
       .start();
   }

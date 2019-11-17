@@ -50,7 +50,6 @@ class GameCountDown extends React.Component {
       await this.soundObject.loadAsync(AppMocData.sound.countdownSound);
       await this.soundObject.playAsync();
     } catch (error) {
-      console.log(error);
     }
   }
 

@@ -127,7 +127,6 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
 
   const glowBallBonusFlare = (spinInfoData) => {
     if (spinInfoData.spinSize === FlareType.spinSize.big) {
-      console.log(bulletCount);
       switch (spinInfoData.spinColor) {
         case FlareType.spinColor.amber:
           setBulletCount(t => t + 5);
