@@ -10,7 +10,10 @@ import * as Animatable from 'react-native-animatable';
 
 class GetBubbleLeftScreen extends React.Component {
   shouldComponentUpdate(nextProps) {
-    return nextProps.running !== this.props.running || nextProps.removeSpinList !== this.props.removeSpinList || nextProps.leftSpinUpdate !== this.props.leftSpinUpdate;
+    return nextProps.running !== this.props.running ||
+      nextProps.removeSpinList !== this.props.removeSpinList ||
+      nextProps.leftSpinUpdate !== this.props.leftSpinUpdate ||
+      nextProps.getSpinListItems !== this.props.getSpinListItems;
   }
 
   render() {
