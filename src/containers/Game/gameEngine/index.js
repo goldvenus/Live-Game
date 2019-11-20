@@ -40,6 +40,7 @@ let burstFireTimer = null;
 let burstFireTemp = false;
 let proImageTargetMark = 0;
 let getFlareData;
+let m_bulletCount;
 
 function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoinsScore, addSpin, addSpinList, resetAnimation, getSpinListItems, navigation}) {
   const [running, setRunning] = React.useState(true);
@@ -73,6 +74,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       setFlareToken(Math.floor((getSpinCoin + gameScore.spinCoins) / 25));
       addSpinCoinsScore(getSpinCoin);
       clearInterval(gameStartInternal);
+      clearTimer();
       setTimeout(() => {
         gameStop();
       }, 3000);
@@ -92,15 +94,25 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     }
   }, [gamePlayTime]);
 
+  React.useEffect (()=> {
+    m_bulletCount = bulletCount;
+  }, [bulletCount])
   const gameStop = () => {
     setRunning(false);
     clearInterval(gameStartInternal);
+    clearTimer();
   };
 
   const gamePause = () => {
     setRunning(false);
     clearInterval(gameStartInternal);
     setGamePauseState(true);
+  };
+
+  const clearTimer = () => {
+    clearTimeout(oneFireShotTimer);
+    clearInterval(burstFireTimer);
+    clearTimeout(doubleFireReadyTimer);
   };
 
   const calculatorScore = (spinInfoData) => {
@@ -246,37 +258,41 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   };
 
   const onFireGun = () => {
-    if (bulletCount > 0) {
+    if (m_bulletCount  >= 1) {
       oneShot();
     }
   };
 
   const oneShot = () => {
-    if (bulletCount >= 1) {
+    if (m_bulletCount >= 1) {
       setBulletCount(t => t - 1);
       NewFire(bulletSpeed);
+    } else {
+      clearTimer();
     }
   };
   const onMultiFireGun = (multiNum) => {
-    const bullet = bulletCount;
-    if (bullet < multiNum) {
+    const bullet = m_bulletCount;
+    if (bullet < multiNum && bullet > 1) {
       firingGun = true;
       const intervalTime = setInterval(() => {
-        oneShot();
+        onFireGun();
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
         firingGun = false;
       }, multiShotSpeed * bullet + 50);
-    } else {
+    } else if(bullet >= multiNum) {
       firingGun = true;
       const intervalTime = setInterval(() => {
-        oneShot();
+        onFireGun();
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
         firingGun = false;
       }, multiShotSpeed * multiNum + 50);
+    } else {
+      clearTimer();
     }
   };
 
