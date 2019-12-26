@@ -77,7 +77,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
       clearTimer();
       setTimeout(() => {
         gameStop();
-      }, 3000);
+      }, 4000);
 
     }
     // if(gamePlayTime % surveyShowTime === 0 && (gamePlayTime > 3) && gamePlayTime !== 96) {
@@ -273,7 +273,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   };
   const onMultiFireGun = (multiNum) => {
     const bullet = m_bulletCount;
-    if (bullet < multiNum && bullet > 1) {
+    if (bullet < multiNum && bullet > 0) {
       firingGun = true;
       const intervalTime = setInterval(() => {
         onFireGun();
