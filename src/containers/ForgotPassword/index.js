@@ -26,12 +26,12 @@ class Login extends Component {
     // TODO: Forgot Password
 
     this.props.navigation.navigate('Login');
-  }
+  };
 
   // navigate to login screen
   onLoginButtonPressed = () => {
     this.props.navigation.navigate('Login');
-  }
+  };
 
   render() {
     return (

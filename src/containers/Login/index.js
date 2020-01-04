@@ -27,17 +27,17 @@ class Login extends Component {
     // TODO: Login
 
     this.props.navigation.navigate('Home');
-  }
+  };
 
   // navigate to signup screen
   onSignupButtonPressed = () => {
     this.props.navigation.navigate('Signup');
-  }
+  };
 
   // navigate to forgot password screen
   onForgotPasswordButtonPressed = () => {
     this.props.navigation.navigate('ForgotPassword');
-  }
+  };
 
   render() {
     return (

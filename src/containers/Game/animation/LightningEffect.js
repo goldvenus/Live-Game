@@ -1,14 +1,14 @@
-import React from "react";
-import { Image } from "react-native";
+import React from 'react';
+import { Image } from 'react-native';
 
 export default class LightningEffect extends React.Component {
   constructor(props) {
     super(props);
     this.images = [
-      require("../../../../assets/images/game/lightning/lightning1.png"),
-      require("../../../../assets/images/game/lightning/lightning2.png"),
-      require("../../../../assets/images/game/lightning/lightning3.png"),
-      require("../../../../assets/images/game/lightning/lightning4.png")
+      require('../../../../assets/images/game/lightning/lightning1.png'),
+      require('../../../../assets/images/game/lightning/lightning2.png'),
+      require('../../../../assets/images/game/lightning/lightning3.png'),
+      require('../../../../assets/images/game/lightning/lightning4.png'),
     ];
     this.state = { index: 0 };
     this.disableInternal = null;
@@ -18,7 +18,7 @@ export default class LightningEffect extends React.Component {
     this.next();
   }
 
-  componentWillUnmount  () {
+  componentWillUnmount() {
     clearInterval(this.disableInternal);
   }
   next() {
@@ -28,17 +28,19 @@ export default class LightningEffect extends React.Component {
   }
 
   render() {
-    const { lightw, lighth, mx, my } = this.props;
+    const {
+      lightw, lighth, mx, my,
+    } = this.props;
     return (
       <Image
         style={{
-          position: "absolute",
+          position: 'absolute',
           marginLeft: mx,
           marginTop: my,
           width: lightw,
           height: lighth,
           left: 0,
-          resizeMode: "contain"
+          resizeMode: 'contain',
         }}
         source={this.images[this.state.index]}
       />

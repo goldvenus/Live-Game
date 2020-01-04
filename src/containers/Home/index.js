@@ -1,14 +1,13 @@
-import React from "react";
+import React from 'react';
 import {
   Container,
   Content,
-  Text
-} from "native-base";
+  Text,
+} from 'native-base';
 
-import styles from "./styles";
+import styles from './styles';
 
 class Home extends React.Component {
-
   render() {
     return (
       <Container style={styles.container}>
