@@ -1,7 +1,7 @@
-import AppMocData from "../data/MocData";
-import { Audio } from "expo-av";
-import React from "react";
-import {soundPlayNames} from "./soundName";
+import AppMocData from '../data/MocData';
+import { Audio } from 'expo-av';
+import React from 'react';
+import { soundPlayNames } from './soundName';
 
 let fireShot;
 let fireMultiShot;
@@ -26,7 +26,6 @@ export const soundEffectInit = async () => {
   tapClickTarget = soundObject6;
   const { sound: soundObject7 } = await Audio.Sound.createAsync(AppMocData.sound.countdownSound, { shouldPlay: false });
   countDown = soundObject7;
-
 };
 
 export const soundPlay = async (soundName) => {
@@ -53,7 +52,7 @@ export const soundPlay = async (soundName) => {
         break;
       case soundPlayNames.GamePlay.countDown:
         soundObject = countDown;
-      default :
+      default:
         break;
     }
   }

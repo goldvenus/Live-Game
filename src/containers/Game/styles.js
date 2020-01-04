@@ -2,7 +2,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export const styles = StyleSheet.create({
   container: {
@@ -13,20 +13,20 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     padding: 0,
-    margin:0
+    margin: 0,
   },
   game_state_bottom_bar: {
     zIndex: 3,
     position: 'absolute',
     backgroundColor: '#1111112b',
-    bottom:0,
+    bottom: 0,
     width: '100%',
     height: hp('6'),
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: '#ffffff2b'
+    borderTopColor: '#ffffff2b',
   },
   time_count_down: {
     fontSize: wp('5'),
@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     color: '#2EC760',
     textShadowColor: '#2EC760',
-    textShadowOffset: {width: 0, height: 0},
+    textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: wp('2'),
     paddingLeft: wp('10'),
     opacity: 1,
@@ -45,14 +45,14 @@ export const styles = StyleSheet.create({
     display: 'flex',
     color: '#ffffff',
     opacity: 0.5,
-    paddingLeft: wp('15')
+    paddingLeft: wp('15'),
   },
   game_mark: {
     fontSize: wp('5'),
     fontFamily: 'Antonio-Bold',
     display: 'flex',
     color: '#ffffff',
-    paddingLeft: wp('2')
+    paddingLeft: wp('2'),
   },
   header_view: {
     width: wp('100'),
@@ -68,30 +68,30 @@ export const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderBottomWidth: 2,
     borderBottomColor: '#ffffff3b',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   header_arrow_btn: {
     width: wp('5'),
-    height: wp('5')
+    height: wp('5'),
   },
   header_middle_view: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   game_mark_icon: {
     width: wp('9'),
-    height: wp('9')
+    height: wp('9'),
   },
   game_header_title: {
     color: '#ffffff',
     fontFamily: 'Antonio-Bold',
-    fontSize: wp('4.3')
+    fontSize: wp('4.3'),
   },
   header_user_img: {
     width: wp('7'),
-    height: wp('7')
+    height: wp('7'),
   },
   game_dashboard_view: {
     zIndex: 3,
@@ -101,7 +101,7 @@ export const styles = StyleSheet.create({
     top: hp('10'),
     left: wp('2.5'),
     backgroundColor: '#292929',
-    borderRadius: wp('3')
+    borderRadius: wp('3'),
   },
   game_dashboard_top_view: {
     display: 'flex',
@@ -110,7 +110,7 @@ export const styles = StyleSheet.create({
     borderBottomColor: '#ffffff2b',
     borderBottomWidth: 1,
     marginLeft: wp('4'),
-    marginRight: wp('4')
+    marginRight: wp('4'),
   },
   game_wavescore_view: {
     width: wp('47'),
@@ -128,42 +128,42 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Antonio-Bold',
     fontSize: wp('7'),
-    paddingLeft: wp('3')
+    paddingLeft: wp('3'),
   },
   game_wavescore: {
     width: wp('6'),
-    height: wp('6')
+    height: wp('6'),
   },
   game_play_passed_view: {
     width: wp('47'),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   game_play_passed_num: {
     color: 'white',
     fontFamily: 'Antonio-Bold',
-    fontSize: wp('7')
+    fontSize: wp('7'),
   },
   game_play_passed_title: {
     color: 'white',
     opacity: 0.3,
     fontSize: wp('3'),
     paddingLeft: wp('3'),
-    fontFamily: 'Antonio'
+    fontFamily: 'Antonio',
   },
   game_dashboard_bottom_view: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: hp('18')
+    height: hp('18'),
   },
   game_spin_coins_title: {
     fontSize: wp('6'),
     color: 'white',
     opacity: 0.3,
-    fontFamily: 'Antonio'
+    fontFamily: 'Antonio',
   },
   game_spin_coins: {
     color: 'white',
@@ -172,12 +172,12 @@ export const styles = StyleSheet.create({
   },
 
 });
-export const joinStyles = StyleSheet.create( {
+export const joinStyles = StyleSheet.create({
   bodyContainer: {
     flex: 1,
     height: hp('50'),
     paddingTop: hp('10'),
-    backgroundColor: '#181818'
+    backgroundColor: '#181818',
   },
   join_top_view: {
     display: 'flex',
@@ -187,16 +187,16 @@ export const joinStyles = StyleSheet.create( {
     alignItems: 'center',
   },
   join_bottom_view: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     height: hp('10'),
-    marginTop: hp('2')
+    marginTop: hp('2'),
   },
   flare_border: {
     width: wp('10'),
-    height: hp('24')
+    height: hp('24'),
   },
   flare_border_right: {
     width: wp('10'),
@@ -206,9 +206,9 @@ export const joinStyles = StyleSheet.create( {
         scaleX: -1,
       },
       {
-        scaleY: 1
-      }
-    ]
+        scaleY: 1,
+      },
+    ],
   },
   flareNumber: {
     fontSize: wp('20'),
@@ -216,7 +216,7 @@ export const joinStyles = StyleSheet.create( {
   },
   game_setting: {
     flex: 1,
-    borderTopWidth: 1
+    borderTopWidth: 1,
   },
   setting_JoinItem: {
     height: hp('8.6'),
@@ -228,13 +228,13 @@ export const joinStyles = StyleSheet.create( {
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingLeft: wp('5'),
-    paddingRight: wp('5')
+    paddingRight: wp('5'),
   },
   joinButton: {
     backgroundColor: 'white',
-    borderRadius:7,
+    borderRadius: 7,
     borderWidth: 1,
-    borderColor: '#0a0a0a'
+    borderColor: '#0a0a0a',
   },
   joinButton_Title: {
     fontFamily: 'Antonio-Bold',
@@ -258,7 +258,7 @@ export const joinStyles = StyleSheet.create( {
   },
   game_flareSpin_item_image: {
     width: wp('8'),
-    height: wp('8')
+    height: wp('8'),
   },
   setting_item_list: {
     display: 'flex',
@@ -266,7 +266,7 @@ export const joinStyles = StyleSheet.create( {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginLeft: wp('3'),
-    width: wp('78')
+    width: wp('78'),
   },
   setting_item_right_textBox: {
     color: 'white',
@@ -279,13 +279,13 @@ export const joinStyles = StyleSheet.create( {
     fontFamily: 'Antonio-Bold',
     backgroundColor: 'rgba(250,250,250,0.1)',
     textAlign: 'center',
-    borderRadius: 5
+    borderRadius: 5,
 
   },
   setting_item_right_view: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   flare_spins_btn: {
 
@@ -315,13 +315,13 @@ export const ReadyStyles = StyleSheet.create({
   GameReady_Container: {
     height: '100%',
     paddingTop: hp('6'),
-    backgroundColor: '#181818'
+    backgroundColor: '#181818',
   },
   TopTitleView: {
     height: hp('20'),
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   Back_Button: {
     position: 'absolute',
@@ -332,17 +332,17 @@ export const ReadyStyles = StyleSheet.create({
     paddingRight: hp('3'),
     borderTopRightRadius: wp('5'),
     borderBottomRightRadius: wp('5'),
-    backgroundColor: '#242424'
+    backgroundColor: '#242424',
   },
   Back_Button_Image: {
     transform: [
       {
         scaleX: -1,
-      }
+      },
     ],
     width: wp('2.5'),
     height: wp('5'),
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   GameReady_CountDown_View: {
     display: 'flex',
@@ -352,7 +352,7 @@ export const ReadyStyles = StyleSheet.create({
   },
   flare_border: {
     width: wp('10'),
-    height: hp('28')
+    height: hp('28'),
   },
   flare_border_right: {
     width: wp('10'),
@@ -362,48 +362,48 @@ export const ReadyStyles = StyleSheet.create({
         scaleX: -1,
       },
       {
-        scaleY: 1
-      }
-    ]
+        scaleY: 1,
+      },
+    ],
   },
   Game_Members_Title: {
     paddingTop: hp('10'),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   Game_Members_text1: {
     fontFamily: 'Antonio-Bold',
     fontSize: wp('5.3'),
-    color: '#505050'
+    color: '#505050',
   },
   Game_Members_text2: {
     fontFamily: 'Antonio-Bold',
     fontSize: wp('5.3'),
     color: '#ffffff',
     paddingLeft: wp('1'),
-    paddingRight: wp('1')
+    paddingRight: wp('1'),
   },
   Game_Join_users: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
-  }
+    flexDirection: 'row',
+  },
 });
 export const GameGlobal = StyleSheet.create({
   h6: {
     fontFamily: 'Antonio',
     fontSize: wp('3.8'),
     color: 'white',
-    opacity: 0.3
+    opacity: 0.3,
   },
   h5: {
     fontFamily: 'Antonio',
     fontSize: wp('5'),
     color: 'white',
-    opacity: 0.3
+    opacity: 0.3,
   },
   h4: {
     fontFamily: 'Antonio-Bold',
@@ -414,13 +414,13 @@ export const GameGlobal = StyleSheet.create({
     fontFamily: 'Antonio',
     fontSize: wp('7'),
     color: 'white',
-    opacity: 0.3
+    opacity: 0.3,
   },
   h1: {
     fontFamily: 'Antonio',
     fontSize: wp('8'),
     color: 'white',
-    opacity: 0.5
-  }
-})
+    opacity: 0.5,
+  },
+});
 

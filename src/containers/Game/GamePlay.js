@@ -1,19 +1,16 @@
-import React from "react";
+import React from 'react';
 import {
   Container,
-  Content
-} from "native-base";
-import { styles } from "./styles";
+  Content,
+} from 'native-base';
+import { styles } from './styles';
 
-import GameEnginePlay from "./gameEngine";
-import { handleAndroidBackButton, removeAndroidBackButtonHandler } from "../../services/BackPress";
+import GameEnginePlay from './gameEngine';
+import { handleAndroidBackButton, removeAndroidBackButtonHandler } from '../../services/BackPress';
 
 export default class GamePlay extends React.Component {
-
   componentDidMount() {
-    handleAndroidBackButton(() => {
-      return false;
-    });
+    handleAndroidBackButton(() => false);
   }
 
   componentWillUnmount() {
@@ -21,14 +18,14 @@ export default class GamePlay extends React.Component {
   }
 
   goPage = (pageName, param) => {
-    this.props.navigation.navigate(pageName, { param: param });
+    this.props.navigation.navigate(pageName, { param });
   };
 
   render() {
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
-          <GameEnginePlay backPage={this.goPage} navigation={this.props.navigation}/>
+          <GameEnginePlay backPage={this.goPage} navigation={this.props.navigation} />
         </Content>
       </Container>
     );

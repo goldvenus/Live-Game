@@ -4,7 +4,6 @@ import APIConstants from './constants';
 import APIUtils from './utils';
 
 
-
 class APIClient {
   constructor(url, method) {
     this.url = url;
@@ -29,7 +28,7 @@ class APIClient {
       .catch((error) => {
         reject(error);
       });
-  }
+  };
 
   performRequest = (headers, params, authorize, authType = null) => (
     new Promise(async (resolve, reject) => {
@@ -50,7 +49,7 @@ class APIClient {
         switch (this.method) {
           case APIConstants.HTTPMethod.GET:
           case APIConstants.HTTPMethod.DELETE:
-            this.url = this.url + APIUtils.convertQueryString(params);
+            this.url += APIUtils.convertQueryString(params);
 
             break;
           case APIConstants.HTTPMethod.POST:
@@ -73,7 +72,7 @@ class APIClient {
         this.fetchRequest(this.url, fetchParams, resolve, reject);
       }
     })
-  )
+  );
 
   sendAuthenticatedRequest(authType, params = {}, headers = {}) {
     return this.performRequest(headers, params, true, authType);

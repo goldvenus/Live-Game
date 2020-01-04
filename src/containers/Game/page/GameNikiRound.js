@@ -1,15 +1,14 @@
-import React from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
-import AppMocData from "../../../share/data/MocData";
-import { styles } from "./styles";
-import RoundPannel from "./RoundPannel";
+import React from 'react';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import AppMocData from '../../../share/data/MocData';
+import { styles } from './styles';
+import RoundPannel from './RoundPannel';
 
 function GameNikiRound({ score, navigation, getSpinListItems }) {
-
   let nikeSpinNum = 0;
   const type = navigation.getParam('param', 'NO-ID');
-  switch(type.param) {
+  switch (type.param) {
     case 'niki':
       nikeSpinNum = score.nikeSpin;
       break;
@@ -22,8 +21,8 @@ function GameNikiRound({ score, navigation, getSpinListItems }) {
     default:
       break;
   }
-  let gameRoundState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-  let j = nikeSpinNum > 9 ? 9 : nikeSpinNum;
+  const gameRoundState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const j = nikeSpinNum > 9 ? 9 : nikeSpinNum;
   // if (nikeSpinNum >= 9) {
   //   setTimeout(() => {
   //     navigation.navigate("NikiQuestion");
@@ -40,19 +39,20 @@ function GameNikiRound({ score, navigation, getSpinListItems }) {
     <View style={styles.megaRoundParent}>
       <View style={styles.header_view}>
         {
-          getSpinListItems.length>0 ?
-          <TouchableOpacity onPress={()=>resumeGame()}>
-            <Image
-              style={styles.header_arrow_btn}
-              source={AppMocData.public.close}
-            />
-          </TouchableOpacity> : <View/>
+          getSpinListItems.length > 0 ?
+            <TouchableOpacity onPress={() => resumeGame()}>
+              <Image
+                style={styles.header_arrow_btn}
+                source={AppMocData.public.close}
+              />
+            </TouchableOpacity> : <View />
         }
 
         <View style={styles.header_middle_view}>
           <Image
             style={styles.game_mark_icon}
-            source={AppMocData.bottomBar.gameActive}/>
+            source={AppMocData.bottomBar.gameActive}
+          />
           <Text style={styles.game_header_title}>
             ZENDUJA LIVE
           </Text>
@@ -63,10 +63,14 @@ function GameNikiRound({ score, navigation, getSpinListItems }) {
         />
       </View>
       <View style={styles.topSection}>
-        <Image source={AppMocData.game.page.niki.nikiShoe}
-               style={styles.nikiUnlockImage}/>
-        <Image source={AppMocData.game.page.roundBgOrange}
-               style={styles.topCirclebgNikiImage}/>
+        <Image
+          source={AppMocData.game.page.niki.nikiShoe}
+          style={styles.nikiUnlockImage}
+        />
+        <Image
+          source={AppMocData.game.page.roundBgOrange}
+          style={styles.topCirclebgNikiImage}
+        />
         <Text style={styles.topTitleNiki}>NIKE</Text>
         <Text style={styles.topSTitleNiki}>VAPORMAX</Text>
         <Text style={styles.roundLocktxt}>49 / 1000 LEFT</Text>
@@ -77,17 +81,15 @@ function GameNikiRound({ score, navigation, getSpinListItems }) {
           <Text style={styles.roundTitleBoldtext}>9 BADGES</Text>
           <Text style={styles.roundTitletext}> TO REDEEM YOUR PRIZE!</Text>
         </View>
-        <RoundPannel roundState={gameRoundState} type={type.param}/>
+        <RoundPannel roundState={gameRoundState} type={type.param} />
       </View>
     </View>
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    score: state.game.score,
-    getSpinListItems: state.game.getSpinListItems
-  };
-};
+const mapStateToProps = state => ({
+  score: state.game.score,
+  getSpinListItems: state.game.getSpinListItems,
+});
 
 export default connect(mapStateToProps, null)(GameNikiRound);
