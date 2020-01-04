@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, View, Text} from "react-native";
+import {TouchableOpacity, View, Text, TouchableWithoutFeedback} from "react-native";
 import {Physics, NewSpinShow, NewFire} from "./systems";
 import Matter from "matter-js";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
@@ -41,6 +41,9 @@ let burstFireTemp = false;
 let proImageTargetMark = 0;
 let getFlareData;
 let m_bulletCount;
+let m_fireGunClickCount = 0;
+let m_backTimer = null;
+let m_longBackTimer = null;
 
 function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSpinCoinsScore, addSpin, addSpinList, resetAnimation, getSpinListItems, navigation}) {
   const [running, setRunning] = React.useState(true);
@@ -94,11 +97,13 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     }
   }, [gamePlayTime]);
 
-  React.useEffect (()=> {
+  React.useEffect(() => {
     m_bulletCount = bulletCount;
   }, [bulletCount])
   const gameStop = () => {
     setRunning(false);
+    clearTimeout(m_longBackTimer);
+    clearTimeout(m_backTimer);
     clearInterval(gameStartInternal);
     clearTimer();
   };
@@ -258,7 +263,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
   };
 
   const onFireGun = () => {
-    if (m_bulletCount  >= 1) {
+    if (m_bulletCount >= 1) {
       oneShot();
     }
   };
@@ -282,7 +287,7 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         clearInterval(intervalTime);
         firingGun = false;
       }, multiShotSpeed * bullet + 50);
-    } else if(bullet >= multiNum) {
+    } else if (bullet >= multiNum) {
       firingGun = true;
       const intervalTime = setInterval(() => {
         onFireGun();
@@ -296,44 +301,26 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
     }
   };
 
-  const FirePressIn = () => {
-    burstFireTimer = setInterval(() => {
-      doubleFireReady = true;
-      burstFireTemp = true;
-      onMultiFireGun(5);
-      addWaveScore(250);
-      soundPlay(soundPlayNames.GamePlay.fireMultiShot);
-    }, 1500);
-    const pressedIntime = new Date().getTime();
-    if ((pressedIntime - pressedTime > 500)) doubleFireReady = false;
-    if ((pressedIntime - pressedTime < 270) && !firingGun && !doubleFireReady && running) {
-      doubleFireReady = true;
-      clearTimeout(oneFireShotTimer);
-      doubleFireReadyTimer = setTimeout(() => {
-        firingGun = true;
-        doubleFireReady = false;
-        soundPlay(soundPlayNames.GamePlay.fireLongShot);
-        onMultiFireGun(3);
-        addWaveScore(150);
-      }, 280);
-    }
-    else if (doubleFireReady && (pressedIntime - pressedTime < 350)) {
-      clearTimeout(doubleFireReadyTimer);
-    }
-    pressedTime = pressedIntime;
+  const fireOneBulletShot = () => {
+    soundPlay(soundPlayNames.GamePlay.fireShot);
+    onFireGun();
+    addWaveScore(50);
   };
 
-  const FirePressOut = () => {
-    if (!firingGun && running && !burstFireTemp) {
-      oneFireShotTimer = setTimeout(() => {
-        soundPlay(soundPlayNames.GamePlay.fireShot);
-        onFireGun();
-        addWaveScore(50);
-      }, 320);
-    }
-    clearInterval(burstFireTimer);
-    burstFireTemp = false
+  const fireDoubleBulletShot = () => {
+    onMultiFireGun(5);
+    addWaveScore(250);
+    soundPlay(soundPlayNames.GamePlay.fireMultiShot);
   };
+
+  const fireLongBulletShot = () => {
+    m_longBackTimer = setTimeout(()=> {
+      soundPlay(soundPlayNames.GamePlay.fireLongShot);
+      onMultiFireGun(3);
+      addWaveScore(150);fireLongBulletShot();
+      }, 1500);
+  };
+
   const gameStart = () => {
     const id = setInterval(() => {
       setGamePlayTime((t) => t - 1);
@@ -380,18 +367,33 @@ function GameEnginePlay({addWaveScore, gameScore, backPage, setFlareToken, addSp
         !running && getSpinListItems.length < 1 ? <GamePlayHeader backPage={backPage}/> : <GameHeaderBar/>
       }
       <GamePlayBottomBar bulletCount={bulletCount} gamePlayTime={gamePlayTime}/>
-      <TouchableOpacity
-        activeOpacity={bulletCount > 1 ? 0.6 : 1}
-        style={{
+      <TouchableWithoutFeedback
+        disabled={!running}
+        onLongPress={()=>{}}
+        onPressIn={()=>fireLongBulletShot()}
+        onPressOut={()=>clearTimeout(m_longBackTimer)}
+        onPress={() => {
+          ++m_fireGunClickCount;
+          if (m_fireGunClickCount === 2) {
+            clearTimeout(m_backTimer);
+            fireDoubleBulletShot();
+            m_fireGunClickCount = 0;
+          } else {
+            m_backTimer = setTimeout(() => {
+              m_fireGunClickCount = 0;
+              fireOneBulletShot();
+            }, 300)
+          }
+        }}>
+        <View style={{
           position: "absolute",
           zIndex: 3,
           right: wp("-2"),
           bottom: wp("-2")
-        }}
-        onPressIn={bulletCount > 0 && gamePlayTime > 0 ? FirePressIn : null}
-        onPressOut={bulletCount > 0 && gamePlayTime > 0 ? FirePressOut : null}>
-        <LocationPulseLoader stopGame={running}/>
-      </TouchableOpacity>
+        }}>
+          <LocationPulseLoader stopGame={running}/>
+        </View>
+      </TouchableWithoutFeedback>
       {
         gamePauseState &&
         <View style={{
