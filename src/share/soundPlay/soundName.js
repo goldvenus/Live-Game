@@ -6,6 +6,6 @@ export const soundPlayNames = {
     getMegaSpin: 'getMegaSpin',
     fireWorks: 'fireWorks',
     tapClickTarget: 'tapClickTarget',
-    countDown: 'countDown'
-  }
+    countDown: 'countDown',
+  },
 };

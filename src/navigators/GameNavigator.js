@@ -1,86 +1,86 @@
-import { createStackNavigator } from "react-navigation";
+import { createStackNavigator } from 'react-navigation';
 
-import GameReady from "../containers/Game/GameReady";
-import GameJoin from "../containers/Game/GameJoin";
-import GameCountDown from "../containers/Game/GameCountDown";
-import GamePlay from "../containers/Game/GamePlay";
-import GameMegaRound from "../containers/Game/page/GameMegaRound";
-import GameNikiRound from "../containers/Game/page/GameNikiRound";
-import MegaSpinWheel from "../containers/Game/page/MegaSpinWheel";
-import FlareSpinWheel from "../containers/Game/page/FlareSpinWheel";
-import NikiQuestion from "../containers/Game/page/NikiQuestion";
-import GetAnswerFlare from "../containers/Game/page/GetAnswerFlare"
+import GameReady from '../containers/Game/GameReady';
+import GameJoin from '../containers/Game/GameJoin';
+import GameCountDown from '../containers/Game/GameCountDown';
+import GamePlay from '../containers/Game/GamePlay';
+import GameMegaRound from '../containers/Game/page/GameMegaRound';
+import GameNikiRound from '../containers/Game/page/GameNikiRound';
+import MegaSpinWheel from '../containers/Game/page/MegaSpinWheel';
+import FlareSpinWheel from '../containers/Game/page/FlareSpinWheel';
+import NikiQuestion from '../containers/Game/page/NikiQuestion';
+import GetAnswerFlare from '../containers/Game/page/GetAnswerFlare';
 
 const GameNavigator = createStackNavigator({
 
   GameJoin: {
     screen: GameJoin,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   GamePlay: {
     screen: GamePlay,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   GameMegaRound: {
     screen: GameMegaRound,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   GameCountDown: {
     screen: GameCountDown,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   NikiQuestion: {
     screen: NikiQuestion,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   GameReady: {
     screen: GameReady,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   GameNikiRound: {
     screen: GameNikiRound,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   FlareSpinWheel: {
     screen: FlareSpinWheel,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   MegaSpinWheel: {
     screen: MegaSpinWheel,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   GetAnswerFlare: {
     screen: GetAnswerFlare,
     navigationOptions: {
-      header: null
-    }
-  }
+      header: null,
+    },
+  },
 
 });
 
 GameNavigator.navigationOptions = ({ navigation }) => {
-  let { routeName } = navigation.state.routes[navigation.state.index];
-  let navigationOptions = {};
+  const { routeName } = navigation.state.routes[navigation.state.index];
+  const navigationOptions = {};
 
-  if (routeName === "GamePlay" || routeName==="GetAnswerFlare") {
+  if (routeName === 'GamePlay' || routeName === 'GetAnswerFlare') {
     navigationOptions.tabBarVisible = false;
   }
 

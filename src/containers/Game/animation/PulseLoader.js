@@ -1,15 +1,16 @@
-import React from "react";
-import { View, Image, Easing } from "react-native";
-import Pulse from "./Pulse";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import AppMocData  from "../../../share/data/MocData";
+import React from 'react';
+import { View, Image, Easing } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
+import Pulse from './Pulse';
+import AppMocData from '../../../share/data/MocData';
 
 export default class LocationPulseLoader extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      circles: []
+      circles: [],
     };
 
     this.counter = 1;
@@ -20,7 +21,7 @@ export default class LocationPulseLoader extends React.Component {
     this.setCircleInterval();
   }
 
-  componentWillUnmount  () {
+  componentWillUnmount() {
     clearInterval(this.setInterval);
   }
 
@@ -37,11 +38,12 @@ export default class LocationPulseLoader extends React.Component {
   render() {
     return (
       <View style={{
-        backgroundColor: "transparent",
-        justifyContent: "center",
-        alignItems: "center"
-      }}>
-        {this.state.circles.map((circle) => (
+        backgroundColor: 'transparent',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+      >
+        {this.state.circles.map(circle => (
           <Pulse
             key={circle}
             {...this.props}
@@ -51,7 +53,7 @@ export default class LocationPulseLoader extends React.Component {
           source={AppMocData.game.gameplay.shot.gun.green}
           style={{
             width: this.props.pulseMaxSize,
-            height: this.props.pulseMaxSize
+            height: this.props.pulseMaxSize,
           }}
         />
       </View>
@@ -63,15 +65,15 @@ export default class LocationPulseLoader extends React.Component {
 LocationPulseLoader.defaultProps = {
   interval: 2000,
   size: 80,
-  pulseMaxSize: wp("30"),
+  pulseMaxSize: wp('30'),
   avatar: undefined,
-  avatarBackgroundColor: "white",
+  avatarBackgroundColor: 'white',
   pressInValue: 0.8,
   pressDuration: 100,
   pressInEasing: Easing.in,
   pressOutEasing: Easing.in,
-  borderColor: "#2EC760",
-  backgroundColor: "#2EC76055",
-  getStyle: undefined
+  borderColor: '#2EC760',
+  backgroundColor: '#2EC76055',
+  getStyle: undefined,
 };
 

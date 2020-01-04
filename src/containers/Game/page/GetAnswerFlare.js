@@ -1,10 +1,10 @@
-import React from "react";
-import { ImageBackground, TouchableOpacity, StyleSheet, Image, Text } from "react-native";
-import AppMocData from "../../../share/data/MocData";
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { connect } from "react-redux";
-import {bindActionCreators} from "redux";
-import {addBulletFlare} from "../../../redux/action/game";
+import React from 'react';
+import { ImageBackground, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
+import AppMocData from '../../../share/data/MocData';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addBulletFlare } from '../../../redux/action/game';
 
 class GetAnswerFlare extends React.Component {
   onBackButtonEvent = () => {
@@ -15,10 +15,12 @@ class GetAnswerFlare extends React.Component {
   };
   render() {
     return (
-      <ImageBackground source={AppMocData.game.page.flareAnswer.background}
-                       style={styles.container}>
+      <ImageBackground
+        source={AppMocData.game.page.flareAnswer.background}
+        style={styles.container}
+      >
         <TouchableOpacity style={styles.getFlareButton} onPress={this.onBackButtonEvent}>
-          <Image source={AppMocData.game.page.flareAnswer.first} style={styles.button}/>
+          <Image source={AppMocData.game.page.flareAnswer.first} style={styles.button} />
           <Text style={styles.flareButtonText}>GET 3 FLARES</Text>
         </TouchableOpacity>
       </ImageBackground>
@@ -28,18 +30,18 @@ class GetAnswerFlare extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-end',
-    position: 'relative'
+    position: 'relative',
   },
   getFlareButton: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: hp('5')
+    marginBottom: hp('5'),
   },
   button: {
     width: wp('50'),
@@ -49,16 +51,14 @@ const styles = StyleSheet.create({
     fontSize: wp('5'),
     fontFamily: 'Antonio-Bold',
     position: 'absolute',
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatch,
-    ...bindActionCreators({
-      addBulletFlare: addBulletFlare
-    }, dispatch)
-  }
-};
+const mapDispatchToProps = dispatch => ({
+  dispatch,
+  ...bindActionCreators({
+    addBulletFlare,
+  }, dispatch),
+});
 export default connect(null, mapDispatchToProps)(GetAnswerFlare);

@@ -2,30 +2,30 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export const styles = StyleSheet.create({
   megaRoundParent: {
     flex: 1,
-    backgroundColor: "#181818"
+    backgroundColor: '#181818',
   },
   topSection: {
     flex: 1,
-    height: hp('30')
+    height: hp('30'),
   },
   topCirclebgImage: {
     position: 'absolute',
     top: hp('7'),
     width: wp('50'),
     height: wp('50'),
-    right: 0
+    right: 0,
   },
   topCirclebgNikiImage: {
     position: 'absolute',
     top: hp('7'),
     width: wp('60'),
     height: wp('60'),
-    right: wp('-10')
+    right: wp('-10'),
   },
   topMarkImage: {
     width: wp('50'),
@@ -38,14 +38,14 @@ export const styles = StyleSheet.create({
     fontSize: wp('8'),
     color: '#267ADE',
     marginTop: hp('-3'),
-    paddingLeft: wp('10')
+    paddingLeft: wp('10'),
   },
   roundLocktxt: {
     fontFamily: 'Antonio-Bold',
     fontSize: wp('4'),
     paddingTop: hp('1'),
     paddingLeft: wp('10'),
-    color: 'white'
+    color: 'white',
   },
   megaUnlockImage: {
     position: 'absolute',
@@ -69,44 +69,44 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
-    paddingTop: hp('35')
+    paddingTop: hp('35'),
   },
   bottomRoundText: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   roundTitletext: {
     fontSize: wp('4'),
     fontFamily: 'Antonio',
     color: 'white',
     opacity: 0.4,
-    paddingBottom: hp('4')
+    paddingBottom: hp('4'),
   },
   roundTitleBoldtext: {
     fontSize: wp('4'),
     fontFamily: 'Antonio-Bold',
-    color: 'white'
+    color: 'white',
   },
   roundPannel: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   roundImage: {
     width: wp('30'),
     height: wp('30'),
     marginTop: hp('-1'),
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   roundlock: {
     position: 'absolute',
     top: hp('5.7'),
     left: wp('12'),
     width: wp('6'),
-    height: wp('6')
+    height: wp('6'),
   },
   roundImageUnlockView: {
     width: wp('18'),
@@ -115,7 +115,7 @@ export const styles = StyleSheet.create({
     marginRight: wp('6'),
     backgroundColor: '#292929',
     borderRadius: wp('9'),
-    marginTop:hp('3.3')
+    marginTop: hp('3.3'),
   },
   roundlockImage: {
     position: 'absolute',
@@ -123,21 +123,21 @@ export const styles = StyleSheet.create({
     left: wp('6'),
     width: wp('6'),
     height: wp('6'),
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   topTitleNiki: {
     fontFamily: 'Expo-Bold',
     color: 'white',
     marginTop: hp('10'),
     paddingLeft: wp('10'),
-    fontSize: wp('15')
+    fontSize: wp('15'),
   },
   topSTitleNiki: {
     fontFamily: 'Expo-Bold',
     color: '#941228',
     marginTop: wp('-4'),
     paddingLeft: wp('10'),
-    fontSize: wp('10')
+    fontSize: wp('10'),
   },
   header_view: {
     width: wp('100'),
@@ -153,7 +153,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderBottomWidth: 2,
     borderBottomColor: '#ffffff3b',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   header_arrow_btn: {
     width: wp('5'),
@@ -163,27 +163,27 @@ export const styles = StyleSheet.create({
         scaleX: -1,
       },
       {
-        scaleY: 1
-      }
-    ]
+        scaleY: 1,
+      },
+    ],
   },
   header_middle_view: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   game_mark_icon: {
     width: wp('9'),
-    height: wp('9')
+    height: wp('9'),
   },
   game_header_title: {
     color: '#ffffff',
     fontFamily: 'Antonio-Bold',
-    fontSize: wp('4.3')
+    fontSize: wp('4.3'),
   },
   header_user_img: {
     width: wp('7'),
-    height: wp('7')
+    height: wp('7'),
   },
 });

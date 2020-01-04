@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Animated, Easing } from 'react-native';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export default class Pulse extends React.Component {
   constructor(props) {
@@ -13,38 +13,41 @@ export default class Pulse extends React.Component {
     Animated.timing(this.anim, {
       toValue: 1,
       duration: this.props.interval,
-      easing: Easing.in
+      easing: Easing.in,
     })
       .start();
   }
 
   render() {
-    const { size, pulseMaxSize, borderColor, backgroundColor, getStyle } = this.props;
+    const {
+      size, pulseMaxSize, borderColor, backgroundColor, getStyle,
+    } = this.props;
 
     return (
       <View style={[styles.circleWrapper, {
         width: pulseMaxSize,
         height: pulseMaxSize,
-        marginLeft: -pulseMaxSize*1.6,
+        marginLeft: -pulseMaxSize * 1.6,
         marginTop: -hp('48.9'),
-      }]}>
+      }]}
+      >
         <Animated.View
           style={[styles.circle, {
             borderColor,
             backgroundColor,
             width: this.anim.interpolate({
               inputRange: [0, 1],
-              outputRange: [size, pulseMaxSize]
+              outputRange: [size, pulseMaxSize],
             }),
             height: this.anim.interpolate({
               inputRange: [0, 1],
-              outputRange: [size, pulseMaxSize]
+              outputRange: [size, pulseMaxSize],
             }),
-            borderRadius: pulseMaxSize/2,
+            borderRadius: pulseMaxSize / 2,
             opacity: this.anim.interpolate({
               inputRange: [0, 1],
-              outputRange: [1, 0]
-            })
+              outputRange: [1, 0],
+            }),
           }, getStyle && getStyle(this.anim)]}
         />
       </View>

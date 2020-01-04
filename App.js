@@ -1,20 +1,23 @@
-import React, { Component } from "react";
-import { StatusBar } from "react-native";
-import { Provider } from "react-redux";
-import * as Font from "expo-font";
-import { AppNavigator } from "./src/navigators/AppNavigator";
-import store from "./src/redux/store";
+import React, { Component } from 'react';
+import { StatusBar } from 'react-native';
+import { Provider } from 'react-redux';
+import * as Font from 'expo-font';
 import { Asset } from 'expo-asset';
-import AppLoading from "expo/build/launch/AppLoading";
-import AppMocData from './src/share/data/MocData'
+import AppLoading from 'expo/build/launch/AppLoading';
+
+import AppMocData from './src/share/data/MocData';
+import store from './src/redux/store';
+import { AppNavigator } from './src/navigators/AppNavigator';
+
 class App extends Component {
   state = {
     isLoadingComplete: false,
   };
   imageArray = [];
+
   loadAppMocDataUrl(obj) {
-    for (let key in obj) {
-      if (typeof obj[key] === "object") {
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
         this.loadAppMocDataUrl(obj[key]);
       } else {
         this.imageArray.push(obj[key]);
@@ -23,18 +26,18 @@ class App extends Component {
   }
 
   _loadResourcesAsync = async () => {
-    this.loadAppMocDataUrl(AppMocData)
+    this.loadAppMocDataUrl(AppMocData);
     return Promise.all([
       Asset.loadAsync(this.imageArray),
       Font.loadAsync({
         'Antonio': require('./assets/fonts/Antonio-Light.ttf'),
         'Antonio-Bold': require('./assets/fonts/Antonio-Bold.ttf'),
-        'Expo-Bold': require('./assets/fonts/exo-2-bold.ttf')
+        'Expo-Bold': require('./assets/fonts/exo-2-bold.ttf'),
       }),
     ]);
   };
 
-  _handleLoadingError = error => {
+  _handleLoadingError = (error) => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
   };
@@ -55,8 +58,8 @@ class App extends Component {
     } else {
       return (
         <Provider store={store}>
-          <StatusBar hidden/>
-          <AppNavigator/>
+          <StatusBar hidden />
+          <AppNavigator />
         </Provider>
       );
     }
