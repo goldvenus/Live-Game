@@ -1,34 +1,40 @@
-import { Image, View } from "react-native";
-import React from "react";
+import { Image, View } from 'react-native';
+import React from 'react';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
-  from "react-native-responsive-screen";
-import AppMocData from "../../../share/data/MocData";
+  from 'react-native-responsive-screen';
 
-const FireBullet = ({ angle }) => {
-  return (
-    <View style={{
-      display: "flex",
-      justifyContent: "center",
-      height: hp("10"),
-      flexDirection: "row",
-      marginTop: hp("0"),
-      transform: [{ rotate: -3.14/4 + "rad" }]
-    }}>
-      <Image source={AppMocData.game.gameplay.shot.bullet.bulletShadow.green} style={{
-        marginTop: wp("0"),
-        width: wp("30"),
-        height: wp("50"),
+import AppMocData from '../../../share/data/MocData';
+
+const FireBullet = () => (
+  <View style={{
+    display: 'flex',
+    justifyContent: 'center',
+    height: hp('10'),
+    flexDirection: 'row',
+    marginTop: hp('0'),
+    transform: [{ rotate: `${-3.14 / 4}rad` }],
+  }}
+  >
+    <Image
+      source={AppMocData.game.gameplay.shot.bullet.bulletShadow.green}
+      style={{
+        marginTop: wp('0'),
+        width: wp('30'),
+        height: wp('50'),
         opacity: 0.4,
-        position: "absolute",
-        resizeMode: "contain"
-      }}/>
+        position: 'absolute',
+        resizeMode: 'contain',
+      }}
+    />
 
-      <Image source={AppMocData.game.gameplay.shot.bullet.bulletItem.green} style={{
-        width: wp("10"),
-        height: wp("10"),
-      }}/>
-    </View>
-  );
-};
+    <Image
+      source={AppMocData.game.gameplay.shot.bullet.bulletItem.green}
+      style={{
+        width: wp('10'),
+        height: wp('10'),
+      }}
+    />
+  </View>
+);
 
 export default FireBullet;

@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 import {
-  Text
-} from "native-base";
+  Text,
+} from 'native-base';
 import {
   Image,
-  View
-} from "react-native";
-import { styles } from "../styles";
-import AppMocData from "../../../share/data/MocData";
+  View,
+} from 'react-native';
+import { styles } from '../styles';
+import AppMocData from '../../../share/data/MocData';
 
 
 const GameHeaderBar = () => (
@@ -19,7 +19,8 @@ const GameHeaderBar = () => (
     <View style={styles.header_middle_view}>
       <Image
         style={styles.game_mark_icon}
-        source={AppMocData.bottomBar.gameActive}/>
+        source={AppMocData.bottomBar.gameActive}
+      />
       <Text style={styles.game_header_title}>
         ZENDUJA LIVE
       </Text>

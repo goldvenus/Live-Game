@@ -1,45 +1,45 @@
-import { FlareType } from "./FlareType";
+import { FlareType } from './FlareType';
 
 export const leftSpinList = [
   {
     spinType: FlareType.spinType.ellipse,
-    megaType: FlareType.spinType.mega['niki'],
+    megaType: FlareType.spinType.mega.niki,
     userType: FlareType.spinType.user.user1,
     spinNumber: 0,
-    spinColor: FlareType.spinColor['green'],
+    spinColor: FlareType.spinColor.green,
     shadowColor: FlareType.shadowColor.white,
-    spinSize: FlareType.spinSize['small'],
-    spinTextSize: FlareType.spinTextSize.small
+    spinSize: FlareType.spinSize.small,
+    spinTextSize: FlareType.spinTextSize.small,
   },
   {
     spinType: FlareType.spinType.ellipse,
-    megaType: FlareType.spinType.mega['mega'],
+    megaType: FlareType.spinType.mega.mega,
     userType: FlareType.spinType.user.user1,
     spinNumber: 0,
-    spinColor: FlareType.spinColor['orange'],
+    spinColor: FlareType.spinColor.orange,
     shadowColor: FlareType.shadowColor.white,
-    spinSize: FlareType.spinSize['small'],
-    spinTextSize: FlareType.spinTextSize.small
+    spinSize: FlareType.spinSize.small,
+    spinTextSize: FlareType.spinTextSize.small,
   },
   {
     spinType: FlareType.spinType.ellipse,
-    megaType: FlareType.spinType.mega['apple'],
+    megaType: FlareType.spinType.mega.apple,
     userType: FlareType.spinType.user.user1,
     spinNumber: 0,
-    spinColor: FlareType.spinColor['blue'],
+    spinColor: FlareType.spinColor.blue,
     shadowColor: FlareType.shadowColor.white,
-    spinSize: FlareType.spinSize['small'],
-    spinTextSize: FlareType.spinTextSize.small
+    spinSize: FlareType.spinSize.small,
+    spinTextSize: FlareType.spinTextSize.small,
   },
   {
     spinType: FlareType.spinType.ellipse,
-    megaType: FlareType.spinType.mega['lock'],
+    megaType: FlareType.spinType.mega.lock,
     userType: FlareType.spinType.user.user1,
     spinNumber: 0,
-    spinColor: FlareType.spinColor['purple'],
+    spinColor: FlareType.spinColor.purple,
     shadowColor: FlareType.shadowColor.white,
-    spinSize: FlareType.spinSize['small'],
-    spinTextSize: FlareType.spinTextSize.small
+    spinSize: FlareType.spinSize.small,
+    spinTextSize: FlareType.spinTextSize.small,
   },
   {
     spinType: FlareType.spinType.survey,
@@ -48,7 +48,7 @@ export const leftSpinList = [
     spinNumber: 0,
     spinColor: FlareType.surveyType.surveyFirst,
     shadowColor: FlareType.shadowColor.white,
-    spinSize: FlareType.spinSize['small'],
-    spinTextSize: FlareType.spinTextSize.small
-  }
+    spinSize: FlareType.spinSize.small,
+    spinTextSize: FlareType.spinTextSize.small,
+  },
 ];

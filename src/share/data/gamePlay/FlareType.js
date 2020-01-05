@@ -6,7 +6,7 @@ export const FlareType = {
     survey: 'survey',
     mega: {
       lock: 'lock',
-      apple:'apple',
+      apple: 'apple',
       niki: 'niki',
       mega: 'mega',
     },
@@ -19,26 +19,26 @@ export const FlareType = {
       user6: 'image6',
       user7: 'image7',
       user8: 'image8',
-      user9: 'image9'
-    }
+      user9: 'image9',
+    },
   },
   spinColor: {
     green: 'green',
     orange: 'orange',
-    blue:'blue',
+    blue: 'blue',
     purple: 'purple',
     white: 'white',
     amber: 'amber',
     red: 'red',
-    pink: 'pink'
+    pink: 'pink',
   },
   shadowColor: {
-    white: 'white'
+    white: 'white',
   },
   spinSize: {
     small: 23,
     normal: 26,
-    big: 40
+    big: 40,
   },
   spinTextSize: {
     small: 10,
@@ -47,23 +47,23 @@ export const FlareType = {
   },
   profileOrbsColor: {
     green: 'green',
-    blue:'blue',
+    blue: 'blue',
     purple: 'purple',
     pink: 'pink',
-    amber: 'amber'
+    amber: 'amber',
   },
   flareOrbsColor: {
     amber: 'amber',
     orange: 'orange',
     red: 'red',
-    white: 'white'
+    white: 'white',
   },
   surveyType: {
     surveyFirst: 'survey_first',
-    surveySecond: 'survey_second'
+    surveySecond: 'survey_second',
   },
   flag: {
     jap: 'JAP',
-    us: 'USA'
-  }
+    us: 'USA',
+  },
 };

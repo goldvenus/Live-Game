@@ -1,13 +1,13 @@
-import React from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
-import AppMocData from "../../../share/data/MocData";
-import { styles } from "./styles";
-import RoundPannel from "./RoundPannel";
+import React from 'react';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import AppMocData from '../../../share/data/MocData';
+import { styles } from './styles';
+import RoundPannel from './RoundPannel';
 
-function GameMegaRound({megaSpinCount, navigation, getSpinListItems}) {
-  let gameRoundState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-  let j = megaSpinCount > 9 ? 9 : megaSpinCount;
+function GameMegaRound({ megaSpinCount, navigation, getSpinListItems }) {
+  const gameRoundState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  const j = megaSpinCount > 9 ? 9 : megaSpinCount;
   if (megaSpinCount === 9) {
     // setTimeout(() => {
     //   navigation.navigate("NikiQuestion");
@@ -16,26 +16,27 @@ function GameMegaRound({megaSpinCount, navigation, getSpinListItems}) {
   for (let i = 0; i < j; i++) {
     gameRoundState[i] = 1;
   }
-  const resumeGame = ()=> {
+  const resumeGame = () => {
     navigation.goBack(null);
   };
   return (
     <View style={styles.megaRoundParent}>
       <View style={styles.header_view}>
-      {
-        getSpinListItems.length>0 ?
-        <TouchableOpacity onPress={()=>resumeGame()}>
-          <Image
-            style={styles.header_arrow_btn}
-            source={AppMocData.public.close}
-          />
-        </TouchableOpacity>: <View/>
-      }
+        {
+          getSpinListItems.length > 0 ?
+            <TouchableOpacity onPress={() => resumeGame()}>
+              <Image
+                style={styles.header_arrow_btn}
+                source={AppMocData.public.close}
+              />
+            </TouchableOpacity> : <View />
+        }
 
         <View style={styles.header_middle_view}>
           <Image
             style={styles.game_mark_icon}
-            source={AppMocData.bottomBar.gameActive}/>
+            source={AppMocData.bottomBar.gameActive}
+          />
           <Text style={styles.game_header_title}>
             ZENDUJA LIVE
           </Text>
@@ -46,12 +47,18 @@ function GameMegaRound({megaSpinCount, navigation, getSpinListItems}) {
         />
       </View>
       <View style={styles.topSection}>
-        <Image source={AppMocData.game.page.mega.megaTopMark}
-               style={styles.topMarkImage}/>
-        <Image source={AppMocData.game.page.mega.megaBig}
-               style={styles.megaUnlockImage}/>
-        <Image source={AppMocData.game.page.roundBgRed}
-               style={styles.topCirclebgImage}/>
+        <Image
+          source={AppMocData.game.page.mega.megaTopMark}
+          style={styles.topMarkImage}
+        />
+        <Image
+          source={AppMocData.game.page.mega.megaBig}
+          style={styles.megaUnlockImage}
+        />
+        <Image
+          source={AppMocData.game.page.roundBgRed}
+          style={styles.topCirclebgImage}
+        />
         <Text style={styles.topSectionTitle}>BLUZAG</Text>
         <Text style={styles.roundLocktxt}>49 / 1000 LEFT</Text>
       </View>
@@ -61,17 +68,15 @@ function GameMegaRound({megaSpinCount, navigation, getSpinListItems}) {
           <Text style={styles.roundTitleBoldtext}>9 BADGES</Text>
           <Text style={styles.roundTitletext}> TO REDEEM YOUR PRIZE!</Text>
         </View>
-        <RoundPannel roundState={gameRoundState} type="mega"/>
+        <RoundPannel roundState={gameRoundState} type="mega" />
       </View>
     </View>
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    megaSpinCount: state.game.score.lockSpin,
-    getSpinListItems: state.game.getSpinListItems
-  };
-};
+const mapStateToProps = state => ({
+  megaSpinCount: state.game.score.lockSpin,
+  getSpinListItems: state.game.getSpinListItems,
+});
 
 export default connect(mapStateToProps, null)(GameMegaRound);

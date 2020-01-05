@@ -12,6 +12,7 @@
 /.next
 /.expo
 /.idea
+/.expo-shared
 
 # misc
 .DS_Store
