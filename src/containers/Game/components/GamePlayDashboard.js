@@ -9,8 +9,8 @@ import {
 import { connect } from 'react-redux';
 
 import { styles } from '../styles';
-import AppMocData from '../../../share/data/MocData';
-import { convertNumberWithCommas } from '../../../share/engine';
+import AppMocData from '@share/data/MocData';
+import { convertNumberWithCommas } from '@share/engine';
 
 class GamePlayDashboard extends React.Component {
   shouldComponentUpdate(nextProps) {

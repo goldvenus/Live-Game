@@ -8,7 +8,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import LocationPulseLoader from '../animation/PulseLoader';
 import GameDashBoard from '../components/GamePlayDashboard';
 import GamePlayBottomBar from '../components/GamePlayBottomBar';
-import { getspinArray } from '../../../share/data/gamePlay/FlareArray';
+import { getspinArray } from '@share/data/gamePlay/FlareArray';
 import { GetFlareBox } from '../animation/GetFlareAnimation';
 import { NewSpinShow, NewFire } from './systems';
 
@@ -19,16 +19,16 @@ import {
   resetAnimation,
   addWaveScore,
   addPassScore, setFlareToken,
-} from '../../../redux/action/game';
-import { ADD_APPLE_SPIN, ADD_LOCK_SPIN, ADD_MEGA_SPIN, ADD_NIKE_SPIN } from '../../../redux/action/type';
+} from '@redux/action/game';
+import { ADD_APPLE_SPIN, ADD_LOCK_SPIN, ADD_MEGA_SPIN, ADD_NIKE_SPIN } from '@redux/action/type';
 import GetBubbleLeftScreen from '../components/GetBubbleLeftScreen';
-import { leftSpinList } from '../../../share/data/gamePlay/LeftFlareData';
+import { leftSpinList } from '@share/data/gamePlay/LeftFlareData';
 import GameHeaderBar from '../components/GameHeaderBar';
 import GamePlayHeader from '../components/GamePlayHeader';
-import { randomNumber } from '../../../share/engine';
-import { soundPlay } from '../../../share/soundPlay';
-import { soundPlayNames } from '../../../share/soundPlay/soundName';
-import { FlareType } from '../../../share/data/gamePlay/FlareType';
+import { randomNumber } from '@share/engine';
+import { soundPlay } from '@share/soundPlay';
+import { soundPlayNames } from '@share/soundPlay/soundName';
+import { FlareType } from '@share/data/gamePlay/FlareType';
 import GameEnginePure from './GameEnginePure';
 
 Matter.Common.isElement = () => false; // -- Overriding this function because the original references HTMLElement

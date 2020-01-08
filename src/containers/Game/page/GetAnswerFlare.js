@@ -1,10 +1,10 @@
 import React from 'react';
 import { ImageBackground, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
-import AppMocData from '../../../share/data/MocData';
+import AppMocData from '@share/data/MocData';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addBulletFlare } from '../../../redux/action/game';
+import { addBulletFlare } from '@redux/action/game';
 
 class GetAnswerFlare extends React.Component {
   onBackButtonEvent = () => {

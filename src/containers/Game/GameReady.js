@@ -23,10 +23,10 @@ import { styles, ReadyStyles, GameGlobal } from './styles';
 import GameHeaderBar from './components/GameHeaderBar';
 import LightningEffect from './animation/LightningEffect';
 import CreateUserImage from './components/CreateUserImage';
-import AppMocData from '../../share/data/MocData';
-import { soundPlay } from '../../share/soundPlay';
-import { soundPlayNames } from '../../share/soundPlay/soundName';
-import { userListData } from '../../share/data/gamePlay/UserListData';
+import AppMocData from '@share/data/MocData';
+import { soundPlay } from '@share/soundPlay';
+import { soundPlayNames } from '@share/soundPlay/soundName';
+import { userListData } from '@share/data/gamePlay/UserListData';
 
 class GameReady extends React.Component {
   constructor(props) {

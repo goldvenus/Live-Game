@@ -3,7 +3,7 @@ import React from 'react';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from 'react-native-responsive-screen';
 
-import AppMocData from '../../../share/data/MocData';
+import AppMocData from '@share/data/MocData';
 
 const FireBullet = () => (
   <View style={{

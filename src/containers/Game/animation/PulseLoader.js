@@ -3,7 +3,7 @@ import { View, Image, Easing } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import Pulse from './Pulse';
-import AppMocData from '../../../share/data/MocData';
+import AppMocData from '@share/data/MocData';
 
 export default class LocationPulseLoader extends React.Component {
   constructor(props) {

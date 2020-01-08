@@ -14,8 +14,8 @@ import { Audio } from 'expo-av';
 import { styles } from './styles';
 import GameHeaderBar from './components/GameHeaderBar';
 import FlareSpin from './components/FlareSpin';
-import { FlareType } from '../../share/data/gamePlay/FlareType';
-import AppMocData from '../../share/data/MocData';
+import { FlareType } from '@share/data/gamePlay/FlareType';
+import AppMocData from '@share/data/MocData';
 import { handleAndroidBackButton, removeAndroidBackButtonHandler } from '../../services/BackPress';
 
 class GameCountDown extends React.Component {

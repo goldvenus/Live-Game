@@ -2,7 +2,7 @@
 import Matter from 'matter-js';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from 'react-native-responsive-screen';
-import { FlareType } from '../../../share/data/gamePlay/FlareType';
+import { FlareType } from '@share/data/gamePlay/FlareType';
 import { Box, Bullet } from './renderers';
 
 let boxIds = 0;

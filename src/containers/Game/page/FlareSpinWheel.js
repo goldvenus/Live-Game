@@ -14,13 +14,13 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { connect } from 'react-redux';
 
 import Svg, { Path, G, Image, Line } from 'react-native-svg';
-import AppMocData from '../../../share/data/MocData';
+import AppMocData from '@share/data/MocData';
 import GameHeaderBar from '../components/GameHeaderBar';
 import { bindActionCreators } from 'redux';
-import { setFlareToken } from '../../../redux/action/game';
+import { setFlareToken } from '@redux/action/game';
 import Modal from 'react-native-modal';
 import { handleAndroidBackButton, removeAndroidBackButtonHandler } from '../../../services/BackPress';
-import { randomNumber } from '../../../share/engine';
+import { randomNumber } from '@share/engine';
 
 const width = wp('100');
 const numberOfSegments = 10;

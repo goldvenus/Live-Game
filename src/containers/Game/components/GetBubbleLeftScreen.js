@@ -6,7 +6,7 @@ import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { removeSpinList } from '../../../redux/action/game';
+import { removeSpinList } from '@redux/action/game';
 import FlareSpin from './FlareSpin';
 
 class GetBubbleLeftScreen extends React.Component {

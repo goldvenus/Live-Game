@@ -13,13 +13,13 @@ import * as d3Shape from 'd3-shape';
 import color from 'randomcolor';
 import { snap } from '@popmotion/popcorn';
 import Svg, { Path, G, Image } from 'react-native-svg';
-import AppMocData from '../../../share/data/MocData';
+import AppMocData from '@share/data/MocData';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import GameHeaderBar from '../components/GameHeaderBar';
-import { addSpin } from '../../../redux/action/game';
+import { addSpin } from '@redux/action/game';
 import Modal from 'react-native-modal';
-import { REDUCE_MEGA_SPIN } from '../../../redux/action/type';
-import { randomNumber } from '../../../share/engine';
+import { REDUCE_MEGA_SPIN } from '@redux/action/type';
+import { randomNumber } from '@share/engine';
 
 const width = wp('100');
 const numberOfSegments = 8;

@@ -4,8 +4,8 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from 'react-native-responsive-screen';
 import { Text } from 'native-base';
 
-import AppMocData from '../../../share/data/MocData';
-import { FlareType } from '../../../share/data/gamePlay/FlareType';
+import AppMocData from '@share/data/MocData';
+import { FlareType } from '@share/data/gamePlay/FlareType';
 
 function GetFlareBox({
   size, body, spinInfoData, mark,

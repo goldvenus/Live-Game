@@ -19,8 +19,8 @@ import {
   handleAndroidBackButton,
   removeAndroidBackButtonHandler,
 } from '../../services/BackPress';
-import AppMocData from '../../share/data/MocData';
-import { soundEffectInit } from '../../share/soundPlay';
+import AppMocData from '@share/data/MocData';
+import { soundEffectInit } from '@share/soundPlay';
 
 
 function GameJoin({

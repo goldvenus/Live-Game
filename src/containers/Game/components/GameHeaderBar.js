@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import { styles } from '../styles';
-import AppMocData from '../../../share/data/MocData';
+import AppMocData from '@share/data/MocData';
 
 
 const GameHeaderBar = () => (

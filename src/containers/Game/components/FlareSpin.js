@@ -3,8 +3,8 @@ import { Image, View } from 'react-native';
 import React from 'react';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from 'react-native-responsive-screen';
-import AppMocData from '../../../share/data/MocData';
-import { FlareType } from '../../../share/data/gamePlay/FlareType';
+import AppMocData from '@share/data/MocData';
+import { FlareType } from '@share/data/gamePlay/FlareType';
 
 const FlareSpin = ({
   spinInfoData, angle, shadow = true, running = true,

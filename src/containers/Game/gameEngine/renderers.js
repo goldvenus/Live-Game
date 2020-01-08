@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp }
 import { Image } from 'react-native-animatable';
 import FlareSpin from '../components/FlareSpin';
 
-import AppMocData from '../../../share/data/MocData';
+import AppMocData from '@share/data/MocData';
 
 const Box = ({ size, body, spinInfoData }) => {
   const width = size[0];

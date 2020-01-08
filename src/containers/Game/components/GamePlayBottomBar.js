@@ -3,8 +3,8 @@ import { Text } from 'native-base';
 import { Animated, View } from 'react-native';
 import React, { useRef } from 'react';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { soundPlay } from '../../../share/soundPlay';
-import { soundPlayNames } from '../../../share/soundPlay/soundName';
+import { soundPlay } from '@share/soundPlay';
+import { soundPlayNames } from '@share/soundPlay/soundName';
 import { styles } from '../styles';
 
 function GamePlayBottomBar({ bulletCount, gamePlayTime }) {
