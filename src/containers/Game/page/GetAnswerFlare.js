@@ -7,12 +7,21 @@ import { bindActionCreators } from 'redux';
 import { addBulletFlare } from '@redux/action/game';
 
 class GetAnswerFlare extends React.Component {
+  static propTypes = {
+  };
+
+  static defaultTypes = {
+
+  };
+
   onBackButtonEvent = () => {
     // const { params } = this.props.navigation.state;
     // params.getFlare(3);
-    this.props.addBulletFlare(3);
-    this.props.navigation.goBack(null);
+    const { navigation } = this.props;
+    addBulletFlare(3);
+    navigation.goBack(null);
   };
+
   render() {
     return (
       <ImageBackground
@@ -55,7 +64,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   dispatch,
   ...bindActionCreators({
     addBulletFlare,

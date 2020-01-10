@@ -46,9 +46,8 @@ export default class LightningEffect extends React.Component {
   }
 
   render() {
-    const {
-      lightw, lighth, mx, my,
-    } = this.props;
+    const { lightw, lighth, mx, my } = this.props;
+    const { index } = this.state;
     return (
       <Image
         style={{
@@ -60,7 +59,7 @@ export default class LightningEffect extends React.Component {
           left: 0,
           resizeMode: 'contain',
         }}
-        source={this.images[this.state.index]}
+        source={this.images[index]}
       />
     );
   }
