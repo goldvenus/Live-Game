@@ -36,9 +36,9 @@
 
 After cloning this repo, you will need to install the dependencies:
 
-1. `npm install -g expo-cli`
+1. `npm install -g expo-cli@3.2.3`
 2. `cd Zenduja`
-3. `npm install`
+3. `yarn`
 
 ## Running the Project
 
