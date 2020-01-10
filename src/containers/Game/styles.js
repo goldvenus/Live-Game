@@ -423,4 +423,3 @@ export const GameGlobal = StyleSheet.create({
     opacity: 0.5,
   },
 });
-

@@ -3,9 +3,15 @@ import {
   Image,
   View,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-class CreateUserImage extends React.Component {
+class CreateUserImage extends React.PureComponent {
+  static propTypes = {
+    userImage: PropTypes.number.isRequired,
+    userFlag: PropTypes.number.isRequired
+  }
+
   render() {
     const { userImage, userFlag } = this.props;
     return (

@@ -21,7 +21,7 @@ class APIClient {
 
         return response;
       })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((responseData) => {
         resolve(responseData);
       })
@@ -31,6 +31,7 @@ class APIClient {
   };
 
   performRequest = (headers, params, authorize, authType = null) => (
+    // eslint-disable-next-line no-async-promise-executor
     new Promise(async (resolve, reject) => {
       const defaultHeaders = {
         Accept: APIConstants.ContentType.JSON,

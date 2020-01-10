@@ -1,3 +1,6 @@
+/* eslint-disable quote-props */
+/* eslint-disable global-require */
+/* eslint-disable no-restricted-syntax */
 import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
@@ -10,9 +13,14 @@ import store from './src/redux/store';
 import { AppNavigator } from './src/navigators/AppNavigator';
 
 class App extends Component {
-  state = {
-    isLoadingComplete: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoadingComplete: false,
+    };
+  }
+
   imageArray = [];
 
   loadAppMocDataUrl(obj) {
@@ -25,7 +33,7 @@ class App extends Component {
     }
   }
 
-  _loadResourcesAsync = async () => {
+  loadResourcesAsync = async () => {
     this.loadAppMocDataUrl(AppMocData);
     return Promise.all([
       Asset.loadAsync(this.imageArray),
@@ -37,12 +45,12 @@ class App extends Component {
     ]);
   };
 
-  _handleLoadingError = (error) => {
+  handleLoadingError = () => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
   };
 
-  _handleFinishLoading = () => {
+  handleFinishLoading = () => {
     this.setState({ isLoadingComplete: true });
   };
 
@@ -50,21 +58,19 @@ class App extends Component {
     if (!this.state.isLoadingComplete) {
       return (
         <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
+          startAsync={this.loadResourcesAsync}
+          onError={this.handleLoadingError}
+          onFinish={this.handleFinishLoading}
         />
       );
-    } else {
-      return (
-        <Provider store={store}>
-          <StatusBar hidden />
-          <AppNavigator />
-        </Provider>
-      );
     }
+    return (
+      <Provider store={store}>
+        <StatusBar hidden />
+        <AppNavigator />
+      </Provider>
+    );
   }
 }
 
 export default App;
-
