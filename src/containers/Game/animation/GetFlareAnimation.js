@@ -2,9 +2,21 @@ import { Image, View, Animated } from 'react-native';
 import React, { useRef } from 'react';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from 'react-native-responsive-screen';
+import PropTypes from 'prop-types';
 import { Text } from 'native-base';
 import AppMocData from '@share/data/MocData';
 import { FlareType } from '@share/data/gamePlay/FlareType';
+
+GetFlareBox.propTypes = {
+  size: PropTypes.array.isRequired,
+  body: PropTypes.object.isRequired,
+  spinInfoData: PropTypes.object.isRequired,
+  mark: PropTypes.number.isRequired
+};
+
+GetFlareBox.defaultProps = {
+
+};
 
 function GetFlareBox(props) {
   const {
@@ -217,5 +229,6 @@ function GetFlareBox(props) {
     </View>
   );
 }
+
 
 export { GetFlareBox };

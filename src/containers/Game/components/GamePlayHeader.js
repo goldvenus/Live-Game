@@ -1,6 +1,7 @@
 import React from 'react';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import PropTypes from 'prop-types';
 
 import AppMocData from '@share/data/MocData';
 import { styles } from '../page/styles';
@@ -46,5 +47,10 @@ function GamePlayHeader({ running, backPage }) {
     </View>
   );
 }
+
+GamePlayHeader.propTypes = {
+  running: PropTypes.bool.isRequired,
+  backPage: PropTypes.func.isRequired
+};
 
 export default GamePlayHeader;
