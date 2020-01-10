@@ -49,8 +49,12 @@ function GamePlayHeader({ running, backPage }) {
 }
 
 GamePlayHeader.propTypes = {
-  running: PropTypes.bool.isRequired,
+  running: PropTypes.bool,
   backPage: PropTypes.func.isRequired
+};
+
+GamePlayHeader.defaultProps = {
+  running: false
 };
 
 export default GamePlayHeader;
