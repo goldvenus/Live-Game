@@ -21,7 +21,7 @@ class APIClient {
 
         return response;
       })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((responseData) => {
         resolve(responseData);
       })

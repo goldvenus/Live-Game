@@ -1,8 +1,27 @@
 import React from 'react';
 import { View, StyleSheet, Animated, Easing } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import PropTypes from 'prop-types';
 
 export default class Pulse extends React.Component {
+  static propTypes = {
+    interval: PropTypes.number,
+    size: PropTypes.number,
+    borderColor: PropTypes.string,
+    pulseMaxSize: PropTypes.number,
+    backgroundColor: PropTypes.string,
+    getStyle: PropTypes.func
+  };
+
+  static defaultProps = {
+    interval: 0,
+    size: 0,
+    borderColor: '',
+    pulseMaxSize: 0,
+    backgroundColor: '',
+    getStyle: (() => null)
+  };
+
   constructor(props) {
     super(props);
 
@@ -10,9 +29,10 @@ export default class Pulse extends React.Component {
   }
 
   componentDidMount() {
+    const { interval } = this.props;
     Animated.timing(this.anim, {
       toValue: 1,
-      duration: this.props.interval,
+      duration: interval,
       easing: Easing.in,
     })
       .start();
