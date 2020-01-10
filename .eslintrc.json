@@ -19,6 +19,7 @@
       "import/order": 0,
       "react/sort-comp": 0,
       "react/destructuring-assignment": 0,
+      "global-require": 0,
       "react/static-property-placement": [
         "error",
         "static public field"

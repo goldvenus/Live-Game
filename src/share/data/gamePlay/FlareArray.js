@@ -3,7 +3,7 @@ import { randomNumber } from '../../engine/index';
 import { userListData } from './UserListData';
 
 const getRandomType = (objectType, range) => Object.keys(objectType)[RandomNumber(range)];
-const RandomNumber = range => Math.floor(Math.random() * 100) % (range);
+const RandomNumber = (range) => Math.floor(Math.random() * 100) % (range);
 
 export const getspinArray = () => [
   {

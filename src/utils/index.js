@@ -52,7 +52,7 @@ const Utils = {
   },
 
   // convert true/false string to bool
-  stringToBool: string => (
+  stringToBool: (string) => (
     string === 'true'
   ),
 
@@ -62,11 +62,11 @@ const Utils = {
       if (supported) {
         Linking.openURL(url);
       }
-    }).catch(error => Utils.showAlertError(error));
+    }).catch((error) => Utils.showAlertError(error));
   },
 
   // resets navigation with the selected route
-  resetNavigationForRoute: route => (
+  resetNavigationForRoute: (route) => (
     StackActions.reset({
       index: 0,
       actions: [
@@ -87,7 +87,7 @@ const Utils = {
   },
 
   // creates a list with a range of numbers starting from 0
-  range: end => [...Array(end)].map((_, index) => index),
+  range: (end) => [...Array(end)].map((_, index) => index),
 
   // creates a list with a range of numbers with start and end values
   rangeFrom: (start, end) => (Array(end - start).fill().map((_, index) => index + start)),

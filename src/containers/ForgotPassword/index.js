@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable global-require */
 import React, { Component } from 'react';
 import {
   Image,
@@ -17,9 +19,12 @@ import {
 import styles from './styles';
 
 class Login extends Component {
-  state = {
-    email: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: ''
+    };
+  }
 
   // navigate to home after request of forgot password
   onForgotPasswordButtonPressed = () => {
@@ -58,7 +63,7 @@ class Login extends Component {
                 placeholder="Email"
                 placeholderTextColor="#afb0d1"
                 autoCapitalize="none"
-                onChangeText={email => this.setState({ email })}
+                onChangeText={(email) => this.setState({ email })}
               />
             </Item>
             <Text style={styles.resetInstructionsText}>

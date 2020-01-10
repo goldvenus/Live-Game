@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable global-require */
 import React, { Component } from 'react';
 import {
   Image,
@@ -17,10 +20,13 @@ import {
 import styles from './styles';
 
 class Login extends Component {
-  state = {
-    username: '',
-    password: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
+  }
 
   // navigate to home after a successful login
   onLoginButtonPressed = () => {
@@ -64,7 +70,7 @@ class Login extends Component {
                 placeholder="Username"
                 placeholderTextColor="#afb0d1"
                 autoCapitalize="none"
-                onChangeText={username => this.setState({ username })}
+                onChangeText={(username) => this.setState({ username })}
               />
             </Item>
             <Item
@@ -76,7 +82,7 @@ class Login extends Component {
                 style={styles.input}
                 placeholder="Password"
                 placeholderTextColor="#afb0d1"
-                onChangeText={password => this.setState({ password })}
+                onChangeText={(password) => this.setState({ password })}
                 secureTextEntry
               />
             </Item>
@@ -104,7 +110,9 @@ class Login extends Component {
 
             {/* Signup Button */}
             <View style={styles.signupContainer}>
-              <Text style={styles.dontHaveAccountText}>Don't have an account?</Text>
+              <Text style={styles.dontHaveAccountText}>
+                Don't have an account?
+              </Text>
               <TouchableOpacity onPress={this.onSignupButtonPressed}>
                 <Text style={styles.signupText}>Sign Up Now.</Text>
               </TouchableOpacity>

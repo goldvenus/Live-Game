@@ -1,11 +1,12 @@
+/* eslint-disable react/prop-types */
 import { connect } from 'react-redux';
-import { createAppContainer, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import {
   reduxifyNavigator,
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
 import { Image } from 'react-native';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp }
+import { widthPercentageToDP as wp }
   from 'react-native-responsive-screen';
 import HomeNavigator from './HomeNavigator';
 import GameNavigator from './GameNavigator';
@@ -25,6 +26,7 @@ const SwitchNavigator = createBottomTabNavigator(
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
+      // eslint-disable-next-line no-unused-vars
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state;
         switch (routeName) {
@@ -39,18 +41,22 @@ const SwitchNavigator = createBottomTabNavigator(
             );
           case 'Game':
             return (
-              !focused ? <Image
-                source={require('../../assets/images/bottom_nav_bar/game-normal.png')}
-                style={{
-                  width: wp('6'), height: wp('6'), marginTop: wp('10'), marginBottom: wp('10'),
-                }}
-              />
-                : <Image
-                  source={require('../../assets/images/bottom_nav_bar/game-active.png')}
+              !focused ? (
+                <Image
+                  source={require('../../assets/images/bottom_nav_bar/game-normal.png')}
                   style={{
-                    width: wp('10'), height: wp('10'), marginTop: wp('10'), marginBottom: wp('10'),
+                    width: wp('6'), height: wp('6'), marginTop: wp('10'), marginBottom: wp('10'),
                   }}
+              />
+              )
+                : (
+                  <Image
+                    source={require('../../assets/images/bottom_nav_bar/game-active.png')}
+                    style={{
+                      width: wp('10'), height: wp('10'), marginTop: wp('10'), marginBottom: wp('10'),
+                    }}
                 />
+                )
             );
           case 'Page2':
             return (
@@ -79,6 +85,15 @@ const SwitchNavigator = createBottomTabNavigator(
                 }}
               />
             );
+          default:
+            return (
+              <Image
+                source={require('../../assets/images/bottom_nav_bar/wavescore.png')}
+                style={{
+                  width: wp('6'), height: wp('6'), marginTop: wp('10'), marginBottom: wp('10'),
+                }}
+              />
+            );
         }
       },
     }),
@@ -100,12 +115,12 @@ const RootNavigator = createAppContainer(SwitchNavigator);
 
 const middleware = createReactNavigationReduxMiddleware(
   'root',
-  state => state.navigation,
+  (state) => state.navigation,
 );
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   state: state.navigation,
 });
 

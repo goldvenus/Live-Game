@@ -1,7 +1,7 @@
 import { FlareType } from './FlareType';
 
 const getRandomType = (objectType, range) => Object.keys(objectType)[RandomNumber(range)];
-const RandomNumber = range => Math.floor(Math.random() * 100) % (range);
+const RandomNumber = (range) => Math.floor(Math.random() * 100) % (range);
 
 export const userListData = [
   {
