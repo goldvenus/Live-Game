@@ -57,7 +57,8 @@ const makeWheel = (count) => {
 
 class FlareSpinWheel extends React.Component {
   static propTypes = {
-    flareSpin: PropTypes.number
+    flareSpin: PropTypes.number,
+    setFlareToken: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -134,8 +135,7 @@ class FlareSpinWheel extends React.Component {
     const { flareSpin } = this.props;
     const wheelSpeed = -2000;
     if (playWheel || flareSpin < 1) { return; }
-
-    setFlareToken(flareSpin - 1);
+    this.props.setFlareToken(flareSpin - 1);
     this.setState({ playWheel: true });
     Animated.decay(this._angle, {
       velocity: wheelSpeed / 1000,
@@ -172,10 +172,10 @@ class FlareSpinWheel extends React.Component {
 
   componentDidMount() {
     const { navigation } = this.props;
-    const { enabled } = this.state;
+
     handleAndroidBackButton(() => { navigation.goBack(null); });
     this._angle.addListener((event) => {
-      if (enabled) {
+      if (this.state.enabled) {
         this.setState({
           enabled: false,
           finished: false,

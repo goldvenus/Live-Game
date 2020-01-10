@@ -23,7 +23,7 @@ const initialState = {
     appleSpin: 0,
   },
   spinToken: {
-    flareSpin: 0,
+    flareSpin: 2,
     megaSpin: 0,
   },
   bulletFlare: 100,

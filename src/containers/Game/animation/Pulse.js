@@ -5,20 +5,15 @@ import PropTypes from 'prop-types';
 
 export default class Pulse extends React.Component {
   static propTypes = {
-    interval: PropTypes.number,
-    size: PropTypes.number,
-    borderColor: PropTypes.string,
-    pulseMaxSize: PropTypes.number,
-    backgroundColor: PropTypes.string,
+    interval: PropTypes.number.isRequired,
+    size: PropTypes.number.isRequired,
+    borderColor: PropTypes.string.isRequired,
+    pulseMaxSize: PropTypes.number.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
     getStyle: PropTypes.func
   };
 
   static defaultProps = {
-    interval: 0,
-    size: 0,
-    borderColor: '',
-    pulseMaxSize: 0,
-    backgroundColor: '',
     getStyle: (() => null)
   };
 

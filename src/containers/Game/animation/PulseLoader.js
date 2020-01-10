@@ -2,7 +2,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/order */
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Easing } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import PropTypes from 'prop-types';
 
@@ -16,7 +16,13 @@ export default class LocationPulseLoader extends React.Component {
     pulseMaxSize: PropTypes.number,
     borderColor: PropTypes.string,
     backgroundColor: PropTypes.string,
-    getStyle: PropTypes.any
+    getStyle: PropTypes.any,
+    avatar: PropTypes.any,
+    avatarBackgroundColor: PropTypes.string,
+    pressInValue: PropTypes.number,
+    pressDuration: PropTypes.number,
+    pressInEasing: PropTypes.any,
+    pressOutEasing: PropTypes.any
   };
 
   static defaultProps = {
@@ -26,6 +32,12 @@ export default class LocationPulseLoader extends React.Component {
     borderColor: '#2EC760',
     backgroundColor: '#2EC76055',
     getStyle: undefined,
+    avatar: undefined,
+    avatarBackgroundColor: 'white',
+    pressInValue: 0.8,
+    pressDuration: 100,
+    pressInEasing: Easing.in,
+    pressOutEasing: Easing.in,
   };
 
   constructor(props) {
@@ -61,7 +73,7 @@ export default class LocationPulseLoader extends React.Component {
 
   render() {
     const { circles } = this.state;
-    const { pulseMaxSize, interval, size, borderColor, backgroundColor, getStyle } = this.props;
+    const { pulseMaxSize } = this.props;
     return (
       <View style={{
         backgroundColor: 'transparent',
@@ -72,11 +84,8 @@ export default class LocationPulseLoader extends React.Component {
         {circles.map((circle) => (
           <Pulse
             key={circle}
-            interval={interval}
-            size={size}
-            borderColor={borderColor}
-            backgroundColor={backgroundColor}
-            getStyle={getStyle}
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...this.props}
           />
         ))}
         <Image

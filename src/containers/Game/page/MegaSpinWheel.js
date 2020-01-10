@@ -53,7 +53,8 @@ const makeWheel = () => {
 
 class MegaSpinWheel extends React.Component {
   static propTypes = {
-    spinToken: PropTypes.number
+    spinToken: PropTypes.number,
+    addSpin: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -92,7 +93,7 @@ class MegaSpinWheel extends React.Component {
     const { playWheel } = this.state;
 
     if (playWheel || spinToken < 1) { return; }
-    addSpin(REDUCE_MEGA_SPIN);
+    this.props.addSpin(REDUCE_MEGA_SPIN);
     this.setState({ playWheel: true });
     const wheelSpeed = -2000;
     Animated.decay(this._angle, {
@@ -125,9 +126,8 @@ class MegaSpinWheel extends React.Component {
   }
 
   componentDidMount() {
-    const { enabled } = this.state;
     this._angle.addListener((event) => {
-      if (enabled) {
+      if (this.state.enabled) {
         this.setState({
           enabled: false,
           finished: false,
