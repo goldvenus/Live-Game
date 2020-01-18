@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import PropTypes from 'prop-types';
 
 import { joinStyles, styles, GameGlobal } from './styles';
 import GameHeaderBar from './components/GameHeaderBar';
@@ -19,13 +20,11 @@ import {
   handleAndroidBackButton,
   removeAndroidBackButtonHandler,
 } from '../../services/BackPress';
-import AppMocData from '../../share/data/MocData';
-import { soundEffectInit } from '../../share/soundPlay';
+import AppMocData from '@share/data/MocData';
+import { soundEffectInit } from '@share/soundPlay';
 
-
-function GameJoin({
-  navigation, spinToken, score, bulletFlare,
-}) {
+function GameJoin(props) {
+  const { spinToken, score, bulletFlare, navigation } = props;
   React.useEffect(() => {
     handleAndroidBackButton(() => false);
     soundEffectInit();
@@ -64,7 +63,6 @@ function GameJoin({
     } else { navigation.navigate('MegaSpinWheel'); }
   };
 
-  const RandomFlare = (Math.random() * 100).toFixed(0);
   const GameJoinTime = Math.floor(Math.random() * 100) % 25;
   let startTime = 9;
   let AMPM = 'PM';
@@ -93,8 +91,7 @@ function GameJoin({
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-            }}
-            >
+            }}>
               <Text style={{
                 fontFamily: 'Antonio-Bold',
                 fontSize: wp('15'),
@@ -102,8 +99,8 @@ function GameJoin({
                 paddingLeft: wp('12'),
                 paddingRight: wp('12'),
                 marginBottom: hp('-1'),
-              }}
-              >{bulletFlare}
+              }}>
+                {bulletFlare}
               </Text>
               <Text style={{
                 fontFamily: 'Antonio',
@@ -111,8 +108,8 @@ function GameJoin({
                 color: 'white',
                 opacity: 0.3,
                 marginTop: hp('-1'),
-              }}
-              >Flares
+              }}>
+                Flares
               </Text>
             </View>
             <View>
@@ -167,8 +164,8 @@ function GameJoin({
                 paddingLeft: wp('1'),
                 fontSize: wp('5'),
                 color: 'white',
-              }}
-              >{startTime + AMPM}
+              }}>
+                {startTime + AMPM}
               </Text>
             </View>
             <TouchableOpacity
@@ -269,7 +266,13 @@ function GameJoin({
   );
 }
 
-const mapStateToProps = state => ({
+GameJoin.propTypes = {
+  spinToken: PropTypes.object.isRequired,
+  score: PropTypes.object.isRequired,
+  bulletFlare: PropTypes.number.isRequired
+};
+
+const mapStateToProps = (state) => ({
   spinToken: state.game.spinToken,
   score: state.game.score,
   bulletFlare: state.game.bulletFlare,

@@ -1,6 +1,6 @@
+/* eslint-disable max-len */
 import AppMocData from '../data/MocData';
 import { Audio } from 'expo-av';
-import React from 'react';
 import { soundPlayNames } from './soundName';
 
 let fireShot;
@@ -52,6 +52,7 @@ export const soundPlay = async (soundName) => {
         break;
       case soundPlayNames.GamePlay.countDown:
         soundObject = countDown;
+        break;
       default:
         break;
     }
@@ -59,6 +60,7 @@ export const soundPlay = async (soundName) => {
   if (soundObject) {
     try {
       await soundObject.replayAsync();
-    } catch (e) {}
+    // eslint-disable-next-line no-console
+    } catch (e) { console.log('soundObject-error', e); }
   }
 };

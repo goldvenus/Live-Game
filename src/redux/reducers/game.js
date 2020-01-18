@@ -1,3 +1,5 @@
+/* eslint-disable radix */
+/* eslint-disable no-case-declarations */
 import {
   ADD_APPLE_SPIN,
   ADD_SPIN_COINS_SCORE, ADD_GET_SPIN_LIST, ADD_LOCK_SPIN,
@@ -47,7 +49,9 @@ const GameReducer = (state = initialState, action) => {
         score: {
           ...state.score,
           waveScore: state.score.waveScore + parseInt(action.payload),
-          playerPassScore: Math.floor((state.score.waveScore + parseInt(action.payload)) / 500),
+          playerPassScore: Math.floor(
+            (state.score.waveScore + parseInt(action.payload)) / 500
+          ),
         },
       };
     case ADD_PASS_SCORE:
@@ -120,10 +124,14 @@ const GameReducer = (state = initialState, action) => {
           return state;
       }
     case ADD_GET_SPIN_LIST:
-      if (state.getSpinListItems.filter(item => item.megaType === action.payload.megaType).length > 0) {
+      if (state.getSpinListItems.filter(
+        (item) => item.megaType === action.payload.megaType
+      ).length > 0) {
         return {
           ...state,
-          leftSpinUpdate: state.getSpinListItems.findIndex(item => item.megaType === action.payload.megaType),
+          leftSpinUpdate: state.getSpinListItems.findIndex(
+            (item) => item.megaType === action.payload.megaType
+          ),
         };
       }
 
@@ -137,7 +145,7 @@ const GameReducer = (state = initialState, action) => {
     case REMOVE_SPIN_LIST:
       return {
         ...state,
-        getSpinListItems: state.getSpinListItems.filter(item => item.megaType !== action.payload),
+        getSpinListItems: state.getSpinListItems.filter((item) => item.megaType !== action.payload),
       };
     case RESET_ANIMATION:
       return {

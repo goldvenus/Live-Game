@@ -2,12 +2,14 @@
 import { Text } from 'native-base';
 import { Animated, View } from 'react-native';
 import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { soundPlay } from '../../../share/soundPlay';
-import { soundPlayNames } from '../../../share/soundPlay/soundName';
+import { soundPlay } from '@share/soundPlay';
+import { soundPlayNames } from '@share/soundPlay/soundName';
 import { styles } from '../styles';
 
-function GamePlayBottomBar({ bulletCount, gamePlayTime }) {
+function GamePlayBottomBar(props) {
+  const { bulletCount, gamePlayTime } = props;
   const min = Math.floor(gamePlayTime / 60);
   const sec = gamePlayTime - 60 * min;
   let gamePlayMin = min;
@@ -65,12 +67,18 @@ function GamePlayBottomBar({ bulletCount, gamePlayTime }) {
             scale: saveScale,
           },
         ],
-      }}
-      >{`${gamePlayMin}:${gamePlaySec}`}
+      }}>
+        {`${gamePlayMin}:${gamePlaySec}`}
       </Animated.Text>
       <Text style={styles.mark_text}>FLARE COUNT:</Text>
       <Text style={styles.game_mark}>{bulletCount >= 0 ? bulletCount : 0}</Text>
     </View>
   );
 }
+
+GamePlayBottomBar.propTypes = {
+  bulletCount: PropTypes.number.isRequired,
+  gamePlayTime: PropTypes.number.isRequired
+};
+
 export default GamePlayBottomBar;

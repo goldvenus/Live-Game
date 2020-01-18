@@ -14,11 +14,19 @@ import { Audio } from 'expo-av';
 import { styles } from './styles';
 import GameHeaderBar from './components/GameHeaderBar';
 import FlareSpin from './components/FlareSpin';
-import { FlareType } from '../../share/data/gamePlay/FlareType';
-import AppMocData from '../../share/data/MocData';
+import { FlareType } from '@share/data/gamePlay/FlareType';
+import AppMocData from '@share/data/MocData';
 import { handleAndroidBackButton, removeAndroidBackButtonHandler } from '../../services/BackPress';
 
 class GameCountDown extends React.Component {
+  static propTypes = {
+
+  };
+
+  static defaultProps = {
+
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -29,13 +37,15 @@ class GameCountDown extends React.Component {
   }
 
   async componentDidMount() {
+    const { navigation } = this.props;
+    const { fadeAnim } = this.state;
     handleAndroidBackButton(() => {
-      this.props.navigation.goBack(null);
+      navigation.goBack(null);
     });
     await this.countDownSound();
     Animated.timing(
       // Uses easing functions
-      this.state.fadeAnim,
+      fadeAnim,
       {
         toValue: 1,
         duration: 2000,
@@ -50,6 +60,7 @@ class GameCountDown extends React.Component {
     try {
       await this.soundObject.loadAsync(AppMocData.sound.countdownSound);
       await this.soundObject.playAsync();
+      return true;
     } catch (error) { return false; }
   }
 
@@ -57,25 +68,22 @@ class GameCountDown extends React.Component {
     removeAndroidBackButtonHandler();
     try {
       await this.soundObject.stopAsync();
-    } catch (e) {
-
-    }
+    // eslint-disable-next-line no-console
+    } catch (e) { console.log(e); }
     clearInterval(this.clockCountDown);
-    // this.props.navigation.goBack(null);
-    // if(this.playbackObject.isPlaying) {
-    //   this.playbackObject.stopAsync();
-    // }
   }
 
   decrementClock = () => {
-    if (this.state.downTime < 1) {
+    const { navigation } = this.props;
+    const { downTime } = this.state;
+    if (downTime < 1) {
       clearInterval(this.clockCountDown);
-      // this.props.navigation.goBack(null);
-      this.props.navigation.replace('GamePlay');
-    } else { this.setState(prevstate => ({ downTime: prevstate.downTime - 1 })); }
+      navigation.replace('GamePlay');
+    } else { this.setState((prevState) => ({ downTime: prevState.downTime - 1 })); }
   };
 
   render() {
+    const { downTime, fadeAnim } = this.state;
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.content}>
@@ -104,9 +112,10 @@ class GameCountDown extends React.Component {
             />
           </View>
           {
-            this.state.downTime < 10 &&
+            downTime < 10
+            && (
             <Animated.Text style={{
-              opacity: this.state.fadeAnim,
+              opacity: fadeAnim,
               position: 'absolute',
               display: 'flex',
               top: hp('50'),
@@ -118,9 +127,10 @@ class GameCountDown extends React.Component {
               fontSize: wp('18'),
               color: 'white',
               fontFamily: 'Antonio-Bold',
-            }}
-            >{this.state.downTime + 1}
+            }}>
+              {downTime + 1}
             </Animated.Text>
+            )
           }
           <View style={{
             display: 'flex',
@@ -136,15 +146,15 @@ class GameCountDown extends React.Component {
               opacity: 0.4,
               paddingRight: wp('1'),
               fontFamily: 'Antonio',
-            }}
-            >FLARE SCORES
+            }}>
+              FLARE SCORES
             </Text>
             <Text style={{
               fontSize: wp('8'),
               color: 'white',
               fontFamily: 'Antonio-Bold',
-            }}
-            >50 POINTS
+            }}>
+              50 POINTS
             </Text>
           </View>
         </Content>

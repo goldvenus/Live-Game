@@ -1,13 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import GameHeaderBar from '../components/GameHeaderBar';
-import AppMocData from '../../../share/data/MocData';
+import AppMocData from '@share/data/MocData';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 class NikiQuestion extends React.Component {
   getFlare = () => {
-    this.props.navigation.replace('GetAnswerFlare');
+    const { navigation } = this.props;
+    navigation.replace('GetAnswerFlare');
   };
+
   render() {
     return (
       <View style={styles.container}>
@@ -22,10 +24,14 @@ class NikiQuestion extends React.Component {
         </View>
         <View style={styles.flaresSection}>
           {
-            Object.keys(AppMocData.game.page.nikiQuestion).map((image, index) =>
-              (<TouchableOpacity key={index} onPress={() => this.getFlare()}>
-                <Image source={AppMocData.game.page.nikiQuestion[image]} style={styles.nikiAppMocData} />
-               </TouchableOpacity>))
+            Object.keys(AppMocData.game.page.nikiQuestion).map((image, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <TouchableOpacity key={index} onPress={() => this.getFlare()}>
+                <Image
+                  source={AppMocData.game.page.nikiQuestion[image]}
+                  style={styles.nikiAppMocData} />
+              </TouchableOpacity>
+            ))
           }
         </View>
         <View style={styles.bottomSection}>

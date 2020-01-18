@@ -7,7 +7,7 @@ const APIUtils = {
   convertQueryString: (queryParams = {}) => {
     const esc = encodeURIComponent;
     const query = Object.keys(queryParams)
-      .map(key => `${esc(key)}=${esc(queryParams[key])}`)
+      .map((key) => `${esc(key)}=${esc(queryParams[key])}`)
       .join('&');
 
     return query ? `?${query}` : '';

@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable global-require */
 import React, { Component } from 'react';
 import {
   Image,
@@ -18,11 +20,14 @@ import styles from './styles';
 
 
 class Signup extends Component {
-  state = {
-    username: '',
-    password: '',
-    confirmPassword: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      confirmPassword: '',
+    };
+  }
 
   // navigate to login screen after a successful signup
   onSignupButtonPressed = () => {
@@ -61,7 +66,7 @@ class Signup extends Component {
                 placeholder="Username"
                 placeholderTextColor="#afb0d1"
                 autoCapitalize="none"
-                onChangeText={username => this.setState({ username })}
+                onChangeText={(username) => this.setState({ username })}
               />
             </Item>
             <Item
@@ -73,7 +78,7 @@ class Signup extends Component {
                 style={styles.input}
                 placeholder="Password"
                 placeholderTextColor="#afb0d1"
-                onChangeText={password => this.setState({ password })}
+                onChangeText={(password) => this.setState({ password })}
                 secureTextEntry
               />
             </Item>
@@ -86,7 +91,7 @@ class Signup extends Component {
                 style={styles.input}
                 placeholder="Confirm Password"
                 placeholderTextColor="#afb0d1"
-                onChangeText={confirmPassword => this.setState({ confirmPassword })}
+                onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
                 secureTextEntry
               />
             </Item>

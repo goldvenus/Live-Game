@@ -1,7 +1,20 @@
-module.exports = function(api) {
+module.exports = (api) => {
   api.cache(true);
   return {
     presets: ['babel-preset-expo'],
-    plugins: ['@babel/plugin-proposal-export-namespace-from']
+    plugins: [
+      [
+        'module-resolver',
+        {
+          root: ['.'],
+          alias: {
+            '@screens': './src/containers',
+            '@assets': './assets',
+            '@share': './src/share',
+            '@redux': './src/redux'
+          }
+        }
+      ]
+    ]
   };
 };

@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import AppMocData from '../../../share/data/MocData';
+import AppMocData from '@share/data/MocData';
 import { styles } from './styles';
 import RoundPannel from './RoundPannel';
 
-function GameMegaRound({ megaSpinCount, navigation, getSpinListItems }) {
+function GameMegaRound(props) {
+  const { megaSpinCount, navigation, getSpinListItems } = props;
   const gameRoundState = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   const j = megaSpinCount > 9 ? 9 : megaSpinCount;
   if (megaSpinCount === 9) {
@@ -13,7 +15,7 @@ function GameMegaRound({ megaSpinCount, navigation, getSpinListItems }) {
     //   navigation.navigate("NikiQuestion");
     // }, 1500);
   }
-  for (let i = 0; i < j; i++) {
+  for (let i = 0; i < j; i += 1) {
     gameRoundState[i] = 1;
   }
   const resumeGame = () => {
@@ -23,13 +25,15 @@ function GameMegaRound({ megaSpinCount, navigation, getSpinListItems }) {
     <View style={styles.megaRoundParent}>
       <View style={styles.header_view}>
         {
-          getSpinListItems.length > 0 ?
-            <TouchableOpacity onPress={() => resumeGame()}>
-              <Image
-                style={styles.header_arrow_btn}
-                source={AppMocData.public.close}
-              />
-            </TouchableOpacity> : <View />
+          getSpinListItems.length > 0
+            ? (
+              <TouchableOpacity onPress={() => resumeGame()}>
+                <Image
+                  style={styles.header_arrow_btn}
+                  source={AppMocData.public.close}
+                />
+              </TouchableOpacity>
+            ) : <View />
         }
 
         <View style={styles.header_middle_view}>
@@ -74,7 +78,12 @@ function GameMegaRound({ megaSpinCount, navigation, getSpinListItems }) {
   );
 }
 
-const mapStateToProps = state => ({
+GameMegaRound.propTypes = {
+  megaSpinCount: PropTypes.number.isRequired,
+  getSpinListItems: PropTypes.array.isRequired
+};
+
+const mapStateToProps = (state) => ({
   megaSpinCount: state.game.score.lockSpin,
   getSpinListItems: state.game.getSpinListItems,
 });

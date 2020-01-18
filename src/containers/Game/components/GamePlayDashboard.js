@@ -7,19 +7,25 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
+import PropTyeps from 'prop-types';
 
 import { styles } from '../styles';
-import AppMocData from '../../../share/data/MocData';
-import { convertNumberWithCommas } from '../../../share/engine';
+import AppMocData from '@share/data/MocData';
+import { convertNumberWithCommas } from '@share/engine';
 
 class GamePlayDashboard extends React.Component {
+  static propTypes = {
+    score: PropTyeps.object.isRequired
+  };
+
   shouldComponentUpdate(nextProps) {
     return nextProps.score !== this.props.score;
   }
+
   render() {
     const { score } = this.props;
     let getSpinCoin = 0;
-    for (let i = 0; i <= score.playerPassScore; i++) {
+    for (let i = 0; i <= score.playerPassScore; i += 1) {
       getSpinCoin += i;
       if (i === 12) { break; }
     }
@@ -31,11 +37,15 @@ class GamePlayDashboard extends React.Component {
               style={styles.game_wavescore}
               source={AppMocData.game.icon.waveScore}
             />
-            <Text style={styles.game_wavescore_text}>{convertNumberWithCommas(score.waveScore)}</Text>
+            <Text style={styles.game_wavescore_text}>
+              {convertNumberWithCommas(score.waveScore)}
+            </Text>
           </View>
           <View style={styles.game_play_passed_view}>
             <Text style={styles.game_play_passed_num}>{score.playerPassScore}</Text>
-            <Text style={styles.game_play_passed_title}>PLAYERS {'\n'} PASSED</Text>
+            <Text style={styles.game_play_passed_title}>
+              {`PLAYERS ${'\n'} PASSED`}
+            </Text>
           </View>
         </View>
         <View style={styles.game_dashboard_bottom_view}>
@@ -47,7 +57,7 @@ class GamePlayDashboard extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   score: state.game.score,
 });
 

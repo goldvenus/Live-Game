@@ -23,10 +23,10 @@ import { styles, ReadyStyles, GameGlobal } from './styles';
 import GameHeaderBar from './components/GameHeaderBar';
 import LightningEffect from './animation/LightningEffect';
 import CreateUserImage from './components/CreateUserImage';
-import AppMocData from '../../share/data/MocData';
-import { soundPlay } from '../../share/soundPlay';
-import { soundPlayNames } from '../../share/soundPlay/soundName';
-import { userListData } from '../../share/data/gamePlay/UserListData';
+import AppMocData from '@share/data/MocData';
+import { soundPlay } from '@share/soundPlay';
+import { soundPlayNames } from '@share/soundPlay/soundName';
+import { userListData } from '@share/data/gamePlay/UserListData';
 
 class GameReady extends React.Component {
   constructor(props) {
@@ -38,7 +38,8 @@ class GameReady extends React.Component {
   }
 
   async componentDidMount() {
-    handleAndroidBackButton(() => this.props.navigation.goBack(null));
+    const { navigation } = this.props;
+    handleAndroidBackButton(() => navigation.goBack(null));
     this.clockCountDown = setInterval(() => {
       this.decrementClock();
     }, 1000);
@@ -51,21 +52,24 @@ class GameReady extends React.Component {
   }
 
   decrementClock = () => {
-    if (this.state.downTime < 7 && this.state.downTime > 1) {
+    const { downTime } = this.state;
+    if (downTime < 7 && downTime > 1) {
       soundPlay(soundPlayNames.GamePlay.countDown);
     }
-    if (this.state.downTime < 2) {
+    if (downTime < 2) {
       clearInterval(this.clockCountDown);
-    } else { this.setState(prevstate => ({ downTime: prevstate.downTime - 1 })); }
+    } else { this.setState((prevState) => ({ downTime: prevState.downTime - 1 })); }
   };
 
   backButtonPress() {
+    const { navigation } = this.props;
     clearInterval(this.clockCountDown);
-    this.props.navigation.goBack(null);
+    navigation.goBack(null);
   }
 
   render() {
     const { downTime, unMount } = this.state;
+    const { navigation } = this.props;
     const fadeAnimation = {
       0: {
         opacity: 0,
@@ -98,71 +102,80 @@ class GameReady extends React.Component {
                   fontFamily: 'Antonio-Bold',
                   fontSize: wp('8'),
                   color: 'white',
-                }}
-                >9PM
+                }}>
+                  9PM
                 </Text>
               </View>
             </View>
             {
-              downTime > 5 ? <View style={ReadyStyles.GameReady_CountDown_View}>
-                <View>
-                  <Image
-                    style={ReadyStyles.flare_border}
-                    source={AppMocData.game.lightning.image}
-                  />
-                  <LightningEffect lightw={wp('17')} lighth={hp('28')} mx={wp('-4')} my={hp('0')} unMount={unMount} />
-                </View>
-                <View style={{
-                  width: wp(62),
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                >
-                  <Text style={{
-                    fontFamily: 'Antonio',
-                    fontSize: wp('6'),
-                    color: 'white',
-                    opacity: 0.3,
-                    marginTop: hp('-1'),
-                  }}
-                  >LIVE GAME BEGINS IN
-                  </Text>
-                  <Text style={{
-                    fontFamily: 'Antonio-Bold',
-                    fontSize: wp('15'),
-                    color: 'white',
-                    marginBottom: hp('-1'),
-                  }}
-                  >{`00:${downTime > 9 ? downTime : `0${downTime}`}`}
-                  </Text>
-                </View>
-                <View />
-                <View>
-                  <Image
-                    style={ReadyStyles.flare_border_right}
-                    source={AppMocData.game.lightning.image}
-                    unMount={unMount}
-                  />
-                  <LightningEffect lightw={wp('17')} lighth={hp('28')} mx={wp('-2')} my={hp('0')} />
-                </View>
-                             </View>
-                : <Animatable.View style={ReadyStyles.GameReady_CountDown_View} animation={fadeAnimation}>
-                  <CountdownCircle
-                    seconds={5}
-                    radius={wp('24')}
-                    shadowColor="#303030"
-                    borderWidth={wp('6')}
-                    color="#BF66FB"
-                    updateText={(elapsedSecs, totalSecs) => ((totalSecs - elapsedSecs) === 0 ? (totalSecs + 1 - elapsedSecs).toString() : (totalSecs - elapsedSecs).toString())}
-                    onTimeElapsed={() => setTimeout(() => {
-                      this.props.navigation.replace('GamePlay');
-                    }, 30)}
-                    bgColor="#181818"
-                    textStyle={{ fontSize: wp('15'), color: 'white', fontFamily: 'Antonio-Bold' }}
-                  />
-                </Animatable.View>
+              downTime > 5
+                ? (
+                  <View style={ReadyStyles.GameReady_CountDown_View}>
+                    <View>
+                      <Image
+                        style={ReadyStyles.flare_border}
+                        source={AppMocData.game.lightning.image}
+                      />
+                      <LightningEffect lightw={wp('17')} lighth={hp('28')} mx={wp('-4')} my={hp('0')} unMount={unMount} />
+                    </View>
+                    <View style={{
+                      width: wp(62),
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    >
+                      <Text style={{
+                        fontFamily: 'Antonio',
+                        fontSize: wp('6'),
+                        color: 'white',
+                        opacity: 0.3,
+                        marginTop: hp('-1'),
+                      }}>
+                        LIVE GAME BEGINS IN
+                      </Text>
+                      <Text style={{
+                        fontFamily: 'Antonio-Bold',
+                        fontSize: wp('15'),
+                        color: 'white',
+                        marginBottom: hp('-1'),
+                      }}>
+                        {`00:${downTime > 9 ? downTime : `0${downTime}`}`}
+                      </Text>
+                    </View>
+                    <View />
+                    <View>
+                      <Image
+                        style={ReadyStyles.flare_border_right}
+                        source={AppMocData.game.lightning.image}
+                        unMount={unMount}
+                      />
+                      <LightningEffect lightw={wp('17')} lighth={hp('28')} mx={wp('-2')} my={hp('0')} />
+                    </View>
+                  </View>
+                )
+                : (
+                  <Animatable.View
+                    style={ReadyStyles.GameReady_CountDown_View}
+                    animation={fadeAnimation}>
+                    <CountdownCircle
+                      seconds={5}
+                      radius={wp('24')}
+                      shadowColor="#303030"
+                      borderWidth={wp('6')}
+                      color="#BF66FB"
+                      updateText={(elapsedSecs, totalSecs) => ((totalSecs - elapsedSecs) === 0
+                        ? (totalSecs + 1 - elapsedSecs).toString()
+                        : (totalSecs - elapsedSecs).toString())}
+                      onTimeElapsed={() => setTimeout(() => {
+                        navigation.replace('GamePlay');
+                      }, 30)}
+                      bgColor="#181818"
+                      textStyle={{ fontSize: wp('15'), color: 'white', fontFamily: 'Antonio-Bold' }}
+                    />
+                  </Animatable.View>
+                )
             }
 
             <View style={ReadyStyles.Game_Members_Title}>
@@ -173,7 +186,13 @@ class GameReady extends React.Component {
             <ScrollView horizontal>
               <View style={ReadyStyles.Game_Join_users}>
                 {
-                  userListData.map((item, index) => <CreateUserImage userImage={AppMocData.game.users[item.userImage]} userFlag={AppMocData.game.flag[item.userFlag]} key={index} />)
+                  userListData.map((item, index) => (
+                    <CreateUserImage
+                      userImage={AppMocData.game.users[item.userImage]}
+                      userFlag={AppMocData.game.flag[item.userFlag]}
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index} />
+                  ))
                 }
               </View>
             </ScrollView>

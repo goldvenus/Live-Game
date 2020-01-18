@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import {
   StyleSheet,
@@ -5,22 +6,23 @@ import {
   Text as RNText,
   Animated,
   TouchableOpacity,
-  Image as RNImage, Alert,
+  Image as RNImage
 } from 'react-native';
 import * as d3Shape from 'd3-shape';
 import color from 'randomcolor';
 import { snap } from '@popmotion/popcorn';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Svg, { Path, G, Image, Line } from 'react-native-svg';
-import AppMocData from '../../../share/data/MocData';
+import AppMocData from '@share/data/MocData';
 import GameHeaderBar from '../components/GameHeaderBar';
 import { bindActionCreators } from 'redux';
-import { setFlareToken } from '../../../redux/action/game';
+import { setFlareToken } from '@redux/action/game';
 import Modal from 'react-native-modal';
 import { handleAndroidBackButton, removeAndroidBackButtonHandler } from '../../../services/BackPress';
-import { randomNumber } from '../../../share/engine';
+import { randomNumber } from '@share/engine';
 
 const width = wp('100');
 const numberOfSegments = 10;
@@ -36,10 +38,6 @@ const knobFill = color({ hue: 'purple' });
 const makeWheel = (count) => {
   const data = Array.from({ length: count }).fill(1);
   const arcs = d3Shape.pie()(data);
-  const colors = color({
-    luminosity: 'dark',
-    count: numberOfSegments,
-  });
 
   return arcs.map((arc, index) => {
     const instance = d3Shape
@@ -58,17 +56,32 @@ const makeWheel = (count) => {
 };
 
 class FlareSpinWheel extends React.Component {
-  _wheelPaths = makeWheel(numberOfSegments);
-  _wheelLinePaths = makeWheel(numberOfWheelLine);
-  _angle = new Animated.Value(0);
-  angle = 0;
-
-  state = {
-    enabled: true,
-    finished: false,
-    winner: 2,
-    playWheel: false,
+  static propTypes = {
+    flareSpin: PropTypes.number,
+    setFlareToken: PropTypes.func.isRequired
   };
+
+  static defaultProps = {
+    flareSpin: 0
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      enabled: true,
+      finished: false,
+      winner: 2,
+      playWheel: false,
+    };
+  }
+
+  _wheelPaths = makeWheel(numberOfSegments);
+
+  _wheelLinePaths = makeWheel(numberOfWheelLine);
+
+  _angle = new Animated.Value(0);
+
+  angle = 0;
 
   ImageArray = AppMocData.wheel.mega;
 
@@ -115,19 +128,17 @@ class FlareSpinWheel extends React.Component {
     },
   ];
 
-  getRandomDeceleration() {
-    const ppp = 0.999 + randomNumber(60, 70) / 100000;
-    return ppp;
-  }
+  getRandomDeceleration = () => (0.999 + (randomNumber(60, 70) / 100000));
 
   goWheel() {
-    const m_speed = -2000;
-    if (this.state.playWheel || this.props.flareSpin < 1) { return; }
-    const { setFlareToken, flareSpin } = this.props;
-    setFlareToken(flareSpin - 1);
+    const { playWheel } = this.state;
+    const { flareSpin } = this.props;
+    const wheelSpeed = -2000;
+    if (playWheel || flareSpin < 1) { return; }
+    this.props.setFlareToken(flareSpin - 1);
     this.setState({ playWheel: true });
     Animated.decay(this._angle, {
-      velocity: m_speed / 1000,
+      velocity: wheelSpeed / 1000,
       deceleration: this.getRandomDeceleration(), // 0.999 ~ 0.9999 Random
       useNativeDriver: true,
     }).start(() => {
@@ -149,15 +160,20 @@ class FlareSpinWheel extends React.Component {
       // do something here;
     });
   }
+
   closeDialog = () => {
     this.setState({ finished: false });
   };
+
   backButtonPress() {
-    this.props.navigation.goBack(null);
+    const { navigation } = this.props;
+    navigation.goBack(null);
   }
 
   componentDidMount() {
-    handleAndroidBackButton(() => { this.props.navigation.goBack(null); });
+    const { navigation } = this.props;
+
+    handleAndroidBackButton(() => { navigation.goBack(null); });
     this._angle.addListener((event) => {
       if (this.state.enabled) {
         this.setState({
@@ -179,7 +195,8 @@ class FlareSpinWheel extends React.Component {
   };
 
   render() {
-    const { winner } = this.state;
+    const { winner, finished } = this.state;
+    const { flareSpin } = this.props;
     return (
       <View
         style={styles.container}
@@ -187,7 +204,7 @@ class FlareSpinWheel extends React.Component {
         <GameHeaderBar />
         <View style={styles.headerTitleSection}>
           <RNText style={styles.headerTopTitle}>FLARE SPINS:</RNText>
-          <RNText style={styles.headerTopCount}>{this.props.flareSpin}</RNText>
+          <RNText style={styles.headerTopCount}>{flareSpin}</RNText>
         </View>
         <View style={styles.wheelContainer}>
           {this._renderSvgWheel()}
@@ -205,7 +222,7 @@ class FlareSpinWheel extends React.Component {
           <RNImage source={AppMocData.game.icon.arrow} style={styles.backButtonImage} />
         </TouchableOpacity>
         <Modal
-          isVisible={this.state.finished}
+          isVisible={finished}
         >
           <View style={{
             width: wp('90'),
@@ -228,33 +245,38 @@ class FlareSpinWheel extends React.Component {
                 fontFamily: 'Antonio-Bold',
                 paddingRight: wp('2'),
                 color: 'white',
-              }}
-              >YOU GOT
+              }}>
+                YOU GOT
               </RNText>
               {
-                (winner === 0 || winner === 2 || winner === 5) ?
-                  <RNImage
-                    source={this.ImageArray[Object.keys(this.ImageArray)[winner]]}
-                    style={{
-                      width: wp('10'),
-                      resizeMode: 'contain',
+                (winner === 0 || winner === 2 || winner === 5)
+                  ? (
+                    <RNImage
+                      source={this.ImageArray[Object.keys(this.ImageArray)[winner]]}
+                      style={{
+                        width: wp('10'),
+                        resizeMode: 'contain',
+                      }}
+                  />
+                  )
+                  : (
+                    <RNText style={{
+                      fontSize: wp('8'),
+                      fontFamily: 'Antonio-Bold',
+                      color: '#f00',
                     }}
-                  /> :
-                  <RNText style={{
-                    fontSize: wp('8'),
-                    fontFamily: 'Antonio-Bold',
-                    color: '#f00',
-                  }}
-                  >{this.WheelData[winner].num}
-                  </RNText>
+                  >
+                      {this.WheelData[winner].num}
+                    </RNText>
+                  )
               }
               <RNText style={{
                 fontSize: wp('7'),
                 fontFamily: 'Antonio-Bold',
                 paddingLeft: wp('2'),
                 color: 'white',
-              }}
-              >SPIN!
+              }}>
+                SPIN!
               </RNText>
             </View>
 
@@ -270,8 +292,8 @@ class FlareSpinWheel extends React.Component {
                 color: '#5C7FFF',
                 fontFamily: 'Antonio-Bold',
                 fontSize: wp('5'),
-              }}
-              >OK
+              }}>
+                OK
               </RNText>
             </TouchableOpacity>
           </View>
@@ -369,20 +391,20 @@ class FlareSpinWheel extends React.Component {
                   const [x, y] = arc.centroid;
                   const removeLine = i % 8;
                   if (removeLine < 2 || removeLine === (7)) { return; }
+                  // eslint-disable-next-line consistent-return
                   return (
+                    // eslint-disable-next-line react/no-array-index-key
                     <G key={`arc-${i}`}>
                       <G
                         rotation={(i * oneTurn) / numberOfWheelLine + angleOffset1}
-                        origin={`${x}, ${y}`}
-                      >
+                        origin={`${x}, ${y}`}>
                         <Line
                           x1={x}
                           y1={y}
                           x2={x}
                           y2={y - wp('3')}
                           stroke="#47494C"
-                          strokeWidth="2"
-                        />
+                          strokeWidth="2" />
                       </G>
                     </G>
                   );
@@ -401,14 +423,12 @@ class FlareSpinWheel extends React.Component {
             {
               this._wheelPaths.map((arc, i) => {
                 const [x, y] = arc.centroid;
-                const number = arc.value.toString();
-
                 return (
+                  // eslint-disable-next-line react/no-array-index-key
                   <G key={`arc-${i}`}>
                     <G
                       rotation={(i * oneTurn) / numberOfSegments + angleOffset}
-                      origin={`${x}, ${y}`}
-                    >
+                      origin={`${x}, ${y}`}>
                       <Image
                         x={x - (i === 2 ? wp('7') : wp('3'))}
                         y={y - wp('6')}
@@ -518,11 +538,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   flareSpin: state.game.spinToken.flareSpin,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   dispatch,
   ...bindActionCreators({
     setFlareToken,

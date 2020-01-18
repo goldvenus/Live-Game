@@ -5,20 +5,30 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp }
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
-import { removeSpinList } from '../../../redux/action/game';
+import { removeSpinList } from '@redux/action/game';
 import FlareSpin from './FlareSpin';
 
 class GetBubbleLeftScreen extends React.Component {
+  static propTypes = {
+    running: PropTypes.bool.isRequired,
+    removeSpinList: PropTypes.func.isRequired,
+    leftSpinUpdate: PropTypes.number.isRequired,
+    getSpinListItems: PropTypes.array.isRequired,
+    backPage: PropTypes.func.isRequired
+  };
+
   shouldComponentUpdate(nextProps) {
-    return nextProps.running !== this.props.running ||
-      nextProps.removeSpinList !== this.props.removeSpinList ||
-      nextProps.leftSpinUpdate !== this.props.leftSpinUpdate ||
-      nextProps.getSpinListItems !== this.props.getSpinListItems;
+    return nextProps.running !== this.props.running
+      || nextProps.removeSpinList !== this.props.removeSpinList
+      || nextProps.leftSpinUpdate !== this.props.leftSpinUpdate
+      || nextProps.getSpinListItems !== this.props.getSpinListItems;
   }
 
   render() {
     const {
+      // eslint-disable-next-line no-shadow
       removeSpinList, getSpinListItems, running, backPage, leftSpinUpdate,
     } = this.props;
     const zoomAnimation = {
@@ -82,34 +92,35 @@ class GetBubbleLeftScreen extends React.Component {
         left: wp('1'),
       }}
       >
-        {getSpinListItems.map((item, index) =>
-          (
-            <Animatable.View
-              style={{
-                opacity: running ? 0.6 : 1,
-                transform: [
-                  { scaleX: 0 },
-                  { scaleY: 0 },
-                ],
-              }}
-              animation={leftSpinUpdate === index ? zoomAnimation : repeatAnimation}
-              key={index}
+        {getSpinListItems.map((item, index) => (
+          <Animatable.View
+            style={{
+              opacity: running ? 0.6 : 1,
+              transform: [
+                { scaleX: 0 },
+                { scaleY: 0 },
+              ],
+            }}
+            animation={leftSpinUpdate === index ? zoomAnimation : repeatAnimation}
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
             >
-              <TouchableOpacity onPress={() => onOpenGetMegaSpinResultPage(item.megaType)}>
-                <FlareSpin spinInfoData={item} angle={0} shadow={false} running={running} />
-              </TouchableOpacity>
-            </Animatable.View>))}
+            <TouchableOpacity onPress={() => onOpenGetMegaSpinResultPage(item.megaType)}>
+              <FlareSpin spinInfoData={item} angle={0} shadow={false} running={running} />
+            </TouchableOpacity>
+          </Animatable.View>
+        ))}
       </View>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   getSpinListItems: state.game.getSpinListItems,
   leftSpinUpdate: state.game.leftSpinUpdate,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   dispatch,
   ...bindActionCreators({
     removeSpinList,

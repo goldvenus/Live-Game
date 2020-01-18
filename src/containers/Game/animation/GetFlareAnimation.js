@@ -2,16 +2,27 @@ import { Image, View, Animated } from 'react-native';
 import React, { useRef } from 'react';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from 'react-native-responsive-screen';
+import PropTypes from 'prop-types';
 import { Text } from 'native-base';
+import AppMocData from '@share/data/MocData';
+import { FlareType } from '@share/data/gamePlay/FlareType';
 
-import AppMocData from '../../../share/data/MocData';
-import { FlareType } from '../../../share/data/gamePlay/FlareType';
+GetFlareBox.propTypes = {
+  size: PropTypes.array.isRequired,
+  body: PropTypes.object.isRequired,
+  spinInfoData: PropTypes.object.isRequired,
+  mark: PropTypes.number.isRequired
+};
 
-function GetFlareBox({
-  size, body, spinInfoData, mark,
-}) {
-  /* User State init */
-  const m_mark = mark;
+GetFlareBox.defaultProps = {
+
+};
+
+function GetFlareBox(props) {
+  const {
+    size, body, spinInfoData, mark
+  } = props;
+  const getScore = mark;
   const rotateValue = new useRef(new Animated.Value(0)).current;
   const saveRotateValue = rotateValue.interpolate({
     inputRange: [0, 0.5],
@@ -24,14 +35,14 @@ function GetFlareBox({
     outputRange: [0, 0, 1],
   });
 
-  const fadeValue_text = new useRef(new Animated.Value(1)).current;
-  const saveOpacity_text = fadeValue.interpolate({
+  const fadeValueText = new useRef(new Animated.Value(1)).current;
+  const saveOpacityText = fadeValue.interpolate({
     inputRange: [0, 1, 1],
     outputRange: [0, 1, 0],
   });
 
-  const transYValue_text = new useRef(new Animated.Value(0)).current;
-  const saveTransY_text = rotateValue.interpolate({
+  const transYValueText = new useRef(new Animated.Value(0)).current;
+  const saveTransYText = rotateValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -150],
   });
@@ -39,21 +50,21 @@ function GetFlareBox({
   React.useEffect(() => {
     fadeValue.setValue(1);
     rotateValue.setValue(0);
-    fadeValue_text.setValue(1);
+    fadeValueText.setValue(1);
     Animated.parallel([
-      Animated.timing(transYValue_text, {
+      Animated.timing(transYValueText, {
         toValue: 1,
         duration: 1500,
         useNativeDriver: true,
       }),
-      Animated.timing(fadeValue_text, {
+      Animated.timing(fadeValueText, {
         toValue: 0,
         duration: 1500,
         useNativeDriver: true,
       }),
     ])
       .start();
-    transYValue_text.setValue(0);
+    transYValueText.setValue(0);
     Animated.parallel([
       Animated.timing(rotateValue, {
         toValue: 1,
@@ -95,10 +106,10 @@ function GetFlareBox({
   let bonusText = '';
   let glowBall = false;
   let survey = false;
-  if (spinInfoData.spinNumber === 0 &&
-    spinInfoData.spinSize === FlareType.spinSize.big &&
-    megaType !== FlareType.spinType.mega.mega &&
-    spinType !== FlareType.spinType.survey) {
+  if (spinInfoData.spinNumber === 0
+    && spinInfoData.spinSize === FlareType.spinSize.big
+    && megaType !== FlareType.spinType.mega.mega
+    && spinType !== FlareType.spinType.survey) {
     glowBall = true;
     flareType = FlareType.spinType.glow;
     switch (spinColor) {
@@ -140,28 +151,27 @@ function GetFlareBox({
     }}
     >
       {
-        (m_mark !== 0 || glowBall) &&
+        (getScore !== 0 || glowBall) && (
         <Animated.Text style={{
           fontFamily: 'Antonio-Bold',
-          // eslint-disable-next-line no-nested-ternary
           fontSize: survey ? wp('5') : glowBall ? wp('5') : wp('5'),
           marginTop: survey ? wp('-10') : glowBall ? wp('-7') : wp('-12'),
           paddingBottom: survey ? wp('5') : wp('5'),
           color: 'white',
           textAlign: 'center',
-          opacity: saveOpacity_text,
+          opacity: saveOpacityText,
           transform: [
             {
-              translateY: saveTransY_text,
+              translateY: saveTransYText,
             },
           ],
-        }}
-        >
-          {glowBall ? bonusText :
-            (m_mark === 1000 ? '50 Points' : m_mark > 1000 ?
-              `50+${m_mark - 1000} Points` : m_mark > 0 ?
-                `${m_mark} Points` : '')}
+        }}>
+          {glowBall ? bonusText
+            : (getScore === 1000 ? '50 Points' : getScore > 1000
+              ? `50+${getScore - 1000} Points` : getScore > 0
+                ? `${getScore} Points` : '')}
         </Animated.Text>
+        )
       }
       <Animated.View style={{
         transform: [
@@ -179,14 +189,15 @@ function GetFlareBox({
       >
 
         <Image
-          source={spinNumber === -1 ? AppMocData.game.users[userType.userImage] : targetImage[flareType][spinColor]}
+          source={spinNumber === -1 ? AppMocData.game.users[userType.userImage]
+            : targetImage[flareType][spinColor]}
           style={{
             width: wp(spinSize),
             height: wp(spinSize),
           }}
         />
         {
-          (spinNumber > 0) ?
+          (spinNumber > 0) ? (
             <Text style={{
               position: 'absolute',
               fontSize: wp(spinTextSize),
@@ -194,23 +205,30 @@ function GetFlareBox({
               fontFamily: 'Antonio-Bold',
               color: 'white',
             }}
-            >{spinNumber}
-            </Text> :
-            (spinNumber !== -1 && spinType !== FlareType.spinType.survey && flareType !== FlareType.spinType.glow) &&
-            <Image
-              source={spinNumber === 0 ? targetImage.mega[megaType] : AppMocData.game.users[userType]}
-              style={{
-                position: 'absolute',
-                width: spinNumber === 0 && megaType !== 'lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
-                height: spinNumber === 0 && megaType !== 'lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
-                marginTop: hp(ty),
-                zIndex: 0,
-              }}
-            />
-        }
+            >
+              {spinNumber}
+            </Text>
+          )
+            : (spinNumber !== -1
+              && spinType !== FlareType.spinType.survey
+              && flareType !== FlareType.spinType.glow) && (
+              <Image
+                source={spinNumber === 0 ? targetImage.mega[megaType]
+                  : AppMocData.game.users[userType]}
+                style={{
+                  position: 'absolute',
+                  width: spinNumber === 0 && megaType !== 'lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
+                  height: spinNumber === 0 && megaType !== 'lock' ? wp(spinSize * 0.4) : wp(spinSize * 0.6),
+                  marginTop: hp(ty),
+                  zIndex: 0,
+                }}
+              />
+            )
+          }
       </Animated.View>
     </View>
   );
 }
+
 
 export { GetFlareBox };

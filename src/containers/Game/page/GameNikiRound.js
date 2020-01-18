@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import AppMocData from '../../../share/data/MocData';
+import PropTypes from 'prop-types';
+import AppMocData from '@share/data/MocData';
 import { styles } from './styles';
 import RoundPannel from './RoundPannel';
 
-function GameNikiRound({ score, navigation, getSpinListItems }) {
+function GameNikiRound(props) {
+  const { score, navigation, getSpinListItems } = props;
   let nikeSpinNum = 0;
   const type = navigation.getParam('param', 'NO-ID');
   switch (type.param) {
@@ -28,7 +30,7 @@ function GameNikiRound({ score, navigation, getSpinListItems }) {
   //     navigation.navigate("NikiQuestion");
   //   }, 1500);
   // }
-  for (let i = 0; i < j; i++) {
+  for (let i = 0; i < j; i += 1) {
     gameRoundState[i] = 1;
   }
   const resumeGame = () => {
@@ -39,13 +41,16 @@ function GameNikiRound({ score, navigation, getSpinListItems }) {
     <View style={styles.megaRoundParent}>
       <View style={styles.header_view}>
         {
-          getSpinListItems.length > 0 ?
-            <TouchableOpacity onPress={() => resumeGame()}>
-              <Image
-                style={styles.header_arrow_btn}
-                source={AppMocData.public.close}
-              />
-            </TouchableOpacity> : <View />
+          getSpinListItems.length > 0
+            ? (
+              <TouchableOpacity onPress={() => resumeGame()}>
+                <Image
+                  style={styles.header_arrow_btn}
+                  source={AppMocData.public.close}
+                />
+              </TouchableOpacity>
+            )
+            : <View />
         }
 
         <View style={styles.header_middle_view}>
@@ -87,7 +92,12 @@ function GameNikiRound({ score, navigation, getSpinListItems }) {
   );
 }
 
-const mapStateToProps = state => ({
+GameNikiRound.propTypes = {
+  score: PropTypes.object.isRequired,
+  getSpinListItems: PropTypes.array.isRequired
+};
+
+const mapStateToProps = (state) => ({
   score: state.game.score,
   getSpinListItems: state.game.getSpinListItems,
 });

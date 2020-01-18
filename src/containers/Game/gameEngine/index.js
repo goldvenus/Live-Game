@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React from 'react';
 import { TouchableOpacity, View, Text, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
@@ -8,10 +9,14 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import LocationPulseLoader from '../animation/PulseLoader';
 import GameDashBoard from '../components/GamePlayDashboard';
 import GamePlayBottomBar from '../components/GamePlayBottomBar';
-import { getspinArray } from '../../../share/data/gamePlay/FlareArray';
+import GameEnginePure from './GameEnginePure';
 import { GetFlareBox } from '../animation/GetFlareAnimation';
 import { NewSpinShow, NewFire } from './systems';
-
+import PropTypes from 'prop-types';
+import { ADD_APPLE_SPIN, ADD_LOCK_SPIN, ADD_MEGA_SPIN, ADD_NIKE_SPIN } from '@redux/action/type';
+import GetBubbleLeftScreen from '../components/GetBubbleLeftScreen';
+import GameHeaderBar from '../components/GameHeaderBar';
+import GamePlayHeader from '../components/GamePlayHeader';
 import {
   addSpinCoinsScore,
   addSpin,
@@ -19,19 +24,16 @@ import {
   resetAnimation,
   addWaveScore,
   addPassScore, setFlareToken,
-} from '../../../redux/action/game';
-import { ADD_APPLE_SPIN, ADD_LOCK_SPIN, ADD_MEGA_SPIN, ADD_NIKE_SPIN } from '../../../redux/action/type';
-import GetBubbleLeftScreen from '../components/GetBubbleLeftScreen';
-import { leftSpinList } from '../../../share/data/gamePlay/LeftFlareData';
-import GameHeaderBar from '../components/GameHeaderBar';
-import GamePlayHeader from '../components/GamePlayHeader';
-import { randomNumber } from '../../../share/engine';
-import { soundPlay } from '../../../share/soundPlay';
-import { soundPlayNames } from '../../../share/soundPlay/soundName';
-import { FlareType } from '../../../share/data/gamePlay/FlareType';
-import GameEnginePure from './GameEnginePure';
+} from '@redux/action/game';
+import { randomNumber } from '@share/engine';
+import { getspinArray } from '@share/data/gamePlay/FlareArray';
+import { soundPlay } from '@share/soundPlay';
+import { soundPlayNames } from '@share/soundPlay/soundName';
+import { FlareType } from '@share/data/gamePlay/FlareType';
+import { leftSpinList } from '@share/data/gamePlay/LeftFlareData';
 
-Matter.Common.isElement = () => false; // -- Overriding this function because the original references HTMLElement
+
+Matter.Common.isElement = () => false;
 
 
 const oneFireShotTimer = null;
@@ -39,17 +41,29 @@ const doubleFireReadyTimer = null;
 const burstFireTimer = null;
 let proImageTargetMark = 0;
 let getFlareData;
-let m_bulletCount;
-let m_fireGunClickCount = 0;
-let m_backTimer = null;
-let m_longBackTimer = null;
-let firingGun = false;
+let mBulletCount;
+let mFireGunClickCount = 0;
+let mBackTimer = null;
+let mLongBackTimer = null;
 
-function GameEnginePlay({
-  addWaveScore, gameScore, backPage, setFlareToken,
-  addSpinCoinsScore, addSpin, addSpinList, resetAnimation,
-  getSpinListItems, navigation,
-}) {
+GameEnginePlay.propTypes = {
+  addWaveScore: PropTypes.func.isRequired,
+  gameScore: PropTypes.object.isRequired,
+  backPage: PropTypes.func.isRequired,
+  setFlareToken: PropTypes.func.isRequired,
+  addSpinCoinsScore: PropTypes.func.isRequired,
+  addSpin: PropTypes.func.isRequired,
+  addSpinList: PropTypes.func.isRequired,
+  resetAnimation: PropTypes.func.isRequired,
+  getSpinListItems: PropTypes.array.isRequired
+};
+
+function GameEnginePlay(props) {
+  const {
+    addWaveScore, gameScore, backPage, setFlareToken,
+    addSpinCoinsScore, addSpin, addSpinList, resetAnimation,
+    getSpinListItems, navigation } = props;
+
   const [running, setRunning] = React.useState(true);
   const [bulletCount, setBulletCount] = React.useState(100);
   const [gamePlayTime, setGamePlayTime] = React.useState(100);
@@ -73,7 +87,7 @@ function GameEnginePlay({
   React.useEffect(() => {
     if (gamePlayTime < 1) {
       let getSpinCoin = 0;
-      for (let i = 0; i <= gameScore.playerPassScore; i++) {
+      for (let i = 0; i <= gameScore.playerPassScore; i += 1) {
         getSpinCoin += i;
         if (i === 12) {
           break;
@@ -105,12 +119,12 @@ function GameEnginePlay({
   }, [gamePlayTime]);
 
   React.useEffect(() => {
-    m_bulletCount = bulletCount;
+    mBulletCount = bulletCount;
   }, [bulletCount]);
   const gameStop = () => {
     setRunning(false);
-    clearTimeout(m_longBackTimer);
-    clearTimeout(m_backTimer);
+    clearTimeout(mLongBackTimer);
+    clearTimeout(mBackTimer);
     clearInterval(gameStartInternal);
     clearTimer();
   };
@@ -155,16 +169,16 @@ function GameEnginePlay({
     if (spinInfoData.spinSize === FlareType.spinSize.big) {
       switch (spinInfoData.spinColor) {
         case FlareType.spinColor.amber:
-          setBulletCount(t => t + 5);
+          setBulletCount((t) => t + 5);
           break;
         case FlareType.spinColor.white:
-          setBulletCount(t => t + 3);
+          setBulletCount((t) => t + 3);
           break;
         case FlareType.spinColor.orange:
-          setBulletCount(t => t + 10);
+          setBulletCount((t) => t + 10);
           break;
         case FlareType.spinColor.red:
-          setBulletCount(t => t + 25);
+          setBulletCount((t) => t + 25);
           break;
         default:
           break;
@@ -276,38 +290,34 @@ function GameEnginePlay({
   };
 
   const onFireGun = () => {
-    if (m_bulletCount >= 1) {
+    if (mBulletCount >= 1) {
       oneShot();
     }
   };
 
   const oneShot = () => {
-    if (m_bulletCount >= 1) {
-      setBulletCount(t => t - 1);
+    if (mBulletCount >= 1) {
+      setBulletCount((t) => t - 1);
       NewFire(bulletSpeed);
     } else {
       clearTimer();
     }
   };
   const onMultiFireGun = (multiNum) => {
-    const bullet = m_bulletCount;
+    const bullet = mBulletCount;
     if (bullet < multiNum && bullet > 0) {
-      firingGun = true;
       const intervalTime = setInterval(() => {
         onFireGun();
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
-        firingGun = false;
       }, (multiShotSpeed * bullet) + 50);
     } else if (bullet >= multiNum) {
-      firingGun = true;
       const intervalTime = setInterval(() => {
         onFireGun();
       }, multiShotSpeed);
       setTimeout(() => {
         clearInterval(intervalTime);
-        firingGun = false;
       }, (multiShotSpeed * multiNum) + 50);
     } else {
       clearTimer();
@@ -327,7 +337,7 @@ function GameEnginePlay({
   };
 
   const fireLongBulletShot = () => {
-    m_longBackTimer = setTimeout(() => {
+    mLongBackTimer = setTimeout(() => {
       soundPlay(soundPlayNames.GamePlay.fireLongShot);
       onMultiFireGun(3);
       addWaveScore(150);
@@ -337,7 +347,7 @@ function GameEnginePlay({
 
   const gameStart = () => {
     const id = setInterval(() => {
-      setGamePlayTime(t => t - 1);
+      setGamePlayTime((t) => t - 1);
     }, 1000);
     setGameStartInternal(id);
     setRunning(true);
@@ -374,7 +384,8 @@ function GameEnginePlay({
         entities={setupWorld()}
       />
       {
-        gameHitData.size &&
+        gameHitData.size
+        && (
         <GetFlareBox
           size={gameHitData.size}
           body={gameHitData.body}
@@ -384,10 +395,13 @@ function GameEnginePlay({
           setGameHitData={setGameHitData}
           mark={proImageTargetMark}
         />
+        )
       }
       <GameDashBoard />
       {
-        !running && getSpinListItems.length < 1 ? <GamePlayHeader backPage={backPage} /> : <GameHeaderBar />
+        !running && getSpinListItems.length < 1
+          ? <GamePlayHeader backPage={backPage} />
+          : <GameHeaderBar />
       }
       <GamePlayBottomBar bulletCount={bulletCount} gamePlayTime={gamePlayTime} />
       <TouchableWithoutFeedback
@@ -395,16 +409,16 @@ function GameEnginePlay({
         onLongPress={() => {
         }}
         onPressIn={() => fireLongBulletShot()}
-        onPressOut={() => clearTimeout(m_longBackTimer)}
+        onPressOut={() => clearTimeout(mLongBackTimer)}
         onPress={() => {
-          ++m_fireGunClickCount;
-          if (m_fireGunClickCount === 2) {
-            clearTimeout(m_backTimer);
+          mFireGunClickCount += 1;
+          if (mFireGunClickCount === 2) {
+            clearTimeout(mBackTimer);
             fireDoubleBulletShot();
-            m_fireGunClickCount = 0;
+            mFireGunClickCount = 0;
           } else {
-            m_backTimer = setTimeout(() => {
-              m_fireGunClickCount = 0;
+            mBackTimer = setTimeout(() => {
+              mFireGunClickCount = 0;
               fireOneBulletShot();
             }, 300);
           }
@@ -421,7 +435,8 @@ function GameEnginePlay({
         </View>
       </TouchableWithoutFeedback>
       {
-        gamePauseState &&
+        gamePauseState
+        && (
         <View style={{
           top: 0,
           backgroundColor: 'black',
@@ -451,23 +466,25 @@ function GameEnginePlay({
                 opacity: 1,
                 fontFamily: 'Antonio-Bold',
               }}
-              >Touch screen to continue...
+              >
+Touch screen to continue...
               </Text>
             </View>
           </TouchableOpacity>
         </View>
+        )
       }
       <GetBubbleLeftScreen spinInfoData running={running} backPage={backPage} />
     </View>
   );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   getSpinListItems: state.game.getSpinListItems,
   gameScore: state.game.score,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   dispatch,
   ...bindActionCreators({
     addSpinCoinsScore,

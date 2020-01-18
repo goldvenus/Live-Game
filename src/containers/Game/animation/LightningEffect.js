@@ -1,14 +1,31 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { Image } from 'react-native';
+import PropTypes from 'prop-types';
 
 export default class LightningEffect extends React.Component {
+  static propTypes = {
+    lightw: PropTypes.number,
+    lighth: PropTypes.number,
+    mx: PropTypes.number,
+    my: PropTypes.number
+  };
+
+  static defaultProps = {
+    lightw: 0,
+    lighth: 0,
+    mx: 0,
+    my: 0
+  };
+
   constructor(props) {
     super(props);
     this.images = [
-      require('../../../../assets/images/game/lightning/lightning1.png'),
-      require('../../../../assets/images/game/lightning/lightning2.png'),
-      require('../../../../assets/images/game/lightning/lightning3.png'),
-      require('../../../../assets/images/game/lightning/lightning4.png'),
+      require('@assets/images/game/lightning/lightning1.png'),
+      require('@assets/images/game/lightning/lightning2.png'),
+      require('@assets/images/game/lightning/lightning3.png'),
+      require('@assets/images/game/lightning/lightning4.png'),
     ];
     this.state = { index: 0 };
     this.disableInternal = null;
@@ -21,6 +38,7 @@ export default class LightningEffect extends React.Component {
   componentWillUnmount() {
     clearInterval(this.disableInternal);
   }
+
   next() {
     this.disableInternal = setInterval(() => {
       this.setState({ index: Math.floor(Math.random() * 10) % 4 });
@@ -28,9 +46,8 @@ export default class LightningEffect extends React.Component {
   }
 
   render() {
-    const {
-      lightw, lighth, mx, my,
-    } = this.props;
+    const { lightw, lighth, mx, my } = this.props;
+    const { index } = this.state;
     return (
       <Image
         style={{
@@ -42,7 +59,7 @@ export default class LightningEffect extends React.Component {
           left: 0,
           resizeMode: 'contain',
         }}
-        source={this.images[this.state.index]}
+        source={this.images[index]}
       />
     );
   }

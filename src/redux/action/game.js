@@ -9,27 +9,27 @@ import {
   ADD_PASS_SCORE, ADD_ALL_BULLET_FLARE,
 } from './type';
 
-export const addSpinCoinsScore = score => ({
+export const addSpinCoinsScore = (score) => ({
   type: ADD_SPIN_COINS_SCORE,
   payload: score,
 });
 
-export const addWaveScore = score => ({
+export const addWaveScore = (score) => ({
   type: ADD_WAVE_SCORE,
   payload: score,
 });
 
-export const addPassScore = score => ({
+export const addPassScore = (score) => ({
   type: ADD_PASS_SCORE,
   payload: score,
 });
 
-export const setFlareToken = flareToken => ({
+export const setFlareToken = (flareToken) => ({
   type: SET_TOKEN_FLARE_SCORE,
   payload: flareToken,
 });
 
-export const setMegaToken = megaToken => ({
+export const setMegaToken = (megaToken) => ({
   type: SET_TOKEN_MEGA_SCORE,
   payload: megaToken,
 });
@@ -42,12 +42,12 @@ export const addSpin = (spinType, score = 1) => ({
   },
 });
 
-export const addSpinList = addSpin => ({
+export const addSpinList = (addSpinObject) => ({
   type: ADD_GET_SPIN_LIST,
-  payload: addSpin,
+  payload: addSpinObject,
 });
 
-export const removeSpinList = removeSpin => ({
+export const removeSpinList = (removeSpin) => ({
   type: REMOVE_SPIN_LIST,
   payload: removeSpin,
 });
@@ -57,8 +57,7 @@ export const resetAnimation = () => ({
   payload: -1,
 });
 
-export const addBulletFlare = bulletFlare => ({
+export const addBulletFlare = (bulletFlare) => ({
   type: ADD_ALL_BULLET_FLARE,
   payload: bulletFlare,
 });
-

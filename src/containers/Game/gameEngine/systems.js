@@ -1,8 +1,10 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-restricted-properties */
 
 import Matter from 'matter-js';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from 'react-native-responsive-screen';
-import { FlareType } from '../../../share/data/gamePlay/FlareType';
+import { FlareType } from '@share/data/gamePlay/FlareType';
 import { Box, Bullet } from './renderers';
 
 let boxIds = 0;
@@ -35,9 +37,14 @@ const NewFire = (speed) => {
 };
 
 
-/** *********************************Physics Functions***************************************************** */
-const distance = ([x1, y1], [x2, y2]) =>
-  Math.sqrt(Math.abs(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+/** *********************************Physics Functions************************************ */
+const distance = ([x1, y1], [x2, y2]) => Math.sqrt(Math.abs(
+  Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)
+));
+
+// Physics.propTypes = {
+//   state: PropTypes.object.isRequired
+// };
 
 const Physics = (state, { touches, time, dispatch }) => {
   const { engine } = state.physics;
@@ -58,7 +65,8 @@ const Physics = (state, { touches, time, dispatch }) => {
       BulletPosition.size,
     );
     Matter.World.add(world, [body]);
-    state[++boxIds] = {
+    boxIds += 1;
+    state[boxIds] = {
       body,
       bullet: true,
       size: [BulletPosition.size, BulletPosition.size],
@@ -74,11 +82,12 @@ const Physics = (state, { touches, time, dispatch }) => {
     );
 
     Matter.World.add(world, [body]);
-    state[++boxIds] = {
+    boxIds += 1;
+    state[boxIds] = {
       body,
       bullet: false,
-      size: [wp(propsSpinInfo.spinSize * 2 / 3), wp(propsSpinInfo.spinSize * 2 / 3)],
-      color: boxIds % 2 == 0 ? 'black' : '#000000',
+      size: [wp(propsSpinInfo.spinSize * (2 / 3)), wp(propsSpinInfo.spinSize * (2 / 3))],
+      color: boxIds % 2 === 0 ? 'black' : '#000000',
       spinInfoData: propsSpinInfo,
       renderer: Box,
     };
@@ -87,7 +96,7 @@ const Physics = (state, { touches, time, dispatch }) => {
 
   // / Clean Object
   Object.keys(state)
-    .filter(key => state[key].body && state[key].body.position.y < 0)
+    .filter((key) => state[key].body && state[key].body.position.y < 0)
     .forEach((key) => {
       Matter.Composite.remove(world, state[key].body);
       delete state[key];
@@ -96,14 +105,14 @@ const Physics = (state, { touches, time, dispatch }) => {
 
   /* hit the target the bullet */
   Object.keys(state)
-    .filter(key => state[key].bullet === true)
+    .filter((key) => state[key].bullet === true)
     .forEach((key) => {
       const startPos = [state[key].body.position.x, state[key].body.position.y];
       TargetShotFillter(startPos, state, dispatch, key);
     });
 
   // / Goal Target
-  const start = touches.find(x => x.type === 'start' || x.type === 'end' || x.type === 'press');
+  const start = touches.find((x) => x.type === 'start' || x.type === 'end' || x.type === 'press');
   if (start) {
     const startPos = [start.event.pageX, start.event.pageY];
     TargetShotFillter(startPos, state, dispatch);
@@ -111,7 +120,7 @@ const Physics = (state, { touches, time, dispatch }) => {
 
   // / Move
   Object.keys(state)
-    .filter(key => state[key].body)
+    .filter((key) => state[key].body)
     .forEach((key) => {
       if (state[key].bullet) {
         Matter.Body.setVelocity(state[key].body, {
@@ -134,8 +143,9 @@ const TargetShotFillter = (startPos, state, dispatch, bulletKey = -1) => {
   const boxId = Object.keys(state).find((key1) => {
     const { body } = state[key1];
     return (
-      body &&
-      distance([body.position.x, body.position.y], startPos) < state[key1].size[0] * targetCollection);
+      body
+      && distance([body.position.x, body.position.y], startPos)
+      < state[key1].size[0] * targetCollection);
   });
   if (boxId && state[boxId].bullet === false) {
     const { world } = state.physics;

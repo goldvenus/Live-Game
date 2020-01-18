@@ -1,11 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
+import PropTypes from 'prop-types';
 import { widthPercentageToDP as wp }
   from 'react-native-responsive-screen';
 import { Image } from 'react-native-animatable';
 import FlareSpin from '../components/FlareSpin';
 
-import AppMocData from '../../../share/data/MocData';
+import AppMocData from '@share/data/MocData';
 
 const Box = ({ size, body, spinInfoData }) => {
   const width = size[0];
@@ -28,6 +29,7 @@ const Box = ({ size, body, spinInfoData }) => {
     </View>
   );
 };
+
 const Bullet = ({ size, body }) => {
   const width = size[0];
   const height = size[1];
@@ -66,4 +68,16 @@ const Bullet = ({ size, body }) => {
     </View>
   );
 };
+
+Box.propTypes = {
+  size: PropTypes.array.isRequired,
+  body: PropTypes.object.isRequired,
+  spinInfoData: PropTypes.object.isRequired
+};
+
+Bullet.propTypes = {
+  size: PropTypes.array.isRequired,
+  body: PropTypes.object.isRequired
+};
+
 export { Box, Bullet };

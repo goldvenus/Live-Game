@@ -3,15 +3,14 @@ import { Image, View } from 'react-native';
 import React from 'react';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp }
   from 'react-native-responsive-screen';
-import AppMocData from '../../../share/data/MocData';
-import { FlareType } from '../../../share/data/gamePlay/FlareType';
+import PropTypes from 'prop-types';
+import AppMocData from '@share/data/MocData';
+import { FlareType } from '@share/data/gamePlay/FlareType';
 
-const FlareSpin = ({
-  spinInfoData, angle, shadow = true, running = true,
-}) => {
-  const {
-    spinType, spinNumber, spinColor, spinSize, spinTextSize, megaType, userType,
-  } = spinInfoData;
+const FlareSpin = (props) => {
+  const { spinInfoData, angle, shadow, running } = props;
+  const { spinType, spinNumber, spinColor, spinSize,
+    spinTextSize, megaType, userType } = spinInfoData;
   let flareType = spinType;
   const targetImage = AppMocData.game.gameplay.target;
   let ty = spinSize / 8;
@@ -26,14 +25,14 @@ const FlareSpin = ({
     ty = spinSize / 8.6;
   }
 
-  let m_spinColor = spinColor;
-  if (spinNumber === 0 &&
-    spinInfoData.spinSize === FlareType.spinSize.big &&
-    megaType !== FlareType.spinType.mega.mega &&
-    spinType !== FlareType.spinType.survey) {
+  let flareSpinColor = spinColor;
+  if (spinNumber === 0
+    && spinInfoData.spinSize === FlareType.spinSize.big
+    && megaType !== FlareType.spinType.mega.mega
+    && spinType !== FlareType.spinType.survey) {
     flareType = FlareType.spinType.glow;
   } else if (spinNumber === -1) {
-    m_spinColor = userType.userColor;
+    flareSpinColor = userType.userColor;
   }
   return (
     <View style={{
@@ -44,8 +43,9 @@ const FlareSpin = ({
     }}
     >
       {
-        shadow && <Image
-          source={targetImage.shadow[m_spinColor]}
+        shadow && (
+        <Image
+          source={targetImage.shadow[flareSpinColor]}
           style={{
             marginTop: wp(spinSize / 6),
             width: spinNumber === -1 ? wp(spinSize) : wp(spinSize * (2 / 3)),
@@ -53,15 +53,18 @@ const FlareSpin = ({
             opacity: 0.4,
             position: 'absolute',
             resizeMode: 'contain',
-          }}
-        />
+          }} />
+        )
       }
 
       <Image
         source={
-          (spinNumber === -1) ?
-            AppMocData.game.users[userType.userImage] : (!shadow && spinType === FlareType.spinType.survey) ?
-            AppMocData.game.gameplay.target.survey.survey_third : targetImage[flareType][m_spinColor]}
+          (spinNumber === -1)
+            ? AppMocData.game.users[userType.userImage]
+            : (!shadow && spinType === FlareType.spinType.survey)
+              ? AppMocData.game.gameplay.target.survey.survey_third
+              : targetImage[flareType][flareSpinColor]
+        }
         style={{
           width: wp(spinSize),
           height: wp(spinSize),
@@ -70,17 +73,23 @@ const FlareSpin = ({
         }}
       />
       {
-        (spinNumber > 0) ?
-          <Text style={{
-            position: 'absolute',
-            fontSize: wp(spinTextSize),
-            marginTop: hp(ty),
-            fontFamily: 'Antonio-Bold',
-            color: 'white',
-            transform: [{ rotate: `${angle}rad` }],
-          }}
-          >{spinNumber}
-          </Text> : (spinNumber !== -1 && spinType !== FlareType.spinType.survey && flareType !== FlareType.spinType.glow) &&
+        (spinNumber > 0)
+          ? (
+            <Text style={{
+              position: 'absolute',
+              fontSize: wp(spinTextSize),
+              marginTop: hp(ty),
+              fontFamily: 'Antonio-Bold',
+              color: 'white',
+              transform: [{ rotate: `${angle}rad` }],
+            }}
+          >
+              {spinNumber}
+            </Text>
+          ) : (spinNumber !== -1
+            && spinType !== FlareType.spinType.survey
+            && flareType !== FlareType.spinType.glow)
+          && (
           <Image
             source={targetImage.mega[megaType]}
             style={{
@@ -92,9 +101,11 @@ const FlareSpin = ({
               transform: [{ rotate: `${angle}rad` }],
             }}
           />
+          )
       }
       {
-        !shadow && spinType === FlareType.spinType.survey &&
+        !shadow && spinType === FlareType.spinType.survey
+        && (
         <Image
           source={AppMocData.game.gameplay.target.survey.survey_icon}
           style={{
@@ -106,9 +117,23 @@ const FlareSpin = ({
             transform: [{ rotate: `${angle}rad` }],
           }}
         />
+        )
       }
     </View>
   );
+};
+
+FlareSpin.propTypes = {
+  spinInfoData: PropTypes.object.isRequired,
+  angle: PropTypes.number,
+  shadow: PropTypes.bool,
+  running: PropTypes.bool
+};
+
+FlareSpin.defaultProps = {
+  angle: 0,
+  shadow: true,
+  running: true
 };
 
 export default FlareSpin;
